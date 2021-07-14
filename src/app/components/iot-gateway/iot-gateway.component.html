@@ -46,6 +46,7 @@
           <div class='card-footer-container'>
             <span class='card-footer-details'>
               <!-- Last updated {{gateway.updatedts | date: dateFormat}} -->
+ 
               <span (click)='pingGateway(gateway)' matTooltip="Ping">            
                 <mat-icon svgIcon='ping'></mat-icon>
               </span>
@@ -54,6 +55,9 @@
               </span>
               <span [routerLink]="['/starterApp/home/pipeline', gateway.uuid]" matTooltip="Pipeline">
                 <mat-icon svgIcon='pipeline'></mat-icon>
+              </span>
+              <span [routerLink]="['/starterApp/home/infradeployer', gateway.uuid]" matTooltip="Infra Deploy">
+                <mat-icon svgIcon='ping'></mat-icon>
               </span>
             </span>
             <span class='card-footer-details-button' [routerLink]="['/starterApp/home/device-details', gateway.uuid]">
