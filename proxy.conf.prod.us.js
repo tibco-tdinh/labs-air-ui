@@ -356,8 +356,7 @@ const PROXY_CONFIG = {
     "pathRewrite":{"^/edgex/remotegateway" : ""}
   },
   "/airEndpoint/*": {
-    "target": "http://a77d5e583ea66440bb0e26be76aec6bf-1483924641.us-west-2.elb.amazonaws.com",
-    "secure": "false",
+    "target": "http://ad31787f10d184e5fbe04140a462076d-1788748954.us-west-2.elb.amazonaws.com",
     "changeOrigin": true,
     "logLevel": "info",
     "pathRewrite":{"^/airEndpoint" : ""}
