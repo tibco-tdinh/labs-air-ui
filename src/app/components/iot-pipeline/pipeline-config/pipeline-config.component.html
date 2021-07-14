@@ -21,6 +21,14 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                <mat-label>Deployer Type</mat-label>
+                <mat-select formControlName="deployerType">
+                    <mat-option *ngFor="let item of deployerTypes;" [value]="item.value">
+                        {{item.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 15%" appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
