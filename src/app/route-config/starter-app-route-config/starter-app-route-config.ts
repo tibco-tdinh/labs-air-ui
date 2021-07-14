@@ -245,6 +245,18 @@ export const STARTER_APP_ROUTES =
           access: AccessResolver,
           customFormDefs: FormResolver
         }
+      },{
+        path: 'infradeployer',
+        component: IotInfraDeployerComponent,
+        canActivate: [AuthGuard],
+        resolve: {
+          claims: ClaimsResolver,
+          laConfigHolder: LaConfigResolver,
+          groups: GroupsResolver,
+          roles: RolesResolver,
+          access: AccessResolver,
+          customFormDefs: FormResolver
+        }
       },
       {
         path: 'devicecommand',
