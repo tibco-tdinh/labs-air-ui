@@ -197,6 +197,7 @@ export class Pipeline {
   modified: number;
   name: string;
   pipelineType: string;
+  deployerType: string;
   protocolType: string; //deprecated
   protocol: any; // deprecated
   dataStoreType: string; // deprecated
