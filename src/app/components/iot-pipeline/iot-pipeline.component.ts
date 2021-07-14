@@ -587,6 +587,7 @@ export class IotPipelineComponent implements OnInit {
       uid: ['', Validators.required],
       name: ['', Validators.required],
       pipelineType: ['', Validators.required],
+      deployerType: ['', Validators.required],
       description: ['', Validators.required],
       created: ['', Validators.required],
       modified: ['', Validators.required],
@@ -1536,6 +1537,7 @@ export class IotPipelineComponent implements OnInit {
         uid: row.uid,
         name: row.name,
         pipelineType: row.pipelineType,
+        deployerType: row.deployerType,
         description: row.description,
         status: row.status,
         flowConfiguration: row.flowConfiguration,
@@ -1594,6 +1596,7 @@ export class IotPipelineComponent implements OnInit {
     let pipelineName = this.pipelineForm.get('name').value;
     let pipelineId = this.pipelineForm.get('uid').value;
     let pipelineType = this.pipelineForm.get('pipelineType').value;
+    let deployerType = this.pipelineForm.get('deployerType').value;
     if (pipelineName == "" || pipelineType == "") {
       this._snackBar.open("Failure", "Pipeline needs a name and type", {
         duration: 3000,
@@ -1612,6 +1615,7 @@ export class IotPipelineComponent implements OnInit {
       pipeline.modified = tsms;
       pipeline.name = this.pipelineForm.get('name').value;
       pipeline.pipelineType = this.pipelineForm.get('pipelineType').value;
+      pipeline.deployerType = this.pipelineForm.get('deployerType').value;
       pipeline.description = this.pipelineForm.get('description').value;
       pipeline.status = "Saved";
       pipeline.flowConfiguration = encodeURIComponent(JSON.stringify(editorData));
@@ -1648,6 +1652,8 @@ export class IotPipelineComponent implements OnInit {
     pipeline.modified = tsms;
     pipeline.name = this.pipelineForm.get('name').value;
     pipeline.uid = this.pipelineForm.get('uid').value;
+    pipeline.pipelineType = this.pipelineForm.get('pipelineType').value;
+    pipeline.deployerType = this.pipelineForm.get('deployerType').value;
     pipeline.description = this.pipelineForm.get('description').value;
     pipeline.status = this.pipelineForm.get('status').value;
     pipeline.flowConfiguration = encodeURIComponent(JSON.stringify(editorData));
@@ -1737,6 +1743,7 @@ export class IotPipelineComponent implements OnInit {
       uid: "",
       name: "",
       pipelineType: "",
+      deployerType: "",
       description: "",
       status: "",
       logLevel: "INFO"
@@ -1754,10 +1761,13 @@ export class IotPipelineComponent implements OnInit {
 
   }
 
-  buildPipelineRequest(): any {
+  buildPipelineRequest(pipelineId: string): any {
 
     let deployType = this.pipelineForm.get('pipelineType').value;
+    let deployerType = this.pipelineForm.get('deployerType').value;
     let appLogLevel = this.pipelineForm.get('logLevel').value;
+    let serviceType = "docker";
+    let image = "";
     let systemEnv = {};
     let extra = [];
 
@@ -1778,13 +1788,28 @@ export class IotPipelineComponent implements OnInit {
     }
 
     if (deployType == "Edge") {
-      systemEnv = {
-        "Platform": this.gateway.platform,
-        "DetachedMode": "n",
-        "Username": this.gateway.username,
-        "TargetServer": this.gateway.router,
-        "Port": this.gateway.routerPort
-      };
+
+      if (deployerType == "OH") {
+        systemEnv = {
+          "Platform": this.gateway.platform,
+          "DetachedMode": "n",
+          "Username": this.gateway.username,
+          "TargetServer": this.gateway.router,
+          "Port": this.gateway.routerPort,
+          "DeployConstrains" : "[\"role == RTSF_Demo\"]",
+          "ServiceProperties" : "{}"
+        };
+      }
+      else {
+        systemEnv = {
+          "Platform": this.gateway.platform,
+          "DetachedMode": "n",
+          "Username": this.gateway.username,
+          "TargetServer": this.gateway.router,
+          "Port": this.gateway.routerPort
+        };
+      }
+      
 
       extra = [
         { "Name": "App.LogLevel", "Value": appLogLevel },
@@ -1792,9 +1817,15 @@ export class IotPipelineComponent implements OnInit {
       ];
     }
 
+    if (deployerType == "OH") {
+      serviceType = "docker-oh";
+      image = "bigoyang/" + pipelineId + ":0.1.1";
+    }
+
     let pipelineFlow = {
       "ComponentType": "Service",
-      "ServiceType": "docker",
+      "ServiceType": serviceType,
+      "Image": image,
       "AirDescriptor": {
         "source": {},
         "logic": [],
@@ -1966,7 +1997,7 @@ export class IotPipelineComponent implements OnInit {
   validatePipeline() {
 
     let pipelineId = this.pipelineForm.get('uid').value;
-    let pipelineFlow = this.buildPipelineRequest();
+    let pipelineFlow = this.buildPipelineRequest(pipelineId);
 
     if (pipelineFlow != null) {
       this.flogoDeployService.validateF1(pipelineId, pipelineFlow)
@@ -1997,7 +2028,7 @@ export class IotPipelineComponent implements OnInit {
   deployPipeline() {
 
     let pipelineId = this.pipelineForm.get('uid').value;
-    let pipelineFlow = this.buildPipelineRequest();
+    let pipelineFlow = this.buildPipelineRequest(pipelineId);
 
     if (pipelineFlow != null) {
       this.flogoDeployService.deployF1(pipelineId, pipelineFlow)
@@ -2038,6 +2069,7 @@ export class IotPipelineComponent implements OnInit {
 
     let pipelineId = this.pipelineForm.get('uid').value;
     let deployType = this.pipelineForm.get('pipelineType').value;
+    let deployerType = this.pipelineForm.get('deployerType').value;
 
     let systemEnv = {};
 
