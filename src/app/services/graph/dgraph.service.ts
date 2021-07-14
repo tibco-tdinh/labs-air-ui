@@ -1151,6 +1151,7 @@ export class DgraphService implements GraphService {
           name
           uuid
           pipelineType
+          deployerType
           protocolType
           protocolId
           dataStoreType
@@ -1201,6 +1202,7 @@ export class DgraphService implements GraphService {
         name
         uuid
         pipelineType
+        deployerType
         protocolType
         protocolId
         dataStoreType
@@ -1348,6 +1350,7 @@ export class DgraphService implements GraphService {
         _:Pipeline <type> "pipeline" .
         _:Pipeline <pipeline> "" .
         _:Pipeline <pipelineType> "${pipeline.pipelineType}" .
+        _:Pipeline <deployerType> "${pipeline.deployerType}" .
         _:Pipeline <created> "${pipeline.created}" .
         _:Pipeline <modified> "${pipeline.modified}" .
         _:Pipeline <description> "${pipeline.description}" .
