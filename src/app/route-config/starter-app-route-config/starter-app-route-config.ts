@@ -140,7 +140,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways','Endpoints'] }
       },
       {
         path: 'datapipeline/:gatewayId',
@@ -179,7 +180,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways','Pipeline'] }
       },
       {
         path: 'gatewaypublisher/:gatewayId',

@@ -235,21 +235,17 @@ export class IotPipelineComponent implements OnInit {
       ],
       (async () => {
         console.log("Editor action executed");
-
-        // await engine.abort();
-        // await engine.process(this.editor.toJSON());
       }) as any
     );
-
-    // this.editor.on(
-    //   [
-    //     "nodeselected"
-    //   ],
-    //   (async () => {
-    //     console.log("Editor node selected");
-
-    //   }) as any
-    // );
+    this.editor.on(
+      "contextmenu",
+    ({e}) => {
+      const xcordinates= e.clientX;
+      const ycordinates= e.clientY;
+      this.editor.on("nodecreated", node  => {
+        this.editor.view.nodes.get(node).translate(xcordinates+150,ycordinates-200);
+        })
+      });
 
 
     // Handle node removed event
