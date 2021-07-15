@@ -64,9 +64,9 @@ export class IotDashboardComponent implements OnInit {
 
     this.spotfireServer = 'https://spotfire-next.cloud.tibco.com';
     this.analysisPath = '/Users/vioijfozulumlardrxcikq7xtczlfcrk/Public/AirDashboard';
-    // this.version = '11.0'
+    this.version = '10.10'
 
-    this.activePage = '0';
+    this.activePage = 'Page';
     this.parameters = "Test";
     this.configuration = {
       showAbout: false,
@@ -84,6 +84,8 @@ export class IotDashboardComponent implements OnInit {
       showToolBar: false,
       showUndoRedo: false
     };
+
+
   }
 
   public marking(data) {
