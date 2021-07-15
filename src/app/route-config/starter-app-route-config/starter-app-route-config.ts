@@ -182,19 +182,6 @@ export const STARTER_APP_ROUTES =
         }
       },
       {
-        path: 'infradeployer/:gatewayId',
-        component: IotInfraDeployerComponent,
-        canActivate: [AuthGuard],
-        resolve: {
-          claims: ClaimsResolver,
-          laConfigHolder: LaConfigResolver,
-          groups: GroupsResolver,
-          roles: RolesResolver,
-          access: AccessResolver,
-          customFormDefs: FormResolver
-        }
-      },
-      {
         path: 'gatewaypublisher/:gatewayId',
         component: IotGatewayPublisherComponent,
         canActivate: [AuthGuard],
