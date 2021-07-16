@@ -141,7 +141,7 @@ export const STARTER_APP_ROUTES =
           access: AccessResolver,
           customFormDefs: FormResolver
         },
-        data: { breadcrumb: ['Gateways','Endpoints'] }
+        data: { breadcrumb: ['Gateways','Endpoints','Endpoints'] }
       },
       {
         path: 'datapipeline/:gatewayId',
@@ -181,7 +181,7 @@ export const STARTER_APP_ROUTES =
           access: AccessResolver,
           customFormDefs: FormResolver
         },
-        data: { breadcrumb: ['Gateways','Pipeline'] }
+        data: { breadcrumb: ['Gateways','Pipeline','Pipeline'] }
       },
       {
         path: 'gatewaypublisher/:gatewayId',
@@ -363,7 +363,7 @@ export const STARTER_APP_ROUTES =
           access: AccessResolver,
           customFormDefs: FormResolver
         },
-        data: { breadcrumb: ['Gateways','Devices']}
+        data: { breadcrumb: ['Gateways','Devices','Devices']}
       },
       {
         path: 'simulator',
