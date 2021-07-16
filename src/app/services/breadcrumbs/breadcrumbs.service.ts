@@ -35,8 +35,7 @@ export class BreadcrumbsService {
     if (route) {
       if (route.data.breadcrumb) {
         //add  the device name when selecting the device
-        // && route.data.breadcrumb[route.data.breadcrumb.length-1]!=s
-        if (s.length>0){
+        if (s.length>0) {
           route.data.breadcrumb.pop();
           route.data.breadcrumb.push(s);
         }

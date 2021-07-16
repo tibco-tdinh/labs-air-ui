@@ -207,7 +207,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'deviceprofile',
@@ -220,7 +221,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'deviceprovision',
@@ -233,7 +235,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },{
         path: 'infradeployer',
         component: IotInfraDeployerComponent,
@@ -245,7 +248,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'devicecommand',
@@ -258,7 +262,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'devicedashboard',
@@ -271,7 +276,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'devicestream',
@@ -284,7 +290,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'rules',
@@ -297,7 +304,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'mlmodels',
@@ -310,7 +318,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'tcerules',
@@ -336,7 +345,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: 'casemanagement',
@@ -376,7 +386,8 @@ export const STARTER_APP_ROUTES =
           roles: RolesResolver,
           access: AccessResolver,
           customFormDefs: FormResolver
-        }
+        },
+        data: { breadcrumb: ['Gateways'] }
       },
       {
         path: '', redirectTo: '/starterApp/home/casemanagement', pathMatch: 'full'
