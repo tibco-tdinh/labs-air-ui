@@ -20,13 +20,6 @@ import { Component, Input } from '@angular/core';
         filter: invert(100%) sepia(6%) saturate(2%) hue-rotate(297deg) brightness(106%) contrast(100%);
         height: 48px;
         width: 48px;
-        // greens
-        // filter: invert(89%) sepia(10%) saturate(1779%) hue-rotate(54deg) brightness(102%) contrast(96%);
-        // filter: invert(86%) sepia(21%) saturate(761%) hue-rotate(92deg) brightness(99%) contrast(107%);
-        // to black
-        // filter: invert(1);
-        // or to blue
-        // filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
       }
     `
   ]
