@@ -6,9 +6,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Gateway, Subscription, Publisher, Pipeline, Rule, ModelConfig, GatewayFiltersConfig, Notification, Protocol, DataStore, Model } from '../../shared/models/iot.model';
 import { TSReading } from '../../shared/models/iot.model';
+import { AppConfigService } from '../config/app-config.service';
 import { GraphService } from './graph.service';
 import {AuthService} from '../auth/auth.service';
-import { environment } from '../../../environments/environment';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -78,7 +78,7 @@ const route3 = [
 export class DgraphService implements GraphService {
 
   // Defined as a proxy.  (i.e. http://137.117.38.255:8080)
-  private dgraphUrl = environment.dgraphUrl;
+  private dgraphUrl = this.appConfigService.getFromConfigOrEnv("dgraphUrl");
 
   /**
    * 
@@ -86,7 +86,7 @@ export class DgraphService implements GraphService {
    * @param http 
    */
   constructor(
-    private http: HttpClient, private authService: AuthService) {
+    private http: HttpClient, private authService: AuthService, private appConfigService: AppConfigService) {
     console.log("Constructor Getting basic auth for dgraph");
 
     let basicAuthHeaders = authService.getBasicAuthHeaders();
