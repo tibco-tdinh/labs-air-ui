@@ -14,7 +14,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN npm run build --prod --verbose
+RUN npm run build
 
 # Stage 2
 FROM nginx:1.21.0-alpine
