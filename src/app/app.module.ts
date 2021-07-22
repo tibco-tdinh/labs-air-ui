@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { AppConfigService } from './services/config/app-config.service';
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './material.module';
@@ -73,6 +74,11 @@ import { IotDashboardComponent } from './components/iot-dashboard/iot-dashboard.
 import { InfraRegistrationComponent } from './components/iot-infra-deployer/infra-registration/infra-registration.component';
 import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-deployer/infra-deployer.component';
 
+const appInitializerFn = (appConfig: AppConfigService) => {
+  return () => {
+    return appConfig.loadAppConfig();
+  };
+};
 
 @NgModule({
   declarations: [
@@ -151,9 +157,17 @@ import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-de
     ChartsModule
   ],
   providers: [
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFn,
+      multi: true,
+      deps: [AppConfigService]
+    },
     DatePipe,
     { provide: GraphService, useClass: DgraphService }
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
