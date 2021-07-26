@@ -9,7 +9,10 @@ table {
 
 .mat-form-field {
   font-size: 14px;
-  width: 100%;
+  width: 30%;
+  display: inline-block;
+  margin-right: 5%;
+
 }
   
 .mat-header-cell {
@@ -18,4 +21,12 @@ table {
 
 .mat-row.highlighted {
   background:lightgrey;
-  }
+}
+
+.mat-card-content{
+  padding-bottom: 5%;
+}
+
+.mat-card{
+  padding-bottom: 0.1%;
+}
