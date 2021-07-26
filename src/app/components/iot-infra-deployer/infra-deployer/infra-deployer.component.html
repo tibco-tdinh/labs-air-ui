@@ -73,14 +73,14 @@
             </mat-form-field>
           </div>
             <ng-container formArrayName="parameters">
-              <mat-card fxFlex style="max-height: 300px; width: 100%; overflow: auto;">
+              <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 300px; width: 100%; overflow: auto;">
                 <ng-container *ngFor="let prop of deployableForm.get('parameters')['controls']; let i = index">
 
                   <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px" [formGroupName]="i">
-                    <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                    <mat-form-field fxFlex="1 1 15%" appearance="outline" style="width: 31%;">
                       <input matInput [readonly]=true formControlName="name">
                     </mat-form-field>
-                    <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                    <mat-form-field fxFlex="1 1 15%" appearance="outline" style="width:31%;">
                       <input matInput [readonly]=false formControlName="value" placeholder="Enter Property Value ">
                     </mat-form-field>
                   </div>
