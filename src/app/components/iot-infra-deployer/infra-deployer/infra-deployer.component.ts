@@ -123,12 +123,12 @@ export class InfraDeployerComponent implements OnInit {
     console.log("Created form")
   }
 
-  createParameter(name): FormGroup {
+  createParameter(name, value): FormGroup {
     console.log("Creating form with param name: ", name);
     
     return this.formBuilder.group({
       name: [name, Validators.required],
-      value: ['', Validators.required]
+      value: [value, Validators.required]
     });
   }
 
@@ -136,8 +136,8 @@ export class InfraDeployerComponent implements OnInit {
     return <FormArray> this.deployableForm.get('parameters');
   }
 
-  addParameterItem(name) {
-    this.getParameters().push(this.createParameter(name));
+  addParameterItem(name, value) {
+    this.getParameters().push(this.createParameter(name, value));
   }
 
   getProjects() {
@@ -194,15 +194,10 @@ export class InfraDeployerComponent implements OnInit {
 
     this.getParameters().clear();
 
-    // Add  parameters
-    row.parameters.forEach(param => {
 
-      console.log("Param: ", param);
-      
-      this.addParameterItem(param)
-
-    });
-
+    for (const property in row.parameters) {
+      this.addParameterItem(`${property}`, `${row.parameters[property]}`)
+    }
 
     this.deployableForm.patchValue({
       deployConstraints: row.operations.deploy.DeployConstrains,
