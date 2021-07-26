@@ -138,6 +138,22 @@ export class FlogoDeployService {
         catchError(this.handleError<string>('undeploy'))
       );
   }
+
+  getProjects(): Observable<any> {
+  
+    const url = `${this.f1EndpointUrl}/f1/projectmgr/file/list/project/001`;
+
+    console.log("Calling getProjects with url:", url);
+
+    let request = {};
+    return this.http.post<string>(url, request, this.httpOptions)
+      .pipe(
+        tap(_ => console.log('Got Projects')),
+        catchError(this.handleError<string>('getProjects'))
+      );
+  }
+
+
   deployInfra(request): Observable<any> {
 
     const url = `/f1Endpoint/f1/deployer/deploy/Air_ORRA_RTSF/orra_rtsf/001`;
