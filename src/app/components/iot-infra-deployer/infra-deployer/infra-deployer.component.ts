@@ -113,38 +113,38 @@ export class InfraDeployerComponent implements OnInit {
   selectedRowName= "";
   selectedRowDescription= ""
   selectedRowCreated= ""
-  selectedRowDeployable =[]
+  selectedRowDeployables =[];
+  selectedRow: Projects = this.dataSource[0];
   constructor(private fb: FormBuilder) { }
   
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
-      details: this.fb.array([])
+      details: this.fb.group({details: [this.selectedRow]})
     });
 
   }
   get detailForms(){
     return this.projectForm.get('details') as FormArray
   }
-  addDetail(projectId, projectName, projectDescription, projectCreated){
+  addDetail(projectId, projectName, projectDescription, projectCreated, projectDeployables){
     const detail = this.fb.group({
-      id: projectId,
-      name: projectName,
-      description: projectDescription,
-      created: projectCreated,
-      // deployables: ["1","2"]
+      
     })
-    this.detailForms.removeAt(0);
-    this.detailForms.push(detail)
+    // console.log(projectDeployables);
   }
 
   highlight(row){
+    
     this.selectedRowIndex = row.id;
-    this.selectedRowName = row.name;
-    this.selectedRowCreated =row.created;
-    this.selectedRowDescription=row.description;
-    this.addDetail(this.selectedRowIndex,this.selectedRowName,this.selectedRowCreated,this.selectedRowDescription)    
- 
+
+    // this.selectedRowName = row.name;
+    // this.selectedRowCreated =row.created;
+    // this.selectedRowDescription=row.description;
+    // this.selectedRowDeployables=row.deployables;
+    // this.addDetail(this.selectedRowIndex,this.selectedRowName,this.selectedRowCreated,this.selectedRowDescription,this.selectedRowDeployables)
+    
+    this.projectForm.setValue(row);
     }
     undeploy() {}
     deploy(){}
