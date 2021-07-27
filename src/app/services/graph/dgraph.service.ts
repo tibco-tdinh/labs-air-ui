@@ -78,7 +78,7 @@ const route3 = [
 export class DgraphService implements GraphService {
 
   // Defined as a proxy.  (i.e. http://137.117.38.255:8080)
-  private dgraphUrl = this.appConfigService.getFromConfigOrEnv("dgraphUrl");
+  private dgraphUrl;
 
   /**
    * 
@@ -88,7 +88,8 @@ export class DgraphService implements GraphService {
   constructor(
     private http: HttpClient, private authService: AuthService, private appConfigService: AppConfigService) {
     console.log("Constructor Getting basic auth for dgraph");
-
+    this.dgraphUrl = this.appConfigService.getFromConfigOrEnv("dgraphUrl");
+    console.log("Constructor dgraphUrl: ", this.dgraphUrl);
     let basicAuthHeaders = authService.getBasicAuthHeaders();
     basicAuthHeaders.forEach((value, key) => { 
       httpOptions.headers = httpOptions.headers.append(key, value);
@@ -123,6 +124,7 @@ export class DgraphService implements GraphService {
   getGateways(): Observable<Gateway[]> {
     console.log("GetGateways service called")
     const url = `${this.dgraphUrl}/query`;
+    console.log("GetGateways url: ", url);
     let query = `{
       resp(func: has(gateway)) {
         uid uuid description address router routerPort deployNetwork latitude longitude accessToken username platform devicesMetadata createdts updatedts
