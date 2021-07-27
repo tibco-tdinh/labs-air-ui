@@ -32,22 +32,18 @@ export class AppConfigService {
 
 
   public getFromConfig(path){
-    console.log("Getting from config: ", path);
     let value = null;
     if (this.getConfig()){
         value = _.get(this.getConfig(), path);
     }
-    console.log("Got from config: "+value);
     return value;
   } 
   
   public getFromEnv(path){
-    console.log("Getting from env: ", path);
     let value = null;
     if (environment){
         value = _.get(environment, path);
     }
-    console.log("Got from env: "+value);
     return value;
   }
 }
