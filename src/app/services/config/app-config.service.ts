@@ -27,6 +27,7 @@ export class AppConfigService {
     if (!value){
         return this.getFromEnv(path);
     }
+    return value;
   }
 
 
