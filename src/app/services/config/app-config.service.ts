@@ -24,7 +24,7 @@ export class AppConfigService {
 
   public getFromConfigOrEnv(path){
     let value = this.getFromConfig(path);
-    if (!value){
+    if (typeof value == 'undefined'){
         return this.getFromEnv(path);
     }
     return value;
@@ -32,22 +32,18 @@ export class AppConfigService {
 
 
   public getFromConfig(path){
-    console.log("Getting from config");
     let value = null;
     if (this.getConfig()){
         value = _.get(this.getConfig(), path);
     }
-    console.log("Getting from config: "+value);
     return value;
   } 
   
   public getFromEnv(path){
-    console.log("Getting from env");
     let value = null;
     if (environment){
         value = _.get(environment, path);
     }
-    console.log("Getting from env: "+value);
     return value;
   }
 }

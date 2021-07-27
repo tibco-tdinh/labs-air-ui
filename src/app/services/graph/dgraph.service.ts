@@ -10,10 +10,6 @@ import { AppConfigService } from '../config/app-config.service';
 import { GraphService } from './graph.service';
 import {AuthService} from '../auth/auth.service';
 
-// const httpOptions = {
-//   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-// };
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/graphql+-' })
 };
@@ -77,7 +73,6 @@ const route3 = [
 @Injectable()
 export class DgraphService implements GraphService {
 
-  // Defined as a proxy.  (i.e. http://137.117.38.255:8080)
   private dgraphUrl;
 
   /**
@@ -90,12 +85,13 @@ export class DgraphService implements GraphService {
     console.log("Constructor Getting basic auth for dgraph");
     this.dgraphUrl = this.appConfigService.getFromConfigOrEnv("dgraphUrl");
     console.log("Constructor dgraphUrl: ", this.dgraphUrl);
-    let basicAuthHeaders = authService.getBasicAuthHeaders();
-    basicAuthHeaders.forEach((value, key) => { 
-      httpOptions.headers = httpOptions.headers.append(key, value);
-      httpMutateOptions.headers = httpMutateOptions.headers.append(key, value);
-    } );
-
+    let dgraphBasicAuthEnabled = this.appConfigService.getFromConfigOrEnv("dgraphBasicAuthEnabled");
+    if (dgraphBasicAuthEnabled){
+      let dgraphBasicAuth = this.appConfigService.getFromConfigOrEnv("dgraphBasicAuth");
+      //let basicAuthHeaders = authService.getBasicAuthHeaders();
+      httpOptions.headers = httpOptions.headers.append("Authorization", dgraphBasicAuth);
+      httpMutateOptions.headers = httpMutateOptions.headers.append("Authorization", dgraphBasicAuth);
+    }
   }
 
   /**
