@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, tap, timeout } from 'rxjs/operators';
 
 import { Device, Profile, Service, Subscription, GetCommandResponse, Gateway, Rule, ModelConfig, FiltersConfig } from '../../shared/models/iot.model';
-import { environment } from 'src/environments/environment';
+import { AppConfigService } from '../config/app-config.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -47,15 +47,15 @@ export class EdgeService {
   private edgexFlogoRulesPath = '/flogorules/api/v1/';
   private edgexInferencingPath = '/inferencing/api/v1/';
   private edgexFilteringPath = '/filtering/api/v1/';
-  private localGatewayUrl = environment.localGatewayUrl;
-  private remoteGatewayUrl = environment.remoteGatewayUrl;
+  private localGatewayUrl = this.appConfigService.getFromConfigOrEnv("localGatewayUrl");
+  private remoteGatewayUrl = this.appConfigService.getFromConfigOrEnv("remoteGatewayUrl");
 
   /**
    * 
    * @param http 
    * @param logger 
    */
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private appConfigService: AppConfigService) {
   }
 
   /**
