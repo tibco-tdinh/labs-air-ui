@@ -73,7 +73,7 @@ export class EdgeService {
       url = `${this.localGatewayUrl}${servicePath}${operation}`;
     }
     else {
-      url = `${this.remoteGatewayUrl}/https://${hostname}:8443${servicePath}${operation}`;
+      url = `${this.remoteGatewayUrl}/${this.localGatewayUrl}${servicePath}${operation}`;
     }
 
     console.log("getEdgexURL: ", url);
