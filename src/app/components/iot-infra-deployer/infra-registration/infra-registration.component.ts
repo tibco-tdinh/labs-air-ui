@@ -39,7 +39,7 @@ export class InfraRegistrationComponent implements OnInit {
           this.parsedFile=YAML.parse(fileReader.result as string);
         //add containers 
           for (const key in this.parsedFile.services){
-            this.items.push([this.parsedFile.services[key].container_name,this.parsedFile.services[key].environment])
+            this.items.push(this.parsedFile.services[key].environment)
          }
             
         }
@@ -49,11 +49,22 @@ export class InfraRegistrationComponent implements OnInit {
 
     }
   //add container parameters
-  addform(item){
-    this.getParameters().clear();
-      console.log(typeof item[1]);
-       for (let param in item[1]){
-           this.addParameterItem(param);}
+  addform(){
+    console.log("called")
+    for (const item of this.items){
+      this.getParameters().clear();
+
+        for (let key in item){
+          console.log(item[key]);
+          if(item[key]){
+          const field= item[key];
+            if(field[0]=='$'){
+              const lastIndex=field.length-1;
+              this.addParameterItem(field.slice(2,lastIndex));
+              }
+          }
+        }
+    }
   }
   //make dynamic forms
   createForm() {
