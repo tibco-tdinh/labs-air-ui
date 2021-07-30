@@ -36,7 +36,6 @@ export class InfraRegistrationComponent implements OnInit {
   
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
-          console.log("File content: ", fileReader.result);
           this.parsedFile=YAML.parse(fileReader.result as string);
         //add containers 
           for (const key in this.parsedFile.services){
@@ -52,9 +51,9 @@ export class InfraRegistrationComponent implements OnInit {
   //add container parameters
   addform(item){
     this.getParameters().clear();
+      console.log(typeof item[1]);
        for (let param in item[1]){
            this.addParameterItem(param);}
-
   }
   //make dynamic forms
   createForm() {

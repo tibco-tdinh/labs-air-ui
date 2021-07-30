@@ -59,6 +59,7 @@ export class IotPipelineComponent implements OnInit {
   deployDisabled = true;
   undeployDisabled = true;
   dateFormat = 'yyyy-MM-dd  HH:mm:ss';
+  translated=false;
 
   pipelinesDataSource = new MatTableDataSource<Pipeline>();
   pipelineDisplayedColumns: string[] = ['id', 'name', 'pipelineType', 'status', 'created', 'modified'];
@@ -75,6 +76,8 @@ export class IotPipelineComponent implements OnInit {
   streamingConfig = false;
   flogoFlowConfig = false;
   restServiceConfig = false;
+  xcor=0;
+  ycor=0;
 
   lastNodeSelected = null;
 
@@ -230,8 +233,8 @@ export class IotPipelineComponent implements OnInit {
     this.editor.on(
       [
         "process",
-        "nodecreated",
         "connectioncreated",
+        "nodecreated",
         "connectionremoved"
 
       ],
@@ -242,20 +245,30 @@ export class IotPipelineComponent implements OnInit {
         await engine.process(this.editor.toJSON());
       })
     );
+
     //Translate node to appear where the user right clicked 
     this.editor.on(
       "contextmenu",
     ({e}) => {
-      const xcor= e.clientX;
-      const ycor= e.clientY;
-      //console.log(xcor,ycor);
-      this.editor.on("nodecreated", node  => {
-        this.editor.view.nodes.get(node).translate(xcor+100,ycor-200);
-        })
-      });
-//    this.editor.on("click", ({e}) => {console.log(e.clientX,e.clientY);})
+      this.translated=false
+      console.log("trasnlate",this.translated)
+      this.xcor= e.clientX;
+      this.ycor= e.clientY;
 
-    this.editor.trigger("process");
+      // console.log(xcor,ycor);
+      this.editor.on("nodecreated", node => {
+        console.log(this.translated);
+
+        if(this.translated==false){
+          console.log(this.xcor,this.ycor);
+          this.editor.view.nodes.get(node).translate(this.xcor+100,this.ycor-200);
+          this.translated=true;
+          // console.log(this.translated);
+        }
+    });
+      });
+
+    // this.editor.trigger("process");
     this.editor.view.resize();
 
     // this.editor.on(
