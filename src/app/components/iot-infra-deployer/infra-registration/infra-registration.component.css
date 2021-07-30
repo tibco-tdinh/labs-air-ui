@@ -4,3 +4,7 @@
     margin-right: 2%;
     width: 45%;
 }
+.mat-card{
+    overflow: auto;
+    height: 100%;
+}

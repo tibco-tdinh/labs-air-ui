@@ -9,7 +9,9 @@ table {
   
 .mat-form-field {
     font-size: 14px;
-    width: 100%;
+    display: inline-block;
+    margin-right: 2%;
+    width: 10%;
 }
   
 .mat-row.selected {
@@ -31,4 +33,4 @@ table {
     border-radius: 5px;
     padding: 20px;
     font-size: 150%;
-  }
+}
