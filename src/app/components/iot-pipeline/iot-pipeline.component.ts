@@ -258,7 +258,7 @@ export class IotPipelineComponent implements OnInit {
       // console.log(xcor,ycor);
       this.editor.on("nodecreated", node => {
         console.log(this.translated);
-
+        //only transalted the current node if it has just been added 
         if(this.translated==false){
           console.log(this.xcor,this.ycor);
           this.editor.view.nodes.get(node).translate(this.xcor+100,this.ycor-200);
