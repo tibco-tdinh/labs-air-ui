@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as YAML from 'yaml'
@@ -12,9 +12,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
   styleUrls: ['./infra-registration.component.css']
 })
 export class InfraRegistrationComponent implements OnInit {
+  @Input()name="";
   registrationForm: FormGroup;
   parsedFile: any;
   items = [];
+  properties = new Set();
 
 
   constructor(private formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
@@ -42,6 +44,8 @@ export class InfraRegistrationComponent implements OnInit {
               this.items.push(this.parsedFile.services[key])
             }
             console.log(this.items);
+            this.name="Container Properties:";
+            this.addform() ;
           }
         }
         fileReader.readAsText(file);
@@ -61,7 +65,11 @@ export class InfraRegistrationComponent implements OnInit {
               const field = item[key];
               if (field[0] == '$') {
                 const lastIndex = field.length - 1;
-                this.addParameterItem(field.slice(2, lastIndex));
+                const propety = field.slice(2, lastIndex);
+                if (this.properties.has(propety) == false) {
+                  this.properties.add(propety);
+                  this.addParameterItem(propety);
+                }
               }
             }
           }

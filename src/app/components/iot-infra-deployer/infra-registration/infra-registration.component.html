@@ -19,7 +19,7 @@
                     </button>
               </div>
               <mat-card-actions style="padding-left: 2%;">
-                <button mat-raised-button (click)="addform()" color="primary">Create</button>
+                <mat-card-title style="font-size: medium;">{{name}}</mat-card-title>
                 <form [formGroup]="registrationForm">
                   <ng-container formArrayName="parameters">
                     <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 500px; width: 100%; overflow: auto;">

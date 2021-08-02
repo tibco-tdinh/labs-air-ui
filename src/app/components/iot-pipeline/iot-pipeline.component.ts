@@ -59,7 +59,7 @@ export class IotPipelineComponent implements OnInit {
   deployDisabled = true;
   undeployDisabled = true;
   dateFormat = 'yyyy-MM-dd  HH:mm:ss';
-  translated=false;
+  translated = false;
 
   pipelinesDataSource = new MatTableDataSource<Pipeline>();
   pipelineDisplayedColumns: string[] = ['id', 'name', 'pipelineType', 'status', 'created', 'modified'];
@@ -76,8 +76,8 @@ export class IotPipelineComponent implements OnInit {
   streamingConfig = false;
   flogoFlowConfig = false;
   restServiceConfig = false;
-  xcor=0;
-  ycor=0;
+  xcor = 0;
+  ycor = 0;
 
   lastNodeSelected = null;
 
@@ -249,23 +249,23 @@ export class IotPipelineComponent implements OnInit {
     //Translate node to appear where the user right clicked 
     this.editor.on(
       "contextmenu",
-    ({e}) => {
-      this.translated=false
-      console.log("trasnlate",this.translated)
-      this.xcor= e.clientX;
-      this.ycor= e.clientY;
+      ({ e }) => {
+        this.translated = false;
+        console.log("trasnlate", this.translated)
+        this.xcor = e.clientX;
+        this.ycor = e.clientY;
 
-      // console.log(xcor,ycor);
-      this.editor.on("nodecreated", node => {
-        console.log(this.translated);
-        //only transalted the current node if it has just been added 
-        if(this.translated==false){
-          console.log(this.xcor,this.ycor);
-          this.editor.view.nodes.get(node).translate(this.xcor+100,this.ycor-200);
-          this.translated=true;
-          // console.log(this.translated);
-        }
-    });
+        // console.log(xcor,ycor);
+        this.editor.on("nodecreated", node => {
+          console.log(this.translated);
+          //only transalted the current node if it has just been added 
+          if (this.translated == false) {
+            console.log(this.xcor, this.ycor);
+            this.editor.view.nodes.get(node).translate(this.xcor + 100, this.ycor - 200);
+            this.translated = true;
+            // console.log(this.translated);
+          }
+        });
       });
 
     // this.editor.trigger("process");
@@ -1020,7 +1020,7 @@ export class IotPipelineComponent implements OnInit {
    *
    * @param form
    */
-   buildNodeRuleExpressionProperties(): any {
+  buildNodeRuleExpressionProperties(): any {
 
     let ruleObj = {
       "name": this.ruleExpressionForm.get('name').value,
@@ -1341,7 +1341,7 @@ export class IotPipelineComponent implements OnInit {
    *
    * @param context
    */
-   updateRuleExpressionComponent(context) {
+  updateRuleExpressionComponent(context) {
 
     if (context != null || context != undefined) {
       console.log("Updating rules component with context: ", context);
@@ -1483,7 +1483,7 @@ export class IotPipelineComponent implements OnInit {
     let decodedData = atob(gateway.devicesMetadata);
     let jsonData = JSON.parse(decodedData);
     this.devices = jsonData as Device[];
-    
+
     console.log("Devices: ", this.devices);
   }
 
@@ -1491,7 +1491,7 @@ export class IotPipelineComponent implements OnInit {
    * Get Devices for a geteway - Not used anymore as now devices metadata is included in gateway
    * @param gateway
    */
-   getDevicesExternal(gateway: Gateway) {
+  getDevicesExternal(gateway: Gateway) {
     console.log("Calling EdgeService to get devices for: ", gateway);
 
     this.edgeService.getDevices(gateway)
