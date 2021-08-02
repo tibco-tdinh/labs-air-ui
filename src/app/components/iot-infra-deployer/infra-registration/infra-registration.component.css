@@ -1,0 +1,13 @@
+.mat-form-field {
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 2%;
+    width: 45%;
+}
+.mat-card{
+    overflow: auto;
+    height: 100%;
+}
+.icon-display {
+    transform: scale(2);
+ }

@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  dgraphUrl: 'http://<addIpHere>/dgraph-alpha-http',
+  dgraphUrl: 'http://192.168.99.102:30779',
   dgraphBasicAuthEnabled: true,
   dgraphBasicAuth: 'Basic YWRtaW46YWRtaW4=',
   f1EndpointUrl: 'http://54.81.13.248:5408',
