@@ -18,11 +18,11 @@
                       <mat-icon class="icon-display">upload_file</mat-icon>
                     </button>
               </div>
-              <mat-card-actions>
-                <button mat-raised-button (click)="addform()" color="primary">Create</button>
+              <mat-card-actions style="padding-left: 2%;">
+                <mat-card-title style="font-size: medium;">{{name}}</mat-card-title>
                 <form [formGroup]="registrationForm">
                   <ng-container formArrayName="parameters">
-                    <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 300px; width: 100%; overflow: auto;">
+                    <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 500px; width: 100%; overflow: auto;">
                       <ng-container *ngFor="let prop of registrationForm.get('parameters')['controls']; let i = index">
       
                         <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px" [formGroupName]="i">
@@ -38,34 +38,7 @@
                   </ng-container>
                 </form>
               </mat-card-actions>
-
-              <!-- <mat-accordion>
-                <mat-expansion-panel *ngFor="let item of items;">
-                    <mat-expansion-panel-header (click)="addform(item)">
-                        <mat-panel-title>{{item[0]}}</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ng-template matExpansionPanelContent>
-                          <form [formGroup]="registrationForm">
-                            <ng-container formArrayName="parameters">
-                              <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 300px; width: 100%; overflow: auto;">
-                                <ng-container *ngFor="let prop of registrationForm.get('parameters')['controls']; let i = index">
-                
-                                  <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px" [formGroupName]="i">
-                                    <mat-form-field fxFlex="1 1 15%" appearance="outline">
-                                      <input matInput [readonly]=true formControlName="name">
-                                    </mat-form-field>
-                                    <mat-form-field fxFlex="1 1 15%" appearance="outline">
-                                      <input matInput [readonly]=false formControlName="value" placeholder="Enter Property Value ">
-                                    </mat-form-field>
-                                  </div>
-                                </ng-container>
-                              </mat-card>
-                            </ng-container>
-                          </form>                      
-                    </ng-template>
-                </mat-expansion-panel>
-              </mat-accordion> -->
-              <mat-card-actions>
+              <mat-card-actions  style="padding-bottom: 2%;">
                 <button mat-raised-button (click)="register()" color="primary">Register</button>
               </mat-card-actions>
           </div>

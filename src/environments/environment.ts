@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  dgraphUrl: 'http://afe9a15721e7e4cb0aab6b7149afe317-146810693.us-west-2.elb.amazonaws.com/dgraph-alpha-http',
+  dgraphUrl: 'http://af801c9bed2f94335a0b9b950b9e7136-1791521875.us-west-2.elb.amazonaws.com/dgraph-alpha-http',
   dgraphBasicAuthEnabled: true,
   dgraphBasicAuth: 'Basic YWRtaW46YWRtaW4=',
   f1EndpointUrl: 'http://localhost:8043/http://52.22.89.56:5408',
