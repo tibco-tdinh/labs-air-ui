@@ -10,17 +10,13 @@
                 <form [formGroup]="projectForm">
                   <mat-form-field fxFlex="1 1 18%" appearance="outline" style="width: 20%;">
                     <mat-label>Project name</mat-label>
-                    <input required matInput [readonly]=false formControlName="projectName">
-
-                      <!-- <div *ngIf="projectName.touched"> name is required</div> -->
+                    <input required matInput [readonly]=false formControlName="projectName" required pattern="[0-9a-zA-Z_.-]*" minlength="3" maxlength="64"> 
+                    <mat-error *ngIf="projectForm.get('projectName').invalid">project name must be between 3 and 64 character and have no spaces or special characters</mat-error>
                   </mat-form-field>
                   <mat-form-field fxFlex="1 1 18%" appearance="outline" style="width: 40%;">
                     <mat-label>Project description</mat-label>
-                    <input matInput [readonly]=false id="project" formControlName="projectDescription" required>
-                    <!-- <app-field-error-display 
-                      [displayError]="isFieldValid('projectDescription')" 
-                      errorMsg="Please enter a valid project description">
-                    </app-field-error-display> -->
+                    <input matInput [readonly]=false id="project" formControlName="projectDescription" required minlength="3" maxlength="64">
+                    <mat-error *ngIf="projectForm.get('projectDescription').invalid">Project description must be between 3 and 64 characters</mat-error>
                   </mat-form-field>
                 </form>
                 <input type="file" class="file-input" accept=".yml" (change)="onFileSelected($event)"
@@ -42,9 +38,9 @@
                             <input matInput [readonly]=true formControlName="name">
                           </mat-form-field>
                           <mat-form-field fxFlex="1 1 15%" appearance="outline">
-                            <input required matInput [readonly]=false formControlName="value" placeholder="Enter Property Value ">
+                            <input required matInput [readonly]=false formControlName="value" placeholder="Enter Property Value " minlength="3" maxlength="64">
+                            <mat-error *ngIf="registrationForm.invalid">Property value must be between 3 and 64 characters</mat-error>
                           </mat-form-field>
-                          <!-- <div  *ngIf="registrationForm.get('value').errors.required">Value is required</div> -->
                         </div>
                       </ng-container>
                     </mat-card>
@@ -52,8 +48,8 @@
                 </form>
               </mat-card-actions>
               <mat-card-actions  style="padding-bottom: 2%;">
-                <div style="color:red">{{error}}</div>
-                <button [disabled]= "!registrationForm.valid" mat-raised-button (click)="register()" color="primary">Register</button>
+                <button [disabled]= "registrationForm.invalid" mat-raised-button (click)="register()" color="primary">Register</button>
+                <div *ngIf="registrationForm.invalid" style="font-size: small; color: rgb(145, 140, 140); place-content: space-between;">* All fields are required to be filled before you can register</div>
               </mat-card-actions>
           </div>
           </mat-card-content>

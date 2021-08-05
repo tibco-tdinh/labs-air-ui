@@ -41,23 +41,25 @@ export class InfraRegistrationComponent implements OnInit {
     //parse yml file
   
       let files = event.target.files;
-      // try {
-      // if (!this.parsedFile.length) {
-      //     alert('file is empty');
-      //     return;
-      //   } }catch (e) {
-      //     console.log(e);
-      //   }
 
     if (event && event.target && event.target.files) {
 
       const file: File = event.target.files[0];
+
       if (file) {
         console.log("Selected file: ", file.name);
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           this.dockerFile = fileReader.result;
           this.parsedFile = YAML.parse(fileReader.result as string);
+          //test if file is empty
+          try {
+            if (this.parsedFile==null) {
+                alert('file is empty');
+                return;
+              } }catch (e) {
+                console.log(e);
+              }
           //add containers to items list
           if (this.parsedFile.services) {
             for (const key in this.parsedFile.services) {
@@ -67,9 +69,9 @@ export class InfraRegistrationComponent implements OnInit {
             this.name = "Custom Properties:";
             
             this.addform();
-            if ((!this.registrationForm.valid) && this.registrationForm.dirty)  {
-              this.error="enter all the fields";
-            }
+          }
+          else{
+            alert('enter a valid docker-compose file: add services');
           }
         }
         fileReader.readAsText(file);
@@ -100,7 +102,13 @@ export class InfraRegistrationComponent implements OnInit {
             }
           }
         }
+        else{
+          alert('enter a valid docker-compose file: add properties');
+        }
       }
+    }
+    else{
+      alert('enter a valid docker-compose file: add containers');
     }
   }
   //make dynamic forms
