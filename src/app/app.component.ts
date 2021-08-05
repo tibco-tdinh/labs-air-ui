@@ -15,6 +15,9 @@ export class AppComponent {
     this.matIconRegistry.addSvgIcon(
       "command",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/command.svg"));
+      this.matIconRegistry.addSvgIcon(
+        "delete",
+        this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/delete.svg"));
     this.matIconRegistry.addSvgIcon(
       "devicedashboard",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/dashboard.svg"));

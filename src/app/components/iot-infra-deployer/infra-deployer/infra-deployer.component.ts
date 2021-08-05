@@ -84,7 +84,7 @@ export class InfraDeployerComponent implements OnInit {
   dataSource = new MatTableDataSource<FlattenedDeployable>();
   deployablesData: FlattenedDeployable[] = [];
 
-  displayedColumns = ['id', 'name', 'projid', 'projname', 'projdescription', 'projcreated'];
+  displayedColumns = ['id', 'name', 'projid', 'projname', 'projdescription', 'projcreated','action'];
   deployableSelection = new SelectionModel<FlattenedDeployable>(false, []);
   deployableForm: FormGroup;
 
@@ -271,6 +271,12 @@ export class InfraDeployerComponent implements OnInit {
 
   }
 
+  delete(rowid: number){
+    // if (rowid > -1) {
+    //   this.deployablesData.splice(rowid, 1);
+    //   this.deployablesData = [...this.deployablesData]; // new ref!
+    // }
+  }
   undeploy() { }
   
 }

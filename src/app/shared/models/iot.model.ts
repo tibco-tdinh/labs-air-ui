@@ -192,21 +192,22 @@ export class DataStore {
 }
 
 export class Pipeline {
-  uid: number = 0;
-  created: number = 0;
-  modified: number = 0;
-  name: string = "";
-  pipelineType: string = "";
-  protocolType: string = ""; //deprecated
+  uid: number;
+  created: number;
+  modified: number;
+  name: string;
+  pipelineType: string;
+  deployerType: string;
+  protocolType: string; //deprecated
   protocol: any; // deprecated
-  dataStoreType: string = ""; // deprecated
+  dataStoreType: string; // deprecated
   dataStore: any; // deprecated
   filter: any; // deprecated
   streaming: any; // deprecated
-  description: string = "";
-  status: string = "";
-  flowConfiguration: string = "";
-  logLevel: string = "";
+  description: string;
+  status: string;
+  flowConfiguration: string;
+  logLevel: string;
 }
 
 export class NVPair {
