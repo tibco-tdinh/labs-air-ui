@@ -58,6 +58,8 @@ export class IotPipelineComponent implements OnInit {
   pipelineSelected = false;  // Used to control the display of buttons
   deployDisabled = true;
   undeployDisabled = true;
+  dateFormat = 'yyyy-MM-dd  HH:mm:ss';
+  translated = false;
 
   pipelinesDataSource = new MatTableDataSource<Pipeline>();
   pipelineDisplayedColumns: string[] = ['id', 'name', 'pipelineType', 'status', 'created', 'modified'];
@@ -74,6 +76,8 @@ export class IotPipelineComponent implements OnInit {
   streamingConfig = false;
   flogoFlowConfig = false;
   restServiceConfig = false;
+  xcor = 0;
+  ycor = 0;
 
   lastNodeSelected = null;
 
@@ -88,6 +92,7 @@ export class IotPipelineComponent implements OnInit {
   ruleExpressionForm: FormGroup;
   flogoFlowForm: FormGroup;
   restServiceForm: FormGroup;
+  dataOptionsForm: FormGroup;
 
   ruleTuplesDescriptor = [
     {
@@ -229,23 +234,53 @@ export class IotPipelineComponent implements OnInit {
     this.editor.on(
       [
         "process",
-        "nodecreated",
         "connectioncreated",
+        "nodecreated",
         "connectionremoved"
+
       ],
       (async () => {
+        if (engine.silent) return;
         console.log("Editor action executed");
-      }) as any
+        await engine.abort();
+        await engine.process(this.editor.toJSON());
+      })
     );
+
+    //Translate node to appear where the user right clicked 
     this.editor.on(
       "contextmenu",
-    ({e}) => {
-      const xcordinates= e.clientX;
-      const ycordinates= e.clientY;
-      this.editor.on("nodecreated", node  => {
-        this.editor.view.nodes.get(node).translate(xcordinates+150,ycordinates-200);
-        })
+      ({ e }) => {
+        this.translated = false;
+        console.log("trasnlate", this.translated)
+        this.xcor = e.clientX;
+        this.ycor = e.clientY;
+
+        // console.log(xcor,ycor);
+        this.editor.on("nodecreated", node => {
+          console.log(this.translated);
+          //only transalted the current node if it has just been added 
+          if (this.translated == false) {
+            console.log(this.xcor, this.ycor);
+            this.editor.view.nodes.get(node).translate(this.xcor + 100, this.ycor - 200);
+            this.translated = true;
+            // console.log(this.translated);
+          }
+        });
       });
+
+    // this.editor.trigger("process");
+    this.editor.view.resize();
+
+    // this.editor.on(
+    //   [
+    //     "nodeselected"
+    //   ],
+    //   (async () => {
+    //     console.log("Editor node selected");
+
+    //   }) as any
+    // );
 
 
     // Handle node removed event
@@ -382,27 +417,27 @@ export class IotPipelineComponent implements OnInit {
     switch (name) {
       case "Data Subscriber": {
 
-        contextObj = this.buildNodeProtocolProperties(this.protocolForm);
+        contextObj = this.buildNodeProtocolProperties(this.protocolForm, null);
         break;
       }
       case "Data Store": {
 
-        contextObj = this.buildNodeDataStoreProperties(this.dataStoreForm);
+        contextObj = this.buildNodeDataStoreProperties(this.dataStoreForm, this.dataOptionsForm);
         break;
       }
       case "Data Publisher": {
 
-        contextObj = this.buildNodeProtocolProperties(this.protocolForm);
+        contextObj = this.buildNodeProtocolProperties(this.protocolForm, this.dataOptionsForm);
         break;
       }
       case "Custom Publisher": {
 
-        contextObj = this.buildNodeProtocolProperties(this.protocolForm);
+        contextObj = this.buildNodeProtocolProperties(this.protocolForm, this.dataOptionsForm);
         break;
       }
       case "Notification Pipe": {
 
-        contextObj = this.buildNodeProtocolProperties(this.protocolForm);
+        contextObj = this.buildNodeProtocolProperties(this.protocolForm, this.dataOptionsForm);
         break;
       }
       case "Filters": {
@@ -470,22 +505,26 @@ export class IotPipelineComponent implements OnInit {
           break;
         }
         case "Data Store": {
-          this.updateDataStoreForm(contextObj)
+          this.updateDataStoreForm(contextObj);
+          this.updateDataOptionsForm(contextObj);
           this.dataStoreConfig = true;
           break;
         }
         case "Data Publisher": {
           this.updateProtocolForm(contextObj);
+          this.updateDataOptionsForm(contextObj);
           this.dataPublisherConfig = true;
           break;
         }
         case "Custom Publisher": {
           this.updateProtocolForm(contextObj);
+          this.updateDataOptionsForm(contextObj);
           this.dataPublisherConfig = true;
           break;
         }
         case "Notification Pipe": {
           this.updateProtocolForm(contextObj);
+          this.updateDataOptionsForm(contextObj);
           this.dataPublisherConfig = true;
           break;
         }
@@ -562,6 +601,12 @@ export class IotPipelineComponent implements OnInit {
       logLevel: 'INFO',
     }, { emitEvent: true });
 
+    
+    this.dataOptionsForm.patchValue({
+      useReading: true,
+      useEnrichedReading: false,
+    }, {emitEvent: true});
+
     // clear flogo app form
     this.flogoFlowForm.patchValue({
       flowFilename: '',
@@ -590,6 +635,11 @@ export class IotPipelineComponent implements OnInit {
       status: ['', Validators.required],
       flowConfiguration: ['', Validators.required],
       logLevel: ['INFO', Validators.required]
+    });
+
+    this.dataOptionsForm = this.formBuilder.group({
+      useReading: [true],
+      useEnrichedReading: [false]
     });
 
     this.protocolForm = this.formBuilder.group({
@@ -752,73 +802,87 @@ export class IotPipelineComponent implements OnInit {
 
   /**
    *
-   * @param form
+   * @param protocolForm
+   * @param dataOptionsForm
    */
-  buildNodeProtocolProperties(form: FormGroup): any {
-    let protocol = form.get('protocol').value;
+  buildNodeProtocolProperties(protocolForm: FormGroup, dataOptionsForm: FormGroup): any {
+    let protocol = protocolForm.get('protocol').value;
+    let useReading = true;
+    let useEnrichedReading = true;
+
+    if (dataOptionsForm != null) {
+      useReading = dataOptionsForm.get('useReading').value;
+      useEnrichedReading = dataOptionsForm.get('useEnrichedReading').value;      
+    }
 
     let protocolObj = null;
 
     if (protocol == "MQTT") {
 
       protocolObj = {
-        "protocol": form.get('protocol').value,
-        "protocolId": form.get('protocolId').value,
-        "logLevel": form.get('logLevel').value,
-        "hostname": form.get('mqtt.hostname').value,
-        "port": form.get('mqtt.port').value,
-        "username": form.get('mqtt.username').value,
-        "password": form.get('mqtt.password').value,
-        "encriptionMode": form.get('mqtt.encryptionMode').value,
-        "caCertificate": form.get('mqtt.caCertificate').value,
-        "clientCertificate": form.get('mqtt.clientCertificate').value,
-        "clientKey": form.get('mqtt.clientKey').value,
-        "topic": form.get('mqtt.topic').value,
-        "maximumQOS": form.get('mqtt.maximumQOS').value,
+        "useReading": useReading,
+        "useEnrichedReading": useEnrichedReading,
+        "protocol": protocolForm.get('protocol').value,
+        "protocolId": protocolForm.get('protocolId').value,
+        "logLevel": protocolForm.get('logLevel').value,
+        "hostname": protocolForm.get('mqtt.hostname').value,
+        "port": protocolForm.get('mqtt.port').value,
+        "username": protocolForm.get('mqtt.username').value,
+        "password": protocolForm.get('mqtt.password').value,
+        "encriptionMode": protocolForm.get('mqtt.encryptionMode').value,
+        "caCertificate": protocolForm.get('mqtt.caCertificate').value,
+        "clientCertificate": protocolForm.get('mqtt.clientCertificate').value,
+        "clientKey": protocolForm.get('mqtt.clientKey').value,
+        "topic": protocolForm.get('mqtt.topic').value,
+        "maximumQOS": protocolForm.get('mqtt.maximumQOS').value,
       }
 
     }
     else if (protocol == "Kafka") {
 
       protocolObj = {
-        "protocol": form.get('protocol').value,
-        "protocolId": form.get('protocolId').value,
-        "logLevel": form.get('logLevel').value,
-        "hostname": form.get('kafka.hostname').value,
-        "port": form.get('kafka.port').value,
-        "authMode": form.get('kafka.authMode').value,
-        "username": form.get('kafka.username').value,
-        "password": form.get('kafka.password').value,
-        "clientCertificate": form.get('kafka.clientCertificate').value,
-        "clientKey": form.get('kafka.clientKey').value,
-        "serverCertificate": form.get('kafka.serverCertificate').value,
-        "connectionTimeout": form.get('kafka.connectionTimeout').value,
-        "retryBackoff": form.get('kafka.retryBackoff').value,
-        "topic": form.get('kafka.topic').value,
-        "consumerGroupId": form.get('kafka.consumerGroupId').value,
-        "commitInterval": form.get('kafka.commitInterval').value,
-        "initialOffset": form.get('kafka.initialOffset').value,
-        "fetchMinBytes": form.get('kafka.fetchMinBytes').value,
-        "fetchMaxWait": form.get('kafka.fetchMaxWait').value,
-        "heartbeatInterval": form.get('kafka.heartbeatInterval').value,
-        "sessionTimeout": form.get('kafka.sessionTimeout').value,
+        "useReading": useReading,
+        "useEnrichedReading": useEnrichedReading,
+        "protocol": protocolForm.get('protocol').value,
+        "protocolId": protocolForm.get('protocolId').value,
+        "logLevel": protocolForm.get('logLevel').value,
+        "hostname": protocolForm.get('kafka.hostname').value,
+        "port": protocolForm.get('kafka.port').value,
+        "authMode": protocolForm.get('kafka.authMode').value,
+        "username": protocolForm.get('kafka.username').value,
+        "password": protocolForm.get('kafka.password').value,
+        "clientCertificate": protocolForm.get('kafka.clientCertificate').value,
+        "clientKey": protocolForm.get('kafka.clientKey').value,
+        "serverCertificate": protocolForm.get('kafka.serverCertificate').value,
+        "connectionTimeout": protocolForm.get('kafka.connectionTimeout').value,
+        "retryBackoff": protocolForm.get('kafka.retryBackoff').value,
+        "topic": protocolForm.get('kafka.topic').value,
+        "consumerGroupId": protocolForm.get('kafka.consumerGroupId').value,
+        "commitInterval": protocolForm.get('kafka.commitInterval').value,
+        "initialOffset": protocolForm.get('kafka.initialOffset').value,
+        "fetchMinBytes": protocolForm.get('kafka.fetchMinBytes').value,
+        "fetchMaxWait": protocolForm.get('kafka.fetchMaxWait').value,
+        "heartbeatInterval": protocolForm.get('kafka.heartbeatInterval').value,
+        "sessionTimeout": protocolForm.get('kafka.sessionTimeout').value,
       }
 
     }
     else if (protocol == "AMQP") {
 
       protocolObj = {
-        "protocol": form.get('protocol').value,
-        "protocolId": form.get('protocolId').value,
-        "logLevel": form.get('logLevel').value,
-        "hostname": form.get('amqp.hostname').value,
-        "port": form.get('amqp.port').value,
-        "username": form.get('amqp.username').value,
-        "password": form.get('amqp.password').value,
-        "exchangeName": form.get('amqp.exchangeName').value,
-        "exchangeType": form.get('amqp.exchangeType').value,
-        "routingKey": form.get('amqp.routingKey').value,
-        "reliable": form.get('amqp.reliable').value
+        "useReading": useReading,
+        "useEnrichedReading": useEnrichedReading,
+        "protocol": protocolForm.get('protocol').value,
+        "protocolId": protocolForm.get('protocolId').value,
+        "logLevel": protocolForm.get('logLevel').value,
+        "hostname": protocolForm.get('amqp.hostname').value,
+        "port": protocolForm.get('amqp.port').value,
+        "username": protocolForm.get('amqp.username').value,
+        "password": protocolForm.get('amqp.password').value,
+        "exchangeName": protocolForm.get('amqp.exchangeName').value,
+        "exchangeType": protocolForm.get('amqp.exchangeType').value,
+        "routingKey": protocolForm.get('amqp.routingKey').value,
+        "reliable": protocolForm.get('amqp.reliable').value
       }
 
     }
@@ -832,14 +896,22 @@ export class IotPipelineComponent implements OnInit {
    *
    * @param form
    */
-  buildNodeDataStoreProperties(form: FormGroup): any {
+  buildNodeDataStoreProperties(form: FormGroup, dataOptionsForm: FormGroup): any {
     let dataStore = form.get('dataStore').value;
+    let useReading = true;
+    let useEnrichedReading = true;
 
+    if (dataOptionsForm != null) {
+      useReading = dataOptionsForm.get('useReading').value;
+      useEnrichedReading = dataOptionsForm.get('useEnrichedReading').value;      
+    }
     let dataStoreObj = null;
 
     if (dataStore == "PostgreSQL") {
 
       dataStoreObj = {
+        "useReading": useReading,
+        "useEnrichedReading": useEnrichedReading,
         "dataStore": form.get('dataStore').value,
         "dataStoreId": form.get('dataStoreId').value,
         "logLevel": form.get('logLevel').value,
@@ -853,6 +925,8 @@ export class IotPipelineComponent implements OnInit {
     else if (dataStore == "Snowflake") {
 
       dataStoreObj = {
+        "useReading": useReading,
+        "useEnrichedReading": useEnrichedReading,
         "dataStore": form.get('dataStore').value,
         "dataStoreId": form.get('dataStoreId').value,
         "logLevel": form.get('logLevel').value,
@@ -874,6 +948,8 @@ export class IotPipelineComponent implements OnInit {
     else if (dataStore == "TGDB") {
 
       dataStoreObj = {
+        "useReading": useReading,
+        "useEnrichedReading": useEnrichedReading,
         "dataStore": form.get('dataStore').value,
         "dataStoreId": form.get('dataStoreId').value,
         "logLevel": form.get('logLevel').value,
@@ -885,6 +961,8 @@ export class IotPipelineComponent implements OnInit {
     else if (dataStore = "Dgraph") {
 
       dataStoreObj = {
+        "useReading": useReading,
+        "useEnrichedReading": useEnrichedReading,
         "dataStore": form.get('dataStore').value,
         "dataStoreId": form.get('dataStoreId').value,
         "logLevel": form.get('logLevel').value,
@@ -987,7 +1065,7 @@ export class IotPipelineComponent implements OnInit {
    *
    * @param form
    */
-   buildNodeRuleExpressionProperties(): any {
+  buildNodeRuleExpressionProperties(): any {
 
     let ruleObj = {
       "name": this.ruleExpressionForm.get('name').value,
@@ -1042,6 +1120,19 @@ export class IotPipelineComponent implements OnInit {
 
     return restServiceObj;
   }
+
+  /**
+   *
+   * @param context
+   */
+   updateDataOptionsForm(context) {
+    if (context != null || context != undefined) {
+      this.dataOptionsForm.patchValue({
+        useReading: context.useReading,
+        useEnrichedReading: context.useEnrichedReading
+      });
+    };
+   }
 
   /**
    *
@@ -1137,7 +1228,7 @@ export class IotPipelineComponent implements OnInit {
   updateDataStoreForm(context) {
 
     if (context != null || context != undefined) {
-      console.log("Updating protocolform with context: ", context);
+      console.log("Updating dataStoreform with context: ", context);
 
       let dataStoreId = context.dataStoreId;
       let dataStore = context.dataStore;
@@ -1308,7 +1399,7 @@ export class IotPipelineComponent implements OnInit {
    *
    * @param context
    */
-   updateRuleExpressionComponent(context) {
+  updateRuleExpressionComponent(context) {
 
     if (context != null || context != undefined) {
       console.log("Updating rules component with context: ", context);
@@ -1370,7 +1461,7 @@ export class IotPipelineComponent implements OnInit {
   /**
    * Get Gateway, Pipelines and Devices information
    */
-  public getGatewayAndPipelines(gatewayId: string, selectedPipeline: Pipeline) {
+  public getGatewayAndPipelines(gatewayId: string, selectedPipeline: Pipeline, updateEditor: boolean) {
     console.log("Getting gateway and pipelines for: ", gatewayId);
 
     this.graphService.getGatewayAndPipelines(gatewayId)
@@ -1389,7 +1480,7 @@ export class IotPipelineComponent implements OnInit {
           if (selectedPipeline != null) {
             for (let i = 0; i < this.pipelinesDataSource.data.length; i++) {
               if (this.pipelinesDataSource.data[i].name == selectedPipeline.name) {
-                this.onPipelineClicked(this.pipelinesDataSource.data[i]);
+                this.onPipelineClicked(this.pipelinesDataSource.data[i], updateEditor);
               }
             }
           }
@@ -1450,7 +1541,7 @@ export class IotPipelineComponent implements OnInit {
     let decodedData = atob(gateway.devicesMetadata);
     let jsonData = JSON.parse(decodedData);
     this.devices = jsonData as Device[];
-    
+
     console.log("Devices: ", this.devices);
   }
 
@@ -1458,7 +1549,7 @@ export class IotPipelineComponent implements OnInit {
    * Get Devices for a geteway - Not used anymore as now devices metadata is included in gateway
    * @param gateway
    */
-   getDevicesExternal(gateway: Gateway) {
+  getDevicesExternal(gateway: Gateway) {
     console.log("Calling EdgeService to get devices for: ", gateway);
 
     this.edgeService.getDevices(gateway)
@@ -1489,7 +1580,7 @@ export class IotPipelineComponent implements OnInit {
   /**
    * Handles selection of pipeline on table
    */
-  onPipelineClicked(row) {
+  onPipelineClicked(row, updateEditor: boolean) {
 
     console.log('Row clicked: ', row);
     let currentPipelineSelected = null;
@@ -1540,10 +1631,12 @@ export class IotPipelineComponent implements OnInit {
         logLevel: row.logLevel
       }, { emitEvent: false });
 
-      // Reset the editor
-      let decodedData = decodeURIComponent(row.flowConfiguration);
-      let jsonData = JSON.parse(decodedData)
-      this.editor.fromJSON(jsonData);
+      if (updateEditor) {
+        // Reset the editor
+        let decodedData = decodeURIComponent(row.flowConfiguration);
+        let jsonData = JSON.parse(decodedData)
+        this.editor.fromJSON(jsonData);
+      }
 
       // Reset command buttons
       console.log("Resetting buttons for status: ", row.status);
@@ -1622,7 +1715,7 @@ export class IotPipelineComponent implements OnInit {
         .subscribe(res => {
           console.log("Added pipeline: ", res);
 
-          this.getGatewayAndPipelines(this.gatewayId, pipeline);
+          this.getGatewayAndPipelines(this.gatewayId, pipeline, false);
 
           let message = 'Success';
           if (res == undefined) {
@@ -1660,7 +1753,7 @@ export class IotPipelineComponent implements OnInit {
       .subscribe(res => {
         console.log("Updated pipeline: ", res);
 
-        this.getGatewayAndPipelines(this.gatewayId, pipeline)
+        this.getGatewayAndPipelines(this.gatewayId, pipeline, false)
 
         if (showSnackbar) {
           let message = 'Success';
@@ -1701,7 +1794,7 @@ export class IotPipelineComponent implements OnInit {
         .subscribe(res => {
           console.log("Result from delete pipeline", res);
 
-          this.getGatewayAndPipelines(this.gatewayId, null);
+          this.getGatewayAndPipelines(this.gatewayId, null, true);
 
           // Clear the editor
           this.clearPipeline();
@@ -1792,8 +1885,8 @@ export class IotPipelineComponent implements OnInit {
           "Username": this.gateway.username,
           "TargetServer": this.gateway.router,
           "Port": this.gateway.routerPort,
-          "DeployConstrains" : "[\"role == RTSF_Demo\"]",
-          "ServiceProperties" : "{}"
+          "DeployConstrains": "[\"role == RTSF_Demo\"]",
+          "ServiceProperties": "{}"
         };
       }
       else {
@@ -1805,7 +1898,7 @@ export class IotPipelineComponent implements OnInit {
           "Port": this.gateway.routerPort
         };
       }
-      
+
 
       extra = [
         { "Name": "App.LogLevel", "Value": appLogLevel },
@@ -1855,7 +1948,18 @@ export class IotPipelineComponent implements OnInit {
           // Add logic nodes
           switch (flow.nodes[key].name) {
             case "Data Store": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flow.nodes[key].data.customdata));
+              let useReading = flow.nodes[key].data.customdata.useReading;
+              let useEnrichedReading = flow.nodes[key].data.customdata.useEnrichedReading;
+
+              if (useReading) {
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flow.nodes[key].data.customdata, null));
+              }
+
+              if (useEnrichedReading) {
+                let targetField =  {"Name": "Datastore.TargetField", "Value": "Inference.REST..Inferred"}
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flow.nodes[key].data.customdata, targetField));
+              }
+              
               break;
             }
             case "Data Publisher": {
@@ -2177,7 +2281,7 @@ export class IotPipelineComponent implements OnInit {
         { "Name": "Mqtt.caCertificate", "Value": "changeme" },
         { "Name": "Mqtt.clientCertificate", "Value": "changeme" },
         { "Name": "Mqtt.clientKey", "Value": "changeme" },
-        { "Name": "Logging.LogLevel", "Value": "INFO" }
+        { "Name": "Logging.LogLevel", "Value": contextObj.logLevel }
       ];
     }
     else if (contextObj.protocol == "Kafka") {
@@ -2233,7 +2337,7 @@ export class IotPipelineComponent implements OnInit {
         { "Name": "Mqtt.caCertificate", "Value": "changeme" },
         { "Name": "Mqtt.clientCertificate", "Value": "changeme" },
         { "Name": "Mqtt.clientKey", "Value": "changeme" },
-        { "Name": "Logging.LogLevel", "Value": "INFO" }
+        { "Name": "Logging.LogLevel", "Value": contextObj.logLevel }
       ];
     }
     else if (contextObj.protocol == "Kafka") {
@@ -2277,12 +2381,17 @@ export class IotPipelineComponent implements OnInit {
 
   }
 
-  buildDataStoreDeployObj(contextObj): any {
-    let dataStoreType = "DataStore." + contextObj.dataStore;
+  buildDataStoreDeployObj(contextObj, targetField): any {
+    let dataStoreType = "DataStore." + contextObj.dataStore + "2";
     let sourceObj = {
       name: dataStoreType,
       properties: this.buildDataStoreDeployProperties(contextObj)
     };
+
+    // Add custom target field to properties if provided
+    if (targetField != null) {
+      sourceObj.properties.push(targetField);
+    }
 
     return sourceObj;
   }
@@ -2305,7 +2414,7 @@ export class IotPipelineComponent implements OnInit {
         { "Name": "PostgreSQL.IoTPostgres.Database_Name", "Value": contextObj.databaseName },
         { "Name": "PostgreSQL.IoTPostgres.User", "Value": contextObj.user },
         { "Name": "PostgreSQL.IoTPostgres.Password", "Value": contextObj.password },
-        { "Name": "Logging.LogLevel", "Value": "INFO" }
+        { "Name": "Logging.LogLevel", "Value": contextObj.logLevel }
       ];
     }
     else if (contextObj.dataStore == "Snowflake") {
@@ -2364,7 +2473,7 @@ export class IotPipelineComponent implements OnInit {
   buildFiltersDeployProperties(contextObj): any {
 
     let filterObj = [
-      { "Name": "Logging.LogLevel", "Value": "INFO" },
+      { "Name": "Logging.LogLevel", "Value": "DEBUG" },
       { "Name": "Filter.Conditions", "Value": JSON.stringify(contextObj.filters) }
     ];
 
@@ -2380,6 +2489,9 @@ export class IotPipelineComponent implements OnInit {
       name: inferencingType,
       properties: this.buildInferencingDeployProperties(contextObj)
     };
+
+    console.log("Deploy inferencingObj: ", inferencingObj);
+
 
     return inferencingObj;
 
@@ -2410,17 +2522,42 @@ export class IotPipelineComponent implements OnInit {
       urlMapping.push(mapping);
 
     }
+    else if (platformDetails[0] == "tibco") {
+      if (platformDetails[1] == "audio_prediction") {
+
+        let dataStr = `{"audio_signal": @f1..value@, "sampling_rate": 16000, "audio_id": "@f1..id@"}`
+        // let data = {
+        //   "audio_signal": "@f1..value@",
+        //   "sampling_rate": 16000,
+        //   "audio_id": "@f1..id@"
+        // }
+
+        // let dataStr = JSON.stringify(data)
+
+        inferenceData = {
+          "Data": dataStr
+        }
+
+        let mapping = {
+          "Alias": "0",
+          "URL": contextObj.modelUrl
+        };
+        urlMapping.push(mapping);
+
+      }
+
+    }
 
 
-    let filterObj = [
-      { "Name": "Logging.LogLevel", "Value": "INFO" },
-      { "Name": "REST.Timeout", "Value": "10000" },
+    let inferenceObj = [
+      { "Name": "Logging.LogLevel", "Value": contextObj.logLevel },
+      { "Name": "REST.Timeout", "Value": "20000" },
       { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
       { "Name": "REST.Conditions", "Value": JSON.stringify(contextObj.filters) },
       { "Name": "REST.URLMapping", "Value": JSON.stringify(urlMapping) }
     ];
 
-    return filterObj;
+    return inferenceObj;
   }
 
   buildStreamingDeployObj(contextObj): any {
@@ -2443,7 +2580,7 @@ export class IotPipelineComponent implements OnInit {
   buildStreamingDeployProperties(contextObj): any {
 
     let streamingObj = [
-      { "Name": "Logging.LogLevel", "Value": "INFO" },
+      { "Name": "Logging.LogLevel", "Value": contextObj.logLevel },
       { "Name": "Streaming.ProceedOnEmit", "Value": "true" },
       { "Name": "Streaming.Resolution", "Value": "1" },
       // { "Name": "Streaming.InputField", "Value": "f1..value" },
@@ -2625,7 +2762,7 @@ export class IotPipelineComponent implements OnInit {
 
 
     let propertiesObj = [
-      { "Name": "Logging.LogLevel", "Value": "INFO" },
+      { "Name": "Logging.LogLevel", "Value": contextObj.logLevel },
       { "Name": "REST.Timeout", "Value": "10000" },
       { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
       { "Name": "REST.Conditions", "Value": JSON.stringify(contextObj.filters) },
@@ -2666,4 +2803,5 @@ export class IotPipelineComponent implements OnInit {
     return propertiesObj;
   }
 }
+
 
