@@ -16,6 +16,7 @@ export interface SelectItem {
 export class PipelineDataStoreComponent implements OnInit {
 
   @Input() dataStoreForm: FormGroup;
+  @Input() dataOptionsForm: FormGroup;
 
   logLevels: SelectItem[] = [
     { value: 'INFO', viewValue: 'INFO' },

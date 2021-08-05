@@ -46,12 +46,14 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
     { value: 'int', viewValue: 'int' },
     { value: 'float', viewValue: 'float' },
     { value: 'string', viewValue: 'string' },
-    { value: 'image', viewValue: 'image' }
+    { value: 'image', viewValue: 'image' },
+    { value: 'audio', viewValue: 'audio' }
   ];
 
   platforms: SelectItem[] = [
     { value: 'ms|anomaly_detection|AnomalyDetection', viewValue: 'Anomaly Detection' },
     { value: 'tibco|pattern_recognition|PatternRecognition', viewValue: 'Wafer Pattern Recognition' },
+    { value: 'tibco|audio_prediction|AudioPrediction', viewValue: 'Audio Anomaly Prediction' },
     { value: 'nvidia|text_recognition|tesseract', viewValue: 'Text Recognition - Tesseract' },
     { value: 'nvidia|image_recognition|alexnet', viewValue: 'Object Detection - AlexNet' },
     { value: 'nvidia|image_recognition|googlenet', viewValue: 'Object Detection - GoogleNet' },
