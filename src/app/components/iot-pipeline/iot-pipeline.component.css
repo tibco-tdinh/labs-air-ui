@@ -21,6 +21,9 @@ table {
     background:transparent;
     font-size: 18px;
 }
+.mat-card{
+    box-shadow:none;
+}
 
 .box {
     /*background-color: #444;*/
@@ -79,4 +82,5 @@ table {
     flex: 1;
     width: 30%;
     overflow: auto;
+    box-shadow:none;
 }

@@ -36,8 +36,8 @@ import { NotificationPipeComponent } from "../rete/components/notification-pipe-
 import { FlogoFlowComponent } from "../rete/components/flogo-flow-component";
 import { RestServiceComponent } from "../rete/components/rest-service-component";
 import { NodePrimaryComponent } from "../rete/nodes/node-primary/node-primary.component";
-
 import { pipe } from 'rxjs';
+import { DataFilteringComponent } from '../iot-data-pipeline/data-filtering/data-filtering.component';
 import { LogLevel } from '@tibco-tcstk/tc-core-lib';
 import { stringify } from '@angular/compiler/src/util';
 import { RippleRef } from '@angular/material/core';
@@ -216,14 +216,13 @@ export class IotPipelineComponent implements OnInit {
       new ErrorHandlerComponent()
     ];
 
-    this.editor = new NodeEditor("demo@0.1.0", container);
-    console.log("conatiner is here", this.editor);
+    this.editor = new NodeEditor("demo@0.2.0", container);
     this.editor.use(ConnectionPlugin);
     console.log("AngularRenderPlugin", AngularRenderPlugin);
     this.editor.use(AngularRenderPlugin, { component: NodePrimaryComponent });
     this.editor.use(ContextMenuPlugin);
 
-    const engine = new Engine("demo@0.1.0");
+    const engine = new Engine("demo@0.2.0");
 
     components.map(c => {
       this.editor.register(c);
@@ -617,6 +616,7 @@ export class IotPipelineComponent implements OnInit {
       uid: ['', Validators.required],
       name: ['', Validators.required],
       pipelineType: ['', Validators.required],
+      deployerType: ['', Validators.required],
       description: ['', Validators.required],
       created: ['', Validators.required],
       modified: ['', Validators.required],
@@ -1403,7 +1403,7 @@ export class IotPipelineComponent implements OnInit {
   /**
    * Get Gateway, Pipelines and Devices information
    */
-  public getGatewayAndPipelines(gatewayId: string, selectedPipeline: Pipeline) {
+   public getGatewayAndPipelines(gatewayId: string, selectedPipeline: Pipeline, updateEditor: boolean) {
     console.log("Getting gateway and pipelines for: ", gatewayId);
 
     this.graphService.getGatewayAndPipelines(gatewayId)
@@ -1422,7 +1422,7 @@ export class IotPipelineComponent implements OnInit {
           if (selectedPipeline != null) {
             for (let i = 0; i < this.pipelinesDataSource.data.length; i++) {
               if (this.pipelinesDataSource.data[i].name == selectedPipeline.name) {
-                this.onPipelineClicked(this.pipelinesDataSource.data[i]);
+                this.onPipelineClicked(this.pipelinesDataSource.data[i], updateEditor);
               }
             }
           }
@@ -1522,7 +1522,7 @@ export class IotPipelineComponent implements OnInit {
   /**
    * Handles selection of pipeline on table
    */
-  onPipelineClicked(row) {
+   onPipelineClicked(row, updateEditor: boolean) {
 
     console.log('Row clicked: ', row);
     let currentPipelineSelected = null;
@@ -1566,16 +1566,19 @@ export class IotPipelineComponent implements OnInit {
         uid: row.uid,
         name: row.name,
         pipelineType: row.pipelineType,
+        deployerType: row.deployerType,
         description: row.description,
         status: row.status,
         flowConfiguration: row.flowConfiguration,
         logLevel: row.logLevel
       }, { emitEvent: false });
 
+      if (updateEditor) {
       // Reset the editor
       let decodedData = decodeURIComponent(row.flowConfiguration);
       let jsonData = JSON.parse(decodedData)
       this.editor.fromJSON(jsonData);
+    }
 
       // Reset command buttons
       console.log("Resetting buttons for status: ", row.status);
@@ -1624,6 +1627,7 @@ export class IotPipelineComponent implements OnInit {
     let pipelineName = this.pipelineForm.get('name').value;
     let pipelineId = this.pipelineForm.get('uid').value;
     let pipelineType = this.pipelineForm.get('pipelineType').value;
+    let deployerType = this.pipelineForm.get('deployerType').value;
     if (pipelineName == "" || pipelineType == "") {
       this._snackBar.open("Failure", "Pipeline needs a name and type", {
         duration: 3000,
@@ -1642,6 +1646,7 @@ export class IotPipelineComponent implements OnInit {
       pipeline.modified = tsms;
       pipeline.name = this.pipelineForm.get('name').value;
       pipeline.pipelineType = this.pipelineForm.get('pipelineType').value;
+      pipeline.deployerType = this.pipelineForm.get('deployerType').value;
       pipeline.description = this.pipelineForm.get('description').value;
       pipeline.status = "Saved";
       pipeline.flowConfiguration = encodeURIComponent(JSON.stringify(editorData));
@@ -1652,7 +1657,7 @@ export class IotPipelineComponent implements OnInit {
         .subscribe(res => {
           console.log("Added pipeline: ", res);
 
-          this.getGatewayAndPipelines(this.gatewayId, pipeline);
+          this.getGatewayAndPipelines(this.gatewayId, pipeline, false);
 
           let message = 'Success';
           if (res == undefined) {
@@ -1678,6 +1683,8 @@ export class IotPipelineComponent implements OnInit {
     pipeline.modified = tsms;
     pipeline.name = this.pipelineForm.get('name').value;
     pipeline.uid = this.pipelineForm.get('uid').value;
+    pipeline.pipelineType = this.pipelineForm.get('pipelineType').value;
+    pipeline.deployerType = this.pipelineForm.get('deployerType').value;
     pipeline.description = this.pipelineForm.get('description').value;
     pipeline.status = this.pipelineForm.get('status').value;
     pipeline.flowConfiguration = encodeURIComponent(JSON.stringify(editorData));
@@ -1688,7 +1695,7 @@ export class IotPipelineComponent implements OnInit {
       .subscribe(res => {
         console.log("Updated pipeline: ", res);
 
-        this.getGatewayAndPipelines(this.gatewayId, pipeline)
+        this.getGatewayAndPipelines(this.gatewayId, pipeline, false)
 
         if (showSnackbar) {
           let message = 'Success';
@@ -1729,7 +1736,7 @@ export class IotPipelineComponent implements OnInit {
         .subscribe(res => {
           console.log("Result from delete pipeline", res);
 
-          this.getGatewayAndPipelines(this.gatewayId, null);
+          this.getGatewayAndPipelines(this.gatewayId, null, true);
 
           // Clear the editor
           this.clearPipeline();
@@ -1767,6 +1774,7 @@ export class IotPipelineComponent implements OnInit {
       uid: "",
       name: "",
       pipelineType: "",
+      deployerType: "",
       description: "",
       status: "",
       logLevel: "INFO"
@@ -1784,10 +1792,13 @@ export class IotPipelineComponent implements OnInit {
 
   }
 
-  buildPipelineRequest(): any {
+  buildPipelineRequest(pipelineId: string): any {
 
     let deployType = this.pipelineForm.get('pipelineType').value;
+    let deployerType = this.pipelineForm.get('deployerType').value;
     let appLogLevel = this.pipelineForm.get('logLevel').value;
+    let serviceType = "docker";
+    let image = "";
     let systemEnv = {};
     let extra = [];
 
@@ -1808,6 +1819,19 @@ export class IotPipelineComponent implements OnInit {
     }
 
     if (deployType == "Edge") {
+
+      if (deployerType == "OH") {
+        systemEnv = {
+          "Platform": this.gateway.platform,
+          "DetachedMode": "n",
+          "Username": this.gateway.username,
+          "TargetServer": this.gateway.router,
+          "Port": this.gateway.routerPort,
+          "DeployConstrains": "[\"role == RTSF_Demo\"]",
+          "ServiceProperties": "{}"
+        };
+      }
+      else {
       systemEnv = {
         "Platform": this.gateway.platform,
         "DetachedMode": "n",
@@ -1815,6 +1839,8 @@ export class IotPipelineComponent implements OnInit {
         "TargetServer": this.gateway.router,
         "Port": this.gateway.routerPort
       };
+    }
+
 
       extra = [
         { "Name": "App.LogLevel", "Value": appLogLevel },
@@ -1822,9 +1848,15 @@ export class IotPipelineComponent implements OnInit {
       ];
     }
 
+    if (deployerType == "OH") {
+      serviceType = "docker-oh";
+      image = "bigoyang/" + pipelineId + ":0.1.1";
+    }
+
     let pipelineFlow = {
       "ComponentType": "Service",
-      "ServiceType": "docker",
+            "ServiceType": serviceType,
+      "Image": image,
       "AirDescriptor": {
         "source": {},
         "logic": [],
@@ -1996,7 +2028,7 @@ export class IotPipelineComponent implements OnInit {
   validatePipeline() {
 
     let pipelineId = this.pipelineForm.get('uid').value;
-    let pipelineFlow = this.buildPipelineRequest();
+    let pipelineFlow = this.buildPipelineRequest(pipelineId);
 
     if (pipelineFlow != null) {
       this.flogoDeployService.validateF1(pipelineId, pipelineFlow)
@@ -2027,7 +2059,7 @@ export class IotPipelineComponent implements OnInit {
   deployPipeline() {
 
     let pipelineId = this.pipelineForm.get('uid').value;
-    let pipelineFlow = this.buildPipelineRequest();
+    let pipelineFlow = this.buildPipelineRequest(pipelineId);
 
     if (pipelineFlow != null) {
       this.flogoDeployService.deployF1(pipelineId, pipelineFlow)
@@ -2068,6 +2100,7 @@ export class IotPipelineComponent implements OnInit {
 
     let pipelineId = this.pipelineForm.get('uid').value;
     let deployType = this.pipelineForm.get('pipelineType').value;
+    let deployerType = this.pipelineForm.get('deployerType').value;
 
     let systemEnv = {};
 
@@ -2383,6 +2416,9 @@ export class IotPipelineComponent implements OnInit {
       properties: this.buildInferencingDeployProperties(contextObj)
     };
 
+    console.log("Deploy inferencingObj: ", inferencingObj);
+
+
     return inferencingObj;
 
   }
@@ -2412,9 +2448,33 @@ export class IotPipelineComponent implements OnInit {
       urlMapping.push(mapping);
 
     }
+    else if (platformDetails[0] == "tibco") {
+      if (platformDetails[1] == "audio_prediction") {
+
+        let data = {
+          "audio_signal": "@f1..value@",
+          "sampling_rate": 16000,
+          "audio_id": "@f1..id@"
+        }
+
+        let dataStr = JSON.stringify(data)
+
+        inferenceData = {
+          "Data": dataStr
+        }
+
+        let mapping = {
+          "Alias": "0",
+          "URL": contextObj.modelUrl
+        };
+        urlMapping.push(mapping);
+
+      }
+
+    }
 
 
-    let filterObj = [
+    let inferenceObj = [
       { "Name": "Logging.LogLevel", "Value": "INFO" },
       { "Name": "REST.Timeout", "Value": "10000" },
       { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
@@ -2422,7 +2482,7 @@ export class IotPipelineComponent implements OnInit {
       { "Name": "REST.URLMapping", "Value": JSON.stringify(urlMapping) }
     ];
 
-    return filterObj;
+    return inferenceObj;
   }
 
   buildStreamingDeployObj(contextObj): any {
@@ -2669,11 +2729,4 @@ export class IotPipelineComponent implements OnInit {
   }
 }
 
-function JsRenderPlugin(JsRenderPlugin: any) {
-  throw new Error('Function not implemented.');
-}
-
-function TaskPlugin(TaskPlugin: any) {
-  throw new Error('Function not implemented.');
-}
 
