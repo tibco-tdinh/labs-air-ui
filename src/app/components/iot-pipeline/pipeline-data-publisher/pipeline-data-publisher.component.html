@@ -24,7 +24,7 @@
                 <mat-tab-group style="width: 100%">
                     <mat-tab label="Protocol">
 
-                        <div fxLayout="row" style="width: 100%;" fxLayoutGap="15px">
+                        <div fxLayout="row" style="width: 100%;;padding-top: 10px" fxLayoutGap="15px">
                             <mat-form-field fxFlex="1 1 35%" appearance="outline">
                                 <mat-label>Protocols</mat-label>
                                 <mat-select formControlName="protocolId" (selectionChange)="onProtocolSelected($event)">
@@ -255,11 +255,15 @@
 
                     <mat-tab label="Content Options" [formGroup]="dataOptionsForm">
 
-                        <mat-checkbox fxFlex="1 1 25%" formControlName="useReading">Publish Reading
-                        </mat-checkbox>
-
-                        <mat-checkbox fxFlex="1 1 25%" formControlName="useEnrichedReading">Publish Enriched Reading
-                        </mat-checkbox>
+                        <div fxLayout="row" style="width: 100%;padding-top: 10px" fxLayoutGap="15px">
+                            <mat-checkbox fxFlex="1 1 25%" formControlName="useReading">Publish Reading
+                            </mat-checkbox>
+                        </div>
+                        
+                        <div fxLayout="row" style="width: 100%;padding-top: 10px" fxLayoutGap="15px">
+                            <mat-checkbox fxFlex="1 1 25%" formControlName="useEnrichedReading">Publish Enriched Reading
+                            </mat-checkbox>
+                        </div>
 
                     </mat-tab>
 
