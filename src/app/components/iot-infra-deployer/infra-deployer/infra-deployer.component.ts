@@ -1,12 +1,6 @@
-import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { SelectItem } from '../iot-infra-deployer.component';
-import { MatTableModule } from '@angular/material/table'
-import { DateFormat } from 'ng2-google-charts/lib/google-charts-datatable';
-import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { FlogoDeployService } from 'src/app/services/deployment/flogo-deploy.service';
@@ -271,12 +265,30 @@ export class InfraDeployerComponent implements OnInit {
 
   }
 
-  delete(rowid: number){
-    // if (rowid > -1) {
-    //   this.deployablesData.splice(rowid, 1);
-    //   this.deployablesData = [...this.deployablesData]; // new ref!
-    // }
+  delete(description, id){
+    let deleteRequest = {
+      "Description": description,
+       "IDs" : [id]
+      };
+      console.log("description",deleteRequest);
+      this.flogoDeployService.deleteInfra(deleteRequest)
+      .subscribe(res => {
+        console.log("Received deletion response: ", res);
+
+        let message = 'Success';
+        if (res == undefined || res.Success == false) {
+          message = 'Failure';
+        }
+
+        this._snackBar.open(message, "project deletion", {
+          duration: 3000,
+        });
+        this.getProjects();
+
+      });
+
   }
+  // http://localhost:8043/http://52.22.89.56:5408/f1/projectmgr/file/create/project/air11
   undeploy() { }
   
 }

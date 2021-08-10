@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px" style="height: 100%; overflow: auto;">
 
-  <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-between stretch" style="min-height: 250px;">
+  <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-between stretch" style="min-height: 250px; max-height: 500px; overflow: auto;" >
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -47,10 +47,10 @@
         <mat-header-cell *matHeaderCellDef>
         </mat-header-cell>
       
-        <mat-cell *matCellDef="let row; let i = inde;x">
-          <button mat-icon-button>
-            <mat-icon (click)="delete(i)">delete</mat-icon>
-          </button>
+        <mat-cell *matCellDef="let row; let i = index;">
+            <button mat-button (click)="delete(row.projectDescription,row.projectId)">
+              <mat-icon>delete</mat-icon>
+            </button>
         </mat-cell>
       </ng-container>
       
