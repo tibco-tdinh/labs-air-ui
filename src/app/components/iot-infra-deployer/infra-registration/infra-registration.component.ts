@@ -102,12 +102,6 @@ export class InfraRegistrationComponent implements OnInit {
             }
           }
         }
-<<<<<<< HEAD
-=======
-        else{
-          alert('enter a valid docker-compose file: add properties');
-        }
->>>>>>> b30b9cbef6d792c98cff33c76b875094af058861
       }
     }
     else{

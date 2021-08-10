@@ -180,38 +180,10 @@ export class FlogoDeployService {
         catchError(this.handleError<string>('undeployInfra'))
       );
   }
-  getProjects(): Observable<any> {
-  
-    const url = `/f1Endpoint/f1/projectmgr/file/list/project/001`;
-    ;
 
-    console.log("Calling getProjects with url:", url);
-
-    let request = {};
-    return this.http.post<string>(url, request, this.httpOptions)
-      .pipe(
-        tap(_ => console.log('Got Projects')),
-        catchError(this.handleError<string>('getProjects'))
-      );
-  }
   registerInfra(request, projectName): Observable<any> {
 
     const url = `/f1Endpoint/f1/projectmgr/file/create/project/${projectName}`;
-
-    console.log("Calling project with url:", url);
-    console.log("request: ", request);
-
-    return this.http.post<string>(url, request, this.httpOptions)
-      .pipe(
-        tap(_ => console.log('Registered Infra')),
-        catchError(this.handleError<string>('registerInfra'))
-      );
-  }
-
-
-  registerInfra(request, projectName): Observable<any> {
-
-    const url = `/f1endpoint/f1/projectmgr/file/create/project/${projectName}`;
 
     console.log("Calling project with url:", url);
     console.log("request: ", request);
