@@ -1,12 +1,24 @@
 .mat-form-field {
     font-size: 14px;
+<<<<<<< HEAD
     margin-right: 2%;
     width:100%}
 .mat-card{ 
+=======
+    display: inline-block;
+    margin-right: 2%;
+    width: 45%;
+}
+.mat-card{
+>>>>>>> b30b9cbef6d792c98cff33c76b875094af058861
     overflow: auto;
     height: 100%;
     padding-bottom: 1%;
 }
 .icon-display {
     transform: scale(2);
+<<<<<<< HEAD
  }
+=======
+ }
+>>>>>>> b30b9cbef6d792c98cff33c76b875094af058861

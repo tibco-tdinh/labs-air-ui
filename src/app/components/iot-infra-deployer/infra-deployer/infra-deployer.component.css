@@ -9,8 +9,14 @@ table {
 
 .mat-form-field {
   font-size: 14px;
+<<<<<<< HEAD
   margin-right: 5%;
   width: 100%;
+=======
+  display: inline-block;
+  margin-right: 5%;
+  width: 30%;
+>>>>>>> b30b9cbef6d792c98cff33c76b875094af058861
 }
 
   
