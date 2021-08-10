@@ -362,7 +362,7 @@ const PROXY_CONFIG = {
     "pathRewrite":{"^/airEndpoint" : ""}
   },
   "/f1Endpoint/*": {
-    "target": "http://54.81.13.248:5408",
+    "target": "http://localhost:8043/http://52.22.89.56:5408",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
