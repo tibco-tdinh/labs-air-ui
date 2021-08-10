@@ -177,6 +177,16 @@ export class FlogoDeployService {
         catchError(this.handleError<string>('undeployInfra'))
       );
   }
+  deleteInfra(request): Observable<any> {
+
+    const url = `${this.f1EndpointUrl}/f1/projectmgr/file/delete/project/001`;
+
+    return this.http.post<string>(url, request, this.httpOptions)
+      .pipe(
+        tap(_ => console.log('Delete Infra')),
+        catchError(this.handleError<string>('deleteInfra'))
+      );
+  }
 
   registerInfra(request, projectName): Observable<any> {
 
