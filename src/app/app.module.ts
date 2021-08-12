@@ -11,6 +11,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { StarterAppComponent } from './routes/starter-app/starter-app.component';
 import { SplashComponent } from './routes/splash/splash.component';
@@ -130,7 +131,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     IotEdgeDataPipelineComponent,
     FilteringComponent,
     InferencingComponent,
-    RulesComponent, 
+    RulesComponent,
     IotGatewayDashboardComponent,
     SpotfireDashboardComponent,
     IotInfraDeployerComponent,
@@ -165,7 +166,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       deps: [AppConfigService]
     },
     DatePipe,
-    { provide: GraphService, useClass: DgraphService }
+    { provide: GraphService, useClass: DgraphService },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
