@@ -202,18 +202,18 @@ export class IotPipelineComponent implements OnInit {
 
     const components = [
       new DataSubscriberComponent(),
+      new DataPublisherComponent(),
+      new DataStoreComponent(),
       new FiltersComponent(),
       new InferencingComponent(),
       new RulesComponent(),
-      new RuleExpressionComponent(),
       new StreamingComponent(),
+      new RuleExpressionComponent(),
+      new RestServiceComponent(),
       new ImageResizeComponent(),
-      new DataStoreComponent(),
-      new DataPublisherComponent(),
       new CustomPublisherComponent(),
       new NotificationPipeComponent(),
       new FlogoFlowComponent(),
-      new RestServiceComponent(),
       new ErrorHandlerComponent()
     ];
 
@@ -604,7 +604,9 @@ export class IotPipelineComponent implements OnInit {
     
     this.dataOptionsForm.patchValue({
       useReading: true,
+      encodeReadingValue: false,
       useEnrichedReading: false,
+      encodeEnrichedReadingValue: false,
     }, {emitEvent: true});
 
     // clear flogo app form
@@ -639,7 +641,9 @@ export class IotPipelineComponent implements OnInit {
 
     this.dataOptionsForm = this.formBuilder.group({
       useReading: [true],
-      useEnrichedReading: [false]
+      encodeReadingValue: [false],
+      useEnrichedReading: [false],
+      encodeEnrichedReadingValue: [false]
     });
 
     this.protocolForm = this.formBuilder.group({
@@ -808,11 +812,15 @@ export class IotPipelineComponent implements OnInit {
   buildNodeProtocolProperties(protocolForm: FormGroup, dataOptionsForm: FormGroup): any {
     let protocol = protocolForm.get('protocol').value;
     let useReading = true;
-    let useEnrichedReading = true;
+    let encodeReadingValue = false;
+    let useEnrichedReading = false;
+    let encodeEnrichedReadingValue = false;
 
     if (dataOptionsForm != null) {
       useReading = dataOptionsForm.get('useReading').value;
-      useEnrichedReading = dataOptionsForm.get('useEnrichedReading').value;      
+      encodeReadingValue = dataOptionsForm.get('encodeReadingValue').value;
+      useEnrichedReading = dataOptionsForm.get('useEnrichedReading').value;
+      encodeEnrichedReadingValue = dataOptionsForm.get('encodeEnrichedReadingValue').value;
     }
 
     let protocolObj = null;
@@ -821,7 +829,9 @@ export class IotPipelineComponent implements OnInit {
 
       protocolObj = {
         "useReading": useReading,
+        "encodeReadingValue": encodeReadingValue,
         "useEnrichedReading": useEnrichedReading,
+        "encodeEnrichedReadingValue": encodeEnrichedReadingValue,
         "protocol": protocolForm.get('protocol').value,
         "protocolId": protocolForm.get('protocolId').value,
         "logLevel": protocolForm.get('logLevel').value,
@@ -842,7 +852,9 @@ export class IotPipelineComponent implements OnInit {
 
       protocolObj = {
         "useReading": useReading,
+        "encodeReadingValue": encodeReadingValue,
         "useEnrichedReading": useEnrichedReading,
+        "encodeEnrichedReadingValue": encodeEnrichedReadingValue,
         "protocol": protocolForm.get('protocol').value,
         "protocolId": protocolForm.get('protocolId').value,
         "logLevel": protocolForm.get('logLevel').value,
@@ -871,7 +883,9 @@ export class IotPipelineComponent implements OnInit {
 
       protocolObj = {
         "useReading": useReading,
+        "encodeReadingValue": encodeReadingValue,
         "useEnrichedReading": useEnrichedReading,
+        "encodeEnrichedReadingValue": encodeEnrichedReadingValue,
         "protocol": protocolForm.get('protocol').value,
         "protocolId": protocolForm.get('protocolId').value,
         "logLevel": protocolForm.get('logLevel').value,
@@ -1129,7 +1143,9 @@ export class IotPipelineComponent implements OnInit {
     if (context != null || context != undefined) {
       this.dataOptionsForm.patchValue({
         useReading: context.useReading,
-        useEnrichedReading: context.useEnrichedReading
+        encodeReadingValue: context.encodeReadingValue,
+        useEnrichedReading: context.useEnrichedReading,
+        encodeEnrichedReadingValue: context.encodeEnrichedReadingValue
       });
     };
    }
@@ -1956,14 +1972,25 @@ export class IotPipelineComponent implements OnInit {
               }
 
               if (useEnrichedReading) {
-                let targetField =  {"Name": "Datastore.TargetField", "Value": "Inference.REST..Inferred"}
+                let targetField =  {"Name": "Datastore.TargetField", "Value": "Inference.REST..Inferred"};
                 pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flow.nodes[key].data.customdata, targetField));
               }
               
               break;
             }
             case "Data Publisher": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata));
+              let useReading = flow.nodes[key].data.customdata.useReading;
+              let useEnrichedReading = flow.nodes[key].data.customdata.useEnrichedReading;
+
+              if (useReading) {
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, null));
+              }
+              
+              if (useEnrichedReading) {
+                let targetField =  {"Name": "MQTTPub.TargetField", "Value": "Inference.REST..Inferred"}
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, targetField));
+              }
+
               break;
             }
             case "Custom Publisher": {
@@ -1973,7 +2000,7 @@ export class IotPipelineComponent implements OnInit {
             }
             case "Notification Pipe": {
               if (notificationSource == "Rules") {
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata));
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, null));
                 let pipeId = "Pipe_" + pos;
                 let ruleId = "Rule_" + notificationSourcePos;
                 let listener = {
@@ -1986,7 +2013,7 @@ export class IotPipelineComponent implements OnInit {
                 notificationSourcePos = pos;
                 pipelineFlow.AirDescriptor.logic.push(this.buildNotificationRuleDeployObj());
                 pos++;
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata));
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, null));
 
                 let pipeId = "Pipe_" + pos;
                 let ruleId = "Rule_" + notificationSourcePos;
@@ -2234,13 +2261,28 @@ export class IotPipelineComponent implements OnInit {
     return sourceObj;
   }
 
-  buildDataPublisherDeployObj(contextObj): any {
+  buildDataPublisherDeployObj(contextObj, targetField): any {
     // let pipeType = "Pipe." + contextObj.protocol + "2";
-    let pipeType = "Pipe." + contextObj.protocol + "_OLD";
+    let pipeType = "Pipe." + contextObj.protocol + "_FS";
     let pipeObj = {
       name: pipeType,
       properties: this.buildPublisherDeployProperties(contextObj)
     };
+
+    // Add custom target field to properties if provided.
+    // Target field is provided when publishing inferred values.
+    if (targetField != null) {
+      pipeObj.properties.push(targetField);
+      if (contextObj.encodeEnrichedReadingValue) {
+        pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
+      }    
+    }
+    // Regular publisher requires to know if encoding of value is required
+    else {
+      if (contextObj.encodeReadingValue) {
+        pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
+      }    
+    }
 
     return pipeObj;
   }
@@ -2253,7 +2295,7 @@ export class IotPipelineComponent implements OnInit {
       properties: this.buildPublisherDeployProperties(contextObj)
     };
 
-    pipeObj.properties.push({ "Name": "MQTTPub.PublishData", "Value": "@Inference.REST..Inferred@" });
+    pipeObj.properties.push({ "Name": "MQTTPub.PublishData", "Value": "Inference.REST..Inferred" });
 
     return pipeObj;
   }
@@ -2545,14 +2587,36 @@ export class IotPipelineComponent implements OnInit {
         urlMapping.push(mapping);
 
       }
+      else if (platformDetails[1] == "pattern_recognition") {
+
+        // inferenceData = {
+        //   "Data": "@f1..value@",
+        //   "id": "@f1..id@"
+        // };
+
+        let dataStr = `{"Data":"@f1..value@"}`
+
+        inferenceData = {
+          "Data": dataStr
+        };
+  
+        let mapping = {
+          "Alias": "0",
+          "URL": contextObj.modelUrl
+        };
+        urlMapping.push(mapping);
+
+      }
 
     }
 
 
+    let dataStr1 = `{"Data":"@f1..value@"}`
     let inferenceObj = [
       { "Name": "Logging.LogLevel", "Value": contextObj.logLevel },
       { "Name": "REST.Timeout", "Value": "20000" },
-      { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
+      // { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
+      { "Name": "REST.InferenceData", "Value":  dataStr1},
       { "Name": "REST.Conditions", "Value": JSON.stringify(contextObj.filters) },
       { "Name": "REST.URLMapping", "Value": JSON.stringify(urlMapping) }
     ];
