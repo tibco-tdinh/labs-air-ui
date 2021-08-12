@@ -358,6 +358,12 @@ export class TSReading {
   created: number;
 }
 
+export class TSCombinedReading {
+  value: string;
+  inferredValue: string;
+  created: number;
+}
+
 export class ChartTSData {
   x: string;
   y: number;
