@@ -112,8 +112,8 @@
                 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Port</mat-label>
-                                    <input matInput [readonly]=false formControlName="port" required minlength="4" maxlength="4">
-                                    <mat-error *ngIf="dataStoreForm.get('postgres.port').invalid">must be a 4 digit number</mat-error>
+                                    <input matInput [readonly]=false formControlName="port" required minlength="4" maxlength="5">
+                                    <mat-error *ngIf="dataStoreForm.get('postgres.port').invalid">The port must be between 4 and 5 digits</mat-error>
                                 </mat-form-field>
                 
                             </div>

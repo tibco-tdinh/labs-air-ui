@@ -106,28 +106,32 @@
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Name</mat-label>
                                     <input matInput [readonly]=false formControlName="uuid" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.uuid').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Hostname</mat-label>
                                     <input matInput [readonly]=false formControlName="hostname" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.hostname').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Port</mat-label>
-                                    <input matInput type="text" formControlName="port" required pattern="\d*" minlength="4" maxlength="4">
-                                    <mat-error *ngIf="protocolForm.get('mqtt.port').invalid">must be a 4 digit number</mat-error>
+                                    <input matInput type="text" formControlName="port" required pattern="\d*" minlength="2" maxlength="5">
+                                    <mat-error *ngIf="protocolForm.get('mqtt.port').invalid">The port must be between 2 and 5 digits</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Topic</mat-label>
                                     <input matInput [readonly]=false formControlName="topic" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.topic').invalid">This field is required</mat-error>
+
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Maximum QOS</mat-label>
-                                    <input matInput type="text" [readonly]=false formControlName="maximumQOS" required pattern="\d*" minlength="1" maxlength="1"> 
-                                    <mat-error *ngIf="protocolForm.get('mqtt.maximumQOS').invalid">must be one digit number</mat-error>
+                                    <input matInput type="number" [readonly]=false formControlName="maximumQOS" required min="0" max="4"> 
+                                    <mat-error *ngIf="protocolForm.get('mqtt.maximumQOS').invalid">must be between 0 and 4</mat-error>
 
                                 </mat-form-field>
 
@@ -149,32 +153,49 @@
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Username</mat-label>
                                     <input matInput [readonly]=false formControlName="username" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.username').invalid">This field is required</mat-error>
+
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Password</mat-label>
                                     <input matInput placeholder="Enter your password" [readonly]=false
                                         [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.password').invalid">This field is required</mat-error>
+
                                     <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                                         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!='None'"fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Certificate</mat-label>
-                                    <input matInput [readonly]=false formControlName="clientCertificate">
+                                    <input matInput [readonly]=false formControlName="clientCertificate" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.clientCertificate').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Key</mat-label>
-                                    <input matInput [readonly]=false formControlName="clientKey">
+                                    <input matInput [readonly]=false formControlName="clientKey" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.clientKey').invalid">This field is required</mat-error>
+
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>CA Certificate</mat-label>
-                                    <input matInput [readonly]=false formControlName="caCertificate">
+                                    <input matInput [readonly]=false formControlName="caCertificate" required>
+                                    <mat-error *ngIf="protocolForm.get('mqtt.caCertificate').invalid">This field is required</mat-error>
                                 </mat-form-field>
+                                <mat-card-actions>
+                                    <button mat-raised-button [disabled]="protocolForm.get('mqtt').invalid" (click)="addProtocol()"
+                                        color="primary">Add
+                                        Protocol</button>
+                                    <button mat-raised-button [disabled]="graphUpdateOpDisabled" (click)="updateProtocol()"
+                                        color="primary">Update Protocol</button>
+                                    <button mat-raised-button [disabled]="graphDeleteOpDisabled" (click)="deleteProtocol()"
+                                        color="primary">Remove Protocol</button>
+                                </mat-card-actions>
 
                             </div>
 
@@ -195,28 +216,35 @@
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Name</mat-label>
                                     <input matInput [readonly]=false formControlName="uuid" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.uuid').invalid">This field is required</mat-error>
+
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Hostname</mat-label>
                                     <input matInput [readonly]=false formControlName="hostname" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.hostname').invalid">This field is required</mat-error>
+
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Port</mat-label>
-                                    <input matInput [readonly]=false formControlName="port" required minlength="4" maxlength="4">
-                                    <mat-error *ngIf="protocolForm.get('kafka.port').invalid">must be a 4 digit number</mat-error>
+                                    <input matInput [readonly]=false formControlName="port" required minlength="2" maxlength="5">
+                                    <mat-error *ngIf="protocolForm.get('kafka.port').invalid">The port must be between 2 and 5 digits</mat-error>
 
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Topic</mat-label>
                                     <input matInput [readonly]=false formControlName="topic" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.topic').invalid">This field is required</mat-error>
+
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Consumer Group Id</mat-label>
                                     <input matInput [readonly]=false formControlName="consumerGroupId" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.consumerGroupId').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
 
@@ -291,32 +319,46 @@
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Username</mat-label>
                                     <input matInput [readonly]=false formControlName="username" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.username').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Password</mat-label>
                                     <input matInput placeholder="Enter your password" [readonly]=false
                                         [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+                                        <mat-error *ngIf="protocolForm.get('kafka.password').invalid">This field is required</mat-error>
                                     <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                                         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Certificate</mat-label>
-                                    <input matInput [readonly]=false formControlName="clientCertificate">
+                                    <input matInput [readonly]=false formControlName="clientCertificate" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.clientCertificate').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Key</mat-label>
-                                    <input matInput [readonly]=false formControlName="clientKey">
+                                    <input matInput [readonly]=false formControlName="clientKey" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.clientKey').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Server Certificate</mat-label>
-                                    <input matInput [readonly]=false formControlName="serverCertificate">
+                                    <input matInput [readonly]=false formControlName="serverCertificate" required>
+                                    <mat-error *ngIf="protocolForm.get('kafka.serverCertificate').invalid">This field is required</mat-error>
                                 </mat-form-field>
+                                <mat-card-actions>
+                                    <button mat-raised-button [disabled]="protocolForm.get('kafka').invalid" (click)="addProtocol()"
+                                        color="primary">Add
+                                        Protocol</button>
+                                    <button mat-raised-button [disabled]="graphUpdateOpDisabled" (click)="updateProtocol()"
+                                        color="primary">Update Protocol</button>
+                                    <button mat-raised-button [disabled]="graphDeleteOpDisabled" (click)="deleteProtocol()"
+                                        color="primary">Remove Protocol</button>
+                                </mat-card-actions>
 
                             </div>
 
@@ -346,8 +388,8 @@
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Port</mat-label>
-                                    <input matInput [readonly]=false formControlName="port" required minlength="4" maxlength="4">
-                                    <mat-error *ngIf="protocolForm.get('amqp.port').invalid">must be a 4 digit number</mat-error>
+                                    <input matInput [readonly]=false formControlName="port" required minlength="2" maxlength="5">
+                                    <mat-error *ngIf="protocolForm.get('amqp.port').invalid">The port must be between 2 and 5 digits</mat-error>
                                 </mat-form-field>
 
                             </div>
@@ -382,7 +424,7 @@
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Routing Key</mat-label>
-                                    <input matInput [readonly]=true formControlName="routingKey">
+                                    <input matInput [readonly]=true formControlName="routingKey" required>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
@@ -393,8 +435,17 @@
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Exchange Name</mat-label>
-                                    <input matInput [readonly]=false formControlName="exchangeName">
+                                    <input matInput [readonly]=false formControlName="exchangeName" required>
                                 </mat-form-field>
+                                <mat-card-actions>
+                                    <button mat-raised-button [disabled]="protocolForm.get('amqp').invalid" (click)="addProtocol()"
+                                        color="primary">Add
+                                        Protocol</button>
+                                    <button mat-raised-button [disabled]="graphUpdateOpDisabled" (click)="updateProtocol()"
+                                        color="primary">Update Protocol</button>
+                                    <button mat-raised-button [disabled]="graphDeleteOpDisabled" (click)="deleteProtocol()"
+                                        color="primary">Remove Protocol</button>
+                                </mat-card-actions>
 
                             </div>
 
@@ -402,7 +453,7 @@
 
                     </form>
                 </mat-card-content>
-                <mat-card-actions>
+                <!-- <mat-card-actions>
                     <button mat-raised-button [disabled]="graphAddOpDisabled" (click)="addProtocol()"
                         color="primary">Add
                         Protocol</button>
@@ -410,7 +461,7 @@
                         color="primary">Update Protocol</button>
                     <button mat-raised-button [disabled]="graphDeleteOpDisabled" (click)="deleteProtocol()"
                         color="primary">Remove Protocol</button>
-                </mat-card-actions>
+                </mat-card-actions> -->
             </mat-card>
         </div>
 
