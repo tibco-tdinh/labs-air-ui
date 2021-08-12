@@ -4,13 +4,13 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import {AuthService} from '../auth/auth.service';
-import { environment } from 'src/environments/environment';
+import { AppConfigService } from '../config/app-config.service';
 @Injectable({
   providedIn: 'root'
 })
 export class FlogoDeployService {
-  private f1EndpointUrl = environment.f1EndpointUrl;
-  private airEndpointUrl = environment.airEndpointUrl;
+  private lightcraneEndpointUrl = this.appConfigService.getFromConfigOrEnv("lightcraneEndpointUrl");
+  private airEndpointUrl = this.appConfigService.getFromConfigOrEnv("airEndpointUrl");
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -18,7 +18,7 @@ export class FlogoDeployService {
     })
   };
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService, private appConfigService: AppConfigService) {
     let basicAuthHeaders = authService.getBasicAuthHeaders();
     basicAuthHeaders.forEach((value, key) => { 
       this.httpOptions.headers = this.httpOptions.headers.append(key, value);
@@ -46,7 +46,7 @@ export class FlogoDeployService {
     // const url = `/edgex/remotegateway/http://52.22.89.56:5408/f1/air/validate/Air-account_00001/${pipelineId}`;
     // const url = `/edgex/remotegateway/http://3.228.65.62:5408/f1/air/buildAndDeploy/Air-account_00001/${pipelineId}`;
 
-    const url = `${this.f1EndpointUrl}/f1/air/validate/Air-account_00001/${pipelineId}`;
+    const url = `${this.lightcraneEndpointUrl}/f1/air/validate/Air-account_00001/${pipelineId}`;
 
     console.log("Calling validateF1 with url:", url);
 
@@ -67,7 +67,7 @@ export class FlogoDeployService {
     // const url = `/edgex/remotegateway/http://52.22.89.56:5408/f1/air/buildAndDeploy/Air-account_00001/${pipelineId}`;
     // const url = `/edgex/remotegateway/http://3.228.65.62:5408/f1/air/buildAndDeploy/Air-account_00001/${pipelineId}`;
 
-    const url = `${this.f1EndpointUrl}/f1/air/buildAndDeploy/Air-account_00001/${pipelineId}`;
+    const url = `${this.lightcraneEndpointUrl}/f1/air/buildAndDeploy/Air-account_00001/${pipelineId}`;
 
     console.log("Calling buildF1 with url:", url);
 
@@ -86,7 +86,7 @@ export class FlogoDeployService {
     // const url = `/edgex/remotegateway/http://52.22.89.56:5408/f1/air/undeploy/Air-account_00001/${pipelineId}/001`;
     // const url = `/edgex/remotegateway/http://3.228.65.62:5408/f1/air/undeploy/Air-account_00001/${pipelineId}/001`;
 
-    const url = `${this.f1EndpointUrl}/f1/air/undeploy/Air-account_00001/${pipelineId}/001`;
+    const url = `${this.lightcraneEndpointUrl}/f1/air/undeploy/Air-account_00001/${pipelineId}/001`;
 
     return this.http.post<string>(url, request, this.httpOptions)
       .pipe(
@@ -105,7 +105,7 @@ export class FlogoDeployService {
     // const url = `/edgex/remotegateway/http://52.22.89.56:5408/f1/air/flogo/properties`;
     // const url = `/edgex/remotegateway/http://3.228.65.62:5408/f1/air/flogo/properties`;
 
-    const url = `${this.f1EndpointUrl}/f1/air/flogo/properties`;
+    const url = `${this.lightcraneEndpointUrl}/f1/air/flogo/properties`;
 
     console.log("Calling getFlogoPropertiesF1 with url:", url);
     console.log("Calling getFlogoPropertiesF1 with request:", request);
@@ -141,7 +141,7 @@ export class FlogoDeployService {
 
   getProjects(): Observable<any> {
   
-    const url = `${this.f1EndpointUrl}/f1/projectmgr/file/list/project/001`;
+    const url = `${this.lightcraneEndpointUrl}/f1/projectmgr/file/list/project/001`;
 
     console.log("Calling getProjects with url:", url);
 
@@ -179,7 +179,7 @@ export class FlogoDeployService {
   }
   deleteInfra(request): Observable<any> {
 
-    const url = `${this.f1EndpointUrl}/f1/projectmgr/file/delete/project/001`;
+    const url = `${this.lightcraneEndpointUrl}/f1/projectmgr/file/delete/project/001`;
 
     return this.http.post<string>(url, request, this.httpOptions)
       .pipe(
@@ -190,7 +190,7 @@ export class FlogoDeployService {
 
   registerInfra(request, projectName): Observable<any> {
 
-    const url = `${this.f1EndpointUrl}/f1/projectmgr/file/create/project/${projectName}`;
+    const url = `${this.lightcraneEndpointUrl}/f1/projectmgr/file/create/project/${projectName}`;
 
     console.log("Calling project with url:", url);
     console.log("request: ", request);
