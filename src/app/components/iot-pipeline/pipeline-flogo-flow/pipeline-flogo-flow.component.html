@@ -1,4 +1,4 @@
-<mat-card fxFlex style="height: 100%;" [formGroup]="flogoFlowForm">
+<mat-card fxFlex style="height: 100%; box-shadow:none;" [formGroup]="flogoFlowForm">
 
     <mat-card-header>
         <mat-card-title>Flogo Flow Configuration</mat-card-title>
@@ -21,7 +21,7 @@
 
                                 <mat-toolbar>
                                     <!-- <mat-label style='font-size:100%;font-weight:normal'>Flogo Defition File</mat-label> -->
-                                    <input matInput !!(isDisabled$ | async) readonly placeholder="Select Flogo Definition File"
+                                    <input matInput [disabled] readonly placeholder="Select Flogo Definition File"
                                         style='font-size:70%;font-weight:normal' formControlName="flowFilename">
 
                                     <button mat-icon-button color="primary" (click)="fileUpload.click()">
@@ -33,7 +33,7 @@
 
                             <mat-form-field fxFlex="1 1 90%" appearance="outline">
                                 <mat-label>Flow Definition</mat-label>
-                                <textarea matInput !!(isDisabled$ | async) readonly formControlName="flowDefinition"></textarea>
+                                <textarea matInput [disabled] readonly formControlName="flowDefinition"></textarea>
                             </mat-form-field>
 
                         </div>
