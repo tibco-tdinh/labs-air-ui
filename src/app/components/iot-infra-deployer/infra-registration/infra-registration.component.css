@@ -12,3 +12,6 @@
 .icon-display {
     transform: scale(2);
  }
+ .file-input {
+    display: none;
+  }

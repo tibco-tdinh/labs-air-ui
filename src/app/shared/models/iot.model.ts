@@ -355,8 +355,14 @@ export class Notification {
 
 // TSReading - Time series reading.
 export class TSReading {
-  value: string = "";
-  created: number = 0;
+  value: string;
+  created: number;
+}
+
+export class TSCombinedReading {
+  value: string;
+  inferredValue: string;
+  created: number;
 }
 
 export class ChartTSData {

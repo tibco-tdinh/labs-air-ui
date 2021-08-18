@@ -2,7 +2,7 @@
 <div>
     <div>
         <mat-slide-toggle class='yeet' color="primary" [checked]="streaming" (change)="toggleChart()">
-            Switch to {{streaming ? 'Reading' : 'Streaming'}} History
+            Switch to {{streaming ? 'Reading History' : 'Streaming'}}
         </mat-slide-toggle>
     </div>
     <div *ngIf='!streaming' fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="space-around center center">

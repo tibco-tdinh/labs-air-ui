@@ -15,6 +15,7 @@ export interface SelectItem {
 export class PipelineDataPublisherComponent implements OnInit {
 
   @Input() dataPublisherForm: FormGroup;
+  @Input() dataOptionsForm: FormGroup;
 
   logLevels: SelectItem[] = [
     { value: 'INFO', viewValue: 'INFO' },

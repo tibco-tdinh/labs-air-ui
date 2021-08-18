@@ -109,7 +109,7 @@ export class DgraphService implements GraphService {
     return this.http.post<any>(url, query, httpOptions)
       .pipe(
         map(response => response.data.resp as Gateway[]),
-        // tap(response => console.log("Response from getGateway: ", response)),
+        tap(response => console.log("Response from getGateway: ", response)),
         catchError(this.handleError<Gateway[]>('getGateway', []))
       );
   }

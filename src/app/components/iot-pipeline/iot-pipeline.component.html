@@ -39,10 +39,10 @@
             <app-pipeline-inferencing *ngIf="inferencingConfig" #inferenceComponent [devices]="devices" [models]="models"
                 [modelForm]="modelForm" [filters]="filters" fxFlex></app-pipeline-inferencing>
         
-            <app-pipeline-data-store *ngIf="dataStoreConfig" [dataStoreForm]="dataStoreForm" fxFlex>
+            <app-pipeline-data-store *ngIf="dataStoreConfig" [dataStoreForm]="dataStoreForm" [dataOptionsForm]="dataOptionsForm" fxFlex>
             </app-pipeline-data-store>
-        
-            <app-pipeline-data-publisher *ngIf="dataPublisherConfig" [dataPublisherForm]="protocolForm" fxFlex>
+    
+            <app-pipeline-data-publisher *ngIf="dataPublisherConfig" [dataPublisherForm]="protocolForm"  [dataOptionsForm]="dataOptionsForm" fxFlex>
             </app-pipeline-data-publisher>
         
             <app-pipeline-streaming *ngIf="streamingConfig" [streamingForm]="streamingForm" [devices]="devices" fxFlex>

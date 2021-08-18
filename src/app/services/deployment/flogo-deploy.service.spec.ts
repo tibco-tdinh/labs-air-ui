@@ -9,4 +9,6 @@ describe('FlogoDeployService', () => {
     const service: FlogoDeployService = TestBed.get(FlogoDeployService);
     expect(service).toBeTruthy();
   });
+  
+  //expect registration to be success
 });

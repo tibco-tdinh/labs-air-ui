@@ -94,7 +94,9 @@ export class InfraDeployerComponent implements OnInit {
     this.deployableSelection.clear();
 
     this.createForm();
-
+/*
+get the projects for the deployable table
+*/
     this.getProjects();
   }
 
@@ -178,6 +180,9 @@ export class InfraDeployerComponent implements OnInit {
 
   }
 
+  /*
+  show the row values
+  */
   deployableSelected(row) {
 
     console.log("Row selected: ", row);
@@ -248,22 +253,26 @@ export class InfraDeployerComponent implements OnInit {
     console.log("DeployRequest: ", deployRequest);
     console.log("Deploy Request string: ", JSON.stringify(deployRequest));
     
-    // this.flogoDeployService.deployInfra(deployRequest)
-    //   .subscribe(res => {
-    //     console.log("Received Deployment response: ", res);
+    this.flogoDeployService.deployInfra(deployRequest)
+      .subscribe(res => {
+        console.log("Received Deployment response: ", res);
 
-    //     let message = 'Success';
-    //     if (res == undefined || res.Success == false) {
-    //       message = 'Failure';
-    //     }
+        let message = 'Success';
+        if (res == undefined || res.Success == false) {
+          message = 'Failure';
+        }
 
-    //     this._snackBar.open(message, "Deploy Infrastructure", {
-    //       duration: 3000,
-    //     });
+        this._snackBar.open(message, "Deploy Infrastructure", {
+          duration: 3000,
+        });
 
-    //   });
+      });
 
   }
+
+  /*
+  delete project
+  */
 
   delete(description, id){
     let deleteRequest = {
@@ -289,7 +298,44 @@ export class InfraDeployerComponent implements OnInit {
 
   }
   // http://localhost:8043/http://52.22.89.56:5408/f1/projectmgr/file/create/project/air11
-  undeploy() { }
+  /*
+  undeploy project
+  */
+  undeploy() { 
+    // let systemEnv = {
+    //   "TargetServer": this.deployableForm.get('targetServer').value,
+    //   "Username": this.deployableForm.get('username').value,
+    //   "Artifacts": "/home/ubuntu/loss-detection-app",
+    //   "Platform": this.deployableForm.get('platform').value,
+    //   "DeployConstrains": this.deployableForm.get('deployConstraints').value,
+    //   "ServiceProperties": this.deployableForm.get('serviceProperties').value,
+    // };
+
+    // let undeployRequest = {
+
+    //   "Method": "Script",
+    //   "NoF1Descriptor": true,
+    //   "ScriptSystemEnv": systemEnv,
+    //   "UserDefinedParameters": {}
+    // };
+
+    // console.log("UndeployRequest: ", undeployRequest);
+
+    // this.flogoDeployService.undeployInfra(undeployRequest)
+    //   .subscribe(res => {
+    //     console.log("Received Undeploy response: ", res);
+
+    //     let message = 'Success';
+    //     if (res == undefined || res.Success == false) {
+    //       message = 'Failure';
+    //     }
+
+    //     this._snackBar.open(message, "Undeploy Infra", {
+    //       duration: 3000,
+    //     });
+
+    //   });
+  }
   
 }
 

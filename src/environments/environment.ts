@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  dgraphUrl: 'http://aabb11c6743aa43cca1a5919f31e0cae-740215406.us-west-2.elb.amazonaws.com/dgraph-alpha-http',
+  dgraphUrl: 'http://a810bf34250614537b70a9076266fc1b-801809582.us-west-2.elb.amazonaws.com/dgraph-alpha-http',
   dgraphBasicAuthEnabled: true,
   dgraphBasicAuth: 'Basic YWRtaW46YWRtaW4=',
   f1EndpointUrl: 'http://localhost:8043/http://52.22.89.56:5408',
-  airEndpointUrl: 'http://a9e7d15a4eabe4be0993cd229f6fece7-1580069592.us-west-2.elb.amazonaws.com',
+  airEndpointUrl: 'http://a810bf34250614537b70a9076266fc1b-801809582.us-west-2.elb.amazonaws.com',
   remoteGatewayUrl: 'http://localhost:8043',
   localGatewayUrl: 'https://localhost:8443'
 };

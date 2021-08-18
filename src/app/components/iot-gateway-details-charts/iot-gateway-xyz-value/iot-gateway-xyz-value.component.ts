@@ -1,22 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Subscription } from 'rxjs';
-import { Device, Resource, TSReading } from 'src/app/shared/models/iot.model';
+import { Device, Resource, TSReading, TSCombinedReading } from 'src/app/shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-iot-gateway-xyz-value',
   templateUrl: './iot-gateway-xyz-value.component.html',
   styleUrls: ['./iot-gateway-xyz-value.component.css']
 })
-export class IotGatewayXyzValueComponent implements OnInit, OnDestroy {
-  device: Device = new Device;
-  instrument: Resource = new Resource;
+export class IotGatewayXyzValueComponent implements OnInit, OnDestroy, AfterViewInit {
+  device: Device;
+  instrument: Resource;
   subscriptions: Subscription[] = []
-  resourceReadings: TSReading[] = [];
-  resourceInferredReadings: TSReading[] = []
+  resourceReadings = [];
+  resourceInferredReadings = []
+  resourceCombinedReadings: TSCombinedReading[] = []
   numReadings = 1;
-  public inferredXYZData = ""
-
+  inferredXYZData = ""
+  streaming = false;
+  displayedColumns = ['created', 'inferredValue']
+  dateFormat = 'yyyy-MM-dd HH:mm:ss'
+  tableDataSource = new MatTableDataSource<TSCombinedReading>();
+  combinedReadingSelection = new SelectionModel<TSCombinedReading>(false, []);
+  queryForm: FormGroup;
+  queryLastValuesDisabled = true;
+  inferredImageData:any;
+  queryByDateDisabled = true;
 
   heatmapRefWidth = 45
   heatmapRefHeight = 27
@@ -27,9 +40,11 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy {
   heatmapConfig = {
     radius: 1
   }
-  heatmapData: {} = {
+  heatmapData = {
     max: 5, data: []
   };
+
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private graphService: GraphService) { }
 
@@ -41,11 +56,176 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public setXYZHeatmapDataSet() {
+  ngAfterViewInit(): void {
+    this.tableDataSource.sort = this.sort;
+  }
 
-    var xyzData: {}[] = [];
+  startDateEvent(event){}
 
-    var objstr = atob(this.resourceReadings[0].value)
+  endDateEvent(event){}
+
+  onQueryByDateClicked(){}
+
+  getReadings() {
+    this.combinedReadingSelection.clear();
+
+    this.graphService.getReadings(this.device.name, this.instrument.name, 300)
+      .subscribe(res => {
+        this.resourceReadings = res as TSReading[];
+
+        console.log("GetReadings Resource: ", this.resourceReadings);
+        
+
+        if (this.resourceReadings.length > 0) {
+          this.getResourceInferredReadings(this.device.name, this.instrument.name + "_Inferred", this.resourceReadings.length)
+        }
+      });
+  }
+
+  getResourceInferredReadings(deviceName, resourceName, numReadings) {
+    this.graphService.getReadings(deviceName, resourceName, numReadings)
+      .subscribe(res => {
+        this.resourceInferredReadings = res as TSReading[];
+
+        console.log("GetReadings Resource Inferred: ", this.resourceInferredReadings);
+        
+
+        this.setResourceCombinedReadings();
+
+      })
+  }
+
+  getStreamingReadings() {
+    this.subscriptions.push(this.graphService.getReadings(this.device.name, this.instrument.name, 1)
+      .subscribe(res => {
+        this.resourceReadings = res as TSReading[];
+
+        if (this.resourceReadings.length > 0) {
+          this.getStreamingResourceInferredReadings(this.device.name, this.instrument.name + "_Inferred", 1, this.resourceReadings[0].created)
+          this.setStreamingXYZData();
+        }
+      }));
+  }
+
+  getStreamingResourceInferredReadings(deviceName, resourceName, numReadings, ts) {
+    this.subscriptions.push(this.graphService.getReadingsAt(deviceName, resourceName, ts)
+      .subscribe(res => {
+        this.resourceInferredReadings = res as TSReading[];
+        this.inferredXYZData = ""
+        this.setStreamingInferredXYZData();
+      }));
+  }
+
+  toggleChart() {
+    // Remove subscription when going from streaming to non-streaming
+    // Add subscribtion when going from non-streaming to streaming by calling
+    // getStreamingReading
+    if (this.streaming) {
+      this.subscriptions.forEach(sub => sub.unsubscribe());
+      this.getReadings();
+    }
+    else {
+      this.getStreamingReadings();
+    }
+
+    this.streaming = !this.streaming;
+  }
+
+  setResourceCombinedReadings() {
+    this.resourceCombinedReadings = [];
+
+    this.resourceReadings.forEach(
+      reading => {
+        this.resourceCombinedReadings.push({
+          created: reading.created,
+          value: reading.value,
+          inferredValue: "N/A"
+        })
+      }
+    );
+
+    this.resourceCombinedReadings.forEach(
+      reading => {
+
+        for (var i = 0; i < this.resourceInferredReadings.length; i++) {
+          if (reading.created == this.resourceInferredReadings[i].created) {
+            reading.inferredValue = this.resourceInferredReadings[i].value;
+            break;
+          }
+        }
+      }
+    );
+
+    console.log("Combined Readings: ", this.resourceCombinedReadings);
+
+
+    this.tableDataSource.data = this.resourceCombinedReadings;
+
+    let numReadings = this.resourceCombinedReadings.length;
+    if (numReadings > 0) {
+      this.dataSelected(this.resourceCombinedReadings[numReadings - 1]);
+
+      console.log("Selecting first row: ", this.resourceCombinedReadings[numReadings - 1]);
+
+    }
+  }
+
+  dataSelected(row) {
+    console.log('Row clicked: ', row);
+
+    this.combinedReadingSelection.select(row);
+
+    this.setXYZHeatmapDataSet(row);
+
+    this.setInferredXYZData(row);
+  }
+
+  setInferredXYZData(row) {
+
+    console.log("Setting inferred xyz data", row);
+    
+    this.inferredXYZData = row.inferredValue;
+
+    if (this.isBase64(row.inferredValue)) {
+      console.log("value is base64");
+      
+      this.inferredXYZData = atob(row.inferredValue);
+    }
+    else {
+      console.log("Value is not base64");
+      
+    }
+
+  }
+
+  setStreamingXYZData() {
+    this.setXYZHeatmapDataSet(this.resourceReadings[0])
+  }
+
+  public setStreamingInferredXYZData() {
+    if (this.resourceInferredReadings.length > 0) {
+      if (this.isBase64(this.resourceInferredReadings[0].value)) {
+        this.inferredXYZData = atob(this.resourceInferredReadings[0].value)
+      }
+      else {
+        this.inferredXYZData = this.resourceInferredReadings[0].value;
+      }
+    }
+    else {
+      this.inferredXYZData = ""
+    }
+  }
+
+  public setXYZHeatmapDataSet(combinedReading) {
+
+    console.log("setXYZHeatmapDataSet: ", combinedReading);
+    
+    var xyzData = [];
+
+    // var objstr = atob(this.resourceReadings[0].value)
+    var objstr = atob(combinedReading.value)
+
+    console.log("Value after atob: ", objstr);
 
     // console.log("Object str: ", objstr);
 
@@ -60,7 +240,7 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy {
 
     // console.log("Object json: ", obj);
     obj.readings.forEach(
-      (      reading: { measurement: number; }) => {
+      reading => {
 
 
         maxVal = Math.max(maxVal, reading.measurement);
@@ -72,7 +252,7 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy {
 
 
     obj.readings.forEach(
-      (      reading: { measurement: number; diex: any; diey: any; }) => {
+      reading => {
         // var val = Math.floor(reading.measurement*1000000000);
         var val = reading.measurement;
         // if (reading.measurement > 0)
@@ -101,36 +281,18 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy {
     };
   }
 
-  scaleValue(value: number, from: number[], to: number[]) {
+  scaleValue(value, from, to) {
     var scale = (to[1] - to[0]) / (from[1] - from[0]);
     var capped = Math.min(from[1], Math.max(from[0], value)) - from[0];
     return ~~(capped * scale + to[0]);
   }
 
-  getReadings() {
-    this.graphService.getReadings(this.device.name, this.instrument.name, 300)
-      .subscribe(res => {
-        this.resourceReadings = res as TSReading[];
-        this.getResourceInferredReadings(this.device.name, this.instrument.name + "_Inferred", this.numReadings, this.resourceReadings[0].created)
-        this.setXYZHeatmapDataSet();
-      })
-  }
 
-  getResourceInferredReadings(deviceName: string, resourceName: string, numReadings: number, ts: number) {
-    this.graphService.getReadingsAt(deviceName, resourceName, ts)
-    .subscribe(res => {
-      this.resourceInferredReadings = res as TSReading[];
-      this.inferredXYZData = ""
-      this.setInferredXYZData();
-    })
-  }
 
-  setInferredXYZData() {
-    if (this.resourceInferredReadings.length > 0) {
-      this.inferredXYZData = this.resourceInferredReadings[0].value;
-    }
-    else {
-      this.inferredXYZData = ""
-    }
+  // var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+
+  isBase64(encodedString) {
+    var regexBase64 = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+    return regexBase64.test(encodedString);   // return TRUE if its base64 string.
   }
 }
