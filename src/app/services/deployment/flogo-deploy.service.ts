@@ -145,7 +145,7 @@ export class FlogoDeployService {
 
   getProjects(): Observable<any> {
   
-    const url = `/f1endpoint/f1/projectmgr/file/list/project/001`;
+    const url = `/f1Endpoint/f1/projectmgr/file/list/project/001`;
 
     console.log("Calling getProjects with url:", url);
 
@@ -157,11 +157,12 @@ export class FlogoDeployService {
       );
   }
 
-  deployInfra(request): Observable<any> {
+  deployInfra(projectName, serviceName, request): Observable<any> {
 
-    const url = `/f1Endpoint/f1/deployer/deploy/Air_ORRA_RTSF/orra_rtsf/001`;
+    // const url = `/f1Endpoint/f1/deployer/deploy/Air_ORRA_RTSF/orra_rtsf/001`;
+    const url = `/f1Endpoint/f1/deployer/deploy/${projectName}/${serviceName}/001`;
 
-    console.log("Calling buildF1 with url:", url);
+    console.log("Calling deployInfra with url:", url);
 
     return this.http.post<string>(url, request, this.httpOptions)
       .pipe(
@@ -170,9 +171,11 @@ export class FlogoDeployService {
       );
   }
 
-  undeployInfra(request): Observable<any> {
+  undeployInfra(projectName, serviceName, request): Observable<any> {
 
-    const url = `/f1Endpoint/f1/deployer/undeploy/Air_ORRA_RTSF/orra_rtsf/001`;
+    const url = `/f1Endpoint/f1/deployer/undeploy/${projectName}/${serviceName}/001`;
+
+    console.log("Calling undeployInfra with url:", url);
 
     return this.http.post<string>(url, request, this.httpOptions)
       .pipe(
