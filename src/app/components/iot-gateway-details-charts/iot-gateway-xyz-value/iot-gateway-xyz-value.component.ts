@@ -155,9 +155,6 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy, AfterView
     let numReadings = this.resourceCombinedReadings.length;
     if (numReadings > 0) {
       this.dataSelected(this.resourceCombinedReadings[numReadings - 1]);
-
-      console.log("Selecting first row: ", this.resourceCombinedReadings[numReadings - 1]);
-
     }
   }
 
@@ -177,10 +174,16 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy, AfterView
     
     this.inferredXYZData = row.inferredValue;
 
+    console.log("Value set to inferredXYZData: ", row.inferredValue);
+    
+
     if (this.isBase64(row.inferredValue)) {
       console.log("value is base64");
       
       this.inferredXYZData = atob(row.inferredValue);
+
+      console.log("Inferred value set to: ", this.inferredXYZData);
+      
     }
     else {
       console.log("Value is not base64");
