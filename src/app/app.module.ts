@@ -102,6 +102,7 @@ import { PipelineDataPublisherComponent } from './components/iot-pipeline/pipeli
 import { IotInfraDeployerComponent } from './components/iot-infra-deployer/iot-infra-deployer.component';
 import { InfraRegistrationComponent } from './components/iot-infra-deployer/infra-registration/infra-registration.component';
 import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-deployer/infra-deployer.component';
+import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-dialog/single-value-dialog.component';
 
 /** This is the tc core configuration object
  * To use oauth you must also add the OAuthInterceptor to providers
@@ -202,7 +203,8 @@ const tcCoreConfig: TcCoreConfig = {
     PipelineDataPublisherComponent,
     IotInfraDeployerComponent,
     InfraRegistrationComponent,
-    InfraDeployerComponent
+    InfraDeployerComponent,
+    SingleValueDialogComponent
   ],
   imports: [
     AppRoutingModule,
