@@ -1,11 +1,30 @@
 <div class="defect-action">
-  <button mat-raised-button color="primary" (click)="handleAction('*')">All</button>
-  <button mat-raised-button color="primary" (click)="handleAction('missing_pick')">Missing Pick</button>
-  <button mat-raised-button color="primary" (click)="handleAction('selvedge')">Selvedge</button>
-  <button mat-raised-button color="primary" (click)="handleAction('hole')">Hole</button>
-  <button mat-raised-button color="primary" (click)="handleAction('stain')">Stain</button>
-  <button mat-raised-button color="primary" (click)="handleAction('color_flecks')">Color Fleck</button>
-  <button mat-raised-button color="primary" (click)="handleAction('good')">Good</button>
+  <button mat-raised-button color="primary" (click)="handleAction('*')">
+    All
+  </button>
+  <button mat-raised-button color="primary" (click)="handleAction('missing_pick')">
+    Missing Pick
+    <img src="/assets/img/simulator/missing-pick.png">
+  </button>
+  <button mat-raised-button color="primary" (click)="handleAction('selvedge')">
+    Selvedge
+    <img src="/assets/img/simulator/selvedge.png">
+  </button>
+  <button mat-raised-button color="primary" (click)="handleAction('hole')">
+    Hole
+    <img src="/assets/img/simulator/hole.png">
+  </button>
+  <button mat-raised-button color="primary" (click)="handleAction('stain')">
+    Stain
+    <img src="/assets/img/simulator/stain.png">
+  </button>
+  <button mat-raised-button color="primary" (click)="handleAction('color_flecks')">
+    Color Fleck
+    <img src="/assets/img/simulator/color-flecks.png">
+  </button>
+  <button mat-raised-button color="primary" (click)="handleAction('good')">
+    Good
+  </button>
 </div>
 <div class="iot-textile-simulator">
   <div (click)="playVideo()">

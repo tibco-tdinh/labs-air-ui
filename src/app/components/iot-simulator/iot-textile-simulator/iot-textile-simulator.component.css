@@ -9,3 +9,13 @@
 .defect-action button{
   margin: 14px;
 }
+
+button img {
+  display: none;
+}
+
+button:hover img {
+  display: block;
+  position: absolute;
+  z-index: 99;
+}
