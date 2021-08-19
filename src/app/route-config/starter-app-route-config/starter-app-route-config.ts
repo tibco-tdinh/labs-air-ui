@@ -21,7 +21,7 @@ import {IotMlModelsComponent} from '../../components/iot-ml-models/iot-ml-models
 import {TceRulesComponent} from '../../components/tce-rules/tce-rules.component'
 import {IotGatewayDetailsComponent} from '../../components/iot-gateway-details/iot-gateway-details.component'
 import {IotNotificationsComponent} from '../../components/iot-notifications/iot-notifications.component';
-import { IotSimulatorComponent } from 'src/app/components/iot-simulator/iot-simulator.component';
+import { IotStoreSimulatorComponent } from 'src/app/components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
 import {LiveAppsComponent} from '../../components/live-apps/live-apps.component';
 import {
   ConfigurationMenuConfigResolver,
@@ -45,6 +45,7 @@ import {CaseComponent} from '../../routes/case/case.component';
 import {ConfigurationComponent} from '../../routes/configuration/configuration.component';
 import {CONFIGURATION_ROUTE_CONFIG, CONFIGURATION_ROUTE_PROVIDERS } from './configuration-route-config/configuration-route-config';
 import {CustomFormDefs, FormResolver} from '@tibco-tcstk/tc-forms-lib';
+import { IotTextileSimulatorComponent } from 'src/app/components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
 
 export const HOME_ROUTE = 'splash';
 
@@ -376,8 +377,22 @@ export const STARTER_APP_ROUTES =
         data: { breadcrumb: ['Gateways','Devices','Devices']}
       },
       {
-        path: 'simulator',
-        component: IotSimulatorComponent,
+        path: 'store-simulator',
+        component: IotStoreSimulatorComponent,
+        canActivate: [AuthGuard],
+        resolve: {
+          laConfigHolder: LaConfigResolver,
+          claims: ClaimsResolver,
+          groups: GroupsResolver,
+          roles: RolesResolver,
+          access: AccessResolver,
+          customFormDefs: FormResolver
+        },
+        data: { breadcrumb: ['Gateways'] }
+      },
+      {
+        path: 'textile-simulator',
+        component: IotTextileSimulatorComponent,
         canActivate: [AuthGuard],
         resolve: {
           laConfigHolder: LaConfigResolver,

@@ -1,0 +1,14 @@
+<div class="defect-action">
+  <button mat-raised-button color="primary" (click)="handleAction('*')">All</button>
+  <button mat-raised-button color="primary" (click)="handleAction('missing_pick')">Missing Pick</button>
+  <button mat-raised-button color="primary" (click)="handleAction('selvedge')">Selvedge</button>
+  <button mat-raised-button color="primary" (click)="handleAction('hole')">Hole</button>
+  <button mat-raised-button color="primary" (click)="handleAction('stain')">Stain</button>
+  <button mat-raised-button color="primary" (click)="handleAction('color_flecks')">Color Fleck</button>
+  <button mat-raised-button color="primary" (click)="handleAction('good')">Good</button>
+</div>
+<div class="iot-textile-simulator">
+  <div (click)="playVideo()">
+    <video width="400" height="300" src="/assets/video/textile.mp4" controls></video>
+  </div>
+</div>

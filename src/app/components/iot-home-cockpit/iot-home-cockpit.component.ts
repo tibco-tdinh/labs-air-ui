@@ -25,7 +25,7 @@ export class IotHomeCockpitComponent extends LiveAppsHomeCockpitComponent {
             route: '/starterApp/home/iotdashboard',
             title: 'IoT Dashboard',
             custom: true
-        }, 
+        },
         {
             icon: 'gateway',
             route: '/starterApp/home/gateway',
@@ -74,16 +74,22 @@ export class IotHomeCockpitComponent extends LiveAppsHomeCockpitComponent {
         },
         {
             icon: 'rules',
-            route: '/starterApp/home/simulator',
-            title: 'Simulator',
+            route: '/starterApp/home/store-simulator',
+            title: 'Store Simulator',
             custom: true
-        },        
+        },
+        {
+          icon: 'rules',
+          route: '/starterApp/home/textile-simulator',
+          title: 'Textile Simulator',
+          custom: true
+      },
         // {
         //     icon: 'rules',
         //     route: '/starterApp/home/tcerules',
         //     title: 'Cloud Rules',
         //     custom: true
-        // }, 
+        // },
         {
             icon: 'instrumenthistory',
             route: '/starterApp/home/notifications',
@@ -95,7 +101,7 @@ export class IotHomeCockpitComponent extends LiveAppsHomeCockpitComponent {
         //     route: '/starterApp/home/casemanagement',
         //     title: 'Case Management',
         //     custom: false
-        // }, 
+        // },
         // {
         //     icon: 'settings',
         //     route: 'sales/leads',

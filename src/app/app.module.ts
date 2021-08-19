@@ -95,7 +95,8 @@ import { IotGatewayDescriptionsComponent } from './components/iot-gateway-detail
 import { PipelineFlogoFlowComponent } from './components/iot-pipeline/pipeline-flogo-flow/pipeline-flogo-flow.component';
 import { IotGatewayTextComponent } from './components/iot-gateway-details-charts/iot-gateway-text/iot-gateway-text.component';
 import { PipelineRestServiceComponent } from './components/iot-pipeline/pipeline-rest-service/pipeline-rest-service.component';
-import { IotSimulatorComponent } from './components/iot-simulator/iot-simulator.component';
+import { IotStoreSimulatorComponent } from './components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
+import { IotTextileSimulatorComponent } from './components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
 import { PipelineRuleExpressionComponent } from './components/iot-pipeline/pipeline-rule-expression/pipeline-rule-expression.component';
 import { PipelineDataSubscriberComponent } from './components/iot-pipeline/pipeline-data-subscriber/pipeline-data-subscriber.component';
 import { PipelineDataPublisherComponent } from './components/iot-pipeline/pipeline-data-publisher/pipeline-data-publisher.component';
@@ -196,7 +197,8 @@ const tcCoreConfig: TcCoreConfig = {
     PipelineFlogoFlowComponent,
     IotGatewayTextComponent,
     PipelineRestServiceComponent,
-    IotSimulatorComponent,
+    IotStoreSimulatorComponent,
+    IotTextileSimulatorComponent,
     PipelineRuleExpressionComponent,
     PipelineDataSubscriberComponent,
     PipelineDataPublisherComponent,
@@ -222,7 +224,7 @@ const tcCoreConfig: TcCoreConfig = {
     SpotfireViewerModule,
     HttpClientModule,
     NgxHeatmapModule
-  ],
+    ],
   providers: [
     LogService,
     DatePipe,

@@ -1,0 +1,11 @@
+.iot-textile-simulator {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 24px;
+  justify-content: space-between;
+}
+
+.defect-action button{
+  margin: 14px;
+}
