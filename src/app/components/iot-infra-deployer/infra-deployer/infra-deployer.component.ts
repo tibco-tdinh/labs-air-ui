@@ -104,6 +104,7 @@ get the projects for the deployable table
   createForm() {
     console.log("Creating form");
     this.deployableForm = this.formBuilder.group({
+      projectName: ['', Validators.required],
       deployConstraints: ['', Validators.required],
       deployable: ['', Validators.required],
       method: ['', Validators.required],
@@ -199,8 +200,10 @@ get the projects for the deployable table
     }
 
     this.deployableForm.patchValue({
+      projectName: row.projectName,
       deployConstraints: row.operations.deploy.DeployConstrains,
-      deployable: row.operations.deploy.Deployable,
+      // deployable: row.operations.deploy.Deployable,
+      deployable: row.name,
       method: row.operations.deploy.Method,
       noF1Descriptor: row.operations.deploy.NoF1Descriptor,
       platform: row.operations.deploy.Platform,
@@ -212,18 +215,22 @@ get the projects for the deployable table
 
 
   }
-
+ /*
+  delploy a project
+  */
   deploy() {
 
     let deployerType = 'OH';
 
     let systemEnv = {
-      "TargetServer": this.deployableForm.get('targetServer').value,
+      "DeployType": "docker-oh",
+      // "TargetServer": this.deployableForm.get('targetServer').value,
+      "TargetServer": "http://100.25.140.175:3090/v1",
       "Username": this.deployableForm.get('username').value,
-      "Artifacts": "/home/ubuntu/loss-detection-app",
-      "Platform": this.deployableForm.get('platform').value,
       "DeployConstrains": this.deployableForm.get('deployConstraints').value,
       "ServiceProperties": this.deployableForm.get('serviceProperties').value,
+      "Platform": this.deployableForm.get('platform').value,
+      "Artifacts": "/home/ubuntu/loss-detection-app",
     };
     
     // Build dynamic parameters
@@ -245,7 +252,8 @@ get the projects for the deployable table
     let deployRequest = {
 
       "Method": this.deployableForm.get('method').value,
-      "NoF1Descriptor": this.deployableForm.get('noF1Descriptor').value,
+      // "NoF1Descriptor": this.deployableForm.get('noF1Descriptor').value,
+      "NoF1Descriptor": true,
       "ScriptSystemEnv": systemEnv,
       "UserDefinedParameters": {}
     };
@@ -253,7 +261,9 @@ get the projects for the deployable table
     console.log("DeployRequest: ", deployRequest);
     console.log("Deploy Request string: ", JSON.stringify(deployRequest));
     
-    this.flogoDeployService.deployInfra(deployRequest)
+    let projectName = this.deployableForm.get('projectName').value;
+    let serviceName = this.deployableForm.get('deployable').value;
+    this.flogoDeployService.deployInfra(projectName, serviceName, deployRequest)
       .subscribe(res => {
         console.log("Received Deployment response: ", res);
 
@@ -301,40 +311,41 @@ get the projects for the deployable table
   /*
   undeploy project
   */
-  undeploy() { 
-    // let systemEnv = {
-    //   "TargetServer": this.deployableForm.get('targetServer').value,
-    //   "Username": this.deployableForm.get('username').value,
-    //   "Artifacts": "/home/ubuntu/loss-detection-app",
-    //   "Platform": this.deployableForm.get('platform').value,
-    //   "DeployConstrains": this.deployableForm.get('deployConstraints').value,
-    //   "ServiceProperties": this.deployableForm.get('serviceProperties').value,
-    // };
+  undeploy() {
+    let systemEnv = {
+      "DeployType": "docker-oh",
+      // "TargetServer": this.deployableForm.get('deployerURL').value,
+      "TargetServer": "http://100.25.140.175:3090/v1",
+      "Username": this.deployableForm.get('username').value,
+      "Platform": this.deployableForm.get('platform').value,
+    };
 
-    // let undeployRequest = {
+    let undeployRequest = {
+      
+      "Method": "Script",
+      "NoF1Descriptor": true,
+      "ScriptSystemEnv": systemEnv,
+      "UserDefinedParameters": {}
+    };
 
-    //   "Method": "Script",
-    //   "NoF1Descriptor": true,
-    //   "ScriptSystemEnv": systemEnv,
-    //   "UserDefinedParameters": {}
-    // };
+    console.log("UndeployRequest: ", undeployRequest);
 
-    // console.log("UndeployRequest: ", undeployRequest);
+    let projectName = this.deployableForm.get('projectName').value;
+    let serviceName = this.deployableForm.get('deployable').value;
+    this.flogoDeployService.undeployInfra(projectName, serviceName, undeployRequest)
+      .subscribe(res => {
+        console.log("Received Undeploy response: ", res);
 
-    // this.flogoDeployService.undeployInfra(undeployRequest)
-    //   .subscribe(res => {
-    //     console.log("Received Undeploy response: ", res);
+        let message = 'Success';
+        if (res == undefined || res.Success == false) {
+          message = 'Failure';
+        }
 
-    //     let message = 'Success';
-    //     if (res == undefined || res.Success == false) {
-    //       message = 'Failure';
-    //     }
+        this._snackBar.open(message, "Undeploy Infra", {
+          duration: 3000,
+        });
 
-    //     this._snackBar.open(message, "Undeploy Infra", {
-    //       duration: 3000,
-    //     });
-
-    //   });
+      });
   }
   
 }

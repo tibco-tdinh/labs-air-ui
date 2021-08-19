@@ -1,15 +1,35 @@
 import { TestBed } from '@angular/core/testing';
 import { Gateway } from 'src/app/shared/models/iot.model';
-
+import {AuthService} from '../auth/auth.service';
 import { DgraphService } from './dgraph.service';
+import { AppConfigService } from '../config/app-config.service';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from "@angular/common/http/testing";
+import { HttpClient } from "@angular/common/http";
+
 
 describe('DgraphService', () => {
   let dgraphService: DgraphService;
   let httpClientSpy: { get: jasmine.Spy };
+  let valueServiceSpy: jasmine.SpyObj<DgraphService>;
+  let httpTestingController: HttpTestingController;
+  
+
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    httpClientSpy = jasmine.createSpyObj('DgraphService', ['get']);
+    TestBed.configureTestingModule({ 
+      imports: [HttpClientTestingModule],
+      providers: [DgraphService, { provide: DgraphService, useValue: httpClientSpy }]
+     });
+    dgraphService = TestBed.inject(DgraphService);
+    valueServiceSpy = TestBed.inject(DgraphService) as jasmine.SpyObj<DgraphService>;
+    httpTestingController = TestBed.inject(HttpTestingController);
+
   });
-  it('should return expected gateway (HttpClient called once)', (done: DoneFn) => {
+   // Inject both the service-to-test and its (spy) dependency
+  it('should return expected gateway (DgraphService called once)', (done: DoneFn) => {
     const expectedGateway: Gateway[] =
       [{uid: 1,
         description: "Manufacturing Devices",
@@ -48,7 +68,7 @@ describe('DgraphService', () => {
 
 
   it('should be created', () => {
-    const service: DgraphService = TestBed.get(DgraphService);
+    const service: DgraphService = TestBed.inject(DgraphService);
     expect(service).toBeTruthy();
   });
 });

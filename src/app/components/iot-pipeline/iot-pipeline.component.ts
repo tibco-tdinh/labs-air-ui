@@ -615,7 +615,9 @@ export class IotPipelineComponent implements OnInit {
       flowDefinition: '',
       flowProperties: '',
       volumeName: '',
-      volumePath: ''
+      volumePath: '',
+      httpServicePort: '',
+      propsEnv: 'auto',
     }, { emitEvent: false });
 
   }
@@ -799,7 +801,9 @@ export class IotPipelineComponent implements OnInit {
       flowDefinition: ['', Validators.required],
       flowProperties: ['', Validators.required],
       volumeName: [''],
-      volumePath: ['']
+      volumePath: [''],
+      httpServicePort: [''],
+      propsEnv: ['auto']
     });
 
   }
@@ -1109,7 +1113,9 @@ export class IotPipelineComponent implements OnInit {
       "flowDefinition": this.flogoFlowForm.get('flowDefinition').value,
       "flowProperties": this.flogoFlowForm.get('flowProperties').value,
       "volumeName": this.flogoFlowForm.get('volumeName').value,
-      "volumePath": this.flogoFlowForm.get('volumePath').value
+      "volumePath": this.flogoFlowForm.get('volumePath').value,
+      "httpServicePort": this.flogoFlowForm.get('httpServicePort').value,
+      "propsEnv": this.flogoFlowForm.get('propsEnv').value
     };
 
     console.log("FlogoFlow context saved: ", flogoFlowObj);
@@ -1447,7 +1453,9 @@ export class IotPipelineComponent implements OnInit {
         flowDefinition: context.flowDefinition,
         flowProperties: context.flowProperties,
         volumeName: context.volumeName,
-        volumePath: context.volumePath
+        volumePath: context.volumePath,
+        httpServicePort: context.httpServicePort,
+        propsEnv: context.propsEnv,
       })
 
     }
@@ -1894,7 +1902,12 @@ export class IotPipelineComponent implements OnInit {
 
     if (deployType == "Edge") {
 
+      console.log("Building request for Edge");
+
+
       if (deployerType == "OH") {
+        console.log("Building for OH");
+
         systemEnv = {
           "Platform": this.gateway.platform,
           "DetachedMode": "n",
@@ -2054,11 +2067,12 @@ export class IotPipelineComponent implements OnInit {
               pipelineFlow.AirDescriptor.logic.push(this.buildFlogoFlowDeployObj(flow.nodes[key].data.customdata));
 
               let volumeName = flow.nodes[key].data.customdata.volumeName;
+              let volumePath = flow.nodes[key].data.customdata.volumePath;
 
               // Adde extra section required for Flogo App
               let volume = {
                 "Name": "services.$Name$.volumes[0]",
-                "Value": "${Vol}:" + volumeName
+                "Value": "${" + volumeName + "}:" + volumePath
               };
               extra.push(volume);
 
@@ -2082,6 +2096,21 @@ export class IotPipelineComponent implements OnInit {
 
       if (isFlogoApp) {
         if (deployType == "Edge") {
+
+          if (deployerType == "OH") {
+            systemEnv = {
+              "Demo": "/home/ubuntu/loss-detection-demo",
+              "Platform": this.gateway.platform,
+              "DetachedMode": "n",
+              "Username": this.gateway.username,
+              "TargetServer": this.gateway.router,
+              "Port": this.gateway.routerPort,
+              "Vol": flogoAppVolPath,
+              "DeployConstrains": "[\"role == RTSF_Demo\"]",
+              "ServiceProperties": "{}"
+            };
+          }
+          else {
           systemEnv = {
             "Platform": this.gateway.platform,
             "DetachedMode": "n",
@@ -2090,10 +2119,11 @@ export class IotPipelineComponent implements OnInit {
             "Port": this.gateway.routerPort,
             "Vol": flogoAppVolPath
           };
+        }
+          
 
           pipelineFlow.ScriptSystemEnv = systemEnv;
         }
-
       }
       else {
         pipelineFlow.AirDescriptor.logic.push(
@@ -2614,7 +2644,7 @@ export class IotPipelineComponent implements OnInit {
     let dataStr1 = `{"Data":"@f1..value@"}`
     let inferenceObj = [
       { "Name": "Logging.LogLevel", "Value": contextObj.logLevel },
-      { "Name": "REST.Timeout", "Value": "20000" },
+      { "Name": "REST.Timeout", "Value": "40000" },
       // { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
       { "Name": "REST.InferenceData", "Value":  dataStr1},
       { "Name": "REST.Conditions", "Value": JSON.stringify(contextObj.filters) },
@@ -2782,7 +2812,21 @@ export class IotPipelineComponent implements OnInit {
    */
   buildFlogoFlowDeployProperties(contextObj): any {
 
-    let flogoFlowPropertiesObj = JSON.parse(contextObj.flowProperties);
+    let flogoProperties = JSON.parse(contextObj.flowProperties);
+
+    // Traverse flogo properties and make a copy without the Type
+    let flogoFlowPropertiesObj = [];
+    flogoProperties.forEach(flogoProp => {
+      let prop = {
+        "Name": flogoProp.Name,
+        "Value": flogoProp.Value
+      };
+      flogoFlowPropertiesObj.push(prop);
+    });
+
+
+    flogoFlowPropertiesObj.push({"Name": "FLOGO_HTTP_SERVICE_PORT", "Value": contextObj.httpServicePort});
+    flogoFlowPropertiesObj.push({"Name": "FLOGO_APP_PROPS_ENV", "Value": contextObj.propsEnv});
 
     return flogoFlowPropertiesObj;
   }

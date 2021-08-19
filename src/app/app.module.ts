@@ -74,6 +74,7 @@ import { IotSimulatorComponent } from './components/iot-simulator/iot-simulator.
 import { IotDashboardComponent } from './components/iot-dashboard/iot-dashboard.component';
 import { InfraRegistrationComponent } from './components/iot-infra-deployer/infra-registration/infra-registration.component';
 import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-deployer/infra-deployer.component';
+import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-dialog/single-value-dialog.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -139,7 +140,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     IotSimulatorComponent,
     IotDashboardComponent,
     InfraRegistrationComponent,
-    InfraDeployerComponent
+    InfraDeployerComponent,
+    SingleValueDialogComponent
 
 
 
