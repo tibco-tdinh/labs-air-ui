@@ -94,7 +94,9 @@ export class InfraDeployerComponent implements OnInit {
     this.deployableSelection.clear();
 
     this.createForm();
-
+/*
+get the projects for the deployable table
+*/
     this.getProjects();
   }
 
@@ -179,6 +181,9 @@ export class InfraDeployerComponent implements OnInit {
 
   }
 
+  /*
+  show the row values
+  */
   deployableSelected(row) {
 
     console.log("Row selected: ", row);
@@ -210,7 +215,9 @@ export class InfraDeployerComponent implements OnInit {
 
 
   }
-
+ /*
+  delploy a project
+  */
   deploy() {
 
     let deployerType = 'OH';
@@ -273,13 +280,37 @@ export class InfraDeployerComponent implements OnInit {
 
   }
 
-  delete(rowid: number){
-    // if (rowid > -1) {
-    //   this.deployablesData.splice(rowid, 1);
-    //   this.deployablesData = [...this.deployablesData]; // new ref!
-    // }
+  /*
+  delete project
+  */
+
+  delete(description, id){
+    let deleteRequest = {
+      "Description": description,
+       "IDs" : [id]
+      };
+      console.log("description",deleteRequest);
+      this.flogoDeployService.deleteInfra(deleteRequest)
+      .subscribe(res => {
+        console.log("Received deletion response: ", res);
+
+        let message = 'Success';
+        if (res == undefined || res.Success == false) {
+          message = 'Failure';
+        }
+
+        this._snackBar.open(message, "project deletion", {
+          duration: 3000,
+        });
+        this.getProjects();
+
+      });
+
   }
-  
+  // http://localhost:8043/http://52.22.89.56:5408/f1/projectmgr/file/create/project/air11
+  /*
+  undeploy project
+  */
   undeploy() {
     let systemEnv = {
       "DeployType": "docker-oh",
@@ -315,7 +346,6 @@ export class InfraDeployerComponent implements OnInit {
         });
 
       });
-
   }
   
 }

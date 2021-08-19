@@ -1,8 +1,10 @@
 .mat-form-field {
     font-size: 14px;
+    display: inline-block;
     margin-right: 2%;
-    width:100%}
-.mat-card{ 
+    width: 45%;
+}
+.mat-card{
     overflow: auto;
     height: 100%;
     padding-bottom: 1%;
@@ -10,3 +12,6 @@
 .icon-display {
     transform: scale(2);
  }
+ .file-input {
+    display: none;
+  }

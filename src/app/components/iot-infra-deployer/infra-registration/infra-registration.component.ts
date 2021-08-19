@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as YAML from 'yaml'
 import { FlogoDeployService } from 'src/app/services/deployment/flogo-deploy.service';
+import { values } from 'lodash';
 
 
 
@@ -20,6 +21,7 @@ export class InfraRegistrationComponent implements OnInit {
   items = [];
   properties = new Set();
   dockerFile:any;
+  envProperties= {};
 
   constructor(private flogoDeployService: FlogoDeployService,
     private formBuilder: FormBuilder,
@@ -34,32 +36,73 @@ export class InfraRegistrationComponent implements OnInit {
       projectDescription: [null, Validators.required]
   });
 }
-  // getName() { return this.projectForm.get('projectName'); }
-
+/*
+parse uploaded files to add properties forms
+*/
 
   onFileSelected(event) {
-    //parse yml file
+    //make sure user uploads only 2 files
   
       let files = event.target.files;
+      if(files.length>2){
+        alert('You are only allowed to upload a maximum of 2 files at a time');
+      }
+    
 
     if (event && event.target && event.target.files) {
+      //check if file is json
+      const validateJSON = data => {
+        try { JSON.parse(data); }
+        catch { return false; }
+        return true;
+      }
+      //declare the 2 files
+      let dockerfile: File;
+      let jsonfile: File;
+      if(files.length==1){
+        dockerfile = event.target.files[0];
+      }
+      else{
+      if(validateJSON(event.target.files[0])){
+        dockerfile = event.target.files[1];
+        jsonfile= event.target.files[0];
+      }
+      else{
+        dockerfile = event.target.files[0];
+        jsonfile = event.target.files[1];
+      }
+      //get environment file values
 
-      const file: File = event.target.files[0];
+      if (jsonfile) {
+        console.log("Selected file: ", jsonfile.name);
+        let envFileReader = new FileReader();
+        envFileReader.readAsText(jsonfile, "UTF-8");
+        envFileReader.onload = () => {
+          this.envProperties = JSON.parse(envFileReader.result as string);
+          envFileReader.onerror = (error) => { console.log(error); }
+        }
+      } 
+    }
+      //parse yml file to add properties
 
-      if (file) {
-        console.log("Selected file: ", file.name);
+      if (dockerfile) {
+        console.log("Selected file: ", dockerfile.name);
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           this.dockerFile = fileReader.result;
           this.parsedFile = YAML.parse(fileReader.result as string);
+
           //test if file is empty
           try {
             if (this.parsedFile==null) {
                 alert('file is empty');
                 return;
-              } }catch (e) {
+              } 
+            }
+          catch (e) {
                 console.log(e);
               }
+
           //add containers to items list
           if (this.parsedFile.services) {
             for (const key in this.parsedFile.services) {
@@ -74,10 +117,39 @@ export class InfraRegistrationComponent implements OnInit {
             alert('enter a valid docker-compose file: add services');
           }
         }
-        fileReader.readAsText(file);
+        fileReader.readAsText(dockerfile);
       }
     }
   }
+/*
+parse environment file and add list of properties there to the input forms
+*/
+  // onEnvSelected(event) {
+  //   //parse yml file
+  //     const file: File = event.target.files[1];
+
+  //     if (file) {
+  //       console.log("Selected file: ", file.name);
+  //       let envFileReader = new FileReader();
+  //       envFileReader.readAsText(file, "UTF-8");
+  //       envFileReader.onload = () => {
+  //       this.envProperties = JSON.parse(envFileReader.result as string);
+  //       console.log(this.envProperties);
+  //       envFileReader.onerror = (error) => {
+  //         console.log(error);
+  //       }
+
+  //       for (let key in this.envProperties){
+  //         // this.addParameterItem(key, this.envProperties[key]);
+  //         this.getParameters()[key]= this.envProperties[key];
+  //         // console.log(this.getParameters())
+  //       }
+  //       console.log(this.getParameters());
+
+
+  //       }
+  //     }      
+  // }       
   //add input fields for every container
   addform() {
     this.getParameters().clear();
@@ -95,8 +167,13 @@ export class InfraRegistrationComponent implements OnInit {
                 const lastIndex = field.length - 1;
                 const propety = field.slice(2, lastIndex);
                 if (this.properties.has(propety) == false) {
+                  let value=""
+                  //add property values from the env file
+                  if (propety in this.envProperties){
+                    value= this.envProperties[propety]
+                  }
                   this.properties.add(propety);
-                  this.addParameterItem(propety);
+                  this.addParameterItem(propety,value);
                 }
               }
             }
@@ -116,12 +193,12 @@ export class InfraRegistrationComponent implements OnInit {
     });
 
   }
-  createParameter(name): FormGroup {
+  createParameter(name,value): FormGroup {
     console.log("Creating form with param name: ", name);
 
     return this.formBuilder.group({
       name: [name, Validators.required],
-      value: ['', Validators.required]
+      value: [value, Validators.required]
     });
   }
 
@@ -129,8 +206,8 @@ export class InfraRegistrationComponent implements OnInit {
     return <FormArray>this.registrationForm.get('parameters');
   }
 
-  addParameterItem(name) {
-    this.getParameters().push(this.createParameter(name));
+  addParameterItem(name,value) {
+    this.getParameters().push(this.createParameter(name,value));
   }
   validateAllFormFields(formGroup: FormGroup) {         //{1}
     Object.keys(formGroup.controls).forEach(field => {  //{2}
@@ -142,7 +219,9 @@ export class InfraRegistrationComponent implements OnInit {
       }
     });
   }
-  //registration
+  /*
+  register a device
+  */
 
   register() {
     let systemEnv = {};
@@ -161,7 +240,9 @@ export class InfraRegistrationComponent implements OnInit {
       // console.log("Param: ", paramName, " Value: ", paramValue);
       systemEnv[paramName] = paramValue;
     }
-
+/*
+build registration request
+*/
     let registrationRequest = {
       "Description": this.projectForm.get('projectDescription').value,
       "Deployable": {
@@ -178,9 +259,9 @@ export class InfraRegistrationComponent implements OnInit {
     }
 
 
-    // console.log("RegistrationRequest: ", registrationRequest);
-    // console.log("RegistrationRequest string: ", JSON.stringify(registrationRequest));
-
+  /* 
+  call registrattion service
+  */
     this.flogoDeployService.registerInfra(registrationRequest,this.projectForm.get('projectName').value)
       .subscribe(res => {
         console.log("Received Registration response: ", res);
