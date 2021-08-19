@@ -4,6 +4,8 @@ import { Subscription, Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FlogoDeployService } from '../../../services/deployment/flogo-deploy.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { SingleValueDialogComponent } from '../pipeline-dialog/single-value-dialog.component'
 
 
 @Component({
@@ -22,7 +24,8 @@ export class PipelineFlogoFlowComponent implements OnInit {
 
   constructor(private flogoDeployService: FlogoDeployService,
     private _snackBar: MatSnackBar,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog) {
 
   }
 
@@ -36,9 +39,11 @@ export class PipelineFlogoFlowComponent implements OnInit {
 
     // when a value changes on the array, update the form value.
     this.dataSourceChange
-      .pipe(debounceTime(800),distinctUntilChanged())
+      .pipe(debounceTime(800), distinctUntilChanged())
       .subscribe(() => {
+        console.log("Data source changed to: ", this.dataSource);
         this.flogoFlowForm.patchValue({
+
           flowProperties: JSON.stringify(this.dataSource)
         });
       });
@@ -102,8 +107,43 @@ export class PipelineFlogoFlowComponent implements OnInit {
     }
   }
 
-  dataSourceChanged () {
+  dataSourceChanged(event, rowId: number, cellsType: string) {
+
+    console.log("Inside dataSourceChanged() event: ", event);
+
+    console.log("Inside dataSourceChanged() rowId and celltype: ", rowId, cellsType);
+
+    console.log("dataSource Inside dataSourceChanged(): ", this.dataSource);
+
     this.dataSourceChange.next()
+  }
+
+  openDialog(rowId, element): void {
+    const dialogRef = this.dialog.open(SingleValueDialogComponent, {
+      width: '250px',
+      data: { value: "" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result != undefined) {
+
+        const dsCopy = this.dataSource.slice();
+
+        element.Value = result;
+
+
+        this.dataSource = dsCopy;
+
+        // Update flogo flow form
+        this.flogoFlowForm.patchValue({
+
+          flowProperties: JSON.stringify(this.dataSource)
+        });
+
+      }
+
+    });
   }
 
 }

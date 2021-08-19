@@ -65,12 +65,12 @@ export class IotInfraDeployerComponent implements OnInit {
       deployerType: ['OH', Validators.required],
       deployEdgex: [true, Validators.required],
       deployAIRBase: [true, Validators.required],
-      deployerURL: ['http://54.88.210.184:3090/v1', Validators.required],
+      deployerURL: ['http://100.25.140.175:3090/v1', Validators.required],
       deployConstraints: ['[\"role == RTSF_Demo\"]', Validators.required],
       gatewayId: ['Ubuntu18_IoT', Validators.required],
       gatewayDescription: ['Devices and Sensors for point of sales station', Validators.required],
       gatewayHostname: ['192.168.1.99', Validators.required],
-      gatewayRouter: ['http://54.88.210.184:3090/v1', Validators.required],
+      gatewayRouter: ['http://100.25.140.175:3090/v1', Validators.required],
       gatewayRouterPort: ['22', Validators.required],
       gatewayDeployNetwork: ['loss-detection-app_edgex-network', Validators.required],
       gatewayLatitude: ['33.306340', Validators.required],
@@ -171,7 +171,7 @@ export class IotInfraDeployerComponent implements OnInit {
     console.log("DeployRequest: ", deployRequest);
     console.log("Deploy Request string: ", JSON.stringify(deployRequest));
     
-    this.flogoDeployService.deployInfra(deployRequest)
+    this.flogoDeployService.deployInfra("", "", deployRequest)
       .subscribe(res => {
         console.log("Received Deployment response: ", res);
 
@@ -206,7 +206,7 @@ export class IotInfraDeployerComponent implements OnInit {
 
     console.log("UndeployRequest: ", undeployRequest);
 
-    this.flogoDeployService.undeployInfra(undeployRequest)
+    this.flogoDeployService.undeployInfra("", "", undeployRequest)
       .subscribe(res => {
         console.log("Received Undeploy response: ", res);
 
