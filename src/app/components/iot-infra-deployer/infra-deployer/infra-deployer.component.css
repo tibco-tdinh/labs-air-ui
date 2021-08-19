@@ -6,11 +6,17 @@
 table {
   width: 100%;
 }
+.example-container {
+  height: 400px;
+  max-width: 100%;
+  overflow: auto;
+}
 
 .mat-form-field {
   font-size: 14px;
+  display: inline-block;
   margin-right: 5%;
-  width: 100%;
+  width: 30%;
 }
 
   
