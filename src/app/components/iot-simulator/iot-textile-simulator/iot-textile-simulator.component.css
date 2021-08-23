@@ -6,16 +6,16 @@
   justify-content: space-between;
 }
 
-.defect-action button{
+.defect-action {
   margin: 14px;
 }
 
-button img {
+mat-button-toggle img {
   display: none;
 }
 
-button:hover img {
+mat-button-toggle:hover img {
   display: block;
-  position: absolute;
+  position: fixed;
   z-index: 99;
 }

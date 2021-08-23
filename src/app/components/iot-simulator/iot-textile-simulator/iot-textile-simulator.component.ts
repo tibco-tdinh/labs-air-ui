@@ -1,4 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ChartType, ChartOptions } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 
 @Component({
   selector: 'app-iot-textile-simulator',
@@ -8,10 +11,57 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
 
   videoPlayed = false;
-
+  currentDefect: string;
+  pieChartOptions: ChartOptions = {
+    responsive: true
+  };
+  pieChartLabels: Label[] = [];
+  pieChartData: SingleDataSet = [];
+  pieChartType: ChartType = 'pie';
+  pieChartLegend = true;
+  pieChartPlugins = [];
+  chartData = [
+    {
+      "Count": 34,
+      "Filter": "*",
+      "Label": "good",
+      "TestID": "id-00000004"
+    },
+    {
+      "Count": 17,
+      "Filter": "*",
+      "Label": "missing_pick",
+      "TestID": "id-00000004"
+    },
+    {
+      "Count": 11,
+      "Filter": "*",
+      "Label": "selvedge",
+      "TestID": "id-00000004"
+    },
+    {
+      "Count": 10,
+      "Filter": "*",
+      "Label": "hole",
+      "TestID": "id-00000004"
+    },
+    {
+      "Count": 10,
+      "Filter": "*",
+      "Label": "stain",
+      "TestID": "id-00000004"
+    },
+    {
+      "Count": 19,
+      "Filter": "*",
+      "Label": "color_flecks",
+      "TestID": "id-00000004"
+    }
+  ]
   constructor() { }
 
   ngOnInit(): void {
+    this.handleChartData();
   }
 
 
@@ -27,4 +77,12 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
     // HTTP Callback to detect which
   }
 
+  handleChartData(): void {
+    this.pieChartData = [];
+    this.pieChartLabels = [];
+    this.chartData.forEach(dataSet => {
+      this.pieChartLabels.push(dataSet.Label);
+      this.pieChartData.push(dataSet.Count);
+    });
+  }
 }

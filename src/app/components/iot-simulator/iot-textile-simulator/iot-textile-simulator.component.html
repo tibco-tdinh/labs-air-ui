@@ -1,33 +1,49 @@
 <div class="defect-action">
-  <button mat-raised-button color="primary" (click)="handleAction('*')">
-    All
-  </button>
-  <button mat-raised-button color="primary" (click)="handleAction('missing_pick')">
-    Missing Pick
-    <img src="/assets/img/simulator/missing-pick.png">
-  </button>
-  <button mat-raised-button color="primary" (click)="handleAction('selvedge')">
-    Selvedge
-    <img src="/assets/img/simulator/selvedge.png">
-  </button>
-  <button mat-raised-button color="primary" (click)="handleAction('hole')">
-    Hole
-    <img src="/assets/img/simulator/hole.png">
-  </button>
-  <button mat-raised-button color="primary" (click)="handleAction('stain')">
-    Stain
-    <img src="/assets/img/simulator/stain.png">
-  </button>
-  <button mat-raised-button color="primary" (click)="handleAction('color_flecks')">
-    Color Fleck
-    <img src="/assets/img/simulator/color-flecks.png">
-  </button>
-  <button mat-raised-button color="primary" (click)="handleAction('good')">
-    Good
-  </button>
+  <mat-button-toggle-group [(ngModel)]="currentDefect">
+    <mat-button-toggle value="*">
+      All
+    </mat-button-toggle>
+    <mat-button-toggle value="missing_pick">
+      Missing Pick
+      <img src="/assets/img/simulator/missing-pick.png">
+    </mat-button-toggle>
+    <mat-button-toggle value="selvedge">
+      Selvedge
+      <img src="/assets/img/simulator/selvedge.png">
+    </mat-button-toggle>
+    <mat-button-toggle value="hole">
+      Hole
+      <img src="/assets/img/simulator/hole.png">
+    </mat-button-toggle>
+    <mat-button-toggle value="stain">
+      Stain
+      <img src="/assets/img/simulator/stain.png">
+    </mat-button-toggle>
+    <mat-button-toggle value="color_flecks">
+      Color Flecks
+      <img src="/assets/img/simulator/color-flecks.png">
+    </mat-button-toggle>
+    <mat-button-toggle value="good">
+      Good
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
 <div class="iot-textile-simulator">
   <div (click)="playVideo()">
     <video width="400" height="300" src="/assets/video/textile.mp4" controls></video>
+  </div>
+  <div>
+  </div>
+  <div>
+    <div style="display: block;">
+      <canvas baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
   </div>
 </div>
