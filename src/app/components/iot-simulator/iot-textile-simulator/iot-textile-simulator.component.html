@@ -1,29 +1,29 @@
 <div class="defect-action">
   <mat-button-toggle-group [(ngModel)]="currentDefect">
-    <mat-button-toggle value="*">
+    <mat-button-toggle (click)="handleAction(currentDefect)" value="*">
       All
     </mat-button-toggle>
-    <mat-button-toggle value="missing_pick">
+    <mat-button-toggle (click)="handleAction(currentDefect)" value="missing_pick">
       Missing Pick
       <img src="/assets/img/simulator/missing-pick.png">
     </mat-button-toggle>
-    <mat-button-toggle value="selvedge">
+    <mat-button-toggle (click)="handleAction(currentDefect)" value="selvedge">
       Selvedge
       <img src="/assets/img/simulator/selvedge.png">
     </mat-button-toggle>
-    <mat-button-toggle value="hole">
+    <mat-button-toggle (click)="handleAction(currentDefect)" value="hole">
       Hole
       <img src="/assets/img/simulator/hole.png">
     </mat-button-toggle>
-    <mat-button-toggle value="stain">
+    <mat-button-toggle (click)="handleAction(currentDefect)" value="stain">
       Stain
       <img src="/assets/img/simulator/stain.png">
     </mat-button-toggle>
-    <mat-button-toggle value="color_flecks">
+    <mat-button-toggle (click)="handleAction(currentDefect)"value="color_flecks">
       Color Flecks
       <img src="/assets/img/simulator/color-flecks.png">
     </mat-button-toggle>
-    <mat-button-toggle value="good">
+    <mat-button-toggle (click)="handleAction(currentDefect)" value="good">
       Good
     </mat-button-toggle>
   </mat-button-toggle-group>
@@ -49,7 +49,12 @@
 
           <ng-container matColumnDef="frameURL">
             <th mat-header-cell *matHeaderCellDef> Frame URL </th>
-            <td mat-cell *matCellDef="let dataCell"> {{dataCell.frameURL}} </td>
+            <td mat-cell *matCellDef="let dataCell">
+              <div class="table-img">
+                <a [href]="dataCell.frameURL">{{dataCell.frameURL}}</a>
+                <img [src]="dataCell.frameURL">
+              </div>
+            </td>
         </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="chartColumns; sticky: true"></tr>
@@ -57,7 +62,7 @@
           </tr>
       </table>
   </div>
-  <button class="refresh-button" mat-raised-button color="primary">Refresh</button>
+  <button class="refresh-button" mat-raised-button color="primary" (click)="handleRefresh()">Refresh</button>
   </div>
   <div>
     <div class="chart-container">

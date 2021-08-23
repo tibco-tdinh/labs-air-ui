@@ -63,7 +63,7 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
     }
   ]
   chartColumns = ['defect', 'count', 'frameURL']
-  tableData = [{ defect: 'hole', count: 19, frameURL: 'http://52.7.96.87:9091/frame_store/00000099.jpg' }]
+  tableData = [{ defect: 'hole', count: 19, frameURL: 'https://picsum.photos/200/300' }]
   constructor() { }
 
   ngOnInit(): void {
@@ -79,8 +79,12 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
 
   }
 
-  handleAction(defect: string) {
-    // HTTP Callback to detect which
+  handleAction(action: string) {
+    // HTTP Callback to detect which is the selected action
+  }
+
+  handleRefresh() {
+    // function to refresh the table
   }
 
   handleChartData(): void {

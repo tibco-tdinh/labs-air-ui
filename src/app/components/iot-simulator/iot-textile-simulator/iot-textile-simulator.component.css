@@ -17,7 +17,17 @@ mat-button-toggle img {
 mat-button-toggle:hover img {
   display: block;
   position: fixed;
-  z-index: 99;
+  z-index: 111;
+}
+
+.table-img img{
+  display: none;
+}
+
+.table-img:hover img{
+  display: block;
+  position: fixed;
+  z-index: 111;
 }
 
 .chart-container {
@@ -30,4 +40,10 @@ mat-button-toggle:hover img {
 
 .table-container table {
   width: 500px;
+}
+
+.table-img {
+  max-height: 400px;
+  max-width: 300px;
+  object-fit: contain;
 }
