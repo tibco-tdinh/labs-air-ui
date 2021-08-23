@@ -62,7 +62,8 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
       "TestID": "id-00000004"
     }
   ]
-  chartColumns = ['Label', 'Count']
+  chartColumns = ['defect', 'count', 'frameURL']
+  tableData = [{ defect: 'hole', count: 19, frameURL: 'http://52.7.96.87:9091/frame_store/00000099.jpg' }]
   constructor() { }
 
   ngOnInit(): void {

@@ -35,17 +35,22 @@
   <div class="table-container">
     <div>
       <span class="table-title">{{pieChartOptions.title.text}}</span>
-      <table mat-table [dataSource]="chartData" matSort matSortActive="count" matSortStart="desc" matSortDirection="desc">
-          <ng-container matColumnDef="Label">
+      <table mat-table [dataSource]="tableData" matSort matSortActive="count" matSortStart="desc" matSortDirection="desc">
+          <ng-container matColumnDef="defect">
               <th mat-header-cell *matHeaderCellDef> Defect </th>
-              <td mat-cell *matCellDef="let dataCell"> {{dataCell.Label}} </td>
+              <td mat-cell *matCellDef="let dataCell"> {{dataCell.defect}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="Count">
+          <ng-container matColumnDef="count">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Count </th>
-              <td mat-cell *matCellDef="let dataCell"> {{dataCell.Count}}
+              <td mat-cell *matCellDef="let dataCell"> {{dataCell.count}}
               </td>
           </ng-container>
+
+          <ng-container matColumnDef="frameURL">
+            <th mat-header-cell *matHeaderCellDef> Frame URL </th>
+            <td mat-cell *matCellDef="let dataCell"> {{dataCell.frameURL}} </td>
+        </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="chartColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: chartColumns;" >
