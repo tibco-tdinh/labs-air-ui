@@ -13,7 +13,11 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
   videoPlayed = false;
   currentDefect: string;
   pieChartOptions: ChartOptions = {
-    responsive: true
+    responsive: true,
+    title: {
+      display: true,
+      text: ''
+    }
   };
   pieChartLabels: Label[] = [];
   pieChartData: SingleDataSet = [];
@@ -58,6 +62,7 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
       "TestID": "id-00000004"
     }
   ]
+  chartColumns = ['Label', 'Count']
   constructor() { }
 
   ngOnInit(): void {
@@ -84,5 +89,6 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
       this.pieChartLabels.push(dataSet.Label);
       this.pieChartData.push(dataSet.Count);
     });
+    this.pieChartOptions.title.text = this.chartData[0].TestID
   }
 }

@@ -19,3 +19,11 @@ mat-button-toggle:hover img {
   position: fixed;
   z-index: 99;
 }
+
+.chart-container {
+  display: block;
+}
+
+.table-title {
+  font-weight: 600;
+}
