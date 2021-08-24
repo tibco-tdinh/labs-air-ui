@@ -2,7 +2,7 @@
 
   <div fxLayout="row" style="min-height: 250px;">
 
-    <table mat-table [dataSource]="dataSource" >
+    <table mat-table [dataSource]="dataSource">
 
       <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -46,14 +46,14 @@
       <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef>
         </mat-header-cell>
-      
+
         <mat-cell *matCellDef="let row; let i = inde;x">
           <button mat-icon-button>
             <mat-icon (click)="delete(i)">delete</mat-icon>
           </button>
         </mat-cell>
       </ng-container>
-      
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="deployableSelected(row)"
@@ -69,11 +69,27 @@
 
 
     <div style="width: 100%; overflow:auto;">
-      <mat-card style="display: block;"> 
+      <mat-card style="display: block;">
         <mat-card-header>
           <mat-card-title>Deployment Details</mat-card-title>
         </mat-card-header>
-        <mat-card-content  style="display:block; flex-direction:row;">
+        <mat-card-content style="display:block; flex-direction:row;">
+          <div>
+
+            <mat-form-field fxFlex="1 1 20%" appearance="outline">
+              <mat-label>Deployer Type</mat-label>
+              <mat-select formControlName="deployerType">
+                <mat-option *ngFor="let item of deployerTypes;" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 20%" appearance="outline">
+              <mat-label>Deployer Server</mat-label>
+              <input matInput [readonly]=false formControlName="deployerServer">
+            </mat-form-field>
+          </div>
           <div>
 
             <mat-form-field fxFlex="1 1 20%" appearance="outline">
@@ -85,23 +101,24 @@
               <input matInput [readonly]=true formControlName="platform">
             </mat-form-field>
           </div>
-            <ng-container formArrayName="parameters">
-              <mat-card  fxFlex class="mat-elevation-z0" style="display: block; max-height: 300px;  width: 100%; overflow: auto;">
-                <ng-container *ngFor="let prop of deployableForm.get('parameters')['controls']; let i = index">
+          <ng-container formArrayName="parameters">
+            <mat-card fxFlex class="mat-elevation-z0"
+              style="display: block; max-height: 300px;  width: 100%; overflow: auto;">
+              <ng-container *ngFor="let prop of deployableForm.get('parameters')['controls']; let i = index">
 
-                  <div fxLayoutGap="15px" [formGroupName]="i">
-                    <mat-form-field fxFlex="1 1 20%" appearance="outline">
-                      <input matInput [readonly]=true formControlName="name">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="1 1 20%" appearance="outline">
-                      <input matInput [readonly]=false formControlName="value" placeholder="Enter Property Value ">
-                    </mat-form-field>
-                  </div>
-                
-                </ng-container>
-              </mat-card>
-            </ng-container>
-  
+                <div fxLayoutGap="15px" [formGroupName]="i">
+                  <mat-form-field fxFlex="1 1 20%" appearance="outline">
+                    <input matInput [readonly]=true formControlName="name">
+                  </mat-form-field>
+                  <mat-form-field fxFlex="1 1 20%" appearance="outline">
+                    <input matInput [readonly]=false formControlName="value" placeholder="Enter Property Value ">
+                  </mat-form-field>
+                </div>
+
+              </ng-container>
+            </mat-card>
+          </ng-container>
+
           <mat-card-actions>
             <button mat-raised-button (click)="deploy()" color="primary">Deploy</button>
             <button mat-raised-button (click)="undeploy()" color="primary">Undeploy</button>
