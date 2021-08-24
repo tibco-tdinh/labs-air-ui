@@ -40,7 +40,8 @@ mat-button-toggle:hover img {
 
 .table-container table {
   width: 500px;
-  max-height: 650px;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .table-img img{
