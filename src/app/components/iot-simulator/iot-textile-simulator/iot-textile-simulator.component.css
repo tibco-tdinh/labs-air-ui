@@ -42,7 +42,7 @@ mat-button-toggle:hover img {
   width: 500px;
 }
 
-.table-img {
+.table-img img{
   max-height: 400px;
   max-width: 300px;
   object-fit: contain;
