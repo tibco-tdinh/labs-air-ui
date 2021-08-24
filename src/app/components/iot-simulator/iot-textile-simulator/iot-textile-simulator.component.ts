@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Colors } from 'ng2-charts';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TextileSimulatorService } from '../../../services/simulator/textile-simulator.service';
 import { GraphService } from '../../../services/graph/graph.service'
@@ -37,7 +37,7 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
   notifications: Notification[] = [];
   defectsDataSource = new MatTableDataSource<DefectInfo>();
   defectsDisplayedColumns: string[] = ['created', 'defect', 'frameURL'];
-
+  chartColors: Colors[] = [{ backgroundColor:  ['#039145', '#db0000', '#f9e1e3', '#f3a6a6', '#ec5e1d', '#f9c7b1', '#aa3500']}]
   currentDefect: string;
 
   pieChartOptions: ChartOptions = {
