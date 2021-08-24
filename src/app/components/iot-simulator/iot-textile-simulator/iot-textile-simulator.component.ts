@@ -37,7 +37,9 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
   notifications: Notification[] = [];
   defectsDataSource = new MatTableDataSource<DefectInfo>();
   defectsDisplayedColumns: string[] = ['created', 'defect', 'frameURL'];
-  chartColors: Colors[] = [{ backgroundColor:  ['#039145', '#db0000', '#f9e1e3', '#f3a6a6', '#ec5e1d', '#f9c7b1', '#aa3500']}]
+
+  // #52D726), Middle Yellow (#FFEC00), Philippine Orange (#FF7300), Red (#FF0000), Blue Cola (#007ED6) and Middle Blue (#7CDDDD).
+  chartColors: Colors[] = [{ backgroundColor:  ['#52D726', '#FFEC00', '#FF7300', '#FF0000', '#007ED6', '#7CDDDD', '#aa3500']}]
   currentDefect: string;
 
   pieChartOptions: ChartOptions = {
@@ -99,7 +101,7 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.currentDefect = "*";
-    this.getStatistics();
+    // this.getStatistics();
   }
 
 

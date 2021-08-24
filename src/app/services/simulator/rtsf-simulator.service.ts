@@ -17,7 +17,7 @@ export class RtsfSimulatorService {
 
   private getURL(servicePath: string): string {
 
-    let url = `/simulatorEndpoint/http://23.20.170.72:9090${servicePath}`;
+    let url = `/simulatorEndpoint${servicePath}`;
     return url;
   }
 
@@ -25,6 +25,8 @@ export class RtsfSimulatorService {
 
     let url = this.getURL("/RTSF/products");
 
+    console.log("Calling service get products with url: ", url);
+    
     return this.http.get<any>(url)
       .pipe(
         catchError(this.handleError<any>('getProducts'))
