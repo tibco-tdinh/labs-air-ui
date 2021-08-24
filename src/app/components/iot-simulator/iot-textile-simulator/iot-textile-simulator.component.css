@@ -38,10 +38,13 @@ mat-button-toggle:hover img {
   font-weight: 600;
 }
 
-.table-container table {
-  width: 500px;
+.table-container {
   max-height: 300px;
   overflow: auto;
+}
+
+.table-container table {
+  width: 500px;
 }
 
 .table-img img{

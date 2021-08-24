@@ -32,8 +32,8 @@
   <div (click)="playVideo()">
     <video width="400" height="300" src="/assets/video/textile.mp4" controls></video>
   </div>
-  <div class="table-container">
-    <div>
+  <div>
+    <div class="table-container">
       <span class="table-title">{{testId}}</span>
       <table mat-table [dataSource]="defectsDataSource" matSort matSortActive="created" matSortStart="desc"
         matSortDirection="desc">
