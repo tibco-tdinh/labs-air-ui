@@ -39,7 +39,7 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
   defectsDisplayedColumns: string[] = ['created', 'defect', 'frameURL'];
 
   currentDefect: string;
-  
+
   pieChartOptions: ChartOptions = {
     responsive: true,
     title: {
@@ -99,7 +99,7 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.currentDefect = "*";
-    this.handleChartData();
+    this.getStatistics();
   }
 
 
@@ -230,7 +230,7 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
         console.log("Statistics: ", this.chartData);
 
         this.handleChartData();
-        
+
       });
 
   }
