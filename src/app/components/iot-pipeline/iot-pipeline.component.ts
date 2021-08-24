@@ -616,6 +616,8 @@ export class IotPipelineComponent implements OnInit {
       flowProperties: '',
       volumeName: '',
       volumePath: '',
+      portMap1: '8080:9999',
+      portMap2: '',
       httpServicePort: '',
       propsEnv: 'auto',
     }, { emitEvent: false });
@@ -802,6 +804,8 @@ export class IotPipelineComponent implements OnInit {
       flowProperties: ['', Validators.required],
       volumeName: [''],
       volumePath: [''],
+      portMap1: ['8080:9999'],
+      portMap2: [''],
       httpServicePort: [''],
       propsEnv: ['auto']
     });
@@ -1114,6 +1118,8 @@ export class IotPipelineComponent implements OnInit {
       "flowProperties": this.flogoFlowForm.get('flowProperties').value,
       "volumeName": this.flogoFlowForm.get('volumeName').value,
       "volumePath": this.flogoFlowForm.get('volumePath').value,
+      "portMap1": this.flogoFlowForm.get('portMap1').value,
+      "portMap2": this.flogoFlowForm.get('portMap2').value,
       "httpServicePort": this.flogoFlowForm.get('httpServicePort').value,
       "propsEnv": this.flogoFlowForm.get('propsEnv').value
     };
@@ -1454,6 +1460,8 @@ export class IotPipelineComponent implements OnInit {
         flowProperties: context.flowProperties,
         volumeName: context.volumeName,
         volumePath: context.volumePath,
+        portMap1: context.portMap1,
+        portMap2: context.portMap2,
         httpServicePort: context.httpServicePort,
         propsEnv: context.propsEnv,
       })
@@ -2069,10 +2077,11 @@ export class IotPipelineComponent implements OnInit {
               let volumeName = flow.nodes[key].data.customdata.volumeName;
               let volumePath = flow.nodes[key].data.customdata.volumePath;
 
-              // Adde extra section required for Flogo App
+              // Add extra section required for Flogo App
               let volume = {
                 "Name": "services.$Name$.volumes[0]",
-                "Value": "${" + volumeName + "}:" + volumePath
+                // "Value": "${" + volumeName + "}:" + volumePath
+                "Value": volumeName + ":" + volumePath
               };
               extra.push(volume);
 
@@ -2800,7 +2809,7 @@ export class IotPipelineComponent implements OnInit {
       name: flogoFlowType,
       flogoApp: contextObj.flowDefinition,
       properties: this.buildFlogoFlowDeployProperties(contextObj),
-      ports: ["8080:9999"]
+      ports: this.buildFlogoFlowPortMapping(contextObj)
     };
 
     return flogoFlowObj;
@@ -2817,9 +2826,16 @@ export class IotPipelineComponent implements OnInit {
     // Traverse flogo properties and make a copy without the Type
     let flogoFlowPropertiesObj = [];
     flogoProperties.forEach(flogoProp => {
+
+      // Convert numeric values to string
+      let value = flogoProp.Value;
+      if (typeof value == 'number'){
+        value = flogoProp.Value.toString();
+      }
+
       let prop = {
         "Name": flogoProp.Name,
-        "Value": flogoProp.Value
+        "Value": value
       };
       flogoFlowPropertiesObj.push(prop);
     });
@@ -2829,6 +2845,23 @@ export class IotPipelineComponent implements OnInit {
     flogoFlowPropertiesObj.push({"Name": "FLOGO_APP_PROPS_ENV", "Value": contextObj.propsEnv});
 
     return flogoFlowPropertiesObj;
+  }
+
+  buildFlogoFlowPortMapping(contextObj): any {
+    let ports = [];
+
+    let portMap1 = contextObj.portMap1;
+    let portMap2 = contextObj.portMap2;
+
+    if (portMap1 != "") {
+      ports.push(portMap1);
+    }
+
+    if (portMap2 != "") {
+      ports.push(portMap2);
+    }
+
+    return ports;
   }
 
   buildRESTServiceDeployObj(contextObj): any {
