@@ -29,8 +29,8 @@
   </mat-button-toggle-group>
 </div>
 <div class="iot-textile-simulator">
-  <div (click)="playVideo()">
-    <video width="400" height="300" src="/assets/video/textile.mp4" controls (ended)="handleRefresh()"></video>
+  <div>
+    <video width="400" height="300" src="/assets/video/textile.mp4" controls (ended)="handleRefresh()" (play)="playVideo()"></video>
   </div>
   <div>
     <div class="table-container">
