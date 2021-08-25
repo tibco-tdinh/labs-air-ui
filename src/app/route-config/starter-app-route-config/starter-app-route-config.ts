@@ -402,7 +402,7 @@ export const STARTER_APP_ROUTES =
           access: AccessResolver,
           customFormDefs: FormResolver
         },
-        data: { breadcrumb: ['Gateways'] }
+        data: { breadcrumb: ['Textile Simulator'] }
       },
       {
         path: '', redirectTo: '/starterApp/home/casemanagement', pathMatch: 'full'
