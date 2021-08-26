@@ -31,6 +31,17 @@ export class PipelineDataSubscriberComponent implements OnInit {
   httpProtocol = false;
 
   protocols: Protocol[];
+  kafkaInitialOffsets: SelectItem[] = [
+    { value: 'Oldest', viewValue: 'Oldest' },
+    { value: 'Newest', viewValue: 'Newest' }
+  ];
+  kafkaAuthModes: SelectItem[] = [
+    { value: 'None', viewValue: 'None' },
+    { value: 'SASL/Plain', viewValue: 'SASL/Plain' },
+    { value: 'SSL', viewValue: 'SSL' }
+  ];
+  onKafkaAuthModeSelected(event) {
+  }
 
   constructor(private graphService: GraphService) {
 

@@ -29,6 +29,9 @@ export class PipelineFilteringComponent implements OnInit, OnChanges, OnDestroy 
   @Input() devices: Device[];
   @Input() filters: any[];
 
+  // Added to prevent compile error in oss version
+  activeNode: Node;
+
   logLevels: SelectItem[] = [
     { value: 'INFO', viewValue: 'INFO' },
     { value: 'WARN', viewValue: 'WARN' },

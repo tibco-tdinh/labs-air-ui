@@ -1911,11 +1911,11 @@ export class IotPipelineComponent implements OnInit {
     if (deployType == "Edge") {
 
       console.log("Building request for Edge");
-      
+
 
       if (deployerType == "OH") {
         console.log("Building for OH");
-        
+
         systemEnv = {
           "Platform": this.gateway.platform,
           "DetachedMode": "n",
