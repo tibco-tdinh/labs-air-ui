@@ -18,6 +18,11 @@ export class PipelineConfigComponent implements OnInit {
     { value: 'Edge', viewValue: 'Edge' }
   ];
 
+  deployerTypes: SelectItem[] = [
+    { value: 'AIR', viewValue: 'AIR Deployer' },
+    { value: 'OH', viewValue: 'OpenHorizon' }
+  ];
+  
   logLevels: SelectItem[] = [
     { value: 'INFO', viewValue: 'INFO' },
     { value: 'WARN', viewValue: 'WARN' },

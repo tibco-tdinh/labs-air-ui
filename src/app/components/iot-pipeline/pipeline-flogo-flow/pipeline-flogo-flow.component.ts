@@ -39,12 +39,12 @@ export class PipelineFlogoFlowComponent implements OnInit {
 
     // when a value changes on the array, update the form value.
     this.dataSourceChange
-    .pipe(debounceTime(800), distinctUntilChanged())
-    .subscribe(() => {
-      console.log("Data source changed to: ", this.dataSource);
-      this.flogoFlowForm.patchValue({
+      .pipe(debounceTime(800), distinctUntilChanged())
+      .subscribe(() => {
+        console.log("Data source changed to: ", this.dataSource);
+        this.flogoFlowForm.patchValue({
 
-        flowProperties: JSON.stringify(this.dataSource)
+          flowProperties: JSON.stringify(this.dataSource)
         });
       });
   }

@@ -29,7 +29,9 @@ export class PipelineRestServiceComponent implements OnInit, OnChanges {
   @Input() devices: Device[];
   @Input() restForm: FormGroup;
   @Input() filters: any[];
-  @Input() activeNode: Node;
+
+  // Added to prevent compile error in oss version
+  activeNode: Node;
 
   logLevels: SelectItem[] = [
     { value: 'INFO', viewValue: 'INFO' },

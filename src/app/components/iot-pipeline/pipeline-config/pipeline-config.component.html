@@ -1,4 +1,4 @@
-<mat-card fxFlex style="height: 100%;" [formGroup]="pipelineForm">
+<mat-card fxFlex style="height: 100%; box-shadow:none;" [formGroup]="pipelineForm">
 
     <mat-card-header>
         <mat-card-title>General Configuration</mat-card-title>
@@ -16,6 +16,14 @@
                 <mat-label>Type</mat-label>
                 <mat-select formControlName="pipelineType">
                     <mat-option *ngFor="let item of pipelineTypes;" [value]="item.value">
+                        {{item.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                <mat-label>Deployer Type</mat-label>
+                <mat-select formControlName="deployerType">
+                    <mat-option *ngFor="let item of deployerTypes;" [value]="item.value">
                         {{item.viewValue}}
                     </mat-option>
                 </mat-select>

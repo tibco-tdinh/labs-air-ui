@@ -45,7 +45,6 @@ import { PipelineConfigComponent } from './components/iot-pipeline/pipeline-conf
 import { PipelineDataPublisherComponent } from './components/iot-pipeline/pipeline-data-publisher/pipeline-data-publisher.component';
 import { PipelineDataStoreComponent } from './components/iot-pipeline/pipeline-data-store/pipeline-data-store.component';
 import { PipelineDataSubscriberComponent } from './components/iot-pipeline/pipeline-data-subscriber/pipeline-data-subscriber.component';
-import { PipelineEditorComponent } from './components/iot-pipeline/pipeline-editor/pipeline-editor.component';
 import { PipelineFilteringComponent } from './components/iot-pipeline/pipeline-filtering/pipeline-filtering.component';
 import { PipelineFlogoFlowComponent } from './components/iot-pipeline/pipeline-flogo-flow/pipeline-flogo-flow.component';
 import { PipelineInferencingComponent } from './components/iot-pipeline/pipeline-inferencing/pipeline-inferencing.component';
@@ -112,7 +111,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     PipelineDataPublisherComponent,
     PipelineDataStoreComponent,
     PipelineDataSubscriberComponent,
-    PipelineEditorComponent,
     PipelineFilteringComponent,
     PipelineFlogoFlowComponent,
     PipelineInferencingComponent,
