@@ -75,7 +75,7 @@ export const STARTER_APP_ROUTES=
       {
         path: 'simulator',
         component: IotSimulatorComponent,
-        data: {breadcrumb: ['Gateways']}
+        data: {breadcrumb: ['Store Simulator']}
       },
       {
         path: 'edgedatapipeline/:gatewayId',

@@ -54,6 +54,11 @@ export interface Project {
   parameter: Operations;
 }
 
+export interface SelectItem {
+  value: string;
+  viewValue: string;
+}
+
 interface FlattenedDeployable {
   id: string;
   name: string;
@@ -82,6 +87,10 @@ export class InfraDeployerComponent implements OnInit {
   deployableSelection = new SelectionModel<FlattenedDeployable>(false, []);
   deployableForm: FormGroup;
 
+  deployerTypes: SelectItem[] = [
+    { value: 'AIR', viewValue: 'AIR Deployer' },
+    { value: 'OH', viewValue: 'OpenHorizon' }
+  ];
 
   constructor(private flogoDeployService: FlogoDeployService,
     private formBuilder: FormBuilder,
@@ -104,6 +113,8 @@ get the projects for the deployable table
   createForm() {
     console.log("Creating form");
     this.deployableForm = this.formBuilder.group({
+      deployerType: ['', Validators.required],
+      deployerServer: ['', Validators.required],
       projectName: ['', Validators.required],
       deployConstraints: ['', Validators.required],
       deployable: ['', Validators.required],
@@ -220,18 +231,29 @@ get the projects for the deployable table
   */
   deploy() {
 
-    let deployerType = 'OH';
+    let deployerType = this.deployableForm.get('deployerType').value;
+    let systemEnv = {};
 
-    let systemEnv = {
-      "DeployType": "docker-oh",
-      // "TargetServer": this.deployableForm.get('targetServer').value,
-      "TargetServer": "http://100.25.140.175:3090/v1",
-      "Username": this.deployableForm.get('username').value,
-      "DeployConstrains": this.deployableForm.get('deployConstraints').value,
-      "ServiceProperties": this.deployableForm.get('serviceProperties').value,
-      "Platform": this.deployableForm.get('platform').value,
-      "Artifacts": "/home/ubuntu/loss-detection-app",
-    };
+    if (deployerType == "OH") {
+      systemEnv = {
+        "DeployType": "docker-oh",
+        "TargetServer": this.deployableForm.get('deployerServer').value,
+        // "TargetServer": "http://100.25.140.175:3090/v1",
+        "Username": this.deployableForm.get('username').value,
+        "DeployConstrains": this.deployableForm.get('deployConstraints').value,
+        "ServiceProperties": this.deployableForm.get('serviceProperties').value,
+        "Platform": this.deployableForm.get('platform').value,
+        "Artifacts": "/home/ubuntu/loss-detection-app",
+      };
+    }
+    else {
+      systemEnv = {
+        "DeployType": "docker",
+        "TargetServer": this.deployableForm.get('deployerServer').value,
+        "Username": this.deployableForm.get('username').value,
+        "Platform": this.deployableForm.get('platform').value,
+      };
+    }
     
     // Build dynamic parameters
     let parameters = this.getParameters();
@@ -312,13 +334,26 @@ get the projects for the deployable table
   undeploy project
   */
   undeploy() {
-    let systemEnv = {
-      "DeployType": "docker-oh",
-      // "TargetServer": this.deployableForm.get('deployerURL').value,
-      "TargetServer": "http://100.25.140.175:3090/v1",
-      "Username": this.deployableForm.get('username').value,
-      "Platform": this.deployableForm.get('platform').value,
-    };
+
+    let deployerType = this.deployableForm.get('deployerType').value;
+    let systemEnv = {};
+
+    if (deployerType == "OH") {
+      systemEnv = {
+        "DeployType": "docker-oh",
+        "TargetServer": this.deployableForm.get('deployerServer').value,
+        "Username": this.deployableForm.get('username').value,
+        "Platform": this.deployableForm.get('platform').value,
+      };
+    }
+    else {
+      systemEnv = {
+        "DeployType": "docker",
+        "TargetServer": this.deployableForm.get('deployerServer').value,
+        "Username": this.deployableForm.get('username').value,
+        "Platform": this.deployableForm.get('platform').value,
+      };
+    }
 
     let undeployRequest = {
       
