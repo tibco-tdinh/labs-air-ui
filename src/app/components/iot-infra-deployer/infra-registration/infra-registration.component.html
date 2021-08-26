@@ -5,20 +5,22 @@
             <mat-card-title>Registration Details</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div fxLayout="column" style="width: 100%; padding-top: 20px">
-              <div>
+            <div fxLayout="column" fxLayoutAlign="center start" style="width: 100%; padding-top: 20px">
+              <div fxLayout="row" fxLayoutAlign="center start" style="width: 100%; padding-left: 20px">
                 <form [formGroup]="projectForm">
-                  <mat-form-field fxFlex="1 1 20%" appearance="outline">
+                  <mat-form-field fxFlex="1 1 18%" appearance="outline" style="width: 20%;">
                     <mat-label>Project name</mat-label>
                     <input required matInput [readonly]=false formControlName="projectName" required pattern="[0-9a-zA-Z_.-]*" minlength="3" maxlength="64"> 
                     <mat-error *ngIf="projectForm.get('projectName').invalid">project name must be between 3 and 64 character and have no spaces or special characters</mat-error>
                   </mat-form-field>
-                  <mat-form-field fxFlex="1 1 30%" appearance="outline">
+                  <mat-form-field fxFlex="1 1 18%" appearance="outline" style="width: 40%;">
                     <mat-label>Project description</mat-label>
                     <input matInput [readonly]=false id="project" formControlName="projectDescription" required minlength="3" maxlength="64">
                     <mat-error *ngIf="projectForm.get('projectDescription').invalid">Project description must be between 3 and 64 characters</mat-error>
                   </mat-form-field>
                 </form>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center start" style="width: 100%; padding-left: 20px">
                 <p>Please upload a yml file and an env json file</p>
                 <input type="file" class="file-input" accept=".yml,.json" multiple (change)="onFileSelected($event)"
                     style="display:none;" #fileUpload  />
@@ -27,17 +29,25 @@
                       <mat-icon class="icon-display">upload_file</mat-icon>
                     </button>
               </div>
-              <mat-card-actions style="padding-left: 0.5%;">
+              <!-- <div fxLayout="row" fxLayoutAlign="center start" style="width: 100%; padding-left: 20px">
+                <input type="file" class="file-input" accept=".json" (change)="onEnvSelected($event)" #fileUpload />
+                    <button mat-icon-button color="primary" (click)="fileUpload.click()">
+                      <mat-label style="font-size: 18px; margin-right: 20%;">Upload env file</mat-label>
+                      <mat-icon class="icon-display">upload_file</mat-icon>
+                    </button>
+              </div> -->
+              <mat-card-actions style="padding-left: 2%;">
                 <mat-card-title style="font-size: medium;">{{name}}</mat-card-title>
                 <form [formGroup]="registrationForm">
                   <ng-container formArrayName="parameters">
-                    <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 500px; overflow: auto;">
+                    <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 500px; width: 100%; overflow: auto;">
                       <ng-container *ngFor="let prop of registrationForm.get('parameters')['controls']; let i = index">
-                        <div [formGroupName]="i">
-                          <mat-form-field fxFlex="1 1 20%" appearance="outline">
+      
+                        <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px" [formGroupName]="i">
+                          <mat-form-field fxFlex="1 1 15%" appearance="outline">
                             <input matInput [readonly]=true formControlName="name">
                           </mat-form-field>
-                          <mat-form-field fxFlex="1 1 20%" appearance="outline" >
+                          <mat-form-field fxFlex="1 1 15%" appearance="outline">
                             <input required matInput [readonly]=false formControlName="value" placeholder="Enter Property Value " minlength="3" maxlength="64">
                             <mat-error *ngIf="registrationForm.invalid">Property value must be between 3 and 64 characters</mat-error>
                           </mat-form-field>
@@ -48,7 +58,7 @@
                 </form>
               </mat-card-actions>
               <mat-card-actions  style="padding-bottom: 2%;">
-                <button mat-raised-button (click)="register()" color="primary">Register</button>
+                <button id="registrationButton" [disabled]= "projectForm.invalid" mat-raised-button (click)="register()" color="primary">Register</button>
                 <div *ngIf="registrationForm.invalid" style="font-size: small; color: rgb(145, 140, 140); place-content: space-between;">* All fields are required to be filled before you can register</div>
               </mat-card-actions>
           </div>
