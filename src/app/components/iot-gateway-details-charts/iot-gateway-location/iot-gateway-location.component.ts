@@ -12,12 +12,12 @@ import { GraphService } from '../../../services/graph/graph.service';
   styleUrls: ['./iot-gateway-location.component.css']
 })
 export class IotGatewayLocationComponent implements OnInit, OnDestroy {
-  device: Device = new Device;
-  instrument: Resource = new Resource;
+  device: Device;
+  instrument: Resource;
   resourceReadings: TSReading[]  = [];
   resourceInferredReadings: TSReading[]  = [];
   subscriptions: Subscription[] = [];
-  locationData: {}[] = [];
+  locationData = [];
 
   instrumentForm: FormGroup;
 

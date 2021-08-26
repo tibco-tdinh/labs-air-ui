@@ -13,16 +13,16 @@ import { ChartOptions, ChartType } from 'chart.js';
   styleUrls: ['./iot-gateway-time-series.component.css']
 })
 export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
-  device: Device = new Device;
-  instrument: Resource = new Resource;
+  device: Device;
+  instrument: Resource;
   subscriptions: Subscription[] = [];
   instrumentForm: FormGroup;
   resourceReadings: TSReading[] = [];
   resourceInferredReadings: TSReading[] = [];
   numReadings = 300;
 
-  timeSeriesData: {}[]= [];
-  timeSeriesInferredData: {}[] = [];
+  timeSeriesData = [];
+  timeSeriesInferredData = [];
 
   queryLastValuesDisabled = false;
   queryByDateDisabled = true;

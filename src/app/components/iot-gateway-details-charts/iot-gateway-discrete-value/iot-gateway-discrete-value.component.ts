@@ -10,8 +10,8 @@ import { GoogleChartInterface } from 'ng2-google-charts';
   styleUrls: ['./iot-gateway-discrete-value.component.css']
 })
 export class IotGatewayDiscreteValueComponent implements OnInit {
-  device: Device = new Device;
-  instrument: Resource = new Resource;
+  device: Device;
+  instrument: Resource;
   resourceReadings: TSReading[] = [];
   subscriptions: Subscription[] = []
   numReadings = 40;
@@ -48,7 +48,7 @@ export class IotGatewayDiscreteValueComponent implements OnInit {
     }
   }
 
-  setTimelineDataSet(_deviceName: string) {
+  setTimelineDataSet(deviceName: string) {
     let ccComponent = this.timelineChartData.component;
 
 

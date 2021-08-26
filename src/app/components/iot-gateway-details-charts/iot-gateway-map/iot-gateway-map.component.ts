@@ -9,9 +9,9 @@ import { GraphService } from '../../../services/graph/graph.service';
   styleUrls: ['./iot-gateway-map.component.css']
 })
 export class IotGatewayMapComponent implements OnInit, OnDestroy {
-  device: Device = new Device;
-  instrument: Resource = new Resource;
-  mapConfig: {} = {};
+  device: Device;
+  instrument: Resource;
+  mapConfig = null;
   mapMarketUpdate = null;
   createMapFlag = true;
   public resourceReadings: TSReading[] = [];

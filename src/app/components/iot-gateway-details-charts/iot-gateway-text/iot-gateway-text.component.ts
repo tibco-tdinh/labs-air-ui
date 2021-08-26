@@ -11,14 +11,13 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./iot-gateway-text.component.css']
 })
 export class IotGatewayTextComponent implements OnInit, OnDestroy, AfterViewInit {
-  device: Device = new Device;
-  instrument: Resource = new Resource;
+  device: Device;
+  instrument: Resource;
   subscriptions: Subscription[] = []
   displayedColumns = ['created', 'value']
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
   dataSource: MatTableDataSource<TSReading> = new MatTableDataSource<TSReading>();
-  @ViewChild(MatSort)
-  sort: MatSort = new MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private graphService: GraphService) { }
 

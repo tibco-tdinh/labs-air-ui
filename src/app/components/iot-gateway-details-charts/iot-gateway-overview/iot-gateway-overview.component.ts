@@ -7,8 +7,8 @@ import { Device, Resource } from 'src/app/shared/models/iot.model';
   styleUrls: ['./iot-gateway-overview.component.css']
 })
 export class IotGatewayOverviewComponent implements OnInit {
-  device: Device = new Device;
-  instrument: Resource = new Resource;
+  device: Device;
+  instrument: Resource;
 
   constructor() { }
 
