@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
-import { Device, Resource, TSReading } from 'src/app/shared/models/iot.model';
+import { Device, Resource, ScatterChartDataset, TSReading } from 'src/app/shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ChartOptions, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-iot-gateway-time-series',
@@ -16,8 +17,8 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
   instrument: Resource;
   subscriptions: Subscription[] = [];
   instrumentForm: FormGroup;
-  resourceReadings = [];
-  resourceInferredReadings = [];
+  resourceReadings: TSReading[] = [];
+  resourceInferredReadings: TSReading[] = [];
   numReadings = 300;
 
   timeSeriesData = [];
@@ -30,7 +31,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
   queryStartDate = Date.now();
   queryEndDate = Date.now();
 
-  chartType = 'line';
+  chartType: ChartType = 'line';
   chartLegend = true;
   chartStreamingLegend = true;
   streamLastQuery = Date.now();
@@ -56,32 +57,9 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
     }
   ];
 
-  chartDatasets = [
-    {
-      label: '',
-      // borderColor: 'blue',
-      //backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      type: 'line',
-      // pointRadius: 0,
-      fill: true,
-      lineTension: 0,
-      borderWidth: 2,
-      data: []
-    },
-    {
-      label: 'Inferred',
-      // borderColor: 'green',
-      //backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      type: 'line',
-      // pointRadius: 0,
-      fill: true,
-      lineTension: 0,
-      borderWidth: 2,
-      data: []
-    },
-  ];
+  chartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "line", 0, true, 0, 2, []), new ScatterChartDataset("Inferred", "line", 0, true, 0, 2, []),];
 
-  chartOptions = {
+  chartOptions: ChartOptions = {
     responsive: true,
     aspectRatio: 5,
     scales: {
@@ -214,7 +192,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
       }))
   }
 
-  getInferredReadings(deviceName, resourceName, numReadings, ts) {
+  getInferredReadings(deviceName: string, resourceName: string, numReadings: number, ts: number) {
     this.subscriptions.push(this.graphService.getReadings(deviceName, resourceName, numReadings)
       .subscribe(res => {
         this.resourceInferredReadings = res as TSReading[];
@@ -224,7 +202,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
       }))
   }
 
-  getReadingsBetween(deviceName, resourceName, fromts, tots) {
+  getReadingsBetween(deviceName: string, resourceName: string, fromts: number, tots: number) {
     this.subscriptions.push(this.graphService.getReadingsBetween(deviceName, resourceName, fromts, tots)
       .subscribe(res => {
         this.resourceReadings = res as TSReading[];
@@ -236,7 +214,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
     this.timeSeriesData = [];
     this.resourceReadings.forEach(
       reading => {
-        if (isNaN(reading.value)) {
+        if (!reading.value) {
           this.timeSeriesData.push({ x: new Date(reading.created).toISOString(), y: reading.value == 'true' ? 1 : 0 });
         }
         else {
@@ -252,7 +230,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
     this.resourceInferredReadings.forEach(
       reading => {
 
-        if (isNaN(reading.value)) {
+        if (!reading.value) {
           this.timeSeriesInferredData.push({ x: new Date(reading.created).toISOString(), y: reading.value == 'true' ? 1 : 0 });
         }
         else {
@@ -272,7 +250,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
         console.log("reading data in getStreamingData: ", this.resourceReadings);
         this.resourceReadings.forEach(
           reading => {
-            if (isNaN(reading.value)) {
+            if (!reading.value) {
               chart.data.datasets[0].data.push({ x: new Date(reading.created).toISOString(), y: reading.value == 'true' ? 1 : 0 });
             }
             else {
@@ -285,18 +263,22 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
   }
 
   startDateEvent(event: MatDatepickerInputEvent<Date>) {
-    this.queryStartDate = event.value.valueOf();
-    this.startDateSelected = true;
-    if (this.endDateSelected) {
-      this.queryByDateDisabled = false;
+    if (event && event.value){
+      this.queryStartDate = event.value.valueOf();
+      this.startDateSelected = true;
+      if (this.endDateSelected) {
+        this.queryByDateDisabled = false;
+      }
     }
   }
 
   endDateEvent(event: MatDatepickerInputEvent<Date>) {
-    this.queryEndDate = event.value.valueOf();
-    this.endDateSelected = true;
-    if (this.startDateSelected) {
-      this.queryByDateDisabled = false;
+    if (event && event.value){
+      this.queryEndDate = event.value.valueOf();
+      this.endDateSelected = true;
+      if (this.startDateSelected) {
+        this.queryByDateDisabled = false;
+      }
     }
   }
 

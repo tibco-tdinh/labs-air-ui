@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ChartOptions, ChartType } from 'chart.js';
 import { Subscription } from 'rxjs';
-import { Device, Resource, TSReading } from 'src/app/shared/models/iot.model';
+import { Device, Resource, ScatterChartDataset, TSReading } from 'src/app/shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
 
 @Component({
@@ -13,8 +14,8 @@ import { GraphService } from '../../../services/graph/graph.service';
 export class IotGatewayLocationComponent implements OnInit, OnDestroy {
   device: Device;
   instrument: Resource;
-  resourceReadings = [];
-  resourceInferredReadings = [];
+  resourceReadings: TSReading[]  = [];
+  resourceInferredReadings: TSReading[]  = [];
   subscriptions: Subscription[] = [];
   locationData = [];
 
@@ -28,18 +29,8 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
   queryEndDate = Date.now();
   chartLegend = true;
 
-  scatterChartType = 'scatter';
-  scatterChartDatasets = [
-    {
-      label: '',
-      type: 'scatter',
-      pointRadius: 5,
-      fill: false,
-      // lineTension: 0,
-      borderWidth: 2,
-      data: []
-    },
-  ];
+  scatterChartType: ChartType = 'scatter';
+  scatterChartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "scatter", 5, false, 0, 2, []),];
 
   constructor(private graphService: GraphService, private formBuilder: FormBuilder) {
     this.instrumentForm = this.formBuilder.group({
@@ -82,7 +73,7 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public scatterChartOptions = {
+  public scatterChartOptions: ChartOptions = {
     responsive: true,
     aspectRatio: 5,
     scales: {
@@ -136,7 +127,7 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
       }));
   }
 
-  public getReadingsBetween(deviceName, resourceName, fromts, tots) {
+  public getReadingsBetween(deviceName: string, resourceName: string, fromts: number, tots: number) {
     this.subscriptions.push(this.graphService.getReadingsBetween(deviceName, resourceName, fromts, tots)
       .subscribe(res => {
         this.resourceReadings = res as TSReading[];
@@ -145,18 +136,22 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
   }
 
   startDateEvent(event: MatDatepickerInputEvent<Date>) {
-    this.queryStartDate = event.value.valueOf();
-    this.startDateSelected = true;
-    if (this.endDateSelected) {
-      this.queryByDateDisabled = false;
+    if (event && event.value){
+      this.queryStartDate = event.value.valueOf();
+      this.startDateSelected = true;
+      if (this.endDateSelected) {
+        this.queryByDateDisabled = false;
+      }
     }
   }
 
   endDateEvent(event: MatDatepickerInputEvent<Date>) {
-    this.queryEndDate = event.value.valueOf();
-    this.endDateSelected = true;
-    if (this.startDateSelected) {
-      this.queryByDateDisabled = false;
+    if (event && event.value){
+      this.queryEndDate = event.value.valueOf();
+      this.endDateSelected = true;
+      if (this.startDateSelected) {
+        this.queryByDateDisabled = false;
+      }
     }
   }
 
