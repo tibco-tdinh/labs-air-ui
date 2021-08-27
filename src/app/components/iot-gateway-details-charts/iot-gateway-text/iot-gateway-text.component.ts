@@ -15,8 +15,8 @@ export class IotGatewayTextComponent implements OnInit, OnDestroy, AfterViewInit
   instrument: Resource;
   subscriptions: Subscription[] = []
   displayedColumns = ['created', 'value']
-  dateFormat = 'yyyy-MM-dd HH:mm:ss'
-  dataSource = new MatTableDataSource<TSReading>();
+  dateFormat = 'yyyy-MM-dd HH:mm:ss';
+  dataSource: MatTableDataSource<TSReading> = new MatTableDataSource<TSReading>();
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private graphService: GraphService) { }

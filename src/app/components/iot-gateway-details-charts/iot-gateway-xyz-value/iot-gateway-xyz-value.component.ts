@@ -5,6 +5,7 @@ import { Device, Resource, TSReading, TSCombinedReading } from 'src/app/shared/m
 import { GraphService } from '../../../services/graph/graph.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-iot-gateway-xyz-value',
@@ -25,7 +26,10 @@ export class IotGatewayXyzValueComponent implements OnInit, OnDestroy, AfterView
   dateFormat = 'yyyy-MM-dd HH:mm:ss'
   tableDataSource = new MatTableDataSource<TSCombinedReading>();
   combinedReadingSelection = new SelectionModel<TSCombinedReading>(false, []);
-
+  queryForm: FormGroup;
+  queryLastValuesDisabled = true;
+  inferredImageData:any;
+  queryByDateDisabled = true;
 
   heatmapRefWidth = 45
   heatmapRefHeight = 27

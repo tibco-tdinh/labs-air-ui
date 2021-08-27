@@ -36,9 +36,9 @@ export class IotGatewayDetailsComponent implements OnInit {
   selectedDeviceTab = 'Overview'
   selectedSensor: Resource;
 
-  @ViewChild(SensorDirective, { static: true }) sensorData: SensorDirective
+  @ViewChild(SensorDirective, { static: true }) sensorData: SensorDirective;
 
-  menuItems: String[] = [];
+  menuItems: string[] = [];
 
   constructor(private graphService: GraphService,
     private edgeService: EdgeService,
@@ -104,11 +104,13 @@ export class IotGatewayDetailsComponent implements OnInit {
   selectChartType(nameOfChart: string, data?: any) {
     this.selectedDeviceTab = nameOfChart;
     const componentFactory = this.getChartComponent(nameOfChart);
-    const viewContainerRef = this.sensorData.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    componentRef.instance.device = this.selectedDevice;
-    componentRef.instance.instrument = this.selectedSensor;
+    if (componentFactory){
+      const viewContainerRef = this.sensorData.viewContainerRef;
+      viewContainerRef.clear();
+      const componentRef = viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.device = this.selectedDevice;
+      componentRef.instance.instrument = this.selectedSensor;
+    }
   }
 
   getChartComponent(nameOfChart: string) {
@@ -116,26 +118,31 @@ export class IotGatewayDetailsComponent implements OnInit {
       return this.componentFactoryResolver.resolveComponentFactory(IotGatewayOverviewComponent);
     } else {
       const sensor = this.selectedDevice.profile.deviceResources.find(({ name }) => name === nameOfChart)
-      this.selectedSensor = sensor;
-      if (sensor.name == "GPS") {
-        return this.componentFactoryResolver.resolveComponentFactory(IotGatewayMapComponent);
-      }
-      else if (sensor.name == "Location") {
-        return this.componentFactoryResolver.resolveComponentFactory(IotGatewayMapComponent);
-      }
-      else if (sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "XYZScatter") {
-        return this.componentFactoryResolver.resolveComponentFactory(IotGatewayXyzValueComponent);
-      }
-      else if (sensor.properties.value.type == "String" && sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "Custom") {
-        return this.componentFactoryResolver.resolveComponentFactory(IotGatewayDiscreteValueComponent);
-      }
-      else if (sensor.properties.value.type == "String") {
-        return this.componentFactoryResolver.resolveComponentFactory(IotGatewayTextComponent);        
-      }
-      else if (sensor.properties.value.type == "Binary") {
-        return this.componentFactoryResolver.resolveComponentFactory(IotGatewayImageComponent);
-      }
-      else {
+ 
+      if (sensor) {
+        this.selectedSensor = sensor;
+        if (sensor.name == "GPS") {
+          return this.componentFactoryResolver.resolveComponentFactory(IotGatewayMapComponent);
+        }
+        else if (sensor.name == "Location") {
+          return this.componentFactoryResolver.resolveComponentFactory(IotGatewayMapComponent);
+        }
+        else if (sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "XYZScatter") {
+          return this.componentFactoryResolver.resolveComponentFactory(IotGatewayXyzValueComponent);
+        }
+        else if (sensor.properties.value.type == "String" && sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "Custom") {
+          return this.componentFactoryResolver.resolveComponentFactory(IotGatewayDiscreteValueComponent);
+        }
+        else if (sensor.properties.value.type == "String") {
+          return this.componentFactoryResolver.resolveComponentFactory(IotGatewayTextComponent);        
+        }
+        else if (sensor.properties.value.type == "Binary") {
+          return this.componentFactoryResolver.resolveComponentFactory(IotGatewayImageComponent);
+        }
+        else {
+          return this.componentFactoryResolver.resolveComponentFactory(IotGatewayTimeSeriesComponent);
+        }
+      } else {
         return this.componentFactoryResolver.resolveComponentFactory(IotGatewayTimeSeriesComponent);
       }
     }

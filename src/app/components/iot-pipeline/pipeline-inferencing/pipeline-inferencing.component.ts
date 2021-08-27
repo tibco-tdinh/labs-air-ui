@@ -34,6 +34,9 @@ export class PipelineInferencingComponent implements OnInit, OnChanges  {
   @Input() modelForm: FormGroup;
   @Input() filters: any[];
 
+  // Added to prevent compile error in oss version
+  activeNode: Node;
+
   logLevels: SelectItem[] = [
     { value: 'INFO', viewValue: 'INFO' },
     { value: 'WARN', viewValue: 'WARN' },

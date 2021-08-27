@@ -14,8 +14,8 @@ export class IotGatewayMapComponent implements OnInit, OnDestroy {
   mapConfig = null;
   mapMarketUpdate = null;
   createMapFlag = true;
-  public resourceReadings = [];
-  public resourceInferredReadings = []
+  public resourceReadings: TSReading[] = [];
+  public resourceInferredReadings: TSReading[] = []
   subscriptions: Subscription[] = []
 
   constructor(private graphService: GraphService) { }
@@ -36,7 +36,7 @@ export class IotGatewayMapComponent implements OnInit, OnDestroy {
       }));
   }
 
-  public setMapDataSet(deviceName) {
+  public setMapDataSet(deviceName: string) {
     let mapData = [];
     let idx = this.resourceReadings.length - 1;
     let coords = this.resourceReadings[idx].value.split("|", 3);

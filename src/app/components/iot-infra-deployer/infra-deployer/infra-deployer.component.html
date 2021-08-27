@@ -1,8 +1,8 @@
-<div fxLayout="column" style="height: 100%; overflow: auto;">
+<div fxLayout="column" fxLayoutGap="20px" style="height: 100%; overflow: auto;">
 
-  <div fxLayout="row" style="min-height: 250px;">
+  <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-between stretch" style="min-height: 250px; max-height: 500px; overflow: auto;" >
 
-    <table mat-table [dataSource]="dataSource">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -46,14 +46,14 @@
       <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef>
         </mat-header-cell>
-
-        <mat-cell *matCellDef="let row; let i = inde;x">
-          <button mat-icon-button>
-            <mat-icon (click)="delete(i)">delete</mat-icon>
-          </button>
+      
+        <mat-cell *matCellDef="let row; let i = index;">
+            <button mat-button (click)="delete(row.projectDescription,row.projectId)">
+              <mat-icon>delete</mat-icon>
+            </button>
         </mat-cell>
       </ng-container>
-
+      
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="deployableSelected(row)"
@@ -68,15 +68,15 @@
   <form [formGroup]="deployableForm" fxLayout="row wrap" fxLayoutGap="15px">
 
 
-    <div style="width: 100%; overflow:auto;">
-      <mat-card style="display: block;">
+    <div fxLayout="row" fxLayoutAlign="space-around" style="width: 100%; overflow:auto;">
+      <mat-card fxFlex>
         <mat-card-header>
           <mat-card-title>Deployment Details</mat-card-title>
         </mat-card-header>
-        <mat-card-content style="display:block; flex-direction:row;">
-          <div>
+        <mat-card-content>
+          <div fxLayout="row" fxLayoutGap="15px">
 
-            <mat-form-field fxFlex="1 1 20%" appearance="outline">
+            <mat-form-field fxFlex="1 1 18%" appearance="outline">
               <mat-label>Deployer Type</mat-label>
               <mat-select formControlName="deployerType">
                 <mat-option *ngFor="let item of deployerTypes;" [value]="item.value">
@@ -96,29 +96,28 @@
               <mat-label>Deploy Constraints</mat-label>
               <input matInput [readonly]=false formControlName="deployConstraints">
             </mat-form-field>
-            <mat-form-field fxFlex="1 1 20%" appearance="outline">
+            <mat-form-field fxFlex="1 1 18%" appearance="outline">
               <mat-label>Platform</mat-label>
               <input matInput [readonly]=true formControlName="platform">
             </mat-form-field>
           </div>
-          <ng-container formArrayName="parameters">
-            <mat-card fxFlex class="mat-elevation-z0"
-              style="display: block; max-height: 300px;  width: 100%; overflow: auto;">
-              <ng-container *ngFor="let prop of deployableForm.get('parameters')['controls']; let i = index">
+            <ng-container formArrayName="parameters">
+              <mat-card fxFlex class="mat-elevation-z0" style=" margin-left: -1%; max-height: 300px; width: 100%; overflow: auto;">
+                <ng-container *ngFor="let prop of deployableForm.get('parameters')['controls']; let i = index">
 
-                <div fxLayoutGap="15px" [formGroupName]="i">
-                  <mat-form-field fxFlex="1 1 20%" appearance="outline">
-                    <input matInput [readonly]=true formControlName="name">
-                  </mat-form-field>
-                  <mat-form-field fxFlex="1 1 20%" appearance="outline">
-                    <input matInput [readonly]=false formControlName="value" placeholder="Enter Property Value ">
-                  </mat-form-field>
-                </div>
-
-              </ng-container>
-            </mat-card>
-          </ng-container>
-
+                  <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px" [formGroupName]="i">
+                    <mat-form-field fxFlex="1 1 15%" appearance="outline" style="width: 31%;">
+                      <input matInput [readonly]=true formControlName="name">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="1 1 15%" appearance="outline" style="width:31%;">
+                      <input matInput [readonly]=false formControlName="value" placeholder="Enter Property Value ">
+                    </mat-form-field>
+                  </div>
+                
+                </ng-container>
+              </mat-card>
+            </ng-container>
+  
           <mat-card-actions>
             <button mat-raised-button (click)="deploy()" color="primary">Deploy</button>
             <button mat-raised-button (click)="undeploy()" color="primary">Undeploy</button>

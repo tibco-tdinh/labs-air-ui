@@ -24,7 +24,7 @@ export class IgeDataStoresComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd  HH:mm:ss'
 
   // Form variables
-  dataStoreForm: FormGroup;
+  dataStoreForm!: FormGroup;
 
   postgresDataStore = false;
   snowflakeDataStore = false;
@@ -94,8 +94,10 @@ export class IgeDataStoresComponent implements OnInit {
    *
    * @param filterValue
    */
-  applyFilter(filterValue: string) {
-    this.dataStoresDataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(target: EventTarget |null) {
+    if(target){
+      let htmlTextArea = target as HTMLTextAreaElement;
+      this.dataStoresDataSource.filter = htmlTextArea.value.trim().toLowerCase();}
   }
 
   /**
@@ -178,7 +180,7 @@ export class IgeDataStoresComponent implements OnInit {
    * Function called when a dataStore table row is selected
    * @param row - the table row object. It maps to a DataStore object.
    */
-  onDataStoreClicked(row) {
+  onDataStoreClicked(row:any) {
 
     console.log('Row clicked: ', row);
 

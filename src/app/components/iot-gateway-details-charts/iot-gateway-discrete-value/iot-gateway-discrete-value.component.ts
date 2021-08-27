@@ -12,7 +12,7 @@ import { GraphService } from '../../../services/graph/graph.service';
 export class IotGatewayDiscreteValueComponent implements OnInit {
   device: Device;
   instrument: Resource;
-  resourceReadings = [];
+  resourceReadings: TSReading[] = [];
   subscriptions: Subscription[] = []
   numReadings = 40;
 
@@ -39,14 +39,16 @@ export class IotGatewayDiscreteValueComponent implements OnInit {
     }
   }
   public getReadings() {
-    this.subscriptions.push(this.graphService.getReadings(this.device.name, this.instrument.name, this.numReadings)
-      .subscribe(res => {
-        this.resourceReadings = res as TSReading[];
-        this.setTimelineDataSet(this.device.name);
-      }));
+    if (this.device && this.instrument){
+      this.subscriptions.push(this.graphService.getReadings(this.device.name, this.instrument.name, this.numReadings)
+        .subscribe(res => {
+          this.resourceReadings = res as TSReading[];
+          this.setTimelineDataSet(this.device.name);
+        }));
+    }
   }
 
-  setTimelineDataSet(deviceName) {
+  setTimelineDataSet(deviceName: string) {
     let ccComponent = this.timelineChartData.component;
 
 
@@ -82,8 +84,9 @@ export class IotGatewayDiscreteValueComponent implements OnInit {
     // this.timelineChartData.dataTable.push(['Name', 'From', 'To']);
     // this.timelineChartData.dataTable.push([ 'Juan', new Date(1789, 3, 30), new Date(1797, 2, 4) ]);
     // this.timelineChartData.dataTable.push([ 'Peter',      new Date(1797, 2, 4),  new Date(1801, 2, 4) ]);
-
-    ccComponent.draw();
+    if (ccComponent){
+      ccComponent.draw();
+    }
   }
 
 }

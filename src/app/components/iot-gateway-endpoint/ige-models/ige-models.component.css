@@ -32,3 +32,10 @@ table {
     padding: 20px;
     font-size: 150%;
   }
+.mat-form-field {
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 2%;
+    width: 20%;
+}
+  
