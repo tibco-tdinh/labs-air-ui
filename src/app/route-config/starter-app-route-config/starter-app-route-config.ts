@@ -13,8 +13,9 @@ import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IotInfraDeployerComponent } from 'src/app/components/iot-infra-deployer/iot-infra-deployer.component';
 import { IotNotificationsComponent } from 'src/app/components/iot-notifications/iot-notifications.component';
-import { IotSimulatorComponent } from 'src/app/components/iot-simulator/iot-simulator.component';
+import { IotStoreSimulatorComponent } from 'src/app/components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
 import { IotDashboardComponent } from 'src/app/components/iot-dashboard/iot-dashboard.component';
+import { IotTextileSimulatorComponent } from 'src/app/components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
 
 export const HOME_ROUTE = 'splash';
 let router:Router;
@@ -73,9 +74,14 @@ export const STARTER_APP_ROUTES=
         data: {breadcrumb: ['Gateways']}
       },
       {
-        path: 'simulator',
-        component: IotSimulatorComponent,
+        path: 'store-simulator',
+        component: IotStoreSimulatorComponent,
         data: {breadcrumb: ['Store Simulator']}
+      },
+      {
+        path: 'textile-simulator',
+        component: IotTextileSimulatorComponent,
+        data: {breadcrumb: ['Textile Simulator']}
       },
       {
         path: 'edgedatapipeline/:gatewayId',

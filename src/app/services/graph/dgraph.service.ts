@@ -10,6 +10,10 @@ import { AppConfigService } from '../config/app-config.service';
 import { GraphService } from './graph.service';
 import {AuthService} from '../auth/auth.service';
 
+// const httpOptions = {
+//   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+// };
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/graphql+-' })
 };
@@ -80,8 +84,10 @@ export class DgraphService implements GraphService {
    * @param logger 
    * @param http 
    */
-  constructor(
-    private http: HttpClient, private authService: AuthService, private appConfigService: AppConfigService) {
+  constructor(private http: HttpClient,
+    private authService: AuthService,
+    private appConfigService: AppConfigService) {
+      
     console.log("Constructor Getting basic auth for dgraph");
     this.dgraphUrl = this.appConfigService.getFromConfigOrEnv("dgraphUrl");
     console.log("Constructor dgraphUrl: ", this.dgraphUrl);
@@ -97,7 +103,7 @@ export class DgraphService implements GraphService {
   /**
    * 
    */
-  getGateway(gatewayName: string | null): Observable<Gateway[]> {
+  getGateway(gatewayName: string): Observable<Gateway[]> {
     console.log("GetGateway service called for: ", gatewayName)
     const url = `${this.dgraphUrl}/query`;
     let query = `{
@@ -109,7 +115,7 @@ export class DgraphService implements GraphService {
     return this.http.post<any>(url, query, httpOptions)
       .pipe(
         map(response => response.data.resp as Gateway[]),
-        tap(response => console.log("Response from getGateway: ", response)),
+        // tap(response => console.log("Response from getGateway: ", response)),
         catchError(this.handleError<Gateway[]>('getGateway', []))
       );
   }
@@ -120,7 +126,6 @@ export class DgraphService implements GraphService {
   getGateways(): Observable<Gateway[]> {
     console.log("GetGateways service called")
     const url = `${this.dgraphUrl}/query`;
-    console.log("GetGateways url: ", url);
     let query = `{
       resp(func: has(gateway)) {
         uid uuid description address router routerPort deployNetwork latitude longitude accessToken username platform devicesMetadata createdts updatedts
@@ -1023,7 +1028,6 @@ export class DgraphService implements GraphService {
    */
   getModels(gatewayName: any): Observable<Model[]> {
     const url = `${this.dgraphUrl}/query`;
-    console.log("url: ", url);
     let query = `{
       resp(func: has(model)) @filter(eq(scope, "${gatewayName}") OR eq(scope, "GLOBAL")) {
         uid
@@ -1149,6 +1153,7 @@ export class DgraphService implements GraphService {
           name
           uuid
           pipelineType
+          deployerType
           protocolType
           protocolId
           dataStoreType
@@ -1199,6 +1204,7 @@ export class DgraphService implements GraphService {
         name
         uuid
         pipelineType
+        deployerType
         protocolType
         protocolId
         dataStoreType
@@ -1346,6 +1352,7 @@ export class DgraphService implements GraphService {
         _:Pipeline <type> "pipeline" .
         _:Pipeline <pipeline> "" .
         _:Pipeline <pipelineType> "${pipeline.pipelineType}" .
+        _:Pipeline <deployerType> "${pipeline.deployerType}" .
         _:Pipeline <created> "${pipeline.created}" .
         _:Pipeline <modified> "${pipeline.modified}" .
         _:Pipeline <description> "${pipeline.description}" .

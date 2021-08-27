@@ -79,10 +79,6 @@ export class IgeProtocolsComponent implements OnInit, AfterViewInit {
    * @param formBuilder
    * @param _snackBar
    */
-   onKafkaAuthModeSelected(event) {
-  }
-  onMQTTEncryptionModeSelected(event) {
-  }
   constructor(private graphService: GraphService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar) {
@@ -124,6 +120,7 @@ export class IgeProtocolsComponent implements OnInit, AfterViewInit {
       this.protocolsDataSource.filter = htmlTextArea.value.trim().toLowerCase();
     }
   }
+
   /**
    * Creates the protocol form
    */
@@ -804,6 +801,12 @@ export class IgeProtocolsComponent implements OnInit, AfterViewInit {
     );
 
     return found;
+  }
+
+  onKafkaAuthModeSelected(event) {
+  }
+
+  onMQTTEncryptionModeSelected(event) {
   }
 
 }

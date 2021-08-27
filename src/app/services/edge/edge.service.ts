@@ -55,7 +55,8 @@ export class EdgeService {
    * @param http 
    * @param logger 
    */
-  constructor(private http: HttpClient, private appConfigService: AppConfigService) {
+  constructor(private http: HttpClient,
+    private appConfigService: AppConfigService) {
   }
 
   /**

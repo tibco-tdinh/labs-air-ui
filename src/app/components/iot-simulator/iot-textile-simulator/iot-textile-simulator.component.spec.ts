@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IotSimulatorComponent } from './iot-simulator.component';
+import { IotTextileSimulatorComponent } from './iot-textile-simulator.component';
 
 describe('IotSimulatorComponent', () => {
-  let component: IotSimulatorComponent;
-  let fixture: ComponentFixture<IotSimulatorComponent>;
+  let component: IotTextileSimulatorComponent;
+  let fixture: ComponentFixture<IotTextileSimulatorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IotSimulatorComponent ]
+      declarations: [ IotTextileSimulatorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IotSimulatorComponent);
+    fixture = TestBed.createComponent(IotTextileSimulatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

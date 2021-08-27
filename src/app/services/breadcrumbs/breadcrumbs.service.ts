@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, NavigationEnd, Router, ActivatedRoute} from '@angular/router';
-//import { url } from 'inspector';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-//import { Breadcrumb } from './breadcrumb';
 
 
 @Injectable({
@@ -26,10 +24,9 @@ export class BreadcrumbsService {
         const urlArray = strUrl.split('/');
         let gatewayId= '';
         if(urlArray.length>4){
-            gatewayId = urlArray.pop();
+          gatewayId = urlArray.pop();
         }
         this.setCrumbs(root, gatewayId);
-
       });
   }
 
@@ -38,10 +35,11 @@ export class BreadcrumbsService {
     if (route) {
       if (route.data.breadcrumb) {
         //add  the device name when selecting the device
-        if (s.length>0){
+        if (s.length>0) {
           route.data.breadcrumb.pop();
           route.data.breadcrumb.push(s);
         }
+
         this.path.next(route.data.breadcrumb);
       }
       // go to the next element if not found

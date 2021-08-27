@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { GraphService } from '../../services/graph/graph.service'
-import { Notification } from '../../shared/models/iot.model';
+import { GraphService } from '../../../services/graph/graph.service'
+import { Notification } from '../../../shared/models/iot.model';
 import {MatSort} from '@angular/material/sort';
 
-import { RtsfSimulatorService } from '../../services/simulator/rtsf-simulator.service';
+import { RtsfSimulatorService } from '../../../services/simulator/rtsf-simulator.service';
 
 @Component({
-  selector: 'app-iot-simulator',
-  templateUrl: './iot-simulator.component.html',
-  styleUrls: ['./iot-simulator.component.css']
+  selector: 'app-iot-store-simulator',
+  templateUrl: './iot-store-simulator.component.html',
+  styleUrls: ['./iot-store-simulator.component.css']
 })
-export class IotSimulatorComponent implements OnInit, AfterViewInit {
+export class IotStoreSimulatorComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 

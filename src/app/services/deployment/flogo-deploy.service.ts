@@ -18,7 +18,9 @@ export class FlogoDeployService {
     })
   };
 
-  constructor(private http: HttpClient, private authService: AuthService, private appConfigService: AppConfigService) {
+  constructor(private http: HttpClient,
+    private authService: AuthService,
+    private appConfigService: AppConfigService) {
     let basicAuthHeaders = authService.getBasicAuthHeaders();
     basicAuthHeaders.forEach((value, key) => { 
       this.httpOptions.headers = this.httpOptions.headers.append(key, value);
@@ -117,7 +119,7 @@ export class FlogoDeployService {
       );
   }
 
-  undeploy(request: { [x: string]: string; params: any; }): Observable<string> {
+  undeploy(request: any): Observable<string> {
 
     let url = "/airEndpoint/app-manager/releases/".concat(request["id"]);
     let searchParams = new URLSearchParams();
@@ -154,7 +156,7 @@ export class FlogoDeployService {
   }
 
 
-  deployInfra(projectName, serviceName, request): Observable<any> {
+  deployInfra(projectName: string, serviceName: string, request: any): Observable<any> {
 
     // const url = `/f1Endpoint/f1/deployer/deploy/Air_ORRA_RTSF/orra_rtsf/001`;
     const url = `${this.lightcraneEndpointUrl}/f1/deployer/deploy/${projectName}/${serviceName}/001`;

@@ -30,14 +30,13 @@ export class SensorDirective {
 export class IotGatewayDetailsComponent implements OnInit {
   deviceList: Device[] = [];
   devicesDataSource = new MatTableDataSource<Device>();
-  gatewayId: string | null = '';
-  gateway: Gateway = new Gateway;
-  selectedDevice: Device = new Device;
+  gatewayId: string = '';
+  gateway: Gateway;
+  selectedDevice: Device;
   selectedDeviceTab = 'Overview'
-  selectedSensor: Resource = new Resource;
+  selectedSensor: Resource;
 
-  @ViewChild(SensorDirective, { static: true })
-  sensorData!: SensorDirective;
+  @ViewChild(SensorDirective, { static: true }) sensorData: SensorDirective;
 
   menuItems: string[] = [];
 
@@ -46,8 +45,7 @@ export class IotGatewayDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private breadcrumbs: BreadcrumbsService,
     private componentFactoryResolver: ComponentFactoryResolver
-  ) {
-   }
+  ) { }
 
   ngOnInit(): void {
     // load devices
@@ -57,7 +55,7 @@ export class IotGatewayDetailsComponent implements OnInit {
     }
   }
 
-  public getGatewayAndDevices(gatewayId: string | null) {
+  public getGatewayAndDevices(gatewayId: string) {
     this.graphService.getGateway(gatewayId)
       .subscribe(res => {
         this.gateway = res[0] as Gateway;
@@ -120,7 +118,8 @@ export class IotGatewayDetailsComponent implements OnInit {
       return this.componentFactoryResolver.resolveComponentFactory(IotGatewayOverviewComponent);
     } else {
       const sensor = this.selectedDevice.profile.deviceResources.find(({ name }) => name === nameOfChart)
-      if (sensor){
+ 
+      if (sensor) {
         this.selectedSensor = sensor;
         if (sensor.name == "GPS") {
           return this.componentFactoryResolver.resolveComponentFactory(IotGatewayMapComponent);
