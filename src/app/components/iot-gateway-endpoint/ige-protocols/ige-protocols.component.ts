@@ -37,6 +37,8 @@ export class IgeProtocolsComponent implements OnInit, AfterViewInit {
   protocolsDataSource = new MatTableDataSource<Protocol>();
   protocolDisplayedColumns: string[] = ['id', 'name', 'protocol', 'scope', 'created', 'modified'];
   protocolSelection = new SelectionModel<Protocol>(false, []);
+  
+
 
   protocols: SelectItem[] = [
     { value: 'MQTT', viewValue: 'MQTT' },
@@ -65,6 +67,7 @@ export class IgeProtocolsComponent implements OnInit, AfterViewInit {
     { value: 'TLS-Cert', viewValue: 'TLS-Cert' },
     { value: 'TLS-ClientAuth', viewValue: 'TLS-ClientAuth' }
   ];
+  
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
@@ -111,8 +114,11 @@ export class IgeProtocolsComponent implements OnInit, AfterViewInit {
    *
    * @param filterValue
    */
-  applyFilter(filterValue: string) {
-    this.protocolsDataSource.filter = filterValue.trim().toLowerCase();
+   applyFilter(target: EventTarget | null) {
+    if (target){
+      let htmlTextArea = target as HTMLTextAreaElement;
+      this.protocolsDataSource.filter = htmlTextArea.value.trim().toLowerCase();
+    }
   }
 
   /**
@@ -795,6 +801,12 @@ export class IgeProtocolsComponent implements OnInit, AfterViewInit {
     );
 
     return found;
+  }
+
+  onKafkaAuthModeSelected(event) {
+  }
+
+  onMQTTEncryptionModeSelected(event) {
   }
 
 }

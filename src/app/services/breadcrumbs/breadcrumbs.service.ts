@@ -26,7 +26,7 @@ export class BreadcrumbsService {
         if(urlArray.length>4){
           gatewayId = urlArray.pop();
         }
-        this.setCrumbs(root,gatewayId);
+        this.setCrumbs(root, gatewayId);
       });
   }
 

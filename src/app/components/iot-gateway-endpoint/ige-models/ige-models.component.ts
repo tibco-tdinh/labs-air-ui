@@ -116,8 +116,11 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
    *
    * @param filterValue
    */
-  applyFilter(filterValue: string) {
-    this.modelsDataSource.filter = filterValue.trim().toLowerCase();
+   applyFilter(target: EventTarget | null) {
+    if (target){
+      let htmlTextArea = target as HTMLTextAreaElement;
+      this.modelsDataSource.filter = htmlTextArea.value.trim().toLowerCase();
+    }
   }
 
   /**
