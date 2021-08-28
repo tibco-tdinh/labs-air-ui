@@ -15,8 +15,8 @@ export class FlogoFlowComponent extends Component {
         const control = new ImageControl(this.editor, "event", "Icon_Pipeline.svg");
 
         return node.addControl(control)
-            .addInput(inp1)
-            .addOutput(out);
+            // .addInput(inp1)
+            // .addOutput(out);
             // .addOutput(err);
     }
 

@@ -2,10 +2,10 @@ import { Component, Input, Output } from "rete";
 import { eventSocket, sqlResultSocket, errorSocket } from "../sockets";
 import { ImageControl } from "../controls/image-control";
 
-export class NotificationPipeComponent extends Component {
+export class NotificationPublisherComponent extends Component {
     data: any;
     constructor() {
-        super("Notification Pipe");
+        super("Notification Publisher");
     }
 
     builder(node) {

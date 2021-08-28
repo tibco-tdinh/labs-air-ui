@@ -32,13 +32,11 @@ import { InferencingComponent } from "../rete/components/inferencing-component";
 import { RulesComponent } from "../rete/components/rules-component";
 import { RuleExpressionComponent } from "../rete/components/rule-expression-component";
 import { StreamingComponent } from "../rete/components/streaming-component";
-import { NotificationPipeComponent } from "../rete/components/notification-pipe-component";
+import { NotificationPublisherComponent } from "../rete/components/notification-publisher-component";
 import { FlogoFlowComponent } from "../rete/components/flogo-flow-component";
 import { RestServiceComponent } from "../rete/components/rest-service-component";
 import { NodePrimaryComponent } from "../rete/nodes/node-primary/node-primary.component";
 import { pipe } from 'rxjs';
-import { DataFilteringComponent } from '../iot-data-pipeline/data-filtering/data-filtering.component';
-import { LogLevel } from '@tibco-tcstk/tc-core-lib';
 import { stringify } from '@angular/compiler/src/util';
 import { RippleRef } from '@angular/material/core';
 
@@ -210,9 +208,9 @@ export class IotPipelineComponent implements OnInit {
       new StreamingComponent(),
       new RuleExpressionComponent(),
       new RestServiceComponent(),
+      new NotificationPublisherComponent(),
       new ImageResizeComponent(),
       new CustomPublisherComponent(),
-      new NotificationPipeComponent(),
       new FlogoFlowComponent(),
       new ErrorHandlerComponent()
     ];
@@ -375,38 +373,63 @@ export class IotPipelineComponent implements OnInit {
     area.zoom(k, 0, 0);
   }
 
-  findDataSubscriberFlowNode(flow): any {
+  reorderFlow(flow: any): any {
+    console.log("Reordering flow");
+    let orderedFlow = [];
 
-    let node = null;
+    function findStartFlowNode(): any {
 
-    console.log("Flow:  ", flow);
+      let node = null;
 
-    let keys = Object.keys(flow.nodes);
+      let keys = Object.keys(flow.nodes);
 
-    for (let i = 0; i < keys.length; i++) {
-      console.log("This is key :", keys[i]);
-      if (flow.nodes[keys[i]].name == "Data Subscriber") {
-        node = flow.nodes[keys[i]];
-        break;
+      for (let i = 0; i < keys.length; i++) {
+        console.log("This is key :", keys[i]);
+
+        let currentNode = flow.nodes[keys[i]];
+        let nodeInputKeys = Object.keys(currentNode.inputs);
+
+        console.log("Inputs for current node: ", currentNode.inputs);
+        console.log("Inputs keys for current node: ", nodeInputKeys);
+        // if (currentNode.name == "Data Subscriber") {
+        if (nodeInputKeys.length == 0) {
+          node = flow.nodes[keys[i]];
+          break;
+        }
+      }
+
+      return node;
+    }
+
+    function findNextNodes(node: any): any {
+
+      let nodeOutputKeys = Object.keys(node.outputs);
+
+      if (nodeOutputKeys.length > 0) {
+        let connections = node.outputs.event.connections;
+
+        connections.forEach(connection => {
+          orderedFlow.push(flow.nodes[connection.node]);
+
+          findNextNodes(flow.nodes[connection.node]);
+        });
       }
 
     }
 
-    Object.keys(flow.nodes).forEach(key => {
-      const outputJson = flow.nodes[key];
+    let startFlowNode = findStartFlowNode();
 
-      if (flow.nodes[key].name == "Data Subscriber") {
+    orderedFlow.push(startFlowNode);
 
-      }
-      console.log("Node by key: ", outputJson);
-
-    });
+    console.log("Ordered flow after getting start: ", orderedFlow);
 
 
+    findNextNodes(startFlowNode);
 
-    console.log("First DataSubscriber node: ", node);
+    console.log("Ordered flow after getting next: ", orderedFlow);
 
-    return node;
+    return orderedFlow;
+
   }
 
   saveNodeContext(node) {
@@ -435,7 +458,7 @@ export class IotPipelineComponent implements OnInit {
         contextObj = this.buildNodeProtocolProperties(this.protocolForm, this.dataOptionsForm);
         break;
       }
-      case "Notification Pipe": {
+      case "Notification Publisher": {
 
         contextObj = this.buildNodeProtocolProperties(this.protocolForm, this.dataOptionsForm);
         break;
@@ -522,7 +545,7 @@ export class IotPipelineComponent implements OnInit {
           this.dataPublisherConfig = true;
           break;
         }
-        case "Notification Pipe": {
+        case "Notification Publisher": {
           this.updateProtocolForm(contextObj);
           this.updateDataOptionsForm(contextObj);
           this.dataPublisherConfig = true;
@@ -601,13 +624,13 @@ export class IotPipelineComponent implements OnInit {
       logLevel: 'INFO',
     }, { emitEvent: true });
 
-    
+
     this.dataOptionsForm.patchValue({
       useReading: true,
       encodeReadingValue: false,
       useEnrichedReading: false,
       encodeEnrichedReadingValue: false,
-    }, {emitEvent: true});
+    }, { emitEvent: true });
 
     // clear flogo app form
     this.flogoFlowForm.patchValue({
@@ -925,7 +948,7 @@ export class IotPipelineComponent implements OnInit {
 
     if (dataOptionsForm != null) {
       useReading = dataOptionsForm.get('useReading').value;
-      useEnrichedReading = dataOptionsForm.get('useEnrichedReading').value;      
+      useEnrichedReading = dataOptionsForm.get('useEnrichedReading').value;
     }
     let dataStoreObj = null;
 
@@ -1151,7 +1174,7 @@ export class IotPipelineComponent implements OnInit {
    *
    * @param context
    */
-   updateDataOptionsForm(context) {
+  updateDataOptionsForm(context) {
     if (context != null || context != undefined) {
       this.dataOptionsForm.patchValue({
         useReading: context.useReading,
@@ -1160,7 +1183,7 @@ export class IotPipelineComponent implements OnInit {
         encodeEnrichedReadingValue: context.encodeEnrichedReadingValue
       });
     };
-   }
+  }
 
   /**
    *
@@ -1877,9 +1900,9 @@ export class IotPipelineComponent implements OnInit {
 
     console.log("Editor Flow Data: ", flowData);
 
-    console.log("First node: ", this.findDataSubscriberFlowNode(flowData));
+    let orderedFlow = this.reorderFlow(flowData);
 
-
+    console.log("Ordered pipeline flow: ", orderedFlow);
   }
 
   buildPipelineRequest(pipelineId: string): any {
@@ -1963,6 +1986,10 @@ export class IotPipelineComponent implements OnInit {
     try {
 
       let flow = this.editor.toJSON();
+      let orderedFlow = this.reorderFlow(this.editor.toJSON());
+
+      console.log("Ordered flow: ", orderedFlow);
+
       let pos = 0;
       let notificationSourcePos = 0;
       let notificationSource = "";
@@ -1970,58 +1997,57 @@ export class IotPipelineComponent implements OnInit {
       let flogoAppVolPath = "";
       console.log("Building from: ", flow);
 
-      Object.keys(flow.nodes).forEach(key => {
-        const outputJson = flow.nodes[key];
+      orderedFlow.forEach(flowNode => {
 
-        console.log("Building from : ", key);
+        console.log("Building from : ", flowNode);
 
 
-        console.log("Building: ", flow.nodes[key].name);
+        console.log("Building: ", flowNode.name);
 
-        if (flow.nodes[key].name == "Data Subscriber") {
-          pipelineFlow.AirDescriptor.source = this.buildDataSubscriberDeployObj(flow.nodes[key].data.customdata);
+        if (flowNode.name == "Data Subscriber") {
+          pipelineFlow.AirDescriptor.source = this.buildDataSubscriberDeployObj(flowNode.data.customdata);
         }
         else {
           // Add logic nodes
-          switch (flow.nodes[key].name) {
+          switch (flowNode.name) {
             case "Data Store": {
-              let useReading = flow.nodes[key].data.customdata.useReading;
-              let useEnrichedReading = flow.nodes[key].data.customdata.useEnrichedReading;
+              let useReading = flowNode.data.customdata.useReading;
+              let useEnrichedReading = flowNode.data.customdata.useEnrichedReading;
 
               if (useReading) {
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flow.nodes[key].data.customdata, null));
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flowNode.data.customdata, null));
               }
 
               if (useEnrichedReading) {
-                let targetField =  {"Name": "Datastore.TargetField", "Value": "Inference.REST..Inferred"};
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flow.nodes[key].data.customdata, targetField));
+                let targetField = { "Name": "Datastore.TargetField", "Value": "Inference.REST..Inferred" };
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataStoreDeployObj(flowNode.data.customdata, targetField));
               }
-              
+
               break;
             }
             case "Data Publisher": {
-              let useReading = flow.nodes[key].data.customdata.useReading;
-              let useEnrichedReading = flow.nodes[key].data.customdata.useEnrichedReading;
+              let useReading = flowNode.data.customdata.useReading;
+              let useEnrichedReading = flowNode.data.customdata.useEnrichedReading;
 
               if (useReading) {
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, null));
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flowNode.data.customdata, null));
               }
-              
+
               if (useEnrichedReading) {
-                let targetField =  {"Name": "MQTTPub.TargetField", "Value": "Inference.REST..Inferred"}
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, targetField));
+                let targetField = { "Name": "MQTTPub.TargetField", "Value": "Inference.REST..Inferred" }
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flowNode.data.customdata, targetField));
               }
 
               break;
             }
             case "Custom Publisher": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildCustomPublisherDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildCustomPublisherDeployObj(flowNode.data.customdata));
 
               break;
             }
-            case "Notification Pipe": {
+            case "Notification Publisher": {
               if (notificationSource == "Rules") {
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, null));
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flowNode.data.customdata, null));
                 let pipeId = "Pipe_" + pos;
                 let ruleId = "Rule_" + notificationSourcePos;
                 let listener = {
@@ -2034,7 +2060,7 @@ export class IotPipelineComponent implements OnInit {
                 notificationSourcePos = pos;
                 pipelineFlow.AirDescriptor.logic.push(this.buildNotificationRuleDeployObj());
                 pos++;
-                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flow.nodes[key].data.customdata, null));
+                pipelineFlow.AirDescriptor.logic.push(this.buildDataPublisherDeployObj(flowNode.data.customdata, null));
 
                 let pipeId = "Pipe_" + pos;
                 let ruleId = "Rule_" + notificationSourcePos;
@@ -2048,34 +2074,34 @@ export class IotPipelineComponent implements OnInit {
               break;
             }
             case "Filters": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildFiltersDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildFiltersDeployObj(flowNode.data.customdata));
               break;
             }
             case "Inferencing": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildInferencingDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildInferencingDeployObj(flowNode.data.customdata));
               break;
             }
             case "Streaming": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildStreamingDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildStreamingDeployObj(flowNode.data.customdata));
               break;
             }
             case "Rules": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildRulesDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildRulesDeployObj(flowNode.data.customdata));
               notificationSourcePos = pos;
               notificationSource = "Rules";
               break;
             }
             case "Rule Expression": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildRuleExpressionDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildRuleExpressionDeployObj(flowNode.data.customdata));
               notificationSourcePos = pos;
               notificationSource = "Rules";
               break;
             }
             case "Flogo Flow": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildFlogoFlowDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildFlogoFlowDeployObj(flowNode.data.customdata));
 
-              let volumeName = flow.nodes[key].data.customdata.volumeName;
-              let volumePath = flow.nodes[key].data.customdata.volumePath;
+              let volumeName = flowNode.data.customdata.volumeName;
+              let volumePath = flowNode.data.customdata.volumePath;
 
               // Add extra section required for Flogo App
               let volume = {
@@ -2087,11 +2113,11 @@ export class IotPipelineComponent implements OnInit {
 
               // Set flag to exclude Filter Dummy component which is required for regular pipelines
               isFlogoApp = true;
-              flogoAppVolPath = flow.nodes[key].data.customdata.volumePath;
+              flogoAppVolPath = flowNode.data.customdata.volumePath;
               break;
             }
             case "REST Service": {
-              pipelineFlow.AirDescriptor.logic.push(this.buildRESTServiceDeployObj(flow.nodes[key].data.customdata));
+              pipelineFlow.AirDescriptor.logic.push(this.buildRESTServiceDeployObj(flowNode.data.customdata));
               notificationSourcePos = pos;
               notificationSource = "REST Service";
               break;
@@ -2129,7 +2155,6 @@ export class IotPipelineComponent implements OnInit {
               "Vol": flogoAppVolPath
             };
           }
-          
 
           pipelineFlow.ScriptSystemEnv = systemEnv;
         }
@@ -2314,13 +2339,13 @@ export class IotPipelineComponent implements OnInit {
       pipeObj.properties.push(targetField);
       if (contextObj.encodeEnrichedReadingValue) {
         pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
-      }    
+      }
     }
     // Regular publisher requires to know if encoding of value is required
     else {
       if (contextObj.encodeReadingValue) {
         pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
-      }    
+      }
     }
 
     return pipeObj;
@@ -2638,7 +2663,7 @@ export class IotPipelineComponent implements OnInit {
         inferenceData = {
           "Data": dataStr
         };
-  
+
         let mapping = {
           "Alias": "0",
           "URL": contextObj.modelUrl
@@ -2655,7 +2680,7 @@ export class IotPipelineComponent implements OnInit {
       { "Name": "Logging.LogLevel", "Value": contextObj.logLevel },
       { "Name": "REST.Timeout", "Value": "40000" },
       // { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
-      { "Name": "REST.InferenceData", "Value":  dataStr1},
+      { "Name": "REST.InferenceData", "Value": dataStr1 },
       { "Name": "REST.Conditions", "Value": JSON.stringify(contextObj.filters) },
       { "Name": "REST.URLMapping", "Value": JSON.stringify(urlMapping) }
     ];
@@ -2829,7 +2854,7 @@ export class IotPipelineComponent implements OnInit {
 
       // Convert numeric values to string
       let value = flogoProp.Value;
-      if (typeof value == 'number'){
+      if (typeof value == 'number') {
         value = flogoProp.Value.toString();
       }
 
@@ -2841,8 +2866,8 @@ export class IotPipelineComponent implements OnInit {
     });
 
 
-    flogoFlowPropertiesObj.push({"Name": "FLOGO_HTTP_SERVICE_PORT", "Value": contextObj.httpServicePort});
-    flogoFlowPropertiesObj.push({"Name": "FLOGO_APP_PROPS_ENV", "Value": contextObj.propsEnv});
+    flogoFlowPropertiesObj.push({ "Name": "FLOGO_HTTP_SERVICE_PORT", "Value": contextObj.httpServicePort });
+    flogoFlowPropertiesObj.push({ "Name": "FLOGO_APP_PROPS_ENV", "Value": contextObj.propsEnv });
 
     return flogoFlowPropertiesObj;
   }
