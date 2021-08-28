@@ -2,10 +2,10 @@ import { Component, Input, Output } from "rete";
 import { eventSocket, sqlResultSocket, errorSocket } from "../sockets";
 import { ImageControl } from "../controls/image-control";
 
-export class FlogoFlowComponent extends Component {
+export class NotificationPublisherComponent extends Component {
     data: any;
     constructor() {
-        super("Flogo Flow");
+        super("Notification Publisher");
     }
 
     builder(node) {
@@ -15,8 +15,8 @@ export class FlogoFlowComponent extends Component {
         const control = new ImageControl(this.editor, "event", "Icon_Pipeline.svg");
 
         return node.addControl(control)
-            // .addInput(inp1)
-            // .addOutput(out);
+            .addInput(inp1)
+            .addOutput(out);
             // .addOutput(err);
     }
 
