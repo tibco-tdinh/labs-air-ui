@@ -152,16 +152,16 @@
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Username</mat-label>
-                                    <input matInput [readonly]=false formControlName="username" required>
-                                    <mat-error *ngIf="protocolForm.get('mqtt.username').invalid">This field is required</mat-error>
+                                    <input matInput [readonly]=false formControlName="username">
+                                    <!-- <mat-error *ngIf="protocolForm.get('mqtt.username').invalid">This field is required</mat-error> -->
 
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Password</mat-label>
                                     <input matInput placeholder="Enter your password" [readonly]=false
-                                        [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
-                                    <mat-error *ngIf="protocolForm.get('mqtt.password').invalid">This field is required</mat-error>
+                                        [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                                    <!-- <mat-error *ngIf="protocolForm.get('mqtt.password').invalid">This field is required</mat-error> -->
 
                                     <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
                                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
