@@ -3,21 +3,33 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { LogLevel, LogService } from '@tibco-tcstk/tc-core-lib';
+import { AppConfigService } from '../config/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TextileSimulatorService {
 
+  private textileSimulatorEndpoint1Url = this.appConfigService.getFromConfigOrEnv("textileSimulatorEndpoint1Url");
+  private textileSimulatorEndpoint2Url = this.appConfigService.getFromConfigOrEnv("textileSimulatorEndpoint2Url");
+
   constructor(private http: HttpClient,
-    private logger: LogService) {
-    logger.level = LogLevel.Debug;
+    private appConfigService: AppConfigService) {
   }
 
   private getURL(endpointId: string, servicePath: string): string {
 
-    let url = `/textileSimulatorEndpoint${endpointId}${servicePath}`;
+    let url = ``;
+
+    if (endpointId == '1') {
+      url = `${this.textileSimulatorEndpoint1Url}${servicePath}`
+    }
+    else {
+      url = `${this.textileSimulatorEndpoint2Url}${servicePath}`
+    }
+
+    console.log("getURL: ", url);
+    
     return url;
   }
 
@@ -58,7 +70,7 @@ export class TextileSimulatorService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.logger.info(`${operation} failed: ${error.message}`);
+      console.info(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

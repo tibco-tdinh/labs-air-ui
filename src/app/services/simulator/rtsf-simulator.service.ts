@@ -3,18 +3,22 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { AppConfigService } from '../config/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RtsfSimulatorService {
 
-  constructor(private http: HttpClient) {
+  private storeSimulatorEndpointUrl = this.appConfigService.getFromConfigOrEnv("storeSimulatorEndpoingUrl");
+
+  constructor(private http: HttpClient,
+    private appConfigService: AppConfigService) {
   }
 
   private getURL(servicePath: string): string {
 
-    let url = `/simulatorEndpoint${servicePath}`;
+    let url = `${this.storeSimulatorEndpointUrl}${servicePath}`;
     return url;
   }
 
