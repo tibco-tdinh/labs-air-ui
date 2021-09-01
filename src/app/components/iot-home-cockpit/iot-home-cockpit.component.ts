@@ -72,10 +72,16 @@ export class IotHomeCockpitComponent {
         // },
         {
             icon: 'rules',
-            route: '/starterApp/home/simulator',
-            title: 'Simulator',
+            route: '/starterApp/home/store-simulator',
+            title: 'Store Simulator',
             custom: true
-        },        
+        },
+        {
+            icon: 'rules',
+            route: '/starterApp/home/textile-simulator',
+            title: 'Textile Simulator',
+            custom: true
+        },      
         // {
         //     icon: 'rules',
         //     route: '/starterApp/home/tcerules',
