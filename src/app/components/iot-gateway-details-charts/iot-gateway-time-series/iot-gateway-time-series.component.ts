@@ -214,7 +214,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
     this.timeSeriesData = [];
     this.resourceReadings.forEach(
       reading => {
-        if (!reading.value) {
+        if (isNaN(+reading.value)) {
           this.timeSeriesData.push({ x: new Date(reading.created).toISOString(), y: reading.value == 'true' ? 1 : 0 });
         }
         else {
