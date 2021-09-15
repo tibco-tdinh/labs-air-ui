@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { Device, Resource, TSReading } from 'src/app/shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
 
@@ -15,8 +15,9 @@ export class IotGatewayMapComponent implements OnInit, OnDestroy {
   mapMarketUpdate = null;
   createMapFlag = true;
   public resourceReadings: TSReading[] = [];
-  public resourceInferredReadings: TSReading[] = []
-  subscriptions: Subscription[] = []
+  public resourceInferredReadings: TSReading[] = [];
+  subscriptions: Subscription[] = [];
+  source = interval(5000);
 
   constructor(private graphService: GraphService) { }
 
@@ -29,11 +30,17 @@ export class IotGatewayMapComponent implements OnInit, OnDestroy {
   }
 
   public getMaps() {
-    this.subscriptions.push(this.graphService.getReadings(this.device.name, this.instrument.name, 300)
+    this.getReadings();
+
+    this.subscriptions.push(this.source.subscribe(val => this.getReadings()));
+  }
+
+  getReadings() {
+    this.graphService.getReadings(this.device.name, this.instrument.name, 300)
       .subscribe(res => {
         this.resourceReadings = res as TSReading[];
           this.setMapDataSet(this.device.name);
-      }));
+      });
   }
 
   public setMapDataSet(deviceName: string) {
