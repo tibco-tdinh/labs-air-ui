@@ -6,6 +6,7 @@ import { Device, Resource, ScatterChartDataset, TSReading } from 'src/app/shared
 import { GraphService } from '../../../services/graph/graph.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChartOptions, ChartType } from 'chart.js';
+import 'chartjs-plugin-streaming';
 
 @Component({
   selector: 'app-iot-gateway-time-series',
@@ -214,7 +215,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
     this.timeSeriesData = [];
     this.resourceReadings.forEach(
       reading => {
-        if (!reading.value) {
+        if (isNaN(+reading.value)) {
           this.timeSeriesData.push({ x: new Date(reading.created).toISOString(), y: reading.value == 'true' ? 1 : 0 });
         }
         else {
@@ -242,7 +243,6 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
   }
 
   getStreamData(chart: any) {
-    //MAG
     this.graphService.getReadingsStartingAt(this.device.name,
       this.instrument.name, this.streamLastQuery)
       .subscribe(res => {
