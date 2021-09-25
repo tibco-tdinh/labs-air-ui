@@ -2340,11 +2340,17 @@ export class IotPipelineComponent implements OnInit {
       if (contextObj.encodeEnrichedReadingValue) {
         pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
       }
+      else {
+        pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "false" })
+      }
     }
     // Regular publisher requires to know if encoding of value is required
     else {
       if (contextObj.encodeReadingValue) {
         pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
+      }
+      else {
+        pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "false" })
       }
     }
 
