@@ -131,7 +131,7 @@ export class IotGatewayImageComponent implements OnInit, OnDestroy, AfterViewIni
 
         for (var i = 0; i < this.resourceInferredReadings.length; i++) {
           if (reading.created == this.resourceInferredReadings[i].created) {
-            reading.inferredValue = this.resourceInferredReadings[i].value;
+            reading.inferredValue = atob(this.resourceInferredReadings[i].value);
             break;
           }
         }

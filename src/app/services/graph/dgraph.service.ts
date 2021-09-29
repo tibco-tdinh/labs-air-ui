@@ -1007,7 +1007,8 @@ export class DgraphService implements GraphService {
           description
           inputType
           url
-          platform
+          scope
+          inputTemplate
         }
       }
     }`;
@@ -1038,8 +1039,8 @@ export class DgraphService implements GraphService {
         description
         inputType
         url
-        platform
         scope
+        inputTemplate
       }
     }`;
 
@@ -1071,8 +1072,8 @@ export class DgraphService implements GraphService {
         _:Model <description> "${model.description}" .
         _:Model <inputType> "${model.inputType}" .
         _:Model <url> "${model.url}" .
-        _:Model <platform> "${model.platform}" .
         _:Model <scope> "${model.scope}" .
+        _:Model <inputTemplate> "${model.inputTemplate}" .
       }
     }`;
     console.log('Mutate statement: ', query);
@@ -1098,8 +1099,8 @@ export class DgraphService implements GraphService {
         <${model.uid}> <description> "${model.description}" .
         <${model.uid}> <inputType> "${model.inputType}" .
         <${model.uid}> <url> "${model.url}" .
-        <${model.uid}> <platform> "${model.platform}" .
         <${model.uid}> <scope> "${model.scope}" .
+        <${model.uid}> <inputTemplate> "${model.inputTemplate}" .
       }
     }`;
     console.log('Mutate statement: ', query);
