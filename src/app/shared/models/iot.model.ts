@@ -310,8 +310,8 @@ export class Model {
   description: string;
   inputType: string;
   url: string;
-  platform: string;
   scope: string;
+  inputTemplate: string;
 }
 
 export class ModelConfig {
