@@ -74,6 +74,8 @@ const route3 = [
   [46.758181, -92.098748]
 ];
 
+const emptyroute = [];
+
 @Injectable()
 export class DgraphService implements GraphService {
 
@@ -2055,6 +2057,9 @@ export class DgraphService implements GraphService {
     else if (deviceName == "train-0003") {
       route = route3;
     }
+    else {
+      route = emptyroute;
+    }
 
     return route;
   }
@@ -2078,6 +2083,9 @@ export class DgraphService implements GraphService {
     }
     else if (deviceName == "train-0003") {
       center = [39.0, -98.0];
+    }
+    else {
+      center = [42.8, 12.8];
     }
 
     return center;

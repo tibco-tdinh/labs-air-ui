@@ -2494,7 +2494,7 @@ export class IotPipelineComponent implements OnInit {
   }
 
   buildDataStoreDeployObj(contextObj, targetField): any {
-    let dataStoreType = "DataStore." + contextObj.dataStore + "2";
+    let dataStoreType = "DataStore." + contextObj.dataStore;
     let sourceObj = {
       name: dataStoreType,
       properties: this.buildDataStoreDeployProperties(contextObj)

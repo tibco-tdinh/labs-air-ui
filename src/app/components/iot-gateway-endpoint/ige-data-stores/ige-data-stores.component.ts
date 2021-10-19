@@ -42,7 +42,7 @@ export class IgeDataStoresComponent implements OnInit {
   dataStoreSelection = new SelectionModel<DataStore>(false, []);
 
   dataStores: SelectItem[] = [
-    { value: 'PostgreSQL', viewValue: 'PostgreSQL' },
+    { value: 'PostgreSQL2', viewValue: 'PostgreSQL' },
     { value: 'Snowflake', viewValue: 'Snowflake' },
     { value: 'Oracle', viewValue: 'Oracle' },
     { value: 'MySQL', viewValue: 'MySQL' },
