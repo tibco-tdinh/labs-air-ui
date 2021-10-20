@@ -274,7 +274,7 @@ export class PipelineInferencingComponent implements OnInit, OnChanges  {
         description: model.description,
         inputType: model.inputType,
         url: model.url,
-        platform: model.platform
+        inputTemplate: model.inputTemplate
       },
       { emitEvent: false }
     );

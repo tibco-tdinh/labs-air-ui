@@ -608,7 +608,7 @@ export class IotPipelineComponent implements OnInit {
       description: '',
       inputType: '',
       url: '',
-      platform: '',
+      inputTemplate: '',
       logLevel: 'INFO',
     }, { emitEvent: false });
 
@@ -777,7 +777,7 @@ export class IotPipelineComponent implements OnInit {
       description: ['', Validators.required],
       inputType: ['', Validators.required],
       url: ['', Validators.required],
-      platform: ['', Validators.required],
+      inputTemplate: ['', Validators.required],
       logLevel: ['INFO', Validators.required]
     });
 
@@ -1047,8 +1047,8 @@ export class IotPipelineComponent implements OnInit {
       "modelName": this.modelForm.get('name').value,
       "modelDescription": this.modelForm.get('description').value,
       "modelUrl": this.modelForm.get('url').value,
-      "modelPlatform": this.modelForm.get('platform').value,
       "filters": this.inferenceComponent.getFilters(),
+      "inputTemplate": this.modelForm.get('inputTemplate').value,
       "logLevel": this.modelForm.get('logLevel').value,
     };
 
@@ -1384,7 +1384,7 @@ export class IotPipelineComponent implements OnInit {
         name: context.modelName,
         description: context.modelDescription,
         url: context.modelUrl,
-        platform: context.modelPlatform,
+        inputTemplate: context.inputTemplate,
         LogLevel: context.logLevel
       })
 
@@ -2340,12 +2340,18 @@ export class IotPipelineComponent implements OnInit {
       if (contextObj.encodeEnrichedReadingValue) {
         pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
       }
+      // else {
+      //   pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "false" })
+      // }
     }
     // Regular publisher requires to know if encoding of value is required
     else {
       if (contextObj.encodeReadingValue) {
         pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "true" })
       }
+      // else {
+      //   pipeObj.properties.push({ "Name": "MQTTPub.EncodeReadingValue", "Value": "false" })
+      // }
     }
 
     return pipeObj;
@@ -2608,79 +2614,24 @@ export class IotPipelineComponent implements OnInit {
    */
   buildInferencingDeployProperties(contextObj): any {
 
-    var platformDetails = contextObj.modelPlatform.split("|");
-    let inferenceData = {};
     let urlMapping = [];
 
-    console.log("Inference details: ", platformDetails);
+    console.log("Input Template: ", contextObj.inputTemplate);
 
-    if (platformDetails[0] == "nvidia") {
-      inferenceData = {
-        "image": "@f1..value@",
-        "network": platformDetails[2],
-        "id": "@f1..id@"
-      }
+    let mapping = {
+      "Alias": "0",
+      "URL": contextObj.modelUrl
+    };
+    urlMapping.push(mapping);
 
-      let mapping = {
-        "Alias": "0",
-        "URL": contextObj.modelUrl + "/v1/" + platformDetails[1]
-      };
-      urlMapping.push(mapping);
-
-    }
-    else if (platformDetails[0] == "tibco") {
-      if (platformDetails[1] == "audio_prediction") {
-
-        let dataStr = `{"audio_signal": @f1..value@, "sampling_rate": 16000, "audio_id": "@f1..id@"}`
-        // let data = {
-        //   "audio_signal": "@f1..value@",
-        //   "sampling_rate": 16000,
-        //   "audio_id": "@f1..id@"
-        // }
-
-        // let dataStr = JSON.stringify(data)
-
-        inferenceData = {
-          "Data": dataStr
-        }
-
-        let mapping = {
-          "Alias": "0",
-          "URL": contextObj.modelUrl
-        };
-        urlMapping.push(mapping);
-
-      }
-      else if (platformDetails[1] == "pattern_recognition") {
-
-        // inferenceData = {
-        //   "Data": "@f1..value@",
-        //   "id": "@f1..id@"
-        // };
-
-        let dataStr = `{"Data":"@f1..value@"}`
-
-        inferenceData = {
-          "Data": dataStr
-        };
-
-        let mapping = {
-          "Alias": "0",
-          "URL": contextObj.modelUrl
-        };
-        urlMapping.push(mapping);
-
-      }
-
-    }
-
-
-    let dataStr1 = `{"Data":"@f1..value@"}`
+    console.log("Input Template clear : ", atob(contextObj.inputTemplate));
+    
+    // let dataStr1 = `{"Data":"@f1..value@"}`
+    let inferenceData = atob(contextObj.inputTemplate);
     let inferenceObj = [
       { "Name": "Logging.LogLevel", "Value": contextObj.logLevel },
       { "Name": "REST.Timeout", "Value": "40000" },
-      // { "Name": "REST.InferenceData", "Value": JSON.stringify(inferenceData) },
-      { "Name": "REST.InferenceData", "Value": dataStr1 },
+      { "Name": "REST.InferenceData", "Value": inferenceData },
       { "Name": "REST.Conditions", "Value": JSON.stringify(contextObj.filters) },
       { "Name": "REST.URLMapping", "Value": JSON.stringify(urlMapping) }
     ];
