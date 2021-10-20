@@ -201,7 +201,7 @@ export class IgeDataStoresComponent implements OnInit {
     }
 
     // Update form
-    if (dataStore.dataStoreType == "PostgreSQL") {
+    if (dataStore.dataStoreType == "PostgreSQL2") {
 
       this.dataStoreForm.patchValue({
         uid: dataStore.uid,
@@ -655,7 +655,7 @@ export class IgeDataStoresComponent implements OnInit {
     this.tgdbDataStore = false;
     this.dgraphDataStore = false;
 
-    if (event.value == "PostgreSQL") {
+    if (event.value == "PostgreSQL2") {
 
       this.dataStoreForm.patchValue({
         postgres: {
