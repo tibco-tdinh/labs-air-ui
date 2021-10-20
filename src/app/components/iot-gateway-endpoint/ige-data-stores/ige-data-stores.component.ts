@@ -321,7 +321,7 @@ export class IgeDataStoresComponent implements OnInit {
 
     let dataStoreType = this.dataStoreForm.get('dataStoreType').value;
 
-    if (dataStoreType == "PostgreSQL") {
+    if (dataStoreType == "PostgreSQL2") {
 
       dataStore.created = ts;
       dataStore.modified = ts;
@@ -474,7 +474,7 @@ export class IgeDataStoresComponent implements OnInit {
 
           let uuidDirty = false;
 
-          if (dataStoreType == "PostgreSQL") {
+          if (dataStoreType == "PostgreSQL2") {
 
             dataStore.created = ts;
             dataStore.modified = ts;
