@@ -105,7 +105,7 @@ export class PipelineDataStoreComponent implements OnInit {
     this.tgdbDataStore = false;
     this.dgraphDataStore = false;
 
-    if (dataStore.dataStoreType == "PostgreSQL") {
+    if (dataStore.dataStoreType == "PostgreSQL2") {
 
       this.dataStoreForm.patchValue({
         uid: dataStore.uid,
