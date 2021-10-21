@@ -952,7 +952,7 @@ export class IotPipelineComponent implements OnInit {
     }
     let dataStoreObj = null;
 
-    if (dataStore == "PostgreSQL") {
+    if (dataStore == "PostgreSQL2") {
 
       dataStoreObj = {
         "useReading": useReading,
@@ -1287,7 +1287,7 @@ export class IotPipelineComponent implements OnInit {
       // Update datastore form
       console.log("Setting datastore form datastore to: ", dataStore);
 
-      if (dataStore == "PostgreSQL") {
+      if (dataStore == "PostgreSQL2") {
 
         this.dataStoreForm.patchValue({
           dataStoreId: dataStoreId,
@@ -2518,7 +2518,7 @@ export class IotPipelineComponent implements OnInit {
     let dataStoreObj = null;
     let encpass = "SECRET:" + btoa(contextObj.password);
 
-    if (contextObj.dataStore == "PostgreSQL") {
+    if (contextObj.dataStore == "PostgreSQL2") {
 
       dataStoreObj = [
         { "Name": "PostgreSQL.IoTPostgres.Host", "Value": contextObj.host },
