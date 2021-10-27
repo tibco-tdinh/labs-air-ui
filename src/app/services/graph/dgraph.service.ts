@@ -74,6 +74,8 @@ const route3 = [
   [46.758181, -92.098748]
 ];
 
+const emptyroute = [];
+
 @Injectable()
 export class DgraphService implements GraphService {
 
@@ -1007,7 +1009,8 @@ export class DgraphService implements GraphService {
           description
           inputType
           url
-          platform
+          scope
+          inputTemplate
         }
       }
     }`;
@@ -1038,8 +1041,8 @@ export class DgraphService implements GraphService {
         description
         inputType
         url
-        platform
         scope
+        inputTemplate
       }
     }`;
 
@@ -1071,8 +1074,8 @@ export class DgraphService implements GraphService {
         _:Model <description> "${model.description}" .
         _:Model <inputType> "${model.inputType}" .
         _:Model <url> "${model.url}" .
-        _:Model <platform> "${model.platform}" .
         _:Model <scope> "${model.scope}" .
+        _:Model <inputTemplate> "${model.inputTemplate}" .
       }
     }`;
     console.log('Mutate statement: ', query);
@@ -1098,8 +1101,8 @@ export class DgraphService implements GraphService {
         <${model.uid}> <description> "${model.description}" .
         <${model.uid}> <inputType> "${model.inputType}" .
         <${model.uid}> <url> "${model.url}" .
-        <${model.uid}> <platform> "${model.platform}" .
         <${model.uid}> <scope> "${model.scope}" .
+        <${model.uid}> <inputTemplate> "${model.inputTemplate}" .
       }
     }`;
     console.log('Mutate statement: ', query);
@@ -2054,6 +2057,9 @@ export class DgraphService implements GraphService {
     else if (deviceName == "train-0003") {
       route = route3;
     }
+    else {
+      route = emptyroute;
+    }
 
     return route;
   }
@@ -2077,6 +2083,9 @@ export class DgraphService implements GraphService {
     }
     else if (deviceName == "train-0003") {
       center = [39.0, -98.0];
+    }
+    else {
+      center = [42.8, 12.8];
     }
 
     return center;

@@ -121,7 +121,7 @@ export class IotGatewayDetailsComponent implements OnInit {
  
       if (sensor) {
         this.selectedSensor = sensor;
-        if (sensor.name == "GPS") {
+        if (sensor.name == "GPS" || (sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "Map")) {
           return this.componentFactoryResolver.resolveComponentFactory(IotGatewayMapComponent);
         }
         else if (sensor.name == "Location") {
