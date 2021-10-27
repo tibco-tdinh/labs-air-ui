@@ -94,9 +94,14 @@
                                     <input matInput [readonly]=false formControlName="name" required>
                                 </mat-form-field>
 
+                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                    <mat-label>URL</mat-label>
+                                    <input matInput [readonly]=false formControlName="url" required>
+                                </mat-form-field>
+
                             </div>
 
-                            <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px">
+                            <!-- <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px">
 
                                 <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Platform</mat-label>
@@ -115,17 +120,14 @@
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                            </div>
+                            </div> -->
 
                             <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px">
-                                <mat-form-field fxFlex="1 1 30%" appearance="outline">
-                                    <mat-label>URL</mat-label>
-                                    <input matInput [readonly]=false formControlName="url" required>
+                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
+                                    <mat-label>Input Template</mat-label>
+                                    <textarea matInput [readonly]=false formControlName="inputTemplate" required></textarea>
                                 </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxFlex="100%" fxLayoutGap="15px">
-                                <mat-form-field fxFlex="1 1 30%" appearance="outline">
+                                <mat-form-field fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Description</mat-label>
                                     <textarea matInput [readonly]=false formControlName="description" required></textarea>
                                 </mat-form-field>

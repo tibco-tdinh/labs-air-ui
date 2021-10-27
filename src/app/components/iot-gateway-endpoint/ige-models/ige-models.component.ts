@@ -50,27 +50,6 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
     { value: 'audio', viewValue: 'audio' }
   ];
 
-  platforms: SelectItem[] = [
-    { value: 'ms|anomaly_detection|AnomalyDetection', viewValue: 'Anomaly Detection' },
-    { value: 'tibco|pattern_recognition|PatternRecognition', viewValue: 'Wafer Pattern Recognition' },
-    { value: 'tibco|audio_prediction|AudioPrediction', viewValue: 'Audio Anomaly Prediction' },
-    { value: 'nvidia|text_recognition|tesseract', viewValue: 'Text Recognition - Tesseract' },
-    { value: 'nvidia|image_recognition|alexnet', viewValue: 'Object Detection - AlexNet' },
-    { value: 'nvidia|image_recognition|googlenet', viewValue: 'Object Detection - GoogleNet' },
-    { value: 'nvidia|image_recognition|googlenet-12', viewValue: 'Object Detection - GoogleNet-12' },
-    { value: 'nvidia|image_recognition|resnet-18', viewValue: 'Object Detection - Resnet-18' },
-    { value: 'nvidia|image_recognition|resnet-50', viewValue: 'Object Detection - Resnet-50' },
-    { value: 'nvidia|image_recognition|resnet-101', viewValue: 'Object Detection - Resnet-101' },
-    { value: 'nvidia|image_recognition|resnet-152', viewValue: 'Object Detection - Resnet-152' },
-    { value: 'nvidia|image_recognition|vgg-16', viewValue: 'Object Detection - VGG-16' },
-    { value: 'nvidia|image_recognition|vgg-19', viewValue: 'Object Detection - VGG-19' },
-    { value: 'nvidia|image_recognition|inception_v4', viewValue: 'Object Detection - Inception-v4' },
-    { value: 'tfserving|image_recognition|rcnnresnet', viewValue: 'Object Detection - RCNN Resnet' },
-    { value: 'tfserving|image_recognition|resnet', viewValue: 'Object Detection - Resnet' },
-    { value: 'tfserving|image_recognition|inception', viewValue: 'Object Detection - Imagenet Inception' }
-  ];
-
-
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   @Input() gatewayId: string;
@@ -134,8 +113,8 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
       description: ['', Validators.required],
       inputType: ['', Validators.required],
       url: ['', Validators.required],
-      platform: ['', Validators.required],
-      scope: ['', Validators.required]
+      scope: ['', Validators.required],
+      inputTemplate: ['', Validators.required]
     });
   }
 
@@ -188,8 +167,8 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
       description: model.description,
       inputType: model.inputType,
       url: model.url,
-      platform: model.platform,
       scope: scope,
+      inputTemplate: atob(model.inputTemplate),
     });
 
     this.graphDeleteOpDisabled = false;
@@ -231,7 +210,7 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
     model.description = this.modelForm.get('description').value;
     model.inputType = this.modelForm.get('inputType').value;
     model.url = this.modelForm.get('url').value;
-    model.platform = this.modelForm.get('platform').value;
+    model.inputTemplate = btoa(this.modelForm.get('inputTemplate').value);
 
     console.log("Adding model with uuid: ", model.uuid);
     
@@ -278,9 +257,10 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
     model.description = this.modelForm.get('description').value;
     model.inputType = this.modelForm.get('inputType').value;
     model.url = this.modelForm.get('url').value;
-    model.platform = this.modelForm.get('platform').value;
+    model.inputTemplate = btoa(this.modelForm.get('inputTemplate').value);
 
     console.log("Update model to url: ", model.url);
+    console.log("Update model to inputTemplate: ", model.inputTemplate);
     
     this.graphService.updateModel(model)
       .subscribe(res => {
