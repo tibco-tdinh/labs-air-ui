@@ -36,7 +36,8 @@ export class PipelineRulesComponent implements OnInit {
     { value: '>', viewValue: '>' },
     { value: '>=', viewValue: '>=' },
     { value: '<', viewValue: '<' },
-    { value: '<=', viewValue: '<=' }
+    { value: '<=', viewValue: '<=' },
+    { value: '!=', viewValue: '!=' }
   ];
   
   constructor() { }
