@@ -2,4 +2,4 @@
 
 Link to full documentation Site: https://tibcosoftware.github.io/labs-air/
 
-![Logo](tibcolabs-brand.png "Labs Logo")
+![Logo](https://tibcosoftware.github.io/TIBCO-LABS/about/tibcolabs-brand.png "Labs Logo")
