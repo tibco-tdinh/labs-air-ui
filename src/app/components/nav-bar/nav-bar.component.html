@@ -8,7 +8,7 @@
 
     <span class="toolbar-title" *ngFor='let path of paths; let last=last' (click)='goBack()'> 
       <span> {{ path }} </span>
-      <span *ngIf='!last'> <&nbsp;</span>
+      <span class='showpath' *ngIf='!last'> -&nbsp;</span>
     </span>
 
   </mat-toolbar-row>
