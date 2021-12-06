@@ -1,10 +1,6 @@
 {
-  "name": "ProjectAir",
+  "name": "ProjectAir-Cloud",
   "version": "1.0.0",
-  "workspaces": [
-    "deployment/on-prem",
-    "deployment/cloud"
-  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
