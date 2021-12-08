@@ -11,6 +11,9 @@
   },
   "private": true,
   "dependencies": {
+    "@tibco-tcstk/tc-core-lib": "^3.2.0",
+    "@tibco-tcstk/tc-forms-lib": "^3.2.0",
+    "@tibco-tcstk/tc-liveapps-lib": "^3.2.0"
   },
   "devDependencies": {
   }
