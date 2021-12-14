@@ -1,6 +1,11 @@
 {
   "name": "ProjectAir",
   "version": "1.0.0",
+  "workspaces":[
+    "cloud",
+    "on-prem",
+    "libraries"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -23,8 +28,6 @@
     "@angular/platform-browser": "~12.0.4",
     "@angular/platform-browser-dynamic": "~12.0.4",
     "@angular/router": "~12.0.4",
-    "@tibco-tcstk/tc-core-lib": "^2.3.3",
-    "@tibco-tcstk/tc-liveapps-lib": "^2.3.3",
     "@tibco/spotfire-wrapper": "^0.14.3",
     "@types/lodash": "~4.14.171",
     "chart.js": "^2.9.3",
@@ -48,7 +51,6 @@
     "rete-vue-render-plugin": "^0.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
-    "yaml-schema-validator": "^1.2.3",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -75,7 +77,6 @@
     "npm": "^7.19.0",
     "postcss": "^8.3.0",
     "postcss-loader": "~3.0.0",
-    "typescript": "~4.2.3",
-    "yaml-validator": "^3.0.1"
+    "typescript": "~4.2.3"
   }
 }
