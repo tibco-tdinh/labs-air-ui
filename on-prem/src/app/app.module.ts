@@ -75,6 +75,7 @@ import { IotDashboardComponent } from './components/iot-dashboard/iot-dashboard.
 import { InfraRegistrationComponent } from './components/iot-infra-deployer/infra-registration/infra-registration.component';
 import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-deployer/infra-deployer.component';
 import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-dialog/single-value-dialog.component';
+import { CommonModule } from 'common';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -143,8 +144,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     InfraDeployerComponent,
     SingleValueDialogComponent
 
-
-
   ],
   imports: [
     BrowserModule,
@@ -157,7 +156,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     NgxHeatmapModule,
     Ng2GoogleChartsModule,
     ReteEditorModule,
-    ChartsModule
+    ChartsModule,
+    CommonModule
   ],
   providers: [
     AppConfigService,
