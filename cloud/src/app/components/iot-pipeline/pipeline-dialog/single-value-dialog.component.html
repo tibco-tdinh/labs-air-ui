@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <p>Please enter new value</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Value</mat-label>
+    <input matInput [(ngModel)]="data.value">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.value" cdkFocusInitial>Ok</button>
+</div>
