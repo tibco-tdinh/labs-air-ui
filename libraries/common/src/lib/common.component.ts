@@ -15,7 +15,6 @@ export class CommonComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('test')
   }
 
 }
