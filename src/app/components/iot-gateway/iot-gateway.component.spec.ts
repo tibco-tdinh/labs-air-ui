@@ -1,14 +1,30 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DatePipe } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AppConfigService } from 'src/app/services/config/app-config.service';
+import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { IotGatewayComponent } from './iot-gateway.component';
 
 describe('IotGatewayComponent', () => {
   let component: IotGatewayComponent;
   let fixture: ComponentFixture<IotGatewayComponent>;
+  let mockGraphService: Partial<GraphService>;
+  let mockAppConfigService: Partial<AppConfigService>;
 
-  beforeEach(async(() => {
+  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
+  mockGraphService = jasmine.createSpyObj(['xxx']);
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ IotGatewayComponent ]
+      declarations: [IotGatewayComponent],
+      imports: [HttpClientTestingModule, ReactiveFormsModule, MatSnackBarModule],
+      providers: [
+        { provide: AppConfigService, useValue: mockAppConfigService },
+        { provide: GraphService, useValue: mockGraphService }
+      ]
     })
     .compileComponents();
   }));

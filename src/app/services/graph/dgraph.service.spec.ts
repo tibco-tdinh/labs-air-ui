@@ -15,13 +15,19 @@ describe('DgraphService', () => {
   let httpClientSpy: { get: jasmine.Spy };
   let valueServiceSpy: jasmine.SpyObj<DgraphService>;
   let httpTestingController: HttpTestingController;
-  
+  let mockAppConfigService: Partial<AppConfigService>;
+
+  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('DgraphService', ['get']);
-    TestBed.configureTestingModule({ 
+    TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [DgraphService, { provide: DgraphService, useValue: httpClientSpy }]
+      providers: [
+        DgraphService,
+        { provide: AppConfigService, useValue: mockAppConfigService },
+        { provide: DgraphService, useValue: httpClientSpy }
+      ]
      });
     dgraphService = TestBed.inject(DgraphService);
     valueServiceSpy = TestBed.inject(DgraphService) as jasmine.SpyObj<DgraphService>;
@@ -55,7 +61,7 @@ describe('DgraphService', () => {
         models: []}]
 
     httpClientSpy.get.and.returnValue(expectedGateway);
-  
+
     dgraphService.getGateways().subscribe(
       response => {
         expect(response).toEqual(expectedGateway, 'expected gateways');

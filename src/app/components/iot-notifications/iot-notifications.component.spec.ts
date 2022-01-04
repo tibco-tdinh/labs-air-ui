@@ -1,14 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { IotNotificationsComponent } from './iot-notifications.component';
 
 describe('IotNotificationsComponent', () => {
   let component: IotNotificationsComponent;
   let fixture: ComponentFixture<IotNotificationsComponent>;
+  let mockGraphService;
 
-  beforeEach(async(() => {
+  mockGraphService = jasmine.createSpyObj(['getNotifications']);
+
+  mockGraphService.getNotifications.and.returnValue(of({
+
+  }));
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ IotNotificationsComponent ]
+      declarations: [ IotNotificationsComponent ],
+      providers: [
+        { provide: GraphService, useValue: mockGraphService }
+      ]
     })
     .compileComponents();
   }));

@@ -1,4 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SpotfireDashboardComponent } from './spotfire-dashboard.component';
 
@@ -6,9 +8,11 @@ describe('SpotfireDashboardComponent', () => {
   let component: SpotfireDashboardComponent;
   let fixture: ComponentFixture<SpotfireDashboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpotfireDashboardComponent ]
+      declarations: [SpotfireDashboardComponent],
+      imports: [HttpClientTestingModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));

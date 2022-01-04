@@ -1,14 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { ProtocolsComponent } from './protocols.component';
 
 describe('ProtocolsComponent', () => {
   let component: ProtocolsComponent;
   let fixture: ComponentFixture<ProtocolsComponent>;
+  let mockGraphService: Partial<GraphService>;
 
-  beforeEach(async(() => {
+  mockGraphService = jasmine.createSpyObj(['xxx']);
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProtocolsComponent ]
+      declarations: [ProtocolsComponent],
+      providers: [
+        { provide: GraphService, useValue: mockGraphService }
+      ]
     })
     .compileComponents();
   }));

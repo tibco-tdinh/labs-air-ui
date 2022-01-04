@@ -8,7 +8,6 @@ import { Gateway, DataStoreMetadata, Device } from '../../shared/models/iot.mode
 import { EdgeService } from '../../services/edge/edge.service';
 import { GraphService } from '../../services/graph/graph.service';
 import { DatastoreService } from '../../services/datastore/datastore.service';
-import { debounceTime, distinctUntilChanged, startWith, tap, delay } from 'rxjs/operators';
 //import { merge } from "rxjs/observable/merge";
 //import { fromEvent } from 'rxjs/observable/fromEvent';
 // // import { DevicesDataSource } from "../services/edge/devices.datasource";
