@@ -31,6 +31,7 @@ describe('PipelineFilteringComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PipelineFilteringComponent);
     component = fixture.componentInstance;
+    component.devices = [];
     fixture.detectChanges();
   });
 

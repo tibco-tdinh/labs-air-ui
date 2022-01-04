@@ -1,7 +1,7 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
+import { AppModule } from 'src/app/app.module';
 import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { IgeProtocolsComponent } from './ige-protocols.component';
@@ -13,17 +13,16 @@ describe('IgeProtocolsComponent', () => {
 
   mockGraphService = jasmine.createSpyObj(['getProtocols']);
 
-  mockGraphService.getProtocols.and.returnValue(of({
-
-  }));
+  mockGraphService.getProtocols.and.returnValue(of([]));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [IgeProtocolsComponent],
-      imports: [ReactiveFormsModule, MatSnackBarModule],
+      imports: [AppModule],
       providers: [
         { provide: GraphService, useValue: mockGraphService }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));

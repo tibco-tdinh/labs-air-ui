@@ -54,7 +54,7 @@ export class PipelineDataStoreComponent implements OnInit {
         console.log("Received response for graphService.getDataStores: ", res);
         this.dataStores = res as DataStore[];
 
-        let currentDataStore = this.dataStoreForm.get('dataStoreId').value;    
+        let currentDataStore = this.dataStoreForm.get('dataStoreId').value;
         if (currentDataStore == '') {
           this.postgresDataStore = false;
           this.snowflakeDataStore = false;

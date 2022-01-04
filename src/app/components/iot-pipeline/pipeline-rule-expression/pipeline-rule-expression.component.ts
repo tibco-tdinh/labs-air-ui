@@ -58,7 +58,7 @@ export class PipelineRuleExpressionComponent implements OnInit {
   }
 
   getIndexForDevice(name: string): number {
-    let idx = 0;
+    let idx = -1;
 
     for (let i = 0; i < this.devices.length; i++) {
 
@@ -76,16 +76,16 @@ export class PipelineRuleExpressionComponent implements OnInit {
     this.subscr1 = this.ruleExpressionForm.get('device').valueChanges.subscribe(val => {
 
       console.log("Device changed: ", val);
-      
+
       // Set the resourceDataSource
       let idx = this.getIndexForDevice(val);
 
       console.log("Got index: ", idx);
-      
+
 
       if (idx >= 0)
-        this.resources = this.devices[idx].profile.deviceResources as Resource[];      
+        this.resources = this.devices[idx].profile.deviceResources as Resource[];
     });
   }
-  
+
 }

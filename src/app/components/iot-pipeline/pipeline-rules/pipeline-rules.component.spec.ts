@@ -1,4 +1,6 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { PipelineRulesComponent } from './pipeline-rules.component';
 
@@ -8,7 +10,8 @@ describe('PipelineRulesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PipelineRulesComponent ]
+      declarations: [PipelineRulesComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -16,6 +19,10 @@ describe('PipelineRulesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PipelineRulesComponent);
     component = fixture.componentInstance;
+    component.ruleForm = new FormGroup({});
+    component.ruleForm.addControl('condDevice', new FormControl(''));
+    component.ruleForm.addControl('actionDevice', new FormControl(''));
+    component.devices = [];
     fixture.detectChanges();
   });
 

@@ -1,4 +1,7 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
 import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { PipelineDataStoreComponent } from './pipeline-data-store.component';
@@ -6,16 +9,19 @@ import { PipelineDataStoreComponent } from './pipeline-data-store.component';
 describe('PipelineDataStoreComponent', () => {
   let component: PipelineDataStoreComponent;
   let fixture: ComponentFixture<PipelineDataStoreComponent>;
-  let mockGraphService: Partial<GraphService>;
+  let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['xxx']);
+  mockGraphService = jasmine.createSpyObj(['getDataStores']);
+  mockGraphService.getDataStores.and.returnValue(of([]));
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PipelineDataStoreComponent],
       providers: [
         { provide: GraphService, useValue: mockGraphService }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -23,6 +29,9 @@ describe('PipelineDataStoreComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PipelineDataStoreComponent);
     component = fixture.componentInstance;
+    component.dataStoreForm = new FormGroup({});
+    component.dataStoreForm.addControl('gateway', new FormControl(''));
+    component.dataStoreForm.addControl('dataStoreId', new FormControl(''));
     fixture.detectChanges();
   });
 

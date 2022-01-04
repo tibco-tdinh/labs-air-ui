@@ -31,6 +31,7 @@ describe('PipelineRestServiceComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PipelineRestServiceComponent);
     component = fixture.componentInstance;
+    component.devices = [];
     fixture.detectChanges();
   });
 

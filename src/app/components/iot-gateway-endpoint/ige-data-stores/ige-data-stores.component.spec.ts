@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { AppModule } from 'src/app/app.module';
 import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { IgeDataStoresComponent } from './ige-data-stores.component';
@@ -13,17 +13,16 @@ describe('IgeDataStoresComponent', () => {
 
   mockGraphService = jasmine.createSpyObj(['getDataStores']);
 
-  mockGraphService.getDataStores.and.returnValue(of({
+  mockGraphService.getDataStores.and.returnValue(of([]));
 
-  }));
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [IgeDataStoresComponent],
-      imports: [ReactiveFormsModule, MatSnackBarModule],
+      imports: [AppModule],
       providers: [
         { provide: GraphService, useValue: mockGraphService }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));
