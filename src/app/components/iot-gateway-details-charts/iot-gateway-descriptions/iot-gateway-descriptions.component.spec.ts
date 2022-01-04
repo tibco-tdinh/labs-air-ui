@@ -1,4 +1,6 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Device, Resource } from 'src/app/shared/models/iot.model';
 
 import { IotGatewayDescriptionsComponent } from './iot-gateway-descriptions.component';
 
@@ -8,7 +10,8 @@ describe('IotGatewayDescriptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IotGatewayDescriptionsComponent ]
+      declarations: [IotGatewayDescriptionsComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -16,6 +19,8 @@ describe('IotGatewayDescriptionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(IotGatewayDescriptionsComponent);
     component = fixture.componentInstance;
+    component.device = {} as Device;
+    component.instrument = { properties: { value: {}, units: {}}} as Resource;
     fixture.detectChanges();
   });
 

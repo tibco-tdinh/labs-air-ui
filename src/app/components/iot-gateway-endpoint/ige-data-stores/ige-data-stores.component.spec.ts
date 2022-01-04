@@ -11,7 +11,7 @@ describe('IgeDataStoresComponent', () => {
   let fixture: ComponentFixture<IgeDataStoresComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getDataStores']);
+  mockGraphService = jasmine.createSpyObj(['getDataStores', 'getReadings', 'getRouteCenter']);
 
   mockGraphService.getDataStores.and.returnValue(of([]));
 

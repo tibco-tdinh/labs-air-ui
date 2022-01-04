@@ -6,9 +6,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
 
-import { Device, FiltersConfig, Gateway, Model } from '../../../shared/models/iot.model';
+import { Device, FiltersConfig, Model } from '../../../shared/models/iot.model';
 import { FormGroup } from '@angular/forms';
-import { platform } from 'chart.js';
 
 export interface SelectItem {
   value: string;
@@ -28,7 +27,7 @@ interface DeviceNode {
 })
 export class PipelineInferencingComponent implements OnInit, OnChanges  {
 
- 
+
   @Input() devices: Device[];
   @Input() models: Model[];
   @Input() modelForm: FormGroup;
@@ -43,7 +42,7 @@ export class PipelineInferencingComponent implements OnInit, OnChanges  {
     { value: 'ERROR', viewValue: 'ERROR' },
     { value: 'DEBUG', viewValue: 'DEBUG' }
   ];
-  
+
   deviceNodeList: DeviceNode[] = [];
 
   filtersConfig: FiltersConfig[] = [];
@@ -173,15 +172,15 @@ export class PipelineInferencingComponent implements OnInit, OnChanges  {
         for (const node of parentNode.deviceResources) {
 
           console.log("comparing to node: ", node);
-  
+
           if (node.parent == parent && node.name == name) {
-  
+
             console.log("found node and updating if not selected");
-            
-    
+
+
             if (!this.checklistSelection.isSelected(node)) {
               console.log("selecting node: ", node);
-              
+
               this.checklistSelection.toggle(node);
             }
             break;
@@ -316,7 +315,7 @@ export class PipelineInferencingComponent implements OnInit, OnChanges  {
 
   setupFilters() {
     console.log("PipelineInferencing-setupFilters:", this.filters);
-    
+
 
     this.filters.forEach(element => {
       this.selectNode(element.device, element.name);

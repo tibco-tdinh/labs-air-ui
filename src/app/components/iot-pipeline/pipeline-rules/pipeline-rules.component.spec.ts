@@ -26,7 +26,7 @@ describe('PipelineRulesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create it', () => {
     expect(component).toBeTruthy();
   });
 });

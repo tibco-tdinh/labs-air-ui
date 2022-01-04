@@ -1,4 +1,6 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormControl, FormGroup } from '@angular/forms';
 import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { ProtocolsViewComponent } from './protocols-view.component';
@@ -8,14 +10,15 @@ describe('ProtocolsViewComponent', () => {
   let fixture: ComponentFixture<ProtocolsViewComponent>;
   let mockGraphService: Partial<GraphService>;
 
-  mockGraphService = jasmine.createSpyObj(['xxx']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ProtocolsViewComponent],
       providers: [
         { provide: GraphService, useValue: mockGraphService }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));
@@ -23,6 +26,8 @@ describe('ProtocolsViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProtocolsViewComponent);
     component = fixture.componentInstance;
+    component.transportForm = new FormGroup({});
+    component.transportForm.addControl('gateway', new FormControl(''));
     fixture.detectChanges();
   });
 

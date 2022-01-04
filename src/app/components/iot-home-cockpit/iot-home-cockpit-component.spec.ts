@@ -1,4 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -11,7 +12,8 @@ describe('iot-home-cockpitComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [IotHomeCockpitComponent],
-            imports: [RouterTestingModule.withRoutes([])]
+            imports: [RouterTestingModule.withRoutes([])],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
         })
             .compileComponents();
     }));
@@ -19,6 +21,9 @@ describe('iot-home-cockpitComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(IotHomeCockpitComponent);
         component = fixture.componentInstance;
+        component.userId = 'abc';
+        component.userName = 'name';
+        component.title = 'zyx';
         fixture.detectChanges();
     });
 

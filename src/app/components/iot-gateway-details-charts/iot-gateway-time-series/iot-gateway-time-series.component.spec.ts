@@ -1,15 +1,19 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { of } from 'rxjs';
 import { GraphService } from 'src/app/services/graph/graph.service';
+import { Device, Resource } from 'src/app/shared/models/iot.model';
 
 import { IotGatewayTimeSeriesComponent } from './iot-gateway-time-series.component';
 
 describe('IotGatewayTimeSeriesComponent', () => {
   let component: IotGatewayTimeSeriesComponent;
   let fixture: ComponentFixture<IotGatewayTimeSeriesComponent>;
-  let mockGraphService: Partial<GraphService>;
+  let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['xxx']);
+  mockGraphService = jasmine.createSpyObj(['getReadings']);
+  mockGraphService.getReadings.and.returnValue(of([]));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,7 +21,8 @@ describe('IotGatewayTimeSeriesComponent', () => {
       imports: [ReactiveFormsModule],
       providers: [
         { provide: GraphService, useValue: mockGraphService }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -25,6 +30,8 @@ describe('IotGatewayTimeSeriesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(IotGatewayTimeSeriesComponent);
     component = fixture.componentInstance;
+    component.device = {} as Device;
+    component.instrument = { properties: { value: {}, units: {} } } as Resource;
     fixture.detectChanges();
   });
 

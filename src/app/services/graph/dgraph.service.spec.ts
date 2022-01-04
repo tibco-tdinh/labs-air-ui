@@ -1,38 +1,44 @@
 import { TestBed } from '@angular/core/testing';
 import { Gateway } from 'src/app/shared/models/iot.model';
-import {AuthService} from '../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { DgraphService } from './dgraph.service';
 import { AppConfigService } from '../config/app-config.service';
 import {
   HttpClientTestingModule,
   HttpTestingController
 } from "@angular/common/http/testing";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
+import { GraphService } from './graph.service';
 
 
 describe('DgraphService', () => {
   let dgraphService: DgraphService;
-  let httpClientSpy: { get: jasmine.Spy };
-  let valueServiceSpy: jasmine.SpyObj<DgraphService>;
+  let httpClientSpy;
   let httpTestingController: HttpTestingController;
   let mockAppConfigService: Partial<AppConfigService>;
+  let mockAuthService: Partial<AuthService>;
+  let mockGraphService: Partial<GraphService>;
 
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockAuthService = jasmine.createSpyObj(['xxx']);
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
+  httpClientSpy = jasmine.createSpyObj(['get', 'post']);
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('DgraphService', ['get']);
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         DgraphService,
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: GraphService, useValue: mockGraphService },
         { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: DgraphService, useValue: httpClientSpy }
+        { provide: HttpClient, useValue: httpClientSpy }
       ]
      });
     dgraphService = TestBed.inject(DgraphService);
-    valueServiceSpy = TestBed.inject(DgraphService) as jasmine.SpyObj<DgraphService>;
     httpTestingController = TestBed.inject(HttpTestingController);
-
   });
    // Inject both the service-to-test and its (spy) dependency
   it('should return expected gateway (DgraphService called once)', (done: DoneFn) => {
@@ -61,6 +67,7 @@ describe('DgraphService', () => {
         models: []}]
 
     httpClientSpy.get.and.returnValue(expectedGateway);
+    httpClientSpy.post.and.returnValue(of({ data: { resp: expectedGateway}}));
 
     dgraphService.getGateways().subscribe(
       response => {
@@ -69,7 +76,9 @@ describe('DgraphService', () => {
       },
       done.fail
     );
-    expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+    expect(httpClientSpy.get.calls.count()).toBe(0, 'no calls');
+    expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
+
   });
 
 

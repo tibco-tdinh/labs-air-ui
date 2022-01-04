@@ -1,11 +1,14 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppConfigService } from 'src/app/services/config/app-config.service';
+import { EdgeService } from 'src/app/services/edge/edge.service';
 import { GraphService } from 'src/app/services/graph/graph.service';
+import { Pipeline } from 'src/app/shared/models/iot.model';
 
 import { IotDataPipelineComponent } from './iot-data-pipeline.component';
 
@@ -14,13 +17,14 @@ describe('IotDataPipelineComponent', () => {
   let fixture: ComponentFixture<IotDataPipelineComponent>;
   let mockGraphService;
   let mockAppConfigService: Partial<AppConfigService>;
+  let mockEdgeService;
 
   mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines']);
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
+  mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of({
-
-  }));
+  mockGraphService.getGatewayAndPipelines.and.returnValue(of([{ pipelines: {} as Pipeline }]));
+  mockEdgeService.getDevices.and.returnValue(of([]));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -28,8 +32,10 @@ describe('IotDataPipelineComponent', () => {
       imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
       providers: [
         { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService }
-      ]
+        { provide: GraphService, useValue: mockGraphService },
+        { provide: EdgeService, useValue: mockEdgeService }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));

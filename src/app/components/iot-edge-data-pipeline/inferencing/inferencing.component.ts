@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
-import { Device, TSReading, Resource, Gateway, ModelConfig } from '../../../shared/models/iot.model';
+import { Device, Resource, Gateway, ModelConfig } from '../../../shared/models/iot.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';

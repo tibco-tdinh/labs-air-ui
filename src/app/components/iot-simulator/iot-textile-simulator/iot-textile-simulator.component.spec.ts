@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppConfigService } from 'src/app/services/config/app-config.service';
+import { EdgeService } from 'src/app/services/edge/edge.service';
 import { GraphService } from 'src/app/services/graph/graph.service';
 import { TextileSimulatorService } from 'src/app/services/simulator/textile-simulator.service';
 
@@ -14,10 +15,12 @@ describe('IotSimulatorComponent', () => {
   let mockAppConfigService: Partial<AppConfigService>;
   let mockSimulatorService: Partial<TextileSimulatorService>;
   let mockGraphService: Partial<GraphService>;
+  let mockEdgeService: Partial<EdgeService>;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
   mockSimulatorService = jasmine.createSpyObj(['getProducts', 'subscribe']);
   mockGraphService = jasmine.createSpyObj(['xxx']);
+  mockEdgeService = jasmine.createSpyObj(['xxx']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -27,7 +30,8 @@ describe('IotSimulatorComponent', () => {
       providers: [
         { provide: TextileSimulatorService, useValue: mockSimulatorService },
         { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService }
+        { provide: GraphService, useValue: mockGraphService },
+        { provide: EdgeService, useValue: mockEdgeService }
       ]
     })
     .compileComponents();

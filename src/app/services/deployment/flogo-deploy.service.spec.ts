@@ -1,19 +1,25 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { AppConfigService } from '../config/app-config.service';
+import { GraphService } from '../graph/graph.service';
 
 import { FlogoDeployService } from './flogo-deploy.service';
 
 describe('FlogoDeployService', () => {
   let mockAppConfigService: Partial<AppConfigService>;
+  let mockGraphService;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
+  mockGraphService = jasmine.createSpyObj(['getGateway']);
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
     providers: [
-      { provide: AppConfigService, useValue: mockAppConfigService }
-    ]
+      { provide: AppConfigService, useValue: mockAppConfigService },
+      { provide: GraphService, useValue: mockGraphService }
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
   }));
 
   it('should be created', () => {

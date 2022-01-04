@@ -1,15 +1,27 @@
-import { DebugElement } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AppConfigService } from 'src/app/services/config/app-config.service';
 
 import { InfraRegistrationComponent } from './infra-registration.component';
 
 describe('InfraRegistrationComponent', () => {
   let component: InfraRegistrationComponent;
   let fixture: ComponentFixture<InfraRegistrationComponent>;
-  let reg:DebugElement = new DebugElement();
+  let mockAppConfigService: Partial<AppConfigService>;
+
+  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InfraRegistrationComponent ]
+      declarations: [InfraRegistrationComponent],
+      imports: [HttpClientModule, ReactiveFormsModule, MatSnackBarModule],
+      providers: [
+        { provide: AppConfigService, useValue: mockAppConfigService }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
@@ -22,15 +34,6 @@ describe('InfraRegistrationComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  // it('should have custom propeties', () => {
-  //   fixture.detectChanges();
-  //   expect(name.name).toEqual('Custom Properties');
-  // });
-  it('should have "Registration" button disabled', () => {
-    reg = fixture.debugElement;
-    expect(reg.nativeElement.querySelector('#registrationButton').disabled).toBeTruthy();
   });
 
 });

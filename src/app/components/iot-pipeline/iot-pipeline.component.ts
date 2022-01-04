@@ -1,8 +1,8 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -245,7 +245,7 @@ export class IotPipelineComponent implements OnInit {
       })
     );
 
-    //Translate node to appear where the user right clicked 
+    //Translate node to appear where the user right clicked
     this.editor.on(
       "contextmenu",
       ({ e }) => {
@@ -257,7 +257,7 @@ export class IotPipelineComponent implements OnInit {
         // console.log(xcor,ycor);
         this.editor.on("nodecreated", node => {
           console.log(this.translated);
-          //only transalted the current node if it has just been added 
+          //only transalted the current node if it has just been added
           if (this.translated == false) {
             console.log(this.xcor, this.ycor);
             this.editor.view.nodes.get(node).translate(this.xcor + 100, this.ycor - 200);
@@ -2625,7 +2625,7 @@ export class IotPipelineComponent implements OnInit {
     urlMapping.push(mapping);
 
     console.log("Input Template clear : ", atob(contextObj.inputTemplate));
-    
+
     // let dataStr1 = `{"Data":"@f1..value@"}`
     let inferenceData = atob(contextObj.inputTemplate);
     let inferenceObj = [

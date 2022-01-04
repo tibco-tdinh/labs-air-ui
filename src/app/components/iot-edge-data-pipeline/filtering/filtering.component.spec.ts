@@ -32,6 +32,7 @@ describe('FilteringComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FilteringComponent);
     component = fixture.componentInstance;
+    component.devices = [];
     fixture.detectChanges();
   });
 
