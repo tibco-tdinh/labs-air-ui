@@ -11,7 +11,7 @@ describe('IotGatewayMapComponent', () => {
   let fixture: ComponentFixture<IotGatewayMapComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getReadings', 'getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getReadings', 'getGateways', 'getGatewayAndPipelines', 'getModels']);
   mockGraphService.getReadings.and.returnValue(of([]));
 
   beforeEach(async () => {

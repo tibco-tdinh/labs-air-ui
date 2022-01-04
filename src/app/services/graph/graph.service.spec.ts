@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { GraphService } from './graph.service';
@@ -5,12 +6,13 @@ import { GraphService } from './graph.service';
 describe('GraphService', () => {
   let mockGraphService: Partial<GraphService>;
 
-  mockGraphService = jasmine.createSpyObj(['xxx']);
+  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
 
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       { provide: GraphService, useValue: mockGraphService }
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
   }));
 
   it('should be created', () => {

@@ -12,7 +12,7 @@ describe('PipelineDataSubscriberComponent', () => {
   let fixture: ComponentFixture<PipelineDataSubscriberComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getProtocols']);
+  mockGraphService = jasmine.createSpyObj(['getProtocols', 'getModels']);
   mockGraphService.getProtocols.and.returnValue(of([]));
 
   beforeEach(async () => {

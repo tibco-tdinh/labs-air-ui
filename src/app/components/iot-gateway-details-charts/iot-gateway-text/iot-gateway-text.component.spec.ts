@@ -13,7 +13,7 @@ describe('IotGatewayTextComponent', () => {
   let mockGraphService;
   let mockEdgeService;
 
-  mockGraphService = jasmine.createSpyObj(['getReadings']);
+  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
   mockGraphService.getReadings.and.returnValue(of([]));
   mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
@@ -35,7 +35,7 @@ describe('IotGatewayTextComponent', () => {
     fixture = TestBed.createComponent(IotGatewayTextComponent);
     component = fixture.componentInstance;
     component.device = {} as Device;
-    component.instrument = { properties: { value: {}, units: {} } } as Resource;
+    component.instrument = { name: 'myName', properties: { value: {}, units: {} } } as Resource;
     fixture.detectChanges();
   });
 

@@ -18,7 +18,7 @@ describe('IotGatewayComponent', () => {
   let mockAppConfigService: Partial<AppConfigService>;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
   mockGraphService.getGateways.and.returnValue(of([]));
 

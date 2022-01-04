@@ -17,7 +17,7 @@ describe('InfraDeployerComponent', () => {
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
   mockEdgeService = jasmine.createSpyObj(['getDevices']);
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

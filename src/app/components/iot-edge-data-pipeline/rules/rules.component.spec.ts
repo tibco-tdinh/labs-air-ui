@@ -16,7 +16,7 @@ describe('RulesComponent', () => {
   let mockGraphService;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockGraphService = jasmine.createSpyObj(['getRules']);
+  mockGraphService = jasmine.createSpyObj(['getRules', 'getModels']);
   mockGraphService.getRules.and.returnValue(of([]));
 
   beforeEach(async () => {

@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { AppConfigService } from 'src/app/services/config/app-config.service';
 import { EdgeService } from 'src/app/services/edge/edge.service';
 import { GraphService } from 'src/app/services/graph/graph.service';
-import { Pipeline } from 'src/app/shared/models/iot.model';
+import { Gateway, Pipeline } from 'src/app/shared/models/iot.model';
 
 import { IotDataPipelineComponent } from './iot-data-pipeline.component';
 
@@ -19,11 +19,11 @@ describe('IotDataPipelineComponent', () => {
   let mockAppConfigService: Partial<AppConfigService>;
   let mockEdgeService;
 
-  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
   mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([{ pipelines: {} as Pipeline }]));
+  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
   mockEdgeService.getDevices.and.returnValue(of([]));
 
   beforeEach(waitForAsync(() => {

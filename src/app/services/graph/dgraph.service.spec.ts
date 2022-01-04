@@ -20,7 +20,7 @@ describe('DgraphService', () => {
   let mockAuthService: Partial<AuthService>;
   let mockGraphService: Partial<GraphService>;
 
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
   mockAuthService = jasmine.createSpyObj(['xxx']);
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
   httpClientSpy = jasmine.createSpyObj(['get', 'post']);

@@ -11,7 +11,7 @@ describe('PipelineDataStoreComponent', () => {
   let fixture: ComponentFixture<PipelineDataStoreComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getDataStores']);
+  mockGraphService = jasmine.createSpyObj(['getDataStores', 'getModels']);
   mockGraphService.getDataStores.and.returnValue(of([]));
 
 

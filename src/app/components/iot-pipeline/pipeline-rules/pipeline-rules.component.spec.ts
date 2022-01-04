@@ -1,16 +1,25 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormGroup, FormControl } from '@angular/forms';
+import { of } from 'rxjs';
+import { GraphService } from 'src/app/services/graph/graph.service';
 
 import { PipelineRulesComponent } from './pipeline-rules.component';
 
 describe('PipelineRulesComponent', () => {
   let component: PipelineRulesComponent;
   let fixture: ComponentFixture<PipelineRulesComponent>;
+  let mockGraphService;
+
+  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
+  mockGraphService.getReadings.and.returnValue(of([]));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PipelineRulesComponent],
+      providers: [
+        { provide: GraphService, useValue: mockGraphService }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();

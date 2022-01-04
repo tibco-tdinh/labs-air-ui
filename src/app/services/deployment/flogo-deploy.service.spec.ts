@@ -11,7 +11,7 @@ describe('FlogoDeployService', () => {
   let mockGraphService;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getGateway']);
+  mockGraphService = jasmine.createSpyObj(['getGateway', 'getModels']);
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],

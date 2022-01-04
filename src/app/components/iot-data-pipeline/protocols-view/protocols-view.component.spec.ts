@@ -10,7 +10,7 @@ describe('ProtocolsViewComponent', () => {
   let fixture: ComponentFixture<ProtocolsViewComponent>;
   let mockGraphService: Partial<GraphService>;
 
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

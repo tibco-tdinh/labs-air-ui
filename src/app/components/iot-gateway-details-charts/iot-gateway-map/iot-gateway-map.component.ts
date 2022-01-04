@@ -46,7 +46,9 @@ export class IotGatewayMapComponent implements OnInit, OnDestroy {
   public setMapDataSet(deviceName: string) {
     let mapData = [];
     let idx = this.resourceReadings.length - 1;
-    // This is a true bug. It expects that it always has at least one value
+    if (idx < 0) {
+      return;
+    }
     let coords = this.resourceReadings[idx].value.split("|", 3);
     console.log("Setting marker for map reading: ", this.resourceReadings[idx].value);
     console.log("Setting marker for map: ", coords);

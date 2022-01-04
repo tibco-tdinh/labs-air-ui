@@ -16,7 +16,7 @@ describe('PipelineInferencingComponent', () => {
   let mockEdgeService: Partial<EdgeService>;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
   mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
   beforeEach(async () => {

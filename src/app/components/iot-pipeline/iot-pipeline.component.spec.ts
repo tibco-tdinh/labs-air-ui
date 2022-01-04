@@ -19,10 +19,11 @@ describe('IotPipelineComponent', () => {
   let mockAppConfigService: Partial<AppConfigService>;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
   mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([{ devicesMetadata: ''}] as Gateway[]));
+  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+  mockGraphService.getModels.and.returnValue(of([]));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

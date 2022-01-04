@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppConfigService } from 'src/app/services/config/app-config.service';
 import { GraphService } from 'src/app/services/graph/graph.service';
+import { Gateway } from 'src/app/shared/models/iot.model';
 
 import { MaporamaComponent } from './maporama.component';
 
@@ -14,9 +15,10 @@ describe('MaporamaComponent', () => {
   let mockAppConfigService: Partial<AppConfigService>;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
   mockGraphService.getGateways.and.returnValue(of([]));
+  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

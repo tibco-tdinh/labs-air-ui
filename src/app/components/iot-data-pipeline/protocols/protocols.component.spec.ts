@@ -11,7 +11,7 @@ describe('ProtocolsComponent', () => {
   let fixture: ComponentFixture<ProtocolsComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getProtocols']);
+  mockGraphService = jasmine.createSpyObj(['getProtocols', 'getModels']);
   mockGraphService.getProtocols.and.returnValue(of([]));
 
   beforeEach(waitForAsync(() => {

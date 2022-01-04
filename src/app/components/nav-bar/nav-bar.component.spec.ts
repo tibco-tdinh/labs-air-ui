@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BehaviorSubject, of } from 'rxjs';
 import { BreadcrumbsService } from 'src/app/services/breadcrumbs/breadcrumbs.service';
+import { GraphService } from 'src/app/services/graph/graph.service';
+import { Gateway } from 'src/app/shared/models/iot.model';
 
 import { NavBarComponent } from './nav-bar.component';
 
@@ -10,17 +12,22 @@ describe('NavBarComponent', () => {
   let component: NavBarComponent;
   let fixture: ComponentFixture<NavBarComponent>;
   let mockBreadCrumbService;
+  let mockGraphService;
 
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
   mockBreadCrumbService = jasmine.createSpyObj(['path']);
 
   mockBreadCrumbService.path = new BehaviorSubject<String[]>([]);
+  mockGraphService.getGateways.and.returnValue(of([]));
+  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NavBarComponent],
       imports: [RouterTestingModule],
       providers: [
-        { provide: BreadcrumbsService, useValue: mockBreadCrumbService }
+        { provide: BreadcrumbsService, useValue: mockBreadCrumbService },
+        { provide: GraphService, useValue: mockGraphService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

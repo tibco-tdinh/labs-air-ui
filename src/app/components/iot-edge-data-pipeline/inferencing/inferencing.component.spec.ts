@@ -18,7 +18,7 @@ describe('InferencingComponent', () => {
   let mockGraphService;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockGraphService = jasmine.createSpyObj(['getModelConfigs']);
+  mockGraphService = jasmine.createSpyObj(['getModelConfigs', 'getModels']);
   mockGraphService.getModelConfigs.and.returnValue(of([]));
 
   beforeEach(async () => {

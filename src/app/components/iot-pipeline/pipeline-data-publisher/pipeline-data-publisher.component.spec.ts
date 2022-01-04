@@ -13,7 +13,7 @@ describe('PipelineDataPublisherComponent', () => {
   let mockGraphService;
   let mockEdgeService: Partial<EdgeService>;
 
-  mockGraphService = jasmine.createSpyObj(['getProtocols']);
+  mockGraphService = jasmine.createSpyObj(['getProtocols', 'getModels']);
   mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
   mockGraphService.getProtocols.and.returnValue(of([]));

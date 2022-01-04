@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { GraphService } from 'src/app/services/graph/graph.service';
+import { Gateway } from 'src/app/shared/models/iot.model';
 
 import { IotInfraDeployerComponent } from './iot-infra-deployer.component';
 
@@ -12,9 +13,10 @@ describe('IotInfraDeployerComponent', () => {
   let fixture: ComponentFixture<IotInfraDeployerComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
   mockGraphService.getGateways.and.returnValue(of([]));
+  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

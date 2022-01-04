@@ -1593,9 +1593,13 @@ export class IotPipelineComponent implements OnInit {
   getDevices(gateway: Gateway) {
     console.log("Get devices for: ", gateway);
 
-    let decodedData = atob(gateway.devicesMetadata);
-    let jsonData = JSON.parse(decodedData);
-    this.devices = jsonData as Device[];
+    try {
+      let decodedData = atob(gateway.devicesMetadata);
+      let jsonData = JSON.parse(decodedData);
+      this.devices = jsonData as Device[];
+    } catch (error) {
+      console.log('Could not parse the gateway', gateway);
+    }
 
     console.log("Devices: ", this.devices);
   }

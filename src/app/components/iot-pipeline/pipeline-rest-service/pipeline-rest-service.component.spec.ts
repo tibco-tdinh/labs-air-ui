@@ -13,7 +13,7 @@ describe('PipelineRestServiceComponent', () => {
   let mockGraphService: Partial<GraphService>;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['xxx']);
+  mockGraphService = jasmine.createSpyObj(['getModels']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

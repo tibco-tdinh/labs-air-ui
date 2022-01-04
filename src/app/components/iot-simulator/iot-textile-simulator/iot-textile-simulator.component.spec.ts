@@ -19,7 +19,7 @@ describe('IotSimulatorComponent', () => {
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
   mockSimulatorService = jasmine.createSpyObj(['getProducts', 'subscribe']);
-  mockGraphService = jasmine.createSpyObj(['xxx']);
+  mockGraphService = jasmine.createSpyObj(['getModels']);
   mockEdgeService = jasmine.createSpyObj(['xxx']);
 
   beforeEach(async () => {

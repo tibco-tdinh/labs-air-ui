@@ -11,7 +11,7 @@ describe('IotGatewayXyzValueComponent', () => {
   let fixture: ComponentFixture<IotGatewayXyzValueComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getReadings']);
+  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
   mockGraphService.getReadings.and.returnValue(of([]));
 
   beforeEach(async () => {
@@ -29,7 +29,7 @@ describe('IotGatewayXyzValueComponent', () => {
     fixture = TestBed.createComponent(IotGatewayXyzValueComponent);
     component = fixture.componentInstance;
     component.device = {} as Device;
-    component.instrument = { properties: { value: {}, units: {} } } as Resource;
+    component.instrument = { name: 'myName', properties: { value: {}, units: {} } } as Resource;
     fixture.detectChanges();
   });
 

@@ -9,7 +9,7 @@ describe('IotNotificationsComponent', () => {
   let fixture: ComponentFixture<IotNotificationsComponent>;
   let mockGraphService;
 
-  mockGraphService = jasmine.createSpyObj(['getNotifications']);
+  mockGraphService = jasmine.createSpyObj(['getNotifications', 'getModels']);
 
   mockGraphService.getNotifications.and.returnValue(of({
 

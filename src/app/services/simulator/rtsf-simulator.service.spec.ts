@@ -9,7 +9,7 @@ describe('RtsfSimulatorService', () => {
   let service: RtsfSimulatorService;
   let mockAppConfigService: Partial<AppConfigService>;
   let mockGraphService;
-  mockGraphService = jasmine.createSpyObj(['getGateway']);
+  mockGraphService = jasmine.createSpyObj(['getGateway', 'getModels']);
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
 

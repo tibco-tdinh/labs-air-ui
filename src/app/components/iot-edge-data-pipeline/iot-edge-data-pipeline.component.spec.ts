@@ -18,7 +18,7 @@ describe('IotEdgeDataPipelineComponent', () => {
   let mockEdgeService;
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getGateway']);
+  mockGraphService = jasmine.createSpyObj(['getGateway', 'getModels']);
   mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
   mockGraphService.getGateway.and.returnValue(of({

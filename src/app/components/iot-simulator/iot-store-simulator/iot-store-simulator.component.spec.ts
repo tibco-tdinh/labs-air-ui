@@ -18,7 +18,7 @@ describe('IotStoreSimulator', () => {
 
   mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
   mockSimulatorService = jasmine.createSpyObj(['getProducts', 'subscribe']);
-  mockGraphService = jasmine.createSpyObj(['getNotifications']);
+  mockGraphService = jasmine.createSpyObj(['getNotifications', 'getModels']);
 
   mockSimulatorService.getProducts.and.returnValue(of({
 

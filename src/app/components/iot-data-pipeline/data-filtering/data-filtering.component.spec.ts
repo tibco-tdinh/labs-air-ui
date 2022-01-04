@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { EdgeService } from 'src/app/services/edge/edge.service';
 import { GraphService } from 'src/app/services/graph/graph.service';
+import { Gateway } from 'src/app/shared/models/iot.model';
 
 import { DataFilteringComponent } from './data-filtering.component';
 
@@ -12,10 +13,10 @@ describe('DataFilteringComponent', () => {
   let mockGraphService;
   let mockEdgeService: Partial<EdgeService>;
 
-  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines']);
+  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
   mockEdgeService = jasmine.createSpyObj(['xxx']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([]));
+  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

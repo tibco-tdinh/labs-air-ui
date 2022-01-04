@@ -13,7 +13,7 @@ describe('IotGatewayImageComponent', () => {
   let mockGraphService;
   let mockEdgeService: Partial<EdgeService>;
 
-  mockGraphService = jasmine.createSpyObj(['getReadings']);
+  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
   mockEdgeService = jasmine.createSpyObj(['xxx']);
 
   mockGraphService.getReadings.and.returnValue(of([]));
