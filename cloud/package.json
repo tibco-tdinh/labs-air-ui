@@ -11,8 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@tibco-tcstk/tc-core-lib": "^3.1.0",
-    "@tibco-tcstk/tc-liveapps-lib": "^3.1.0"
+
   },
   "devDependencies": {
   }

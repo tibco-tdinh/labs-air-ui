@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { NgxHeatmapModule } from 'ngx-heatmap';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -160,7 +160,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     NgxHeatmapModule,
     Ng2GoogleChartsModule,
     ReteEditorModule,
-    ChartsModule
+    NgChartsModule
     // CommonModule
   ],
   providers: [

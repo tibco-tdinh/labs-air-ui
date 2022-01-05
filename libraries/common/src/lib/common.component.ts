@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-common',
   template: `
     <p>
-      common proof of concept
+      something else: {{ data }}
     </p>
   `,
   styles: [
   ]
 })
 export class CommonComponent implements OnInit {
+  @Input() data: string;
 
   constructor() { }
 
