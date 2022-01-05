@@ -5,26 +5,26 @@ import { Device } from 'src/app/shared/models/iot.model';
 import { DataStreamingComponent } from './data-streaming.component';
 
 describe('DataStreamingComponent', () => {
-  let component: DataStreamingComponent;
-  let fixture: ComponentFixture<DataStreamingComponent>;
+    let component: DataStreamingComponent;
+    let fixture: ComponentFixture<DataStreamingComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DataStreamingComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [DataStreamingComponent],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DataStreamingComponent);
-    component = fixture.componentInstance;
-    component.devices = [] as Device[];
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DataStreamingComponent);
+        component = fixture.componentInstance;
+        component.devices = [] as Device[];
 
-    fixture.detectChanges();
-  });
+        fixture.detectChanges();
+    });
 
-  it('should create DataStreamingComponent', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create DataStreamingComponent', () => {
+        expect(component).toBeTruthy();
+    });
 });

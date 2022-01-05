@@ -10,38 +10,36 @@ import { Gateway } from 'src/app/shared/models/iot.model';
 import { RulesComponent } from './rules.component';
 
 describe('RulesComponent', () => {
-  let component: RulesComponent;
-  let fixture: ComponentFixture<RulesComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockGraphService;
+    let component: RulesComponent;
+    let fixture: ComponentFixture<RulesComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockGraphService = jasmine.createSpyObj(['getRules', 'getModels']);
-  mockGraphService.getRules.and.returnValue(of([]));
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
+    const mockGraphService = jasmine.createSpyObj(['getRules', 'getModels']);
+    mockGraphService.getRules.and.returnValue(of([]));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [RulesComponent],
-      imports: [HttpClientModule, AppModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [RulesComponent],
+            imports: [HttpClientModule, AppModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RulesComponent);
-    component = fixture.componentInstance;
-    component.devices = [];
-    component.gateway = {} as Gateway;
+    beforeEach(() => {
+        fixture = TestBed.createComponent(RulesComponent);
+        component = fixture.componentInstance;
+        component.devices = [];
+        component.gateway = {} as Gateway;
 
-    fixture.detectChanges();
-  });
+        fixture.detectChanges();
+    });
 
-  it('should create me', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create me', () => {
+        expect(component).toBeTruthy();
+    });
 });

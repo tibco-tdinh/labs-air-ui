@@ -5,19 +5,17 @@ import { AppConfigService } from '../config/app-config.service';
 import { EdgeService } from './edge.service';
 
 describe('EdgeService', () => {
-  let mockAppConfigService: Partial<AppConfigService>;
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    beforeEach(() => TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
+        providers: [
+            { provide: AppConfigService, useValue: mockAppConfigService }
+        ]
+    }));
 
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule],
-    providers: [
-      { provide: AppConfigService, useValue: mockAppConfigService }
-    ]
-  }));
-
-  it('should be created', () => {
-    const service: EdgeService = TestBed.get(EdgeService);
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        const service: EdgeService = TestBed.inject(EdgeService);
+        expect(service).toBeTruthy();
+    });
 });

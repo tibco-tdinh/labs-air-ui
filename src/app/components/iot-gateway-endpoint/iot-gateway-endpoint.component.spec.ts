@@ -8,32 +8,30 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { IotGatewayEndpointComponent } from './iot-gateway-endpoint.component';
 
 describe('IotGatewayEndpointComponent', () => {
-  let component: IotGatewayEndpointComponent;
-  let fixture: ComponentFixture<IotGatewayEndpointComponent>;
-  let mockGraphService;
+    let component: IotGatewayEndpointComponent;
+    let fixture: ComponentFixture<IotGatewayEndpointComponent>;
+    const mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
+    mockGraphService.getReadings.and.returnValue(of([]));
 
-  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
-  mockGraphService.getReadings.and.returnValue(of([]));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [IotGatewayEndpointComponent],
+            imports: [HttpClientTestingModule, RouterTestingModule],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [IotGatewayEndpointComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotGatewayEndpointComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotGatewayEndpointComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

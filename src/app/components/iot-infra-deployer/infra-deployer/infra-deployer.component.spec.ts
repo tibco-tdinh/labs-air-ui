@@ -9,37 +9,34 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { InfraDeployerComponent } from './infra-deployer.component';
 
 describe('InfraDeployerComponent', () => {
-  let component: InfraDeployerComponent;
-  let fixture: ComponentFixture<InfraDeployerComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockEdgeService: Partial<EdgeService>;
-  let mockGraphService;
+    let component: InfraDeployerComponent;
+    let fixture: ComponentFixture<InfraDeployerComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockEdgeService = jasmine.createSpyObj(['getDevices']);
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['getDevices']);
+    const mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [InfraDeployerComponent],
-      imports: [HttpClientTestingModule, AppModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: EdgeService, useValue: mockEdgeService },
-        { provide: GraphService, useValue: mockGraphService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [InfraDeployerComponent],
+            imports: [HttpClientTestingModule, AppModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: EdgeService, useValue: mockEdgeService },
+                { provide: GraphService, useValue: mockGraphService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(InfraDeployerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(InfraDeployerComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create it', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create it', () => {
+        expect(component).toBeTruthy();
+    });
 });

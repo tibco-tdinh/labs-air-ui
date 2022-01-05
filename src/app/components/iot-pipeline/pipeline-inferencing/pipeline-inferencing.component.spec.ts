@@ -9,40 +9,37 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { PipelineInferencingComponent } from './pipeline-inferencing.component';
 
 describe('PipelineInferencingComponent', () => {
-  let component: PipelineInferencingComponent;
-  let fixture: ComponentFixture<PipelineInferencingComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockGraphService: Partial<GraphService>;
-  let mockEdgeService: Partial<EdgeService>;
+    let component: PipelineInferencingComponent;
+    let fixture: ComponentFixture<PipelineInferencingComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
-  mockEdgeService = jasmine.createSpyObj(['getDevices']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockGraphService: Partial<GraphService> = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['getDevices']);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PipelineInferencingComponent],
-      imports: [HttpClientTestingModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ]
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [PipelineInferencingComponent],
+            imports: [HttpClientTestingModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ]
 
-    })
-    .compileComponents();
-  });
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PipelineInferencingComponent);
-    component = fixture.componentInstance;
-    component.devices = [];
-    component.modelForm = new FormGroup({});
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PipelineInferencingComponent);
+        component = fixture.componentInstance;
+        component.devices = [];
+        component.modelForm = new FormGroup({});
+        fixture.detectChanges();
+    });
 
-  it('should create PipelineInferencingComponent', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create PipelineInferencingComponent', () => {
+        expect(component).toBeTruthy();
+    });
 });

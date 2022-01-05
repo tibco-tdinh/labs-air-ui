@@ -7,33 +7,32 @@ import { Device, Resource } from 'src/app/shared/models/iot.model';
 import { IotGatewayXyzValueComponent } from './iot-gateway-xyz-value.component';
 
 describe('IotGatewayXyzValueComponent', () => {
-  let component: IotGatewayXyzValueComponent;
-  let fixture: ComponentFixture<IotGatewayXyzValueComponent>;
-  let mockGraphService;
+    let component: IotGatewayXyzValueComponent;
+    let fixture: ComponentFixture<IotGatewayXyzValueComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
-  mockGraphService.getReadings.and.returnValue(of([]));
+    const mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
+    mockGraphService.getReadings.and.returnValue(of([]));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IotGatewayXyzValueComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [IotGatewayXyzValueComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotGatewayXyzValueComponent);
-    component = fixture.componentInstance;
-    component.device = {} as Device;
-    component.instrument = { name: 'myName', properties: { value: {}, units: {} } } as Resource;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotGatewayXyzValueComponent);
+        component = fixture.componentInstance;
+        component.device = {} as Device;
+        component.instrument = { name: 'myName', properties: { value: {}, units: {} } } as Resource;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

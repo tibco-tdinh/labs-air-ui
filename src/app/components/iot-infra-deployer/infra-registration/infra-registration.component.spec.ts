@@ -8,32 +8,30 @@ import { AppConfigService } from 'src/app/services/config/app-config.service';
 import { InfraRegistrationComponent } from './infra-registration.component';
 
 describe('InfraRegistrationComponent', () => {
-  let component: InfraRegistrationComponent;
-  let fixture: ComponentFixture<InfraRegistrationComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
+    let component: InfraRegistrationComponent;
+    let fixture: ComponentFixture<InfraRegistrationComponent>;
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [InfraRegistrationComponent],
+            imports: [HttpClientModule, ReactiveFormsModule, MatSnackBarModule],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [InfraRegistrationComponent],
-      imports: [HttpClientModule, ReactiveFormsModule, MatSnackBarModule],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(InfraRegistrationComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(InfraRegistrationComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
 });

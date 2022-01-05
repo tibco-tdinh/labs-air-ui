@@ -7,35 +7,34 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { PipelineRulesComponent } from './pipeline-rules.component';
 
 describe('PipelineRulesComponent', () => {
-  let component: PipelineRulesComponent;
-  let fixture: ComponentFixture<PipelineRulesComponent>;
-  let mockGraphService;
+    let component: PipelineRulesComponent;
+    let fixture: ComponentFixture<PipelineRulesComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
-  mockGraphService.getReadings.and.returnValue(of([]));
+    const mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
+    mockGraphService.getReadings.and.returnValue(of([]));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PipelineRulesComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [PipelineRulesComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PipelineRulesComponent);
-    component = fixture.componentInstance;
-    component.ruleForm = new FormGroup({});
-    component.ruleForm.addControl('condDevice', new FormControl(''));
-    component.ruleForm.addControl('actionDevice', new FormControl(''));
-    component.devices = [];
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PipelineRulesComponent);
+        component = fixture.componentInstance;
+        component.ruleForm = new FormGroup({});
+        component.ruleForm.addControl('condDevice', new FormControl(''));
+        component.ruleForm.addControl('actionDevice', new FormControl(''));
+        component.devices = [];
+        fixture.detectChanges();
+    });
 
-  it('should create it', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create it', () => {
+        expect(component).toBeTruthy();
+    });
 });

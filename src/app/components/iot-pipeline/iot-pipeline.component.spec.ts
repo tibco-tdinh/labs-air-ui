@@ -12,39 +12,36 @@ import { Gateway } from 'src/app/shared/models/iot.model';
 import { IotPipelineComponent } from './iot-pipeline.component';
 
 describe('IotPipelineComponent', () => {
-  let component: IotPipelineComponent;
-  let fixture: ComponentFixture<IotPipelineComponent>;
-  let mockGraphService;
-  let mockEdgeService: Partial<EdgeService>;
-  let mockAppConfigService: Partial<AppConfigService>;
+    let component: IotPipelineComponent;
+    let fixture: ComponentFixture<IotPipelineComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
-  mockEdgeService = jasmine.createSpyObj(['getDevices']);
+    const mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['getDevices']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
-  mockGraphService.getModels.and.returnValue(of([]));
+    mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+    mockGraphService.getModels.and.returnValue(of([]));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IotPipelineComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [IotPipelineComponent],
+            imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotPipelineComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotPipelineComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -8,38 +8,35 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { PipelineFilteringComponent } from './pipeline-filtering.component';
 
 describe('PipelineFilteringComponent', () => {
-  let component: PipelineFilteringComponent;
-  let fixture: ComponentFixture<PipelineFilteringComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockGraphService: Partial<GraphService>;
-  let mockEdgeService: Partial<EdgeService>;
+    let component: PipelineFilteringComponent;
+    let fixture: ComponentFixture<PipelineFilteringComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getModels']);
-  mockEdgeService = jasmine.createSpyObj(['xxx']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockGraphService: Partial<GraphService> = jasmine.createSpyObj(['getModels']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['xxx']);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PipelineFilteringComponent],
-      imports: [HttpClientTestingModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [PipelineFilteringComponent],
+            imports: [HttpClientTestingModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PipelineFilteringComponent);
-    component = fixture.componentInstance;
-    component.devices = [];
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PipelineFilteringComponent);
+        component = fixture.componentInstance;
+        component.devices = [];
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

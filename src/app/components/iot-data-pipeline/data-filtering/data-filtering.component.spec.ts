@@ -8,35 +8,33 @@ import { Gateway } from 'src/app/shared/models/iot.model';
 import { DataFilteringComponent } from './data-filtering.component';
 
 describe('DataFilteringComponent', () => {
-  let component: DataFilteringComponent;
-  let fixture: ComponentFixture<DataFilteringComponent>;
-  let mockGraphService;
-  let mockEdgeService: Partial<EdgeService>;
+    let component: DataFilteringComponent;
+    let fixture: ComponentFixture<DataFilteringComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
-  mockEdgeService = jasmine.createSpyObj(['xxx']);
+    const mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['xxx']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+    mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DataFilteringComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [DataFilteringComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DataFilteringComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DataFilteringComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

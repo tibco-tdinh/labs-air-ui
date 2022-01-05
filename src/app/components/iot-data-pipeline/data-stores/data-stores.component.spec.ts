@@ -7,33 +7,31 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { DataStoresComponent } from './data-stores.component';
 
 describe('DataStoresComponent', () => {
-  let component: DataStoresComponent;
-  let fixture: ComponentFixture<DataStoresComponent>;
-  let mockGraphService;
+    let component: DataStoresComponent;
+    let fixture: ComponentFixture<DataStoresComponent>;
+    const mockGraphService = jasmine.createSpyObj(['getDataStores', 'getReadings', 'getModels']);
+    mockGraphService.getDataStores.and.returnValue(of([]));
 
-  mockGraphService = jasmine.createSpyObj(['getDataStores', 'getReadings', 'getModels']);
-  mockGraphService.getDataStores.and.returnValue(of([]));
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [DataStoresComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [DataStoresComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DataStoresComponent);
+        component = fixture.componentInstance;
+        component.dataStoreForm = new FormGroup({});
+        component.dataStoreForm.addControl('gateway', new FormControl(''));
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DataStoresComponent);
-    component = fixture.componentInstance;
-    component.dataStoreForm = new FormGroup({});
-    component.dataStoreForm.addControl('gateway', new FormControl(''));
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -9,38 +9,36 @@ import { Gateway } from 'src/app/shared/models/iot.model';
 import { PipelineRuleExpressionComponent } from './pipeline-rule-expression.component';
 
 describe('PipelineRuleExpressionComponent', () => {
-  let component: PipelineRuleExpressionComponent;
-  let fixture: ComponentFixture<PipelineRuleExpressionComponent>;
-  let mockGraphService;
-  let mockEdgeService: Partial<EdgeService>;
+    let component: PipelineRuleExpressionComponent;
+    let fixture: ComponentFixture<PipelineRuleExpressionComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'addPipeline', 'getModels']);
-  mockEdgeService = jasmine.createSpyObj(['xxx']);
+    const mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'addPipeline', 'getModels']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['xxx']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+    mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PipelineRuleExpressionComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [PipelineRuleExpressionComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PipelineRuleExpressionComponent);
-    component = fixture.componentInstance;
-    component.ruleExpressionForm = new FormGroup({});
-    component.ruleExpressionForm.addControl('device', new FormControl(''));
-    component.devices = [];
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PipelineRuleExpressionComponent);
+        component = fixture.componentInstance;
+        component.ruleExpressionForm = new FormGroup({});
+        component.ruleExpressionForm.addControl('device', new FormControl(''));
+        component.devices = [];
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

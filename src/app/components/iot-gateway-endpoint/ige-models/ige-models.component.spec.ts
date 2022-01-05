@@ -7,33 +7,31 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { IgeModelsComponent } from './ige-models.component';
 
 describe('IgeModelsComponent', () => {
-  let component: IgeModelsComponent;
-  let fixture: ComponentFixture<IgeModelsComponent>;
-  let mockGraphService;
+    let component: IgeModelsComponent;
+    let fixture: ComponentFixture<IgeModelsComponent>;
+    const mockGraphService = jasmine.createSpyObj(['getModels']);
 
-  mockGraphService = jasmine.createSpyObj(['getModels']);
+    mockGraphService.getModels.and.returnValue(of([]));
 
-  mockGraphService.getModels.and.returnValue(of([]));
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [IgeModelsComponent],
+            imports: [AppModule],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IgeModelsComponent],
-      imports: [AppModule],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IgeModelsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IgeModelsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

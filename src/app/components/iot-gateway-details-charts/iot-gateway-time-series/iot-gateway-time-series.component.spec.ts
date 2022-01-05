@@ -8,34 +8,32 @@ import { Device, Resource } from 'src/app/shared/models/iot.model';
 import { IotGatewayTimeSeriesComponent } from './iot-gateway-time-series.component';
 
 describe('IotGatewayTimeSeriesComponent', () => {
-  let component: IotGatewayTimeSeriesComponent;
-  let fixture: ComponentFixture<IotGatewayTimeSeriesComponent>;
-  let mockGraphService;
+    let component: IotGatewayTimeSeriesComponent;
+    let fixture: ComponentFixture<IotGatewayTimeSeriesComponent>;
+    const mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
+    mockGraphService.getReadings.and.returnValue(of([]));
 
-  mockGraphService = jasmine.createSpyObj(['getReadings', 'getModels']);
-  mockGraphService.getReadings.and.returnValue(of([]));
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [IotGatewayTimeSeriesComponent],
+            imports: [ReactiveFormsModule],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IotGatewayTimeSeriesComponent],
-      imports: [ReactiveFormsModule],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotGatewayTimeSeriesComponent);
+        component = fixture.componentInstance;
+        component.device = {} as Device;
+        component.instrument = { properties: { value: {}, units: {} } } as Resource;
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotGatewayTimeSeriesComponent);
-    component = fixture.componentInstance;
-    component.device = {} as Device;
-    component.instrument = { properties: { value: {}, units: {} } } as Resource;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -12,37 +12,35 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { IotGatewayComponent } from './iot-gateway.component';
 
 describe('IotGatewayComponent', () => {
-  let component: IotGatewayComponent;
-  let fixture: ComponentFixture<IotGatewayComponent>;
-  let mockGraphService;
-  let mockAppConfigService: Partial<AppConfigService>;
+    let component: IotGatewayComponent;
+    let fixture: ComponentFixture<IotGatewayComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
+    const mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
-  mockGraphService.getGateways.and.returnValue(of([]));
+    mockGraphService.getGateways.and.returnValue(of([]));
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [IotGatewayComponent],
-      imports: [HttpClientTestingModule, ReactiveFormsModule, MatSnackBarModule, AppModule],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [IotGatewayComponent],
+            imports: [HttpClientTestingModule, ReactiveFormsModule, MatSnackBarModule, AppModule],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotGatewayComponent);
-    component = fixture.componentInstance;
-    component.gatewayForm = new FormGroup({});
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotGatewayComponent);
+        component = fixture.componentInstance;
+        component.gatewayForm = new FormGroup({});
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

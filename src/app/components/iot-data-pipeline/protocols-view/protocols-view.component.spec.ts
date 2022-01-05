@@ -6,32 +6,30 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { ProtocolsViewComponent } from './protocols-view.component';
 
 describe('ProtocolsViewComponent', () => {
-  let component: ProtocolsViewComponent;
-  let fixture: ComponentFixture<ProtocolsViewComponent>;
-  let mockGraphService: Partial<GraphService>;
+    let component: ProtocolsViewComponent;
+    let fixture: ComponentFixture<ProtocolsViewComponent>;
+    const mockGraphService: Partial<GraphService> = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ProtocolsViewComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ProtocolsViewComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ProtocolsViewComponent);
+        component = fixture.componentInstance;
+        component.transportForm = new FormGroup({});
+        component.transportForm.addControl('gateway', new FormControl(''));
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProtocolsViewComponent);
-    component = fixture.componentInstance;
-    component.transportForm = new FormGroup({});
-    component.transportForm.addControl('gateway', new FormControl(''));
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

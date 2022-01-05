@@ -5,25 +5,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SplashComponent } from './splash.component';
 
 describe('SplashComponent', () => {
-  let component: SplashComponent;
-  let fixture: ComponentFixture<SplashComponent>;
+    let component: SplashComponent;
+    let fixture: ComponentFixture<SplashComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [SplashComponent],
-      imports: [RouterTestingModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [SplashComponent],
+            imports: [RouterTestingModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SplashComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SplashComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

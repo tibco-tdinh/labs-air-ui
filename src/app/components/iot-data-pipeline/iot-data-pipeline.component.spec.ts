@@ -13,40 +13,38 @@ import { Gateway, Pipeline } from 'src/app/shared/models/iot.model';
 import { IotDataPipelineComponent } from './iot-data-pipeline.component';
 
 describe('IotDataPipelineComponent', () => {
-  let component: IotDataPipelineComponent;
-  let fixture: ComponentFixture<IotDataPipelineComponent>;
-  let mockGraphService;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockEdgeService;
+    let component: IotDataPipelineComponent;
+    let fixture: ComponentFixture<IotDataPipelineComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
-  mockEdgeService.getDevices.and.returnValue(of([]));
+    const mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [IotDataPipelineComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+    mockEdgeService.getDevices.and.returnValue(of([]));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotDataPipelineComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [IotDataPipelineComponent],
+            imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotDataPipelineComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

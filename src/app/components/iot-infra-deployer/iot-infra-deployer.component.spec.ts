@@ -9,35 +9,33 @@ import { Gateway } from 'src/app/shared/models/iot.model';
 import { IotInfraDeployerComponent } from './iot-infra-deployer.component';
 
 describe('IotInfraDeployerComponent', () => {
-  let component: IotInfraDeployerComponent;
-  let fixture: ComponentFixture<IotInfraDeployerComponent>;
-  let mockGraphService;
+    let component: IotInfraDeployerComponent;
+    let fixture: ComponentFixture<IotInfraDeployerComponent>;
+    const mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
 
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
+    mockGraphService.getGateways.and.returnValue(of([]));
+    mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
-  mockGraphService.getGateways.and.returnValue(of([]));
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [IotInfraDeployerComponent],
+            imports: [RouterTestingModule],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IotInfraDeployerComponent],
-      imports: [RouterTestingModule],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotInfraDeployerComponent);
+        component = fixture.componentInstance;
+        component.deployerForm = new FormGroup({});
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotInfraDeployerComponent);
-    component = fixture.componentInstance;
-    component.deployerForm = new FormGroup({});
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

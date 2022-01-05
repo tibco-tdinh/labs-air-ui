@@ -10,40 +10,36 @@ import { TextileSimulatorService } from 'src/app/services/simulator/textile-simu
 import { IotTextileSimulatorComponent } from './iot-textile-simulator.component';
 
 describe('IotSimulatorComponent', () => {
-  let component: IotTextileSimulatorComponent;
-  let fixture: ComponentFixture<IotTextileSimulatorComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockSimulatorService: Partial<TextileSimulatorService>;
-  let mockGraphService: Partial<GraphService>;
-  let mockEdgeService: Partial<EdgeService>;
+    let component: IotTextileSimulatorComponent;
+    let fixture: ComponentFixture<IotTextileSimulatorComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockSimulatorService = jasmine.createSpyObj(['getProducts', 'subscribe']);
-  mockGraphService = jasmine.createSpyObj(['getModels']);
-  mockEdgeService = jasmine.createSpyObj(['xxx']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockSimulatorService: Partial<TextileSimulatorService> = jasmine.createSpyObj(['getProducts', 'subscribe']);
+    const mockGraphService: Partial<GraphService> = jasmine.createSpyObj(['getModels']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['xxx']);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IotTextileSimulatorComponent],
-      imports: [HttpClientTestingModule, MatSnackBarModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: TextileSimulatorService, useValue: mockSimulatorService },
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [IotTextileSimulatorComponent],
+            imports: [HttpClientTestingModule, MatSnackBarModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: TextileSimulatorService, useValue: mockSimulatorService },
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotTextileSimulatorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotTextileSimulatorComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

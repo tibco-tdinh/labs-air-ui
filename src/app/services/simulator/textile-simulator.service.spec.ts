@@ -5,22 +5,20 @@ import { AppConfigService } from '../config/app-config.service';
 import { TextileSimulatorService } from './textile-simulator.service';
 
 describe('TextileSimulatorService', () => {
-  let service: TextileSimulatorService;
-  let mockAppConfigService: Partial<AppConfigService>;
+    let service: TextileSimulatorService;
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService }
-      ]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService }
+            ]
+        });
+        service = TestBed.inject(TextileSimulatorService);
     });
-    service = TestBed.inject(TextileSimulatorService);
-  });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

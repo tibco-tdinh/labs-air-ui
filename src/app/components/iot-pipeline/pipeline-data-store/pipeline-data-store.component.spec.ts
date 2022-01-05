@@ -7,35 +7,34 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { PipelineDataStoreComponent } from './pipeline-data-store.component';
 
 describe('PipelineDataStoreComponent', () => {
-  let component: PipelineDataStoreComponent;
-  let fixture: ComponentFixture<PipelineDataStoreComponent>;
-  let mockGraphService;
+    let component: PipelineDataStoreComponent;
+    let fixture: ComponentFixture<PipelineDataStoreComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getDataStores', 'getModels']);
-  mockGraphService.getDataStores.and.returnValue(of([]));
+    const mockGraphService = jasmine.createSpyObj(['getDataStores', 'getModels']);
+    mockGraphService.getDataStores.and.returnValue(of([]));
 
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PipelineDataStoreComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [PipelineDataStoreComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PipelineDataStoreComponent);
-    component = fixture.componentInstance;
-    component.dataStoreForm = new FormGroup({});
-    component.dataStoreForm.addControl('gateway', new FormControl(''));
-    component.dataStoreForm.addControl('dataStoreId', new FormControl(''));
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PipelineDataStoreComponent);
+        component = fixture.componentInstance;
+        component.dataStoreForm = new FormGroup({});
+        component.dataStoreForm.addControl('gateway', new FormControl(''));
+        component.dataStoreForm.addControl('dataStoreId', new FormControl(''));
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

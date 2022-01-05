@@ -10,45 +10,42 @@ import { RtsfSimulatorService } from 'src/app/services/simulator/rtsf-simulator.
 import { IotStoreSimulatorComponent } from './iot-store-simulator.component';
 
 describe('IotStoreSimulator', () => {
-  let component: IotStoreSimulatorComponent;
-  let fixture: ComponentFixture<IotStoreSimulatorComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockSimulatorService;
-  let mockGraphService;
+    let component: IotStoreSimulatorComponent;
+    let fixture: ComponentFixture<IotStoreSimulatorComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockSimulatorService = jasmine.createSpyObj(['getProducts', 'subscribe']);
-  mockGraphService = jasmine.createSpyObj(['getNotifications', 'getModels']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockSimulatorService = jasmine.createSpyObj(['getProducts', 'subscribe']);
+    const mockGraphService = jasmine.createSpyObj(['getNotifications', 'getModels']);
 
-  mockSimulatorService.getProducts.and.returnValue(of({
+    mockSimulatorService.getProducts.and.returnValue(of({
 
-  }));
+    }));
 
-  mockGraphService.getNotifications.and.returnValue(of({
+    mockGraphService.getNotifications.and.returnValue(of({
 
-  }));
+    }));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IotStoreSimulatorComponent],
-      imports: [HttpClientTestingModule, MatSnackBarModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: RtsfSimulatorService, useValue: mockSimulatorService },
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [IotStoreSimulatorComponent],
+            imports: [HttpClientTestingModule, MatSnackBarModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: RtsfSimulatorService, useValue: mockSimulatorService },
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IotStoreSimulatorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(IotStoreSimulatorComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

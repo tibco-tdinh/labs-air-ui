@@ -8,35 +8,33 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { FilteringComponent } from './filtering.component';
 
 describe('FilteringComponent', () => {
-  let component: FilteringComponent;
-  let fixture: ComponentFixture<FilteringComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockGraphService: Partial<GraphService>;
+    let component: FilteringComponent;
+    let fixture: ComponentFixture<FilteringComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv']);
-  mockGraphService = jasmine.createSpyObj(['getModels']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockGraphService: Partial<GraphService> = jasmine.createSpyObj(['getModels']);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [FilteringComponent],
-      imports: [HttpClientTestingModule, MatSnackBarModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [FilteringComponent],
+            imports: [HttpClientTestingModule, MatSnackBarModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FilteringComponent);
-    component = fixture.componentInstance;
-    component.devices = [];
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FilteringComponent);
+        component = fixture.componentInstance;
+        component.devices = [];
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

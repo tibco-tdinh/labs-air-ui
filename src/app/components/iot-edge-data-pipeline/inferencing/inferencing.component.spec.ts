@@ -12,39 +12,37 @@ import { Device, Gateway } from 'src/app/shared/models/iot.model';
 import { InferencingComponent } from './inferencing.component';
 
 describe('InferencingComponent', () => {
-  let component: InferencingComponent;
-  let fixture: ComponentFixture<InferencingComponent>;
-  let mockAppConfigService: Partial<AppConfigService>;
-  let mockGraphService;
+    let component: InferencingComponent;
+    let fixture: ComponentFixture<InferencingComponent>;
 
-  mockAppConfigService = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
-  mockGraphService = jasmine.createSpyObj(['getModelConfigs', 'getModels']);
-  mockGraphService.getModelConfigs.and.returnValue(of([]));
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv', 'loadAppConfig']);
+    const mockGraphService = jasmine.createSpyObj(['getModelConfigs', 'getModels']);
+    mockGraphService.getModelConfigs.and.returnValue(of([]));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [InferencingComponent],
-      imports: [HttpClientTestingModule, AppModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: GraphService, useValue: mockGraphService }
-      ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [InferencingComponent],
+            imports: [HttpClientTestingModule, AppModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService }
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(InferencingComponent);
-    component = fixture.componentInstance;
-    component.devices = [] as Device[];
-    component.gateway = {} as Gateway;
-    component.modelForm = new FormGroup({});
-    component.modelForm.addControl('device', new FormControl(''));
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(InferencingComponent);
+        component = fixture.componentInstance;
+        component.devices = [] as Device[];
+        component.gateway = {} as Gateway;
+        component.modelForm = new FormGroup({});
+        component.modelForm.addControl('device', new FormControl(''));
+        fixture.detectChanges();
+    });
 
-  it('should create InferencingComponent', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create InferencingComponent', () => {
+        expect(component).toBeTruthy();
+    });
 });

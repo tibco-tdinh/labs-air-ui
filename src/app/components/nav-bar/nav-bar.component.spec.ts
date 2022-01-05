@@ -9,38 +9,36 @@ import { Gateway } from 'src/app/shared/models/iot.model';
 import { NavBarComponent } from './nav-bar.component';
 
 describe('NavBarComponent', () => {
-  let component: NavBarComponent;
-  let fixture: ComponentFixture<NavBarComponent>;
-  let mockBreadCrumbService;
-  let mockGraphService;
+    let component: NavBarComponent;
+    let fixture: ComponentFixture<NavBarComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
-  mockBreadCrumbService = jasmine.createSpyObj(['path']);
+    const mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);
+    const mockBreadCrumbService = jasmine.createSpyObj(['path']);
 
-  mockBreadCrumbService.path = new BehaviorSubject<String[]>([]);
-  mockGraphService.getGateways.and.returnValue(of([]));
-  mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+    mockBreadCrumbService.path = new BehaviorSubject<string[]>([]);
+    mockGraphService.getGateways.and.returnValue(of([]));
+    mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [NavBarComponent],
-      imports: [RouterTestingModule],
-      providers: [
-        { provide: BreadcrumbsService, useValue: mockBreadCrumbService },
-        { provide: GraphService, useValue: mockGraphService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  }));
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [NavBarComponent],
+            imports: [RouterTestingModule],
+            providers: [
+                { provide: BreadcrumbsService, useValue: mockBreadCrumbService },
+                { provide: GraphService, useValue: mockGraphService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NavBarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(NavBarComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

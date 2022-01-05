@@ -8,38 +8,36 @@ import { GraphService } from 'src/app/services/graph/graph.service';
 import { PipelineDataPublisherComponent } from './pipeline-data-publisher.component';
 
 describe('PipelineDataPublisherComponent', () => {
-  let component: PipelineDataPublisherComponent;
-  let fixture: ComponentFixture<PipelineDataPublisherComponent>;
-  let mockGraphService;
-  let mockEdgeService: Partial<EdgeService>;
+    let component: PipelineDataPublisherComponent;
+    let fixture: ComponentFixture<PipelineDataPublisherComponent>;
 
-  mockGraphService = jasmine.createSpyObj(['getProtocols', 'getModels']);
-  mockEdgeService = jasmine.createSpyObj(['getDevices']);
+    const mockGraphService = jasmine.createSpyObj(['getProtocols', 'getModels']);
+    const mockEdgeService: Partial<EdgeService> = jasmine.createSpyObj(['getDevices']);
 
-  mockGraphService.getProtocols.and.returnValue(of([]));
+    mockGraphService.getProtocols.and.returnValue(of([]));
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PipelineDataPublisherComponent],
-      providers: [
-        { provide: GraphService, useValue: mockGraphService },
-        { provide: EdgeService, useValue: mockEdgeService }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [PipelineDataPublisherComponent],
+            providers: [
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PipelineDataPublisherComponent);
-    component = fixture.componentInstance;
-    component.dataPublisherForm = new FormGroup({});
-    component.dataPublisherForm.addControl('gateway', new FormControl(''));
-    component.dataPublisherForm.addControl('protocolId', new FormControl(''));
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PipelineDataPublisherComponent);
+        component = fixture.componentInstance;
+        component.dataPublisherForm = new FormGroup({});
+        component.dataPublisherForm.addControl('gateway', new FormControl(''));
+        component.dataPublisherForm.addControl('protocolId', new FormControl(''));
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
