@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { IotGatewayDashboardComponent } from './iot-gateway-dashboard.component';
 
@@ -6,7 +6,7 @@ describe('IotGatewayDashboardComponent', () => {
     let component: IotGatewayDashboardComponent;
     let fixture: ComponentFixture<IotGatewayDashboardComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [ IotGatewayDashboardComponent ]
         })

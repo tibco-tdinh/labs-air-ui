@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { DataStoresViewComponent } from './data-stores-view.component';
@@ -8,7 +8,7 @@ describe('DataStoresViewComponent', () => {
     let component: DataStoresViewComponent;
     let fixture: ComponentFixture<DataStoresViewComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [DataStoresViewComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]

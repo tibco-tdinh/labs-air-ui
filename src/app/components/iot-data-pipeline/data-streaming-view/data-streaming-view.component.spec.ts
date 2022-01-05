@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DataStreamingViewComponent } from './data-streaming-view.component';
 
@@ -6,7 +6,7 @@ describe('DataStreamingViewComponent', () => {
     let component: DataStreamingViewComponent;
     let fixture: ComponentFixture<DataStreamingViewComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [ DataStreamingViewComponent ]
         })
