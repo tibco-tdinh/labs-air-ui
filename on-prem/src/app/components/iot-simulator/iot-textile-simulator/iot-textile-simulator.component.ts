@@ -1,10 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Colors } from 'ng2-charts';
+import { ChartType, ChartOptions, ChartConfiguration, ChartData } from 'chart.js';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TextileSimulatorService } from '../../../services/simulator/textile-simulator.service';
-import { GraphService } from '../../../services/graph/graph.service'
+import { GraphService } from '../../../services/graph/graph.service';
 import { Notification } from '../../../shared/models/iot.model';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -39,59 +38,30 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
   defectsDisplayedColumns: string[] = ['created', 'defect', 'frameURL'];
 
   // #52D726), Middle Yellow (#FFEC00), Philippine Orange (#FF7300), Red (#FF0000), Blue Cola (#007ED6) and Middle Blue (#7CDDDD).
-  chartColors: Colors[] = [{ backgroundColor:  ['#52D726', '#FFEC00', '#FF7300', '#FF0000', '#007ED6', '#7CDDDD', '#aa3500']}]
   currentDefect: string;
 
-  pieChartOptions: ChartOptions = {
+  pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    title: {
-      display: true,
-      text: ''
+    plugins: {
+      title: {
+        display: true,
+        text: ''
+      }
     }
   };
-  pieChartLabels: Label[] = [];
-  pieChartData: SingleDataSet = [];
+  pieChartData: ChartData<'pie'> = {
+    datasets: [
+      {
+        data: [],
+        backgroundColor: ['#52D726', '#FFEC00', '#FF7300', '#FF0000', '#007ED6', '#7CDDDD', '#aa3500']
+      }
+    ],
+    labels: [],
+  };
   pieChartType: ChartType = 'pie';
   pieChartLegend = true;
   pieChartPlugins = [];
-  chartData = [
-    // {
-    //   "Count": 34,
-    //   "Filter": "*",
-    //   "Label": "good",
-    //   "TestID": "id-00000004"
-    // },
-    // {
-    //   "Count": 17,
-    //   "Filter": "*",
-    //   "Label": "missing_pick",
-    //   "TestID": "id-00000004"
-    // },
-    // {
-    //   "Count": 11,
-    //   "Filter": "*",
-    //   "Label": "selvedge",
-    //   "TestID": "id-00000004"
-    // },
-    // {
-    //   "Count": 10,
-    //   "Filter": "*",
-    //   "Label": "hole",
-    //   "TestID": "id-00000004"
-    // },
-    // {
-    //   "Count": 10,
-    //   "Filter": "*",
-    //   "Label": "stain",
-    //   "TestID": "id-00000004"
-    // },
-    // {
-    //   "Count": 19,
-    //   "Filter": "*",
-    //   "Label": "color_flecks",
-    //   "TestID": "id-00000004"
-    // }
-  ];
+  chartData = [];
 
   constructor(private simulatorService: TextileSimulatorService,
     private graphService: GraphService,
@@ -170,13 +140,13 @@ export class IotTextileSimulatorComponent implements OnInit, AfterViewInit {
   }
 
   handleChartData(): void {
-    this.pieChartData = [];
-    this.pieChartLabels = [];
+    this.pieChartData.datasets[0].data = [];
+    this.pieChartData.labels = [];
     this.chartData.forEach(dataSet => {
-      this.pieChartLabels.push(dataSet.Label);
-      this.pieChartData.push(dataSet.Count);
+      this.pieChartData.labels.push(dataSet.Label);
+      this.pieChartData.datasets[0].data.push(dataSet.Count);
     });
-    this.pieChartOptions.title.text = this.testId;
+    this.pieChartOptions.plugins.title.text = this.testId;
   }
 
   getNotifications() {

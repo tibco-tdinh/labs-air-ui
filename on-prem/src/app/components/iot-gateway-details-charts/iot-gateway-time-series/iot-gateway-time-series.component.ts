@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
-import { Device, Resource, ScatterChartDataset, TSReading } from 'src/app/shared/models/iot.model';
+import { Device, Resource, TSReading } from 'src/app/shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ChartOptions, ChartType } from 'chart.js';
-import 'chartjs-plugin-streaming';
+import { ChartConfiguration, ChartOptions, ChartType, Tooltip, Plugin } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { StreamingPlugin } from 'chartjs-plugin-streaming';
+
 
 @Component({
   selector: 'app-iot-gateway-time-series',
@@ -39,78 +40,84 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
 
   streaming = false;
 
-  lineChartColors = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
+  lineChartPlugins= [Tooltip, ChartDataLabels, StreamingPlugin];
 
-  chartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "line", 0, true, 0, 2, []), new ScatterChartDataset("Inferred", "line", 0, true, 0, 2, []),];
+  // chartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "line", 0, true, 0, 2, []), new ScatterChartDataset("Inferred", "line", 0, true, 0, 2, []),];
+  chartDatasets: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        data: [],
+        label: '',
+        fill: true,
+        borderWidth: 2,
+        tension: 0,
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      },
+      {
+        data: [],
+        label: 'Inferred',
+        fill: true,
+        borderWidth: 2,
+        tension: 0,
+        backgroundColor: 'rgba(255,0,0,0.3)',
+        borderColor: 'red',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      }
+    ]
+  }
 
   chartOptions: ChartOptions = {
     responsive: true,
     aspectRatio: 5,
     scales: {
-      xAxes: [{
-        type: 'time',
-        distribution: 'series',
+      x: {
+        type: 'timeseries',
         ticks: {
-          source: 'data',  // can use auto
           autoSkip: true
         }
-      }],
-      yAxes: [{
-        scaleLabel: {
+      },
+      y: {
+        title: {
           display: true,
-          labelString: 'Reading'
+          text: 'Reading'
         },
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-    tooltips: {
-      enabled: true,
-      intersect: false
+        beginAtZero: true
+      }
     },
     plugins: {
-      streaming: false,
       datalabels: {
         display: false
       }
     }
   };
 
-  chartStreamingDatasets = [
-    {
-      label: '',
-      // borderColor: 'blue',
-      type: 'line',
-      fill: true,
-      lineTension: 0,
-      borderWidth: 2,
-      data: []
-    },
-  ];
+  chartStreamingDatasets: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        label: '',
+        // borderColor: 'blue',
+        type: 'line',
+        fill: true,
+        tension: 0,
+        borderWidth: 2,
+        data: []
+      }
+    ]
+  }
 
-  chartStreamingOptions = {
+  chartStreamingOptions: ChartConfiguration['options'] = {
     responsive: true,
     aspectRatio: 5,
     scales: {
-      xAxes: [{
+      x: {
         type: 'realtime',
         realtime: {
           onRefresh: this.getStreamData.bind(this),
@@ -118,24 +125,21 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
           refresh: 10000, // 1000
           duration: 120000
         }
-      }],
-      yAxes: [{
-        scaleLabel: {
+      },
+      y: {
+        title: {
           display: true,
-          labelString: 'Reading'
+          text: 'Reading'
         },
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-    tooltips: {
-      enabled: true,
-      intersect: false
+        beginAtZero: true
+      }
     },
     plugins: {
-      datalabels: {
-        display: false
+      streaming: {
+        duration: 10000
+      },
+      tooltip: {
+        intersect: false,
       }
     }
   };
@@ -174,8 +178,10 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
       interfacePinNumber: attrPinNum,
       interfaceType: attrType
     });
-    this.chartDatasets[0].label = this.instrument.name;
-    this.chartStreamingDatasets[0].label = this.instrument.name;
+    // this.chartDatasets[0].label = this.instrument.name;
+    // this.chartStreamingDatasets[0].label = this.instrument.name;
+    this.chartDatasets.datasets[0].label = this.instrument.name;
+    this.chartStreamingDatasets.datasets[0].label = this.instrument.name;
     this.getReadings();
   }
 
@@ -207,7 +213,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.graphService.getReadingsBetween(deviceName, resourceName, fromts, tots)
       .subscribe(res => {
         this.resourceReadings = res as TSReading[];
-        this.setChartDataSet()
+        this.setChartDataSet();
       }));
   }
 
@@ -247,7 +253,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
       this.instrument.name, this.streamLastQuery)
       .subscribe(res => {
         this.resourceReadings = res as TSReading[];
-        console.log("reading data in getStreamingData: ", this.resourceReadings);
+        console.log('reading data in getStreamingData: ', this.resourceReadings);
         this.resourceReadings.forEach(
           reading => {
             if (!reading.value) {

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { ChartOptions, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartType, ChartData, Tooltip } from 'chart.js';
 import { Subscription } from 'rxjs';
-import { Device, Resource, ScatterChartDataset, TSReading } from 'src/app/shared/models/iot.model';
+import { Device, Resource, TSReading } from 'src/app/shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
 
 @Component({
@@ -29,8 +29,13 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
   queryEndDate = Date.now();
   chartLegend = true;
 
+  scatterChartPlugins = [Tooltip];
+
   scatterChartType: ChartType = 'scatter';
-  scatterChartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "scatter", 5, false, 0, 2, []),];
+  // scatterChartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "scatter", 5, false, 0, 2, []),];
+  scatterChartDatasets: ChartData<'scatter'> = {
+    datasets: [],
+  }
 
   constructor(private graphService: GraphService, private formBuilder: FormBuilder) {
     this.instrumentForm = this.formBuilder.group({
@@ -73,37 +78,31 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public scatterChartOptions: ChartOptions = {
+  public scatterChartOptions: ChartConfiguration['options']  = {
     responsive: true,
     aspectRatio: 5,
     scales: {
-      xAxes: [{
+      x: {
         type: 'linear',
         position: 'bottom',
         ticks: {
-          beginAtZero: true,
-          source: 'data',  // can use auto
           autoSkip: true
-        }
-      }],
-      yAxes: [{
-        scaleLabel: {
-          display: true,
-          labelString: 'Y'
         },
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-    tooltips: {
-      enabled: true,
-      intersect: false
+        beginAtZero: true,
+
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Y'
+        },
+
+        beginAtZero: true
+      }
     },
     plugins: {
-      streaming: false,
-      datalabels: {
-        display: false
+      tooltip: {
+        intersect: true
       }
     }
   };
@@ -117,7 +116,7 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
         this.locationData.push({ x: Number(coords[0]), y: Number(coords[1]) });
       }
     );
-    this.scatterChartDatasets[0].data = this.locationData;
+    this.scatterChartDatasets.datasets = this.locationData;
   }
 
   public getReadings() {
