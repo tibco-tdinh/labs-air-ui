@@ -21,7 +21,7 @@ export class SingleValueDialogComponent {
 
     onNoClick(): void {
 
-        console.log("Dialog onNoClick");
+        console.log('Dialog onNoClick');
 
         this.dialogRef.close();
     }

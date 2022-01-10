@@ -1,16 +1,15 @@
 # Stage 1
 FROM node:16-alpine3.13 as build-step
 
-RUN apk update
-RUN apk add git
-RUN mkdir -p /app
-
+RUN apk update && \
+    apk add --no-cache git && \
+    mkdir -p /app
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps 
+RUN npm install --legacy-peer-deps
 
 COPY . .
 

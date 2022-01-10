@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 export interface SelectItem {
@@ -7,34 +7,31 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-pipeline-config',
-  templateUrl: './pipeline-config.component.html',
-  styleUrls: ['./pipeline-config.component.css']
+    selector: 'app-pipeline-config',
+    templateUrl: './pipeline-config.component.html',
+    styleUrls: ['./pipeline-config.component.css']
 })
-export class PipelineConfigComponent implements OnInit {
+export class PipelineConfigComponent {
 
   pipelineTypes: SelectItem[] = [
-    { value: 'Cloud', viewValue: 'Cloud' },
-    { value: 'Edge', viewValue: 'Edge' }
+      { value: 'Cloud', viewValue: 'Cloud' },
+      { value: 'Edge', viewValue: 'Edge' }
   ];
 
   deployerTypes: SelectItem[] = [
-    { value: 'AIR', viewValue: 'AIR Deployer' },
-    { value: 'OH', viewValue: 'OpenHorizon' }
+      { value: 'AIR', viewValue: 'AIR Deployer' },
+      { value: 'OH', viewValue: 'OpenHorizon' }
   ];
-  
+
   logLevels: SelectItem[] = [
-    { value: 'INFO', viewValue: 'INFO' },
-    { value: 'WARN', viewValue: 'WARN' },
-    { value: 'ERROR', viewValue: 'ERROR' },
-    { value: 'DEBUG', viewValue: 'DEBUG' }
+      { value: 'INFO', viewValue: 'INFO' },
+      { value: 'WARN', viewValue: 'WARN' },
+      { value: 'ERROR', viewValue: 'ERROR' },
+      { value: 'DEBUG', viewValue: 'DEBUG' }
   ];
 
   @Input() pipelineForm: FormGroup;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

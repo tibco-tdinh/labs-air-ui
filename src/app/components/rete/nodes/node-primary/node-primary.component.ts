@@ -3,10 +3,10 @@ import { NodeEditor, Node} from 'rete';
 import { NodeComponent, NodeService,  } from 'rete-angular-render-plugin';
 
 @Component({
-  selector: 'app-node-primary',
-  templateUrl: './node-primary.component.html',
-  styleUrls: ['./node-primary.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-node-primary',
+    templateUrl: './node-primary.component.html',
+    styleUrls: ['./node-primary.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NodePrimaryComponent extends NodeComponent implements OnInit {
   @Input() editor!: NodeEditor;
@@ -15,28 +15,28 @@ export class NodePrimaryComponent extends NodeComponent implements OnInit {
   @Input() bindControl!: Function;
 
   constructor(protected nodeService: NodeService, protected cdr: ChangeDetectorRef) {
-    super(nodeService, cdr);
+      super(nodeService, cdr);
   }
 
   ngOnInit(): void {
-    this.service.setBindings(this.bindSocket, this.bindControl);
-    this.node.update = () => this.cdr.detectChanges();
+      this.service.setBindings(this.bindSocket, this.bindControl);
+      this.node.update = () => this.cdr.detectChanges();
   }
 
   Inputs() {
-    return Array.from(this.node.inputs.values());
+      return Array.from(this.node.inputs.values());
   }
 
   Outputs() {
-    return Array.from(this.node.outputs.values());
+      return Array.from(this.node.outputs.values());
   }
 
   Controls() {
-    return Array.from(this.node.controls.values());
+      return Array.from(this.node.controls.values());
   }
 
   selected() {
-    return this.editor.selected.contains(this.node) ? 'selected' : '';
+      return this.editor.selected.contains(this.node) ? 'selected' : '';
   }
 
 }

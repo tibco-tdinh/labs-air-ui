@@ -8,9 +8,9 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-data-filtering',
-  templateUrl: './data-filtering.component.html',
-  styleUrls: ['./data-filtering.component.css']
+    selector: 'app-data-filtering',
+    templateUrl: './data-filtering.component.html',
+    styleUrls: ['./data-filtering.component.css']
 })
 export class DataFilteringComponent implements OnInit {
 
@@ -20,38 +20,38 @@ export class DataFilteringComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("Configuring filters for: ", this.devices);
+      console.log('Configuring filters for: ', this.devices);
   }
 
   stepSubmitted() {
-    // this.transportForm.get('transport').markAsTouched();
-    // this.transportForm.get('transport').updateValueAndValidity();
-    // this.transportForm.get('personalDetails').get('lastname').markAsTouched();
-    // this.transportForm.get('personalDetails').get('lastname').updateValueAndValidity();
+      // this.transportForm.get('transport').markAsTouched();
+      // this.transportForm.get('transport').updateValueAndValidity();
+      // this.transportForm.get('personalDetails').get('lastname').markAsTouched();
+      // this.transportForm.get('personalDetails').get('lastname').updateValueAndValidity();
   }
 
-  // onChange(event, index, device) {
+    // onChange(event, index, device) {
 
-  //   const devicesArray: FormArray = this.filteringForm.get('deviceNames') as FormArray;
+    //   const devicesArray: FormArray = this.filteringForm.get('deviceNames') as FormArray;
 
-  //   if (event.checked) {
-  //     console.log("Pushing formcontrol: ", device.name);
+    //   if (event.checked) {
+    //     console.log("Pushing formcontrol: ", device.name);
       
-  //     devicesArray.push(new FormControl(device.name));
-  //   } else {
-  //     let i: number = 0;
-  //     devicesArray.controls.forEach((item: FormControl) => {
-  //       if (item.value == device.name) {
-  //         console.log("Popping formcontrol: ", device.name);
+    //     devicesArray.push(new FormControl(device.name));
+    //   } else {
+    //     let i: number = 0;
+    //     devicesArray.controls.forEach((item: FormControl) => {
+    //       if (item.value == device.name) {
+    //         console.log("Popping formcontrol: ", device.name);
           
-  //         devicesArray.removeAt(i);
-  //         return;
-  //       }
-  //       i++;
-  //     });
-  //   }
-  //   console.log(this.filteringForm.value)
-  // }
+    //         devicesArray.removeAt(i);
+    //         return;
+    //       }
+    //       i++;
+    //     });
+    //   }
+    //   console.log(this.filteringForm.value)
+    // }
 
 
 }
