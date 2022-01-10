@@ -5,7 +5,7 @@
 image_name=${1:?}
 image_tag=${2:?}
 image_url=${3:?}
-target_name=${4:?}
+target_name=${4}
 
 readonly local_image_tag="local_image_tag"
 readonly docker_file="Dockerfile"
