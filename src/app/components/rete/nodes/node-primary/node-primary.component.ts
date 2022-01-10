@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { NodeEditor, Node, Input as ReteInput, Output as ReteOutput, Control as ReteControl } from 'rete';
+import { NodeEditor, Node} from 'rete';
 import { NodeComponent, NodeService,  } from 'rete-angular-render-plugin';
 
 @Component({

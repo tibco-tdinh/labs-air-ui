@@ -1,5 +1,5 @@
 
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 interface ROUTE {
     icon?: string;
@@ -22,7 +22,7 @@ export class IotHomeCockpitComponent {
             route: '/starterApp/home/iotdashboard',
             title: 'IoT Dashboard',
             custom: true
-        }, 
+        },
         {
             icon: 'gateway',
             route: '/starterApp/home/gateway',
@@ -47,7 +47,7 @@ export class IotHomeCockpitComponent {
         //     route: '/starterApp/home/deviceprovision',
         //     title: 'Device Provisioning',
         //     custom: true
-        // }, 
+        // },
         {
             icon: 'provisioning',
             route: '/starterApp/home/infradeployer',
@@ -81,13 +81,13 @@ export class IotHomeCockpitComponent {
             route: '/starterApp/home/textile-simulator',
             title: 'Textile Simulator',
             custom: true
-        },      
+        },
         // {
         //     icon: 'rules',
         //     route: '/starterApp/home/tcerules',
         //     title: 'Cloud Rules',
         //     custom: true
-        // }, 
+        // },
         {
             icon: 'instrumenthistory',
             route: '/starterApp/home/notifications',
@@ -99,7 +99,7 @@ export class IotHomeCockpitComponent {
         //     route: '/starterApp/home/casemanagement',
         //     title: 'Case Management',
         //     custom: false
-        // }, 
+        // },
         // {
         //     icon: 'settings',
         //     route: 'sales/leads',

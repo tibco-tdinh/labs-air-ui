@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotfireCustomization } from '@tibco/spotfire-wrapper';
 
-import { SpotfireDashboardComponent } from '../spotfire-dashboard/spotfire-dashboard.component';
-
 @Component({
   selector: 'app-iot-dashboard',
   templateUrl: './iot-dashboard.component.html',

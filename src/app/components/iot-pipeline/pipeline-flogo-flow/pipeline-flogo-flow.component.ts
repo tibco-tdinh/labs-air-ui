@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
-import { FormGroup, FormBuilder, Form } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FlogoDeployService } from '../../../services/deployment/flogo-deploy.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';

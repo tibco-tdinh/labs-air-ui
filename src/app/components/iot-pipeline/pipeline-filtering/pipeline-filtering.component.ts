@@ -6,7 +6,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
 
-import { Device, Filter, FiltersConfig, Gateway } from '../../../shared/models/iot.model';
+import { Device, FiltersConfig } from '../../../shared/models/iot.model';
 
 interface DeviceNode {
   name: string;
@@ -182,15 +182,15 @@ export class PipelineFilteringComponent implements OnInit, OnChanges, OnDestroy 
         for (const node of parentNode.deviceResources) {
 
           console.log("comparing to node: ", node);
-  
+
           if (node.parent == parent && node.name == name) {
-  
+
             console.log("found node and updating if not selected");
-            
-    
+
+
             if (!this.checklistSelection.isSelected(node)) {
               console.log("selecting node: ", node);
-              
+
               this.checklistSelection.toggle(node);
             }
             break;
@@ -277,7 +277,7 @@ export class PipelineFilteringComponent implements OnInit, OnChanges, OnDestroy 
     console.log("------> PipelineFiltering-setupFilters:", this.filters);
 
     this.checklistSelection.clear();
-    
+
 
     this.filters.forEach(element => {
       this.selectNode(element.device, element.name);

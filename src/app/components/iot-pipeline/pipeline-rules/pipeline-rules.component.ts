@@ -39,7 +39,7 @@ export class PipelineRulesComponent implements OnInit {
     { value: '<=', viewValue: '<=' },
     { value: '!=', viewValue: '!=' }
   ];
-  
+
   constructor() { }
 
   ngOnInit(): void {
@@ -77,7 +77,7 @@ export class PipelineRulesComponent implements OnInit {
   }
 
   getIndexForDevice(name: string): number {
-    let idx = 0;
+    let idx = -1;
 
     for (let i = 0; i < this.devices.length; i++) {
 
@@ -98,7 +98,7 @@ export class PipelineRulesComponent implements OnInit {
       let idx = this.getIndexForDevice(val);
 
       if (idx >= 0)
-        this.conditionResources = this.devices[idx].profile.deviceResources as Resource[];      
+        this.conditionResources = this.devices[idx].profile.deviceResources as Resource[];
     });
 
     this.subscr2 = this.ruleForm.get('actionDevice').valueChanges.subscribe(val => {
@@ -107,7 +107,7 @@ export class PipelineRulesComponent implements OnInit {
       let idx = this.getIndexForDevice(val);
 
       if (idx >= 0)
-        this.actionResources = this.devices[idx].profile.deviceResources as Resource[];      
+        this.actionResources = this.devices[idx].profile.deviceResources as Resource[];
     });
 
   }

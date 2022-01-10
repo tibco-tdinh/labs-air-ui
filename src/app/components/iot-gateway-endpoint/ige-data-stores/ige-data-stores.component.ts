@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DataStore, Gateway } from '../../../shared/models/iot.model';
+import { DataStore } from '../../../shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
