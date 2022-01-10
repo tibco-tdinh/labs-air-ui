@@ -2,7 +2,13 @@
 
 ![App build status](https://github.com/TIBCOSoftware/labs-air-ui/workflows/Project%20Air%20UI/badge.svg)
 
-Link to full documentation Site: https://tibcosoftware.github.io/labs-air/
+Link to full documentation Site: <https://tibcosoftware.github.io/labs-air/>
+
+## Contributing
+
+For information regarding participation in the project, please see our
+[contributing](https://github.com/TIBCOSoftware/labs-air/CONTRIBUTING.md)
+document.
 
 ![Static Analysis](https://github.com/TIBCOSoftware/labs-air-ui/workflows/Static%20Analysis/badge.svg)
 
