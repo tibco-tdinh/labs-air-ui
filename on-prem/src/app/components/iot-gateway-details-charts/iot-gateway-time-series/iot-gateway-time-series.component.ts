@@ -4,10 +4,13 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
 import { Device, Resource, TSReading } from 'src/app/shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
-import { ChartConfiguration, ChartOptions, ChartType, Tooltip, Plugin } from 'chart.js';
+import { ChartConfiguration, ChartOptions, ChartType, Tooltip, Chart } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { StreamingPlugin } from 'chartjs-plugin-streaming';
 
+import 'chartjs-adapter-luxon';
+import StreamingPlugin from 'chartjs-plugin-streaming';
+
+Chart.register(StreamingPlugin);
 
 @Component({
   selector: 'app-iot-gateway-time-series',
@@ -40,7 +43,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
 
   streaming = false;
 
-  lineChartPlugins= [Tooltip, ChartDataLabels, StreamingPlugin];
+  lineChartPlugins= [Tooltip, ChartDataLabels];
 
   // chartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "line", 0, true, 0, 2, []), new ScatterChartDataset("Inferred", "line", 0, true, 0, 2, []),];
   chartDatasets: ChartConfiguration['data'] = {
@@ -120,7 +123,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
       x: {
         type: 'realtime',
         realtime: {
-          onRefresh: this.getStreamData.bind(this),
+          onRefresh: chart => this.getStreamData(chart),
           delay: 2000,
           refresh: 10000, // 1000
           duration: 120000
@@ -194,7 +197,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.graphService.getReadings(this.device.name, this.instrument.name, 300)
       .subscribe(res => {
         this.resourceReadings = res as TSReading[];
-        this.getInferredReadings(this.device.name, this.instrument.name + "_Inferred", this.numReadings, 0)
+        this.getInferredReadings(this.device.name, this.instrument.name + "_Inferred", this.numReadings, 0);
         this.setChartDataSet();
       }));
   }

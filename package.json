@@ -1,7 +1,7 @@
 {
   "name": "ProjectAir",
   "version": "1.0.0",
-  "workspaces":[
+  "workspaces": [
     "cloud",
     "on-prem",
     "libraries"
@@ -31,17 +31,19 @@
     "@angular/platform-browser": "~12.2.12",
     "@angular/platform-browser-dynamic": "~12.2.12",
     "@angular/router": "~12.2.12",
-    "@tibco/spotfire-wrapper": "^0.14.3",
     "@tibco-tcstk/tc-core-lib": "^3.2.0",
     "@tibco-tcstk/tc-forms-lib": "^3.2.0",
     "@tibco-tcstk/tc-liveapps-lib": "^3.2.0",
+    "@tibco/spotfire-wrapper": "^0.14.3",
     "@types/lodash": "~4.14.171",
     "chart.js": "3.6.0",
+    "chartjs-adapter-luxon": "^1.1.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "chartjs-plugin-doughnutlabel": "^2.0.3",
     "chartjs-plugin-labels": "^1.1.0",
     "chartjs-plugin-streaming": "^2.0.0",
     "heatmap.js": "git+https://github.com/sanuradhag/heatmap.js.git",
+    "luxon": "^2.3.0",
     "ng2-charts": "^3.0.0-rc.7",
     "ng2-google-charts": "~6.1.0",
     "ngx-heatmap": "^1.0.2",
