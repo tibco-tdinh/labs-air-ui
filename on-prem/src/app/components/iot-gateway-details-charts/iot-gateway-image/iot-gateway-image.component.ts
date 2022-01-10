@@ -5,7 +5,7 @@ import { Device, Resource, TSReading, TSCombinedReading } from 'src/app/shared/m
 import { GraphService } from '../../../services/graph/graph.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-iot-gateway-image',
@@ -15,10 +15,13 @@ import { FormGroup } from '@angular/forms';
 export class IotGatewayImageComponent implements OnInit, OnDestroy, AfterViewInit {
   device: Device;
   instrument: Resource;
-  imageData = "";
+  imageData = '';
   inferredImageData = '';
   resourceReadings = [];
-  queryForm: FormGroup;
+  queryForm: FormGroup = new FormGroup ({
+    pickerStartDate: new FormControl(''),
+    pickerEndDate: new FormControl('')
+  })
   queryLastValuesDisabled = true;
   queryByDateDisabled = true;
   resourceInferredReadings = [];
@@ -36,7 +39,7 @@ export class IotGatewayImageComponent implements OnInit, OnDestroy, AfterViewIni
   constructor(private graphService: GraphService) { }
 
   ngOnInit(): void {
-    this.getReadings()
+    this.getReadings();
   }
 
   ngOnDestroy(): void {

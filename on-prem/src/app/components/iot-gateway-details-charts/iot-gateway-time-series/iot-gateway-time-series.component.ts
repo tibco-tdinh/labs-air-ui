@@ -196,7 +196,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
         this.resourceReadings = res as TSReading[];
         this.getInferredReadings(this.device.name, this.instrument.name + "_Inferred", this.numReadings, 0)
         this.setChartDataSet();
-      }))
+      }));
   }
 
   getInferredReadings(deviceName: string, resourceName: string, numReadings: number, ts: number) {
@@ -206,7 +206,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
 
         // Set Data for chart dataset
         this.setChartInferredDataSet();
-      }))
+      }));
   }
 
   getReadingsBetween(deviceName: string, resourceName: string, fromts: number, tots: number) {
@@ -229,7 +229,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.chartDatasets[0].data = this.timeSeriesData;
+    this.chartDatasets.datasets[0].data = this.timeSeriesData;
   }
 
   setChartInferredDataSet() {
@@ -245,7 +245,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.chartDatasets[1].data = this.timeSeriesInferredData;
+    this.chartDatasets.datasets[1].data = this.timeSeriesInferredData;
   }
 
   getStreamData(chart: any) {
@@ -265,7 +265,7 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
             this.streamLastQuery = reading.created;
           }
         );
-      })
+      });
   }
 
   startDateEvent(event: MatDatepickerInputEvent<Date>) {
