@@ -11,6 +11,4 @@ For information regarding participation in the project, please see our
 [contributing](https://github.com/TIBCOSoftware/labs-air/blob/master/CONTRIBUTING.md)
 document.
 
-![Static Analysis](https://github.com/TIBCOSoftware/labs-air-ui/workflows/Static%20Analysis/badge.svg)
-
 ![Logo](https://tibcosoftware.github.io/TIBCO-LABS/about/tibcolabs-brand.png "Labs Logo")
