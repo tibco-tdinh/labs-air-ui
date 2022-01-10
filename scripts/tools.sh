@@ -21,7 +21,7 @@ function tag_image(){
     local tag_new_image_name=${3:?}
     local tag_new_image_tag=${4:?}
     local tag_new_image_url=${5:?}
-    for i in ${tag_new_image_tag//, /$IFS}
+    for i in ${tag_new_image_tag//,/$IFS}
     do
         echo "Tagging image ${tag_local_image_name}:${tag_local_image_tag} to ${tag_new_image_url}/${tag_new_image_name}:${i}"
         docker tag "${tag_local_image_name}:${tag_local_image_tag}" "${tag_new_image_url}/${tag_new_image_name}:${i}" || exit 1
