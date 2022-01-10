@@ -118,17 +118,17 @@ export class IotHomeCockpitComponent {
     /**
      * The name of the logged user
      */
-    @Input() userName = "";
+    @Input() userName = '';
 
     /**
      * The ID of the logged user
      */
-    @Input() userId = "";
+    @Input() userId = '';
 
     /**
      * The title
      */
-    @Input() title = "";
+    @Input() title = '';
 
 
 }

@@ -169,20 +169,20 @@
                                     </button>
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!='None'"fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!=='None'"fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Certificate</mat-label>
                                     <input matInput [readonly]=false formControlName="clientCertificate" required>
                                     <mat-error *ngIf="protocolForm.get('mqtt.clientCertificate').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!=='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Key</mat-label>
                                     <input matInput [readonly]=false formControlName="clientKey" required>
                                     <mat-error *ngIf="protocolForm.get('mqtt.clientKey').invalid">This field is required</mat-error>
 
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('mqtt.encryptionMode').value!=='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>CA Certificate</mat-label>
                                     <input matInput [readonly]=false formControlName="caCertificate" required>
                                     <mat-error *ngIf="protocolForm.get('mqtt.caCertificate').invalid">This field is required</mat-error>
@@ -333,19 +333,19 @@
                                     </button>
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!=='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Certificate</mat-label>
                                     <input matInput [readonly]=false formControlName="clientCertificate" required>
                                     <mat-error *ngIf="protocolForm.get('kafka.clientCertificate').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!=='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Client Key</mat-label>
                                     <input matInput [readonly]=false formControlName="clientKey" required>
                                     <mat-error *ngIf="protocolForm.get('kafka.clientKey').invalid">This field is required</mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!='None'" fxFlex="1 1 15%" appearance="outline">
+                                <mat-form-field *ngIf="protocolForm.get('kafka.authMode').value!=='None'" fxFlex="1 1 15%" appearance="outline">
                                     <mat-label>Server Certificate</mat-label>
                                     <input matInput [readonly]=false formControlName="serverCertificate" required>
                                     <mat-error *ngIf="protocolForm.get('kafka.serverCertificate').invalid">This field is required</mat-error>

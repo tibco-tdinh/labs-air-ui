@@ -11,21 +11,21 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-iot-infra-deployer',
-  templateUrl: './iot-infra-deployer.component.html',
-  styleUrls: ['./iot-infra-deployer.component.css']
+    selector: 'app-iot-infra-deployer',
+    templateUrl: './iot-infra-deployer.component.html',
+    styleUrls: ['./iot-infra-deployer.component.css']
 })
 export class IotInfraDeployerComponent implements OnInit {
 
   // Form variables
   deployerForm: FormGroup;
-  gatewayId = "";
+  gatewayId = '';
   constructor(private route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
-    this.gatewayId = this.route.snapshot.paramMap.get('gatewayId');
+      this.gatewayId = this.route.snapshot.paramMap.get('gatewayId');
   }
 
 

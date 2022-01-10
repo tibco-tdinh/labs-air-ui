@@ -24,76 +24,76 @@ let snapshot: ActivatedRouteSnapshot;
 let route: ActivatedRoute;
 export const STARTER_APP_ROUTES=
 [
-  {
-    path: 'home',
-    component: HomeComponent,
-    children: [
-      {
-        path: 'gateway',
-        component: IotGatewayComponent,
-        data: { breadcrumb: ['Gateways'] }
-      },
-      {
-        path: 'iotdashboard',
-        component: IotDashboardComponent,
-        data: { breadcrumb: ['Gateways'] }
-      },
-      {
-        path: 'gatewayendpoint/:gatewayId',
-        component: IotGatewayEndpointComponent,
-        data: {breadcrumb: ['Gateways', 'Endpoints', 'Endpoints']}
-        },
-      {
-        path: 'device-details/:gatewayId',
-        component: IotGatewayDetailsComponent,
-        data: { breadcrumb: ['Gateways','Devices', 'Devices']}
-      },
-      {
-        path: 'pipeline/:gatewayId',
-        component: IotPipelineComponent,
-        data: {breadcrumb: ['Gateways', 'Pipelines', 'Pipelines']}
-      },
-      {
-        path: 'datapipeline/:gatewayId',
-        component: IotDataPipelineComponent,
-        data: {breadcrumb: ['Gateways']}
-      },
-      {
-        path: 'gatewaydashboard',
-        component: IotGatewayDashboardComponent,
-        data: {breadcrumb: ['Gateways']}
-      },
-      {
-        path: 'infradeployer',
-        component: IotInfraDeployerComponent,
-        data: {breadcrumb: ['Gateways']}
-      },
-      {
-        path: 'notifications',
-        component: IotNotificationsComponent,
-        data: {breadcrumb: ['Gateways']}
-      },
-      {
-        path: 'store-simulator',
-        component: IotStoreSimulatorComponent,
-        data: {breadcrumb: ['Store Simulator']}
-      },
-      {
-        path: 'textile-simulator',
-        component: IotTextileSimulatorComponent,
-        data: {breadcrumb: ['Textile Simulator']}
-      },
-      {
-        path: 'edgedatapipeline/:gatewayId',
-        component: IotEdgeDataPipelineComponent,
-        data: {breadcrumb: ['Gateways']}
-      }
+    {
+        path: 'home',
+        component: HomeComponent,
+        children: [
+            {
+                path: 'gateway',
+                component: IotGatewayComponent,
+                data: { breadcrumb: ['Gateways'] }
+            },
+            {
+                path: 'iotdashboard',
+                component: IotDashboardComponent,
+                data: { breadcrumb: ['Gateways'] }
+            },
+            {
+                path: 'gatewayendpoint/:gatewayId',
+                component: IotGatewayEndpointComponent,
+                data: {breadcrumb: ['Gateways', 'Endpoints', 'Endpoints']}
+            },
+            {
+                path: 'device-details/:gatewayId',
+                component: IotGatewayDetailsComponent,
+                data: { breadcrumb: ['Gateways','Devices', 'Devices']}
+            },
+            {
+                path: 'pipeline/:gatewayId',
+                component: IotPipelineComponent,
+                data: {breadcrumb: ['Gateways', 'Pipelines', 'Pipelines']}
+            },
+            {
+                path: 'datapipeline/:gatewayId',
+                component: IotDataPipelineComponent,
+                data: {breadcrumb: ['Gateways']}
+            },
+            {
+                path: 'gatewaydashboard',
+                component: IotGatewayDashboardComponent,
+                data: {breadcrumb: ['Gateways']}
+            },
+            {
+                path: 'infradeployer',
+                component: IotInfraDeployerComponent,
+                data: {breadcrumb: ['Gateways']}
+            },
+            {
+                path: 'notifications',
+                component: IotNotificationsComponent,
+                data: {breadcrumb: ['Gateways']}
+            },
+            {
+                path: 'store-simulator',
+                component: IotStoreSimulatorComponent,
+                data: {breadcrumb: ['Store Simulator']}
+            },
+            {
+                path: 'textile-simulator',
+                component: IotTextileSimulatorComponent,
+                data: {breadcrumb: ['Textile Simulator']}
+            },
+            {
+                path: 'edgedatapipeline/:gatewayId',
+                component: IotEdgeDataPipelineComponent,
+                data: {breadcrumb: ['Gateways']}
+            }
       
       
-    ]
-  },
-  {
-    path: 'splash',
-    component: SplashComponent
-  }
+        ]
+    },
+    {
+        path: 'splash',
+        component: SplashComponent
+    }
 ];

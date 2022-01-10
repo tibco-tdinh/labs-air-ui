@@ -1,6 +1,6 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppConfigService } from './services/config/app-config.service';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -77,101 +77,101 @@ import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-de
 import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-dialog/single-value-dialog.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
-  return () => {
-    return appConfig.loadAppConfig();
-  };
+    return () => {
+        return appConfig.loadAppConfig();
+    };
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    StarterAppComponent,
-    SplashComponent,
-    HomeComponent,
-    IotHomeCockpitComponent,
-    IotGatewayComponent,
-    NavBarComponent,
-    IotGatewayDetailsComponent,
-    SensorDirective,
-    IotGatewayDescriptionsComponent,
-    IotGatewayOverviewComponent,
-    IotGatewayTimeSeriesComponent,
-    IotGatewayLocationComponent,
-    IotGatewayXyzValueComponent,
-    IotGatewayImageComponent,
-    IotGatewayMapComponent,
-    IotGatewayDiscreteValueComponent,
-    IotGatewayTextComponent,
-    MaporamaComponent,
-    IotGatewayEndpointComponent,
-    IgeModelsComponent,
-    IgeDataStoresComponent,
-    IgeProtocolsComponent,
-    IotPipelineComponent,
-    PipelineConfigComponent,
-    PipelineDataPublisherComponent,
-    PipelineDataStoreComponent,
-    PipelineDataSubscriberComponent,
-    PipelineFilteringComponent,
-    PipelineFlogoFlowComponent,
-    PipelineInferencingComponent,
-    PipelineRestServiceComponent,
-    PipelineRuleExpressionComponent,
-    PipelineRulesComponent,
-    PipelineStreamingComponent,
-    IotDataPipelineComponent,
-    DataFilteringComponent,
-    DataFilteringViewComponent,
-    DataStoresComponent,
-    DataStoresViewComponent,
-    DataStreamingComponent,
-    DataStreamingViewComponent,
-    ProtocolsComponent,
-    ProtocolsViewComponent,
-    IotEdgeDataPipelineComponent,
-    FilteringComponent,
-    InferencingComponent,
-    RulesComponent,
-    IotGatewayDashboardComponent,
-    SpotfireDashboardComponent,
-    IotInfraDeployerComponent,
-    IotNotificationsComponent,
-    IotStoreSimulatorComponent,
-    IotTextileSimulatorComponent,
-    IotDashboardComponent,
-    InfraRegistrationComponent,
-    InfraDeployerComponent,
-    SingleValueDialogComponent
+    declarations: [
+        AppComponent,
+        StarterAppComponent,
+        SplashComponent,
+        HomeComponent,
+        IotHomeCockpitComponent,
+        IotGatewayComponent,
+        NavBarComponent,
+        IotGatewayDetailsComponent,
+        SensorDirective,
+        IotGatewayDescriptionsComponent,
+        IotGatewayOverviewComponent,
+        IotGatewayTimeSeriesComponent,
+        IotGatewayLocationComponent,
+        IotGatewayXyzValueComponent,
+        IotGatewayImageComponent,
+        IotGatewayMapComponent,
+        IotGatewayDiscreteValueComponent,
+        IotGatewayTextComponent,
+        MaporamaComponent,
+        IotGatewayEndpointComponent,
+        IgeModelsComponent,
+        IgeDataStoresComponent,
+        IgeProtocolsComponent,
+        IotPipelineComponent,
+        PipelineConfigComponent,
+        PipelineDataPublisherComponent,
+        PipelineDataStoreComponent,
+        PipelineDataSubscriberComponent,
+        PipelineFilteringComponent,
+        PipelineFlogoFlowComponent,
+        PipelineInferencingComponent,
+        PipelineRestServiceComponent,
+        PipelineRuleExpressionComponent,
+        PipelineRulesComponent,
+        PipelineStreamingComponent,
+        IotDataPipelineComponent,
+        DataFilteringComponent,
+        DataFilteringViewComponent,
+        DataStoresComponent,
+        DataStoresViewComponent,
+        DataStreamingComponent,
+        DataStreamingViewComponent,
+        ProtocolsComponent,
+        ProtocolsViewComponent,
+        IotEdgeDataPipelineComponent,
+        FilteringComponent,
+        InferencingComponent,
+        RulesComponent,
+        IotGatewayDashboardComponent,
+        SpotfireDashboardComponent,
+        IotInfraDeployerComponent,
+        IotNotificationsComponent,
+        IotStoreSimulatorComponent,
+        IotTextileSimulatorComponent,
+        IotDashboardComponent,
+        InfraRegistrationComponent,
+        InfraDeployerComponent,
+        SingleValueDialogComponent
 
 
 
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    NgxHeatmapModule,
-    Ng2GoogleChartsModule,
-    ReteEditorModule,
-    ChartsModule
-  ],
-  providers: [
-    AppConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializerFn,
-      multi: true,
-      deps: [AppConfigService]
-    },
-    DatePipe,
-    { provide: GraphService, useClass: DgraphService },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
-  ],
-  bootstrap: [AppComponent]
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        NgxHeatmapModule,
+        Ng2GoogleChartsModule,
+        ReteEditorModule,
+        ChartsModule
+    ],
+    providers: [
+        AppConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: appInitializerFn,
+            multi: true,
+            deps: [AppConfigService]
+        },
+        DatePipe,
+        { provide: GraphService, useClass: DgraphService },
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
+    ],
+    bootstrap: [AppComponent]
 })
 
 export class AppModule { }
