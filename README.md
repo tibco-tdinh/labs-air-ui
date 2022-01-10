@@ -7,7 +7,7 @@ Link to full documentation Site: <https://tibcosoftware.github.io/labs-air/>
 ## Contributing
 
 For information regarding participation in the project, please see our
-[contributing](https://github.com/TIBCOSoftware/labs-air/CONTRIBUTING.md)
+[contributing](https://github.com/TIBCOSoftware/labs-air/blob/master/CONTRIBUTING.md)
 document.
 
 ![Static Analysis](https://github.com/TIBCOSoftware/labs-air-ui/workflows/Static%20Analysis/badge.svg)
