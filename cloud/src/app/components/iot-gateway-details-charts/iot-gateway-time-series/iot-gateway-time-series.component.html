@@ -31,10 +31,10 @@
             </div>
         </form>
     </div>
-    <canvas *ngIf='!streaming' baseChart [datasets]="chartDatasets" [options]="chartOptions" [colors]="lineChartColors"
-        [legend]="chartLegend" [chartType]="chartType">
+    <canvas *ngIf='!streaming' baseChart [data]="chartDatasets" [options]="chartOptions"
+        [legend]="chartLegend" [type]="chartType" [plugins]="lineChartPlugins">
     </canvas>
-    <canvas *ngIf="streaming" baseChart [datasets]="chartStreamingDatasets" [options]="chartStreamingOptions"
-        [colors]="lineChartColors" [legend]="chartStreamingLegend" [chartType]="chartType">
+    <canvas *ngIf="streaming" baseChart [data]="chartStreamingDatasets" [options]="chartStreamingOptions"
+        [legend]="chartStreamingLegend" [type]="chartType" [plugins]="lineChartPlugins">
     </canvas>
 </div>

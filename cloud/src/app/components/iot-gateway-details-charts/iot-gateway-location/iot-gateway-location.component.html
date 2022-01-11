@@ -33,7 +33,7 @@
           </form>
         </div>
 
-        <canvas baseChart [datasets]="scatterChartDatasets" [options]="scatterChartOptions" [legend]="chartLegend" [chartType]="scatterChartType">
+        <canvas baseChart [data]="scatterChartDatasets" [plugins]="scatterChartPlugins" [options]="scatterChartOptions" [legend]="chartLegend" [type]="scatterChartType">
         </canvas>
       </mat-card-content>
     </mat-card>

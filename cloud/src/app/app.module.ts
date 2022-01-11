@@ -80,12 +80,38 @@ import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-d
 import { LoginComponent } from './routes/login/login.component';
 import { LoginOauthComponent } from './routes/login-oauth/login-oauth.component';
 
+import {
+  LogService, OAuthInterceptor,
+  ProxyInterceptor,
+  SessionRefreshService,
+  TcCoreConfig,
+  TcCoreConfigService,
+  TcCoreLibModule
+} from '@tibco-tcstk/tc-core-lib';
+import { TcFormsLibModule } from '@tibco-tcstk/tc-forms-lib';
+import {TcLiveappsLibModule} from '@tibco-tcstk/tc-liveapps-lib';
+
+
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
     return appConfig.loadAppConfig();
   };
 };
 
+const tcCoreConfig: TcCoreConfig = {
+  disableFormLibs: false,
+  // for test mode ONLY you can enter an oAuth key as the local storage key as long as it starts CIC~
+  // do NOT use this for production code - instead enter the local storage key where external app will save oauth key.
+  // oauth keys should NEVER be saved in code for production or when checked into source control!
+  // oAuthLocalStorageKey: 'TC_DEV_KEY',
+  oAuthLocalStorageKey: '',
+  proxy_url: '',
+  proxy_liveapps_path: '',
+  proxy_tce_path: '',
+  api_key: '',
+  api_key_param: 'api_key',
+  enable_tce: false
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -160,8 +186,10 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     NgxHeatmapModule,
     Ng2GoogleChartsModule,
     ReteEditorModule,
-    NgChartsModule
-    // CommonModule
+    NgChartsModule,
+    TcCoreLibModule.forRoot(tcCoreConfig),
+    TcFormsLibModule,
+    TcLiveappsLibModule.forRoot(),    // CommonModule
   ],
   providers: [
     AppConfigService,
@@ -173,7 +201,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     },
     DatePipe,
     { provide: GraphService, useClass: DgraphService },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    LogService,
   ],
   bootstrap: [AppComponent]
 })
