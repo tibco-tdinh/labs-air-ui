@@ -10,13 +10,13 @@ This file is used want to set the main key to access all application configurati
 ###### Example
 ```javascript
 {
-  "uiAppId": "tcstk-case-manager-app"
+  "uiAppId": "tcli-test"
 }
 ```
 
 **Notes** 
 
-You must make this key unique if you have multiple Cloud Starter based app in your subscription
+You must make this key unique if you have multiple Cloud Apps based app in your subscription
 
 
 

@@ -1,15 +1,14 @@
 {
-  "browserTitle": "ProjectAir",
-  "applicationTitle": "ProjectAir (TIBCO LABS™)",
-  "welcomeMessage": "Welcome to the ProjectAir",
+  "browserTitle": "TIBCO Cloud tcli-test",
+  "applicationTitle": "Base App (TIBCO LABS™)",
+  "welcomeMessage": "Welcome to the tcli-test",
   "roles": [
-        {
+    {
       "id": "User",
       "group": "System: ALL_USERS",
-      "display": "User",
-      "priority": 5
-        }
-    ],
+      "display": "User"
+    }
+  ],
   "displayName": true,
   "documentationUrl": "assets/help.html"
 }
