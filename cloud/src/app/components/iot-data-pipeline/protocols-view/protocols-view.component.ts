@@ -8,9 +8,9 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-protocols-view',
-  templateUrl: './protocols-view.component.html',
-  styleUrls: ['./protocols-view.component.css']
+    selector: 'app-protocols-view',
+    templateUrl: './protocols-view.component.html',
+    styleUrls: ['./protocols-view.component.css']
 })
 export class ProtocolsViewComponent implements OnInit {
   hidePassword = true;
@@ -21,20 +21,20 @@ export class ProtocolsViewComponent implements OnInit {
 
   protocols: Protocol[];
   kafkaAuthModes: SelectItem[] = [
-    { value: 'None', viewValue: 'None' },
-    { value: 'SASL/Plain', viewValue: 'SASL/Plain' },
-    { value: 'SSL', viewValue: 'SSL' }
+      { value: 'None', viewValue: 'None' },
+      { value: 'SASL/Plain', viewValue: 'SASL/Plain' },
+      { value: 'SSL', viewValue: 'SSL' }
   ];
 
   kafkaInitialOffsets: SelectItem[] = [
-    { value: 'Oldest', viewValue: 'Oldest' },
-    { value: 'Newest', viewValue: 'Newest' }
+      { value: 'Oldest', viewValue: 'Oldest' },
+      { value: 'Newest', viewValue: 'Newest' }
   ];
 
   mqttEncriptionModes: SelectItem[] = [
-    { value: 'None', viewValue: 'None' },
-    { value: 'TLS-Cert', viewValue: 'TLS-Cert' },
-    { value: 'TLS-ClientAuth', viewValue: 'TLS-ClientAuth' }
+      { value: 'None', viewValue: 'None' },
+      { value: 'TLS-Cert', viewValue: 'TLS-Cert' },
+      { value: 'TLS-ClientAuth', viewValue: 'TLS-ClientAuth' }
   ];
 
   @Input() transportForm: FormGroup;
@@ -49,37 +49,37 @@ export class ProtocolsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("On Protocols ngOnInit. Getting publisher for: ", this.transportForm.get('gateway').value);
+      console.log('On Protocols ngOnInit. Getting publisher for: ', this.transportForm.get('gateway').value);
 
-    // this.getPublishers(this.transportForm.get('gateway').value);
+      // this.getPublishers(this.transportForm.get('gateway').value);
 
 
-    this.onFormChanges();
+      this.onFormChanges();
   }
 
   onFormChanges(): void {
-    this.transportForm.valueChanges.subscribe(val => {
+      this.transportForm.valueChanges.subscribe(val => {
 
-      let protocol = this.transportForm.get('protocol').value;
+          const protocol = this.transportForm.get('protocol').value;
 
-      console.log("On ProtocolView form changed to protocol: ", protocol);
+          console.log('On ProtocolView form changed to protocol: ', protocol);
 
-      this.mqttProtocol = false;
-      this.kafkaProtocol = false;
-      this.httpProtocol = false;
+          this.mqttProtocol = false;
+          this.kafkaProtocol = false;
+          this.httpProtocol = false;
 
-      if (protocol == "MQTT") {
+          if (protocol == 'MQTT') {
 
-        this.mqttProtocol = true;
-      }
-      else if (protocol == "Kafka") {
+              this.mqttProtocol = true;
+          }
+          else if (protocol == 'Kafka') {
 
-        this.kafkaProtocol = true;
-      }
-      else if (protocol == "HTTP") {
-        this.httpProtocol = true;
-      }
-    });
+              this.kafkaProtocol = true;
+          }
+          else if (protocol == 'HTTP') {
+              this.httpProtocol = true;
+          }
+      });
   }
 
 }

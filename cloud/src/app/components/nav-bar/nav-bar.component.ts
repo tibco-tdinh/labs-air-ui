@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.service'
+import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+    selector: 'app-nav-bar',
+    templateUrl: './nav-bar.component.html',
+    styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
 
@@ -14,20 +14,20 @@ export class NavBarComponent implements OnInit {
   /**
      * page title comes from config resolver
      */
-  @Input() title: string = "";
-  paths: String[] = [];
+  @Input() title = '';
+  paths: string[] = [];
 
   constructor(private breadcrumb: BreadcrumbsService, private location: Location) {
   }
 
   ngOnInit() {
-    this.breadcrumb.path.subscribe((x) => {
-      this.paths = x;
-    })
+      this.breadcrumb.path.subscribe((x) => {
+          this.paths = x;
+      });
   }
 
   public goBack() {
-    this.location.back();
+      this.location.back();
   }
 
   public logout() {

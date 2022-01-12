@@ -78,9 +78,9 @@ import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-d
 import { CommonModule } from 'common';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
-  return () => {
-    return appConfig.loadAppConfig();
-  };
+    return () => {
+        return appConfig.loadAppConfig();
+    };
 };
 
 @NgModule({
@@ -142,8 +142,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     IotDashboardComponent,
     InfraRegistrationComponent,
     InfraDeployerComponent,
-    SingleValueDialogComponent
-
+    SingleValueDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -156,21 +155,20 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     NgxHeatmapModule,
     Ng2GoogleChartsModule,
     ReteEditorModule,
-    NgChartsModule
-    ],
+    NgChartsModule,
+  ],
   providers: [
     AppConfigService,
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializerFn,
       multi: true,
-      deps: [AppConfigService]
+      deps: [AppConfigService],
     },
     DatePipe,
     { provide: GraphService, useClass: DgraphService },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
-export class AppModule { }
+export class AppModule {}

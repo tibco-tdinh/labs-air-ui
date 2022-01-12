@@ -370,8 +370,8 @@ export class ChartTSData {
   y: number;
 
   constructor(x: string, y: number) {
-    this.x = x;
-    this.y = y;
+      this.x = x;
+      this.y = y;
   }
 
 }
@@ -391,13 +391,13 @@ export class ScatterChartDataset {
   data: {}[];
 
   constructor(label: string, type: string, pointRadius: number, fill: boolean, lineTension: number, borderWidth: number, data: []) {
-    this.label = label;
-    this.type = type;
-    this.pointRadius = pointRadius;
-    this.fill = fill;
-    this.lineTension = lineTension;
-    this.borderWidth = borderWidth;
-    this.data = data;
+      this.label = label;
+      this.type = type;
+      this.pointRadius = pointRadius;
+      this.fill = fill;
+      this.lineTension = lineTension;
+      this.borderWidth = borderWidth;
+      this.data = data;
   }
 
 }

@@ -13,9 +13,9 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-ige-models',
-  templateUrl: './ige-models.component.html',
-  styleUrls: ['./ige-models.component.css']
+    selector: 'app-ige-models',
+    templateUrl: './ige-models.component.html',
+    styleUrls: ['./ige-models.component.css']
 })
 export class IgeModelsComponent implements OnInit, AfterViewInit {
 
@@ -38,16 +38,16 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
   modelSelection = new SelectionModel<Model>(false, []);
 
   scopes: SelectItem[] = [
-    { value: 'GLOBAL', viewValue: 'GLOBAL' },
-    { value: 'GATEWAY', viewValue: 'GATEWAY' }
+      { value: 'GLOBAL', viewValue: 'GLOBAL' },
+      { value: 'GATEWAY', viewValue: 'GATEWAY' }
   ];
 
   inputTypes: SelectItem[] = [
-    { value: 'int', viewValue: 'int' },
-    { value: 'float', viewValue: 'float' },
-    { value: 'string', viewValue: 'string' },
-    { value: 'image', viewValue: 'image' },
-    { value: 'audio', viewValue: 'audio' }
+      { value: 'int', viewValue: 'int' },
+      { value: 'float', viewValue: 'float' },
+      { value: 'string', viewValue: 'string' },
+      { value: 'image', viewValue: 'image' },
+      { value: 'audio', viewValue: 'audio' }
   ];
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -71,16 +71,16 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
    */
   ngOnInit() {
 
-    this.modelSelection.clear();
+      this.modelSelection.clear();
 
-    this.createForm();
+      this.createForm();
 
 
-    this.onFormChanges();
+      this.onFormChanges();
 
-    console.log("Getting models");
+      console.log('Getting models');
 
-    this.getModels(this.gatewayId);
+      this.getModels(this.gatewayId);
 
   }
 
@@ -88,34 +88,34 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
    *
    */
   ngAfterViewInit() {
-    this.modelsDataSource.sort = this.sort;
+      this.modelsDataSource.sort = this.sort;
   }
 
   /**
    *
    * @param filterValue
    */
-   applyFilter(target: EventTarget | null) {
-    if (target){
-      let htmlTextArea = target as HTMLTextAreaElement;
-      this.modelsDataSource.filter = htmlTextArea.value.trim().toLowerCase();
-    }
+  applyFilter(target: EventTarget | null) {
+      if (target){
+          const htmlTextArea = target as HTMLTextAreaElement;
+          this.modelsDataSource.filter = htmlTextArea.value.trim().toLowerCase();
+      }
   }
 
   /**
    * Creates the model form
    */
   createForm() {
-    this.modelForm = this.formBuilder.group({
-      uid: ['', Validators.required],
-      uuid: ['', Validators.required],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      inputType: ['', Validators.required],
-      url: ['', Validators.required],
-      scope: ['', Validators.required],
-      inputTemplate: ['', Validators.required]
-    });
+      this.modelForm = this.formBuilder.group({
+          uid: ['', Validators.required],
+          uuid: ['', Validators.required],
+          name: ['', Validators.required],
+          description: ['', Validators.required],
+          inputType: ['', Validators.required],
+          url: ['', Validators.required],
+          scope: ['', Validators.required],
+          inputTemplate: ['', Validators.required]
+      });
   }
 
   /**
@@ -123,25 +123,25 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
    * @param gatewayId - the gateway identifier
    */
   public getModels(gatewayId: string) {
-    console.log("Getting gateway and models for: ", gatewayId);
+      console.log('Getting gateway and models for: ', gatewayId);
 
-    this.graphService.getModels(gatewayId)
-      .subscribe(res => {
-        console.log("Received response for graphService.getModels: ", res);
-        this.modelsDataSource.data = res as Model[];
+      this.graphService.getModels(gatewayId)
+          .subscribe(res => {
+              console.log('Received response for graphService.getModels: ', res);
+              this.modelsDataSource.data = res as Model[];
 
-        this.graphAddOpDisabled = true;
-        this.graphUpdateOpDisabled = true;
-        this.graphDeleteOpDisabled = true;
-      })
+              this.graphAddOpDisabled = true;
+              this.graphUpdateOpDisabled = true;
+              this.graphDeleteOpDisabled = true;
+          });
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    // const numSelected = this.modelSelection.selected.length;
-    // const numRows = this.modelsDataSource.data.length;
-    // return numSelected === numRows;
-    return false;
+      // const numSelected = this.modelSelection.selected.length;
+      // const numRows = this.modelsDataSource.data.length;
+      // return numSelected === numRows;
+      return false;
   }
 
   /**
@@ -150,87 +150,87 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
    */
   onModelClicked(row) {
 
-    console.log('Row clicked: ', row);
+      console.log('Row clicked: ', row);
 
-    this.modelSelection.select(row);
+      this.modelSelection.select(row);
 
-    let model = row;
-    let scope = model.scope;
-    if (scope != "GLOBAL") {
-      scope = "GATEWAY";
-    }
+      const model = row;
+      let scope = model.scope;
+      if (scope != 'GLOBAL') {
+          scope = 'GATEWAY';
+      }
 
-    this.modelForm.patchValue({
-      uid: model.uid,
-      uuid: model.uuid,
-      name: model.name,
-      description: model.description,
-      inputType: model.inputType,
-      url: model.url,
-      scope: scope,
-      inputTemplate: atob(model.inputTemplate),
-    });
+      this.modelForm.patchValue({
+          uid: model.uid,
+          uuid: model.uuid,
+          name: model.name,
+          description: model.description,
+          inputType: model.inputType,
+          url: model.url,
+          scope: scope,
+          inputTemplate: atob(model.inputTemplate),
+      });
 
-    this.graphDeleteOpDisabled = false;
-    this.graphAddOpDisabled = true;
-    this.graphUpdateOpDisabled = true;
+      this.graphDeleteOpDisabled = false;
+      this.graphAddOpDisabled = true;
+      this.graphUpdateOpDisabled = true;
   }
 
   /**
    * Reset model form
    */
   resetmodelForm() {
-    this.modelForm.reset({
-    }, { emitEvent: false });
+      this.modelForm.reset({
+      }, { emitEvent: false });
 
-    this.graphDeleteOpDisabled = true;
-    this.graphAddOpDisabled = true;
-    this.graphUpdateOpDisabled = true;
+      this.graphDeleteOpDisabled = true;
+      this.graphAddOpDisabled = true;
+      this.graphUpdateOpDisabled = true;
 
-    this.modelSelection.clear();
+      this.modelSelection.clear();
   }
 
   /**
    * Add a model object to the graph data store
    */
   addModel() {
-    let ts = Date.now();
-    let model = new Model();
+      const ts = Date.now();
+      const model = new Model();
 
-    let scope = this.modelForm.get('scope').value;
-    if (scope != "GLOBAL") {
-      scope = this.gatewayId;
-    }
-    model.scope = scope;
+      let scope = this.modelForm.get('scope').value;
+      if (scope != 'GLOBAL') {
+          scope = this.gatewayId;
+      }
+      model.scope = scope;
 
-    model.created = ts;
-    model.modified = ts;
-    model.uuid = this.modelForm.get('name').value;
-    model.name = this.modelForm.get('name').value;
-    model.description = this.modelForm.get('description').value;
-    model.inputType = this.modelForm.get('inputType').value;
-    model.url = this.modelForm.get('url').value;
-    model.inputTemplate = btoa(this.modelForm.get('inputTemplate').value);
+      model.created = ts;
+      model.modified = ts;
+      model.uuid = this.modelForm.get('name').value;
+      model.name = this.modelForm.get('name').value;
+      model.description = this.modelForm.get('description').value;
+      model.inputType = this.modelForm.get('inputType').value;
+      model.url = this.modelForm.get('url').value;
+      model.inputTemplate = btoa(this.modelForm.get('inputTemplate').value);
 
-    console.log("Adding model with uuid: ", model.uuid);
+      console.log('Adding model with uuid: ', model.uuid);
     
 
-    // First check that model with the same name already exist
-    if (this.modelExist(model.uuid)) {
+      // First check that model with the same name already exist
+      if (this.modelExist(model.uuid)) {
 
-      this._snackBar.open("Model name is not unique.", "Cancel", {
-        duration: 3000,
-      });
-    }
-    else {
-      this.graphService.addModel(0, model)
-        .subscribe(res => {
-          console.log("Result from add model", res);
+          this._snackBar.open('Model name is not unique.', 'Cancel', {
+              duration: 3000,
+          });
+      }
+      else {
+          this.graphService.addModel(0, model)
+              .subscribe(res => {
+                  console.log('Result from add model', res);
 
-          this.getModels(this.gatewayId);
-          this.resetmodelForm();
-        });
-    }
+                  this.getModels(this.gatewayId);
+                  this.resetmodelForm();
+              });
+      }
 
   }
 
@@ -239,36 +239,36 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
    */
   updateModel() {
 
-    console.log("Inside updateModel function");
+      console.log('Inside updateModel function');
 
-    let ts = Date.now();
-    let model = new Model();
+      const ts = Date.now();
+      const model = new Model();
 
-    let scope = this.modelForm.get('scope').value;
-    if (scope != "GLOBAL") {
-      scope = this.gatewayId;
-    }
-    model.scope = scope;
+      let scope = this.modelForm.get('scope').value;
+      if (scope != 'GLOBAL') {
+          scope = this.gatewayId;
+      }
+      model.scope = scope;
 
-    model.modified = ts;
-    model.uid = this.modelForm.get('uid').value;
-    model.uuid = this.modelForm.get('name').value;
-    model.name = this.modelForm.get('name').value;
-    model.description = this.modelForm.get('description').value;
-    model.inputType = this.modelForm.get('inputType').value;
-    model.url = this.modelForm.get('url').value;
-    model.inputTemplate = btoa(this.modelForm.get('inputTemplate').value);
+      model.modified = ts;
+      model.uid = this.modelForm.get('uid').value;
+      model.uuid = this.modelForm.get('name').value;
+      model.name = this.modelForm.get('name').value;
+      model.description = this.modelForm.get('description').value;
+      model.inputType = this.modelForm.get('inputType').value;
+      model.url = this.modelForm.get('url').value;
+      model.inputTemplate = btoa(this.modelForm.get('inputTemplate').value);
 
-    console.log("Update model to url: ", model.url);
-    console.log("Update model to inputTemplate: ", model.inputTemplate);
+      console.log('Update model to url: ', model.url);
+      console.log('Update model to inputTemplate: ', model.inputTemplate);
     
-    this.graphService.updateModel(model)
-      .subscribe(res => {
-        console.log("Result from update model", res);
+      this.graphService.updateModel(model)
+          .subscribe(res => {
+              console.log('Result from update model', res);
 
-        this.getModels(this.gatewayId);
-        this.resetmodelForm();
-      });
+              this.getModels(this.gatewayId);
+              this.resetmodelForm();
+          });
   }
 
 
@@ -276,55 +276,55 @@ export class IgeModelsComponent implements OnInit, AfterViewInit {
    * Deletes the model from the graph data store
    */
   deleteModel() {
-    let modelUid = this.modelForm.get('uid').value;
-    console.log("deleting model: ", modelUid);
+      const modelUid = this.modelForm.get('uid').value;
+      console.log('deleting model: ', modelUid);
 
 
-    this.graphService.deleteModel(0, this.modelForm.get('uid').value)
-      .subscribe(res => {
-        console.log("Result from delete model ", res);
+      this.graphService.deleteModel(0, this.modelForm.get('uid').value)
+          .subscribe(res => {
+              console.log('Result from delete model ', res);
 
-        this.getModels(this.gatewayId);
-        this.resetmodelForm();
+              this.getModels(this.gatewayId);
+              this.resetmodelForm();
 
-      });
+          });
   }
 
   /**
    * Fucntion called when the form changes
    */
   onFormChanges(): void {
-    this.modelForm.valueChanges.subscribe(val => {
+      this.modelForm.valueChanges.subscribe(val => {
 
-      if (this.modelForm.dirty) {
+          if (this.modelForm.dirty) {
 
-        this.graphDeleteOpDisabled = true;
-        this.graphAddOpDisabled = false;
+              this.graphDeleteOpDisabled = true;
+              this.graphAddOpDisabled = false;
 
-        if (this.modelSelection.hasValue()) {
-          this.graphUpdateOpDisabled = false;
-        }
-        else {
-          this.graphUpdateOpDisabled = true;
-        }
-      }
+              if (this.modelSelection.hasValue()) {
+                  this.graphUpdateOpDisabled = false;
+              }
+              else {
+                  this.graphUpdateOpDisabled = true;
+              }
+          }
 
-    });
+      });
   }
 
   modelExist(uuid: string): boolean {
-    let found = false;
+      let found = false;
 
-    this.modelsDataSource.data.forEach(
-      model => {
+      this.modelsDataSource.data.forEach(
+          model => {
 
-        if (model.uuid == uuid) {
-          found = true;
-        }
-      }
-    );
+              if (model.uuid == uuid) {
+                  found = true;
+              }
+          }
+      );
 
-    return found;
+      return found;
   }
 
 }
