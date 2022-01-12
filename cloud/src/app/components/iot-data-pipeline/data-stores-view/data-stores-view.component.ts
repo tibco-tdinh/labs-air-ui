@@ -7,9 +7,9 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-data-stores-view',
-  templateUrl: './data-stores-view.component.html',
-  styleUrls: ['./data-stores-view.component.css']
+    selector: 'app-data-stores-view',
+    templateUrl: './data-stores-view.component.html',
+    styleUrls: ['./data-stores-view.component.css']
 })
 export class DataStoresViewComponent implements OnInit {
 
@@ -28,35 +28,35 @@ export class DataStoresViewComponent implements OnInit {
 
   ngOnInit() {
 
-    this.onFormChanges();
+      this.onFormChanges();
   }
 
   onFormChanges(): void {
-    this.dataStoreForm.valueChanges.subscribe(val => {
+      this.dataStoreForm.valueChanges.subscribe(val => {
       
-      let dataStore = this.dataStoreForm.get('dataStore').value;
+          const dataStore = this.dataStoreForm.get('dataStore').value;
 
-      this.postgresDataStore = false;
-      this.snowflakeDataStore = false;
-      this.oracleDataStore = false;
-      this.mysqlDataStore = false;
-      this.tgdbDataStore = false;
-      this.dgraphDataStore = false;
+          this.postgresDataStore = false;
+          this.snowflakeDataStore = false;
+          this.oracleDataStore = false;
+          this.mysqlDataStore = false;
+          this.tgdbDataStore = false;
+          this.dgraphDataStore = false;
 
-      if (dataStore == "Postgres") {
-        this.postgresDataStore = true;
-      }
-      else if (dataStore == "Snowflake") {
-        this.snowflakeDataStore = true;
-      }
-      else if (dataStore == "TGDB") {
-        this.tgdbDataStore = true;
-      }
-      else if (dataStore == "Dgraph") {
-        this.dgraphDataStore = true;
-      }
+          if (dataStore == 'Postgres') {
+              this.postgresDataStore = true;
+          }
+          else if (dataStore == 'Snowflake') {
+              this.snowflakeDataStore = true;
+          }
+          else if (dataStore == 'TGDB') {
+              this.tgdbDataStore = true;
+          }
+          else if (dataStore == 'Dgraph') {
+              this.dgraphDataStore = true;
+          }
 
-    });
+      });
   }
 
 }

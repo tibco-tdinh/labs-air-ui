@@ -1,25 +1,47 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { AppConfigService } from 'src/app/services/config/app-config.service';
+import { EdgeService } from 'src/app/services/edge/edge.service';
+import { GraphService } from 'src/app/services/graph/graph.service';
+import { Gateway } from 'src/app/shared/models/iot.model';
 
 import { StarterAppComponent } from './starter-app.component';
 
-describe('HomeComponent', () => {
-  let component: StarterAppComponent;
-  let fixture: ComponentFixture<StarterAppComponent>;
+describe('StarterAppComponent', () => {
+    let component: StarterAppComponent;
+    let fixture: ComponentFixture<StarterAppComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StarterAppComponent ]
-    })
-    .compileComponents();
-  }));
+    const mockGraphService = jasmine.createSpyObj(['getGatewayAndPipelines', 'getModels']);
+    const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
+    const mockEdgeService = jasmine.createSpyObj(['getDevices']);
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StarterAppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    mockGraphService.getGatewayAndPipelines.and.returnValue(of([new Gateway()] as Gateway[]));
+    mockEdgeService.getDevices.and.returnValue(of([]));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [StarterAppComponent],
+            imports: [HttpClientTestingModule, RouterTestingModule],
+            providers: [
+                { provide: AppConfigService, useValue: mockAppConfigService },
+                { provide: GraphService, useValue: mockGraphService },
+                { provide: EdgeService, useValue: mockEdgeService }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(StarterAppComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

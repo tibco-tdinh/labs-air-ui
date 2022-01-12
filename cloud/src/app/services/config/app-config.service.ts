@@ -11,39 +11,39 @@ export class AppConfigService {
   constructor(private http: HttpClient) { }
 
   loadAppConfig() {
-    return this.http.get('/assets/data/appConfig.json')
-      .toPromise()
-      .then(data => {
-        this.appConfig = data;
-      });
+      return this.http.get('/assets/data/appConfig.json')
+          .toPromise()
+          .then(data => {
+              this.appConfig = data;
+          });
   }
 
   getConfig() {
-    return this.appConfig;
+      return this.appConfig;
   }
 
   public getFromConfigOrEnv(path){
-    let value = this.getFromConfig(path);
-    if (typeof value == 'undefined'){
-        return this.getFromEnv(path);
-    }
-    return value;
+      const value = this.getFromConfig(path);
+      if (typeof value == 'undefined'){
+          return this.getFromEnv(path);
+      }
+      return value;
   }
 
 
   public getFromConfig(path){
-    let value = null;
-    if (this.getConfig()){
-        value = _.get(this.getConfig(), path);
-    }
-    return value;
+      let value = null;
+      if (this.getConfig()){
+          value = _.get(this.getConfig(), path);
+      }
+      return value;
   } 
   
   public getFromEnv(path){
-    let value = null;
-    if (environment){
-        value = _.get(environment, path);
-    }
-    return value;
+      let value = null;
+      if (environment){
+          value = _.get(environment, path);
+      }
+      return value;
   }
 }

@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  template: `
+    template: `
   <img  class="rete-image" [src]="imageUrl"/>
   `,
-  styles: [
-    `
+    styles: [
+        `
       input {
         border-radius: 30px;
         background-color: white;
@@ -22,8 +22,9 @@ import { Component, Input } from '@angular/core';
         width: 48px;
       }
     `
-  ]
+    ]
 })
+// eslint-disable-next-line @angular-eslint/component-class-suffix
 export class ImageControlDisplay {
   @Input() value: number;
   @Input() readonly: boolean;
@@ -34,9 +35,9 @@ export class ImageControlDisplay {
   imageUrl = '';
 
   ngOnInit() {
-    console.log("ImageControlDisplay Initializing control with: ", this.value);
-    this.imageUrl = '/assets/img/' + this.imageName;
-    this.mounted();
+      console.log('ImageControlDisplay Initializing control with: ', this.value);
+      this.imageUrl = '/assets/img/' + this.imageName;
+      this.mounted();
   }
 
 }

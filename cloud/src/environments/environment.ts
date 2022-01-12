@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  dgraphUrl: 'http://afcffd879f5dc46239e1284afe8bc4a1-1911133281.us-west-2.elb.amazonaws.com/dgraph-alpha-http',
-  dgraphBasicAuthEnabled: true,
+  dgraphUrl: ' http://localhost:8080',
+  dgraphBasicAuthEnabled: false,
   dgraphBasicAuth: 'Basic YWRtaW46YWRtaW4=',
   f1EndpointUrl: 'http://localhost:8043/http://localhost:5408',
   // f1EndpointUrl: 'http://localhost:8043/http://3.228.65.62:5408',
