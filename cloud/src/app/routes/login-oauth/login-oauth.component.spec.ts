@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { LoginOauthComponent } from './login-oauth.component';
 
 describe('LoginOauthComponent', () => {
@@ -8,7 +8,8 @@ describe('LoginOauthComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginOauthComponent ]
+      declarations: [ LoginOauthComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   });

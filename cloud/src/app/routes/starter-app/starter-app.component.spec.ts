@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { AppConfigService } from 'src/app/services/config/app-config.service';
 import { EdgeService } from 'src/app/services/edge/edge.service';
@@ -28,7 +29,18 @@ describe('StarterAppComponent', () => {
             providers: [
                 { provide: AppConfigService, useValue: mockAppConfigService },
                 { provide: GraphService, useValue: mockGraphService },
-                { provide: EdgeService, useValue: mockEdgeService }
+                { provide: EdgeService, useValue: mockEdgeService },
+                { provide: ActivatedRoute, 
+                    useValue: {
+                        snapshot: {
+                            data: {
+                                config: {
+                                    browserTitle: 'test',
+                                }
+                            }
+                        }  
+                    }
+                }
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         })
