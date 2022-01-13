@@ -6,9 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-iot-gateway-text',
-  templateUrl: './iot-gateway-text.component.html',
-  styleUrls: ['./iot-gateway-text.component.css']
+    selector: 'app-iot-gateway-text',
+    templateUrl: './iot-gateway-text.component.html',
+    styleUrls: ['./iot-gateway-text.component.css']
 })
 export class IotGatewayTextComponent implements OnInit, OnDestroy, AfterViewInit {
   device: Device;
@@ -23,31 +23,31 @@ export class IotGatewayTextComponent implements OnInit, OnDestroy, AfterViewInit
 
 
   ngOnInit(): void {
-    this.getReadings();
+      this.getReadings();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+      this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+      this.dataSource.sort = this.sort;
   }
 
   public getReadings(): void {
-    this.subscriptions.push(this.graphService.getReadings(this.device.name, this.instrument.name, 300)
-      .subscribe(res => {
+      this.subscriptions.push(this.graphService.getReadings(this.device.name, this.instrument.name, 300)
+          .subscribe(res => {
 
-        // Check if values need to be decoded.  _Inferred values are encoded
-        if (this.instrument.name.includes("_Inferred")) {
-          for (var reading of res as TSReading[]) {
-            reading.value = atob(reading.value);
-          }
-        }
+              // Check if values need to be decoded.  _Inferred values are encoded
+              if (this.instrument.name.includes('_Inferred')) {
+                  for (const reading of res as TSReading[]) {
+                      reading.value = atob(reading.value);
+                  }
+              }
       
-        this.dataSource.data = res as TSReading[];
+              this.dataSource.data = res as TSReading[];
         
-      }));
+          }));
   }
 
 }

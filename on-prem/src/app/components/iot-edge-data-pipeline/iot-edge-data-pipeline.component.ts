@@ -18,33 +18,33 @@ interface DeviceNode {
 }
 
 const TREE_DATA: DeviceNode[] = [
-  {
-    name: 'Fruit',
-    id: 'abc',
-    deviceResources: [
-      { name: 'Apple', id: 'Fruit' },
-      { name: 'Banana', id: 'Fruit' },
-      { name: 'Fruit loops', id: 'Fruit' }
-    ]
-  }, {
-    name: 'Vegetables',
-    id: 'cde',
-    deviceResources: [
-      {
-        name: 'Green', id: 'Vegetables'
-      }
-    ]
-  },
+    {
+        name: 'Fruit',
+        id: 'abc',
+        deviceResources: [
+            { name: 'Apple', id: 'Fruit' },
+            { name: 'Banana', id: 'Fruit' },
+            { name: 'Fruit loops', id: 'Fruit' }
+        ]
+    }, {
+        name: 'Vegetables',
+        id: 'cde',
+        deviceResources: [
+            {
+                name: 'Green', id: 'Vegetables'
+            }
+        ]
+    },
 ];
 
 @Component({
-  selector: 'app-iot-edge-data-pipeline',
-  templateUrl: './iot-edge-data-pipeline.component.html',
-  styleUrls: ['./iot-edge-data-pipeline.component.css']
+    selector: 'app-iot-edge-data-pipeline',
+    templateUrl: './iot-edge-data-pipeline.component.html',
+    styleUrls: ['./iot-edge-data-pipeline.component.css']
 })
 export class IotEdgeDataPipelineComponent implements OnInit {
 
-  gatewayId = "";
+  gatewayId = '';
   gateway = null as Gateway;
 
   // Form variables
@@ -66,9 +66,9 @@ export class IotEdgeDataPipelineComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar) {
 
-    // this.devicesDataSource.data = TREE_DATA;
+      // this.devicesDataSource.data = TREE_DATA;
 
-    // console.log("Devices data source: ", this.devicesDataSource.data);
+      // console.log("Devices data source: ", this.devicesDataSource.data);
   }
 
   /**
@@ -76,11 +76,11 @@ export class IotEdgeDataPipelineComponent implements OnInit {
    */
   ngOnInit() {
 
-    this.gatewayId = this.route.snapshot.paramMap.get('gatewayId');
+      this.gatewayId = this.route.snapshot.paramMap.get('gatewayId');
 
-    this.createForms();
+      this.createForms();
 
-    this.getGatewayAndDevices(this.gatewayId);
+      this.getGatewayAndDevices(this.gatewayId);
   }
 
   hasChild = (_: number, node: DeviceNode) => !!node.deviceResources && node.deviceResources.length > 0;
@@ -90,11 +90,11 @@ export class IotEdgeDataPipelineComponent implements OnInit {
    */
   createForms() {
 
-    this.gatewayForm = this.formBuilder.group(
-      {
-        deviceNames: this.formBuilder.array([])
-      }
-    )
+      this.gatewayForm = this.formBuilder.group(
+          {
+              deviceNames: this.formBuilder.array([])
+          }
+      );
 
   }
 
@@ -102,74 +102,74 @@ export class IotEdgeDataPipelineComponent implements OnInit {
  *
  */
   public getGatewayAndDevices(gatewayId: string) {
-    console.log("Getting gateway for: ", gatewayId);
+      console.log('Getting gateway for: ', gatewayId);
 
-    this.graphService.getGateway(gatewayId)
-      .subscribe(res => {
-        console.log("Received response for graphService.getGatewayAndDataStores: ", res);
-        this.gateway = res[0] as Gateway;
+      this.graphService.getGateway(gatewayId)
+          .subscribe(res => {
+              console.log('Received response for graphService.getGatewayAndDataStores: ', res);
+              this.gateway = res[0] as Gateway;
 
-        // Get Devices to be used for filtering
-        this.getDevices(this.gateway);
+              // Get Devices to be used for filtering
+              this.getDevices(this.gateway);
 
-      })
+          });
   }
 
   getDevices(gateway) {
-    console.log("In getDevices for: ", gateway);
-    this.deviceList = [];
-    this.deviceNodeList = [];
-    this.edgeService.getDevices(gateway)
-      .subscribe(res => {
-        this.deviceList = res as Device[];
+      console.log('In getDevices for: ', gateway);
+      this.deviceList = [];
+      this.deviceNodeList = [];
+      this.edgeService.getDevices(gateway)
+          .subscribe(res => {
+              this.deviceList = res as Device[];
 
-        console.log("Devices Returned in getDevices: ", res);
+              console.log('Devices Returned in getDevices: ', res);
 
-        // Add device to device node list
-        res.forEach((dev, index) => {
+              // Add device to device node list
+              res.forEach((dev, index) => {
 
-          let resources = [];
-          dev.profile.deviceResources.forEach((dr) => {
+                  const resources = [];
+                  dev.profile.deviceResources.forEach((dr) => {
 
-            resources.push({
-              name: dr.name,
-              id: dev.id
-            })
+                      resources.push({
+                          name: dr.name,
+                          id: dev.id
+                      });
+                  });
+
+                  // Add resources
+                  this.deviceNodeList.push({
+                      name: dev.name,
+                      id: dev.id,
+                      deviceResources: resources
+                  });
+              });
+              console.log('Updated device list: ', this.deviceList);
+              console.log('updated device node list: ', this.deviceNodeList);
+
+              this.devicesDataSource.data = null;
+              this.devicesDataSource.data = this.deviceNodeList;
           });
-
-          // Add resources
-          this.deviceNodeList.push({
-            name: dev.name,
-            id: dev.id,
-            deviceResources: resources
-          });
-        });
-        console.log("Updated device list: ", this.deviceList);
-        console.log("updated device node list: ", this.deviceNodeList);
-
-        this.devicesDataSource.data = null;
-        this.devicesDataSource.data = this.deviceNodeList;
-      })
   }
 
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   leafItemSelectionToggle(node: DeviceNode): void {
     
-    this.checklistSelection.toggle(node);
+      this.checklistSelection.toggle(node);
 
   }
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   itemSelectionToggle(node: DeviceNode): void {
-    this.checklistSelection.toggle(node);
-    const descendants = this.treeControl.getDescendants(node);
-    this.checklistSelection.isSelected(node)
-      ? this.checklistSelection.select(...descendants)
-      : this.checklistSelection.deselect(...descendants);
+      this.checklistSelection.toggle(node);
+      const descendants = this.treeControl.getDescendants(node);
+      this.checklistSelection.isSelected(node)
+          ? this.checklistSelection.select(...descendants)
+          : this.checklistSelection.deselect(...descendants);
 
-    // Force update for the parent
-    descendants.forEach(child => this.checklistSelection.isSelected(child));
+      // Force update for the parent
+      descendants.forEach(child => this.checklistSelection.isSelected(child));
 
   }
 
@@ -177,18 +177,18 @@ export class IotEdgeDataPipelineComponent implements OnInit {
   /** Whether all the descendants of the node are selected. */
   descendantsAllSelected(node: DeviceNode): boolean {
 
-    const descendants = this.treeControl.getDescendants(node);
-    const descAllSelected = descendants.length > 0 && descendants.every(child => {
-      return this.checklistSelection.isSelected(child);
-    });
-    return descAllSelected;
+      const descendants = this.treeControl.getDescendants(node);
+      const descAllSelected = descendants.length > 0 && descendants.every(child => {
+          return this.checklistSelection.isSelected(child);
+      });
+      return descAllSelected;
   }
 
   /** Whether part of the descendants are selected */
   descendantsPartiallySelected(node: DeviceNode): boolean {
 
-    const descendants = this.treeControl.getDescendants(node);
-    const result = descendants.some(child => this.checklistSelection.isSelected(child));
-    return result && !this.descendantsAllSelected(node);
+      const descendants = this.treeControl.getDescendants(node);
+      const result = descendants.some(child => this.checklistSelection.isSelected(child));
+      return result && !this.descendantsAllSelected(node);
   }
 }

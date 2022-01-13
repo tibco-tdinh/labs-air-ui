@@ -9,9 +9,9 @@ export interface SelectItem {
 }
 
 @Component({
-  selector: 'app-pipeline-streaming',
-  templateUrl: './pipeline-streaming.component.html',
-  styleUrls: ['./pipeline-streaming.component.css']
+    selector: 'app-pipeline-streaming',
+    templateUrl: './pipeline-streaming.component.html',
+    styleUrls: ['./pipeline-streaming.component.css']
 })
 export class PipelineStreamingComponent implements OnInit, OnDestroy {
 
@@ -19,10 +19,10 @@ export class PipelineStreamingComponent implements OnInit, OnDestroy {
   @Input() devices: Device[];
 
   logLevels: SelectItem[] = [
-    { value: 'INFO', viewValue: 'INFO' },
-    { value: 'WARN', viewValue: 'WARN' },
-    { value: 'ERROR', viewValue: 'ERROR' },
-    { value: 'DEBUG', viewValue: 'DEBUG' }
+      { value: 'INFO', viewValue: 'INFO' },
+      { value: 'WARN', viewValue: 'WARN' },
+      { value: 'ERROR', viewValue: 'ERROR' },
+      { value: 'DEBUG', viewValue: 'DEBUG' }
   ];
   
   instruments: Resource[] = [];
@@ -30,69 +30,69 @@ export class PipelineStreamingComponent implements OnInit, OnDestroy {
 
 
   functions: SelectItem[] = [
-    { value: "avg", viewValue: 'AVG' },
-    { value: 'sum', viewValue: 'SUM' },
-    { value: 'min', viewValue: 'MIN' },
-    { value: 'max', viewValue: 'MAX' },
-    { value: 'count', viewValue: 'COUNT' },
-    { value: 'accumulate', viewValue: 'ACCUMULATE' }
+      { value: 'avg', viewValue: 'AVG' },
+      { value: 'sum', viewValue: 'SUM' },
+      { value: 'min', viewValue: 'MIN' },
+      { value: 'max', viewValue: 'MAX' },
+      { value: 'count', viewValue: 'COUNT' },
+      { value: 'accumulate', viewValue: 'ACCUMULATE' }
   ];
 
   windowTypes: SelectItem[] = [
-    { value: "tumbling", viewValue: 'TUMBLING' },
-    { value: 'sliding', viewValue: 'SLIDING' },
-    { value: 'timeTumbling', viewValue: 'TIME TUMBLING' },
-    { value: 'timeSliding', viewValue: 'TIME SLIDING' }
+      { value: 'tumbling', viewValue: 'TUMBLING' },
+      { value: 'sliding', viewValue: 'SLIDING' },
+      { value: 'timeTumbling', viewValue: 'TIME TUMBLING' },
+      { value: 'timeSliding', viewValue: 'TIME SLIDING' }
   ];
 
   constructor() {
-    console.log("constructor streaming component config");
+      console.log('constructor streaming component config');
   }
 
   ngOnInit(): void {
   
-    let idx = this.getIndexForDevice(this.streamingForm.get('deviceName').value);
+      const idx = this.getIndexForDevice(this.streamingForm.get('deviceName').value);
 
-    if (idx >= 0)
-      this.instruments = this.devices[idx].profile.deviceResources as Resource[];
+      if (idx >= 0)
+          this.instruments = this.devices[idx].profile.deviceResources as Resource[];
 
-    this.onFormChanges();
+      this.onFormChanges();
   }
 
   ngOnDestroy(): void {
 
-    // Remove subscription
-    this.subscr.unsubscribe();
+      // Remove subscription
+      this.subscr.unsubscribe();
   }
 
   getIndexForDevice(name: string): number {
-    let idx = -1;
+      let idx = -1;
 
-    for (let i = 0; i < this.devices.length; i++) {
+      for (let i = 0; i < this.devices.length; i++) {
        
-      if (this.devices[i].name == name) {
-        idx = i;
-        break;
-      } 
-    }
+          if (this.devices[i].name == name) {
+              idx = i;
+              break;
+          } 
+      }
     
-    return idx;
+      return idx;
   }
 
   onFormChanges(): void {
-    // this.streamingForm.valueChanges.subscribe(val => {
-    //   console.log("streamingForm has changed for: ", val.name);
+      // this.streamingForm.valueChanges.subscribe(val => {
+      //   console.log("streamingForm has changed for: ", val.name);
 
-    // });
+      // });
 
-    this.subscr = this.streamingForm.get('deviceName').valueChanges.subscribe(val => {
+      this.subscr = this.streamingForm.get('deviceName').valueChanges.subscribe(val => {
 
-      // Set the resourceDataSource
-      let idx = this.getIndexForDevice(val);
+          // Set the resourceDataSource
+          const idx = this.getIndexForDevice(val);
 
-      if (idx >= 0)
-        this.instruments = this.devices[idx].profile.deviceResources as Resource[];      
-    });
+          if (idx >= 0)
+              this.instruments = this.devices[idx].profile.deviceResources as Resource[];      
+      });
 
   }
 

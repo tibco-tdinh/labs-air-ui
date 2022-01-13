@@ -1,28 +1,28 @@
-import { Component, Input, Output } from "rete";
-import { eventSocket, errorSocket } from "../sockets";
-import { ImageControl } from "../controls/image-control";
+import { Component, Input, Output } from 'rete';
+import { eventSocket, errorSocket } from '../sockets';
+import { ImageControl } from '../controls/image-control';
 
 export class FiltersComponent extends Component {
 
     data: any;
     constructor() {
-        super("Filters");
+        super('Filters');
     }
 
     builder(node) {
-        const inp = new Input("event", "Event", eventSocket);
-        const out = new Output("event", "Filtered Event", eventSocket);
+        const inp = new Input('event', 'Event', eventSocket);
+        const out = new Output('event', 'Filtered Event', eventSocket);
         // const err = new Output("error", "Error", errorSocket);
-        const control = new ImageControl(this.editor, "event", "Icon_Filters.svg");
+        const control = new ImageControl(this.editor, 'event', 'Icon_Filters.svg');
 
         return node.addControl(control)
             .addInput(inp)
             .addOutput(out);
-            // .addOutput(err);
+        // .addOutput(err);
 
     }
 
     worker(node, inputs, outputs) {
-        outputs["fe"] = node.data.fe;
+        outputs['fe'] = node.data.fe;
     }
 }

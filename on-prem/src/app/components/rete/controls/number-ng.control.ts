@@ -1,7 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 @Component({
-  template: `
+    template: `
     <input
       type="number"
       [value]="value"
@@ -9,8 +9,8 @@ import { Component, Input } from "@angular/core";
       (change)="change(+$event.target)"
     />
   `,
-  styles: [
-    `
+    styles: [
+        `
       input {
         border-radius: 30px;
         background-color: white;
@@ -21,14 +21,15 @@ import { Component, Input } from "@angular/core";
         box-sizing: border-box;
       }
     `
-  ]
+    ]
 })
+// eslint-disable-next-line @angular-eslint/component-class-suffix
 export class NumberNgControl {
   @Input() value: number;
   @Input() readonly: boolean;
   @Input() change: Function;
   @Input() mounted: Function;
   ngOnInit() {
-    this.mounted();
+      this.mounted();
   }
 }
