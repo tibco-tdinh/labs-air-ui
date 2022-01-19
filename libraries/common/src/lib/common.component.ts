@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'lib-common',
@@ -10,12 +10,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class CommonComponent implements OnInit {
+export class CommonComponent {
   @Input() data: string;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
