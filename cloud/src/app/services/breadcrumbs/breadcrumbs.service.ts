@@ -20,7 +20,7 @@ export class BreadcrumbsService {
           .subscribe((event) => {
               const root = this.router.routerState.snapshot.root;
               //get the name of the device 
-              const strUrl = String(event['url']);
+              const strUrl = event['url'];
               const urlArray = strUrl.split('/');
               let gatewayId= '';
               if(urlArray.length>4){

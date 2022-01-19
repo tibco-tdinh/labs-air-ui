@@ -7,9 +7,9 @@ import { filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class BreadcrumbsService {
+export class  BreadcrumbsService {
 
-  public path = new BehaviorSubject<String[]>([]);
+  public path = new BehaviorSubject<string[]>([]);
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.router.events
@@ -19,8 +19,8 @@ export class BreadcrumbsService {
       )
       .subscribe((event) => {
         const root = this.router.routerState.snapshot.root;
-        //get the name of the device 
-        const strUrl = String(event['url']);
+        //get the name of the device
+        const strUrl = event['url'];
         const urlArray = strUrl.split('/');
         let gatewayId= '';
         if(urlArray.length>4){

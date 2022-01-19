@@ -156,6 +156,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     Ng2GoogleChartsModule,
     ReteEditorModule,
     NgChartsModule,
+    CommonModule
   ],
   providers: [
     AppConfigService,
