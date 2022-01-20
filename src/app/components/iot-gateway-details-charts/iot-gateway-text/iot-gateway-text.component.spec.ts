@@ -33,7 +33,7 @@ describe('IotGatewayTextComponent', () => {
         fixture = TestBed.createComponent(IotGatewayTextComponent);
         component = fixture.componentInstance;
         component.device = {} as Device;
-        component.instrument = { name: 'myName', properties: { value: {}, units: {} } } as Resource;
+        component.instrument = { name: 'myName', properties: { units: {} } } as Resource;
         fixture.detectChanges();
     });
 

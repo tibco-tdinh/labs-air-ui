@@ -20,7 +20,7 @@ describe('IotGatewayDescriptionsComponent', () => {
         fixture = TestBed.createComponent(IotGatewayDescriptionsComponent);
         component = fixture.componentInstance;
         component.device = {} as Device;
-        component.instrument = { properties: { value: {}, units: {}}} as Resource;
+        component.instrument = { properties: { units: {}}} as Resource;
         fixture.detectChanges();
     });
 
