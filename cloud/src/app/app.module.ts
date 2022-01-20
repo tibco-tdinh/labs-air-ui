@@ -89,7 +89,7 @@ import {
   TcCoreLibModule
 } from '@tibco-tcstk/tc-core-lib';
 import { TcFormsLibModule } from '@tibco-tcstk/tc-forms-lib';
-import {TcLiveappsLibModule} from '@tibco-tcstk/tc-liveapps-lib';
+import { TcLiveappsLibModule } from '@tibco-tcstk/tc-liveapps-lib';
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
