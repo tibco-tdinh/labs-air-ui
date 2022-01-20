@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SpotfireCustomization} from '@tibco/spotfire-wrapper';
 
 @Component({
-  selector: 'app-iot-gateway-dashboard',
-  templateUrl: './iot-gateway-dashboard.component.html',
-  styleUrls: ['./iot-gateway-dashboard.component.css']
+    selector: 'app-iot-gateway-dashboard',
+    templateUrl: './iot-gateway-dashboard.component.html',
+    styleUrls: ['./iot-gateway-dashboard.component.css']
 })
 export class IotGatewayDashboardComponent implements OnInit {
   // Spotfire configuration
@@ -31,28 +31,28 @@ export class IotGatewayDashboardComponent implements OnInit {
       // this.analysisPath = '/Anonymous/air_postgres_dashboard_v1.0';
       this.analysisPath = '/Anonymous/tibcolabs_air_local_v1.643';
       this.activePage = '0';
-      this.parameters = "Test";
+      this.parameters = 'Test';
       this.configuration = {
-        showAbout: false,
-        showAnalysisInformationTool: false,
-        showAuthor: false,
-        showClose: false,
-        showCustomizableHeader: false,
-        showDodPanel: false,
-        showExportFile: false,
-        showFilterPanel: true,
-        showHelp: false,
-        showLogout: false,
-        showPageNavigation: true,
-        showStatusBar: false,
-        showToolBar: false,
-        showUndoRedo: false
+          showAbout: false,
+          showAnalysisInformationTool: false,
+          showAuthor: false,
+          showClose: false,
+          showCustomizableHeader: false,
+          showDodPanel: false,
+          showExportFile: false,
+          showFilterPanel: true,
+          showHelp: false,
+          showLogout: false,
+          showPageNavigation: true,
+          showStatusBar: false,
+          showToolBar: false,
+          showUndoRedo: false
       };
 
-    }
+  }
   
-    public marking(data) {
-      console.log("marking: ", data)
-    }
+  public marking(data) {
+      console.log('marking: ', data);
+  }
 
 }

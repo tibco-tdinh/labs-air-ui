@@ -72,9 +72,9 @@ interface FlattenedDeployable {
 }
 
 @Component({
-  selector: 'app-infra-deployer',
-  templateUrl: './infra-deployer.component.html',
-  styleUrls: ['./infra-deployer.component.css']
+    selector: 'app-infra-deployer',
+    templateUrl: './infra-deployer.component.html',
+    styleUrls: ['./infra-deployer.component.css']
 })
 export class InfraDeployerComponent implements OnInit {
 
@@ -88,8 +88,8 @@ export class InfraDeployerComponent implements OnInit {
   deployableForm: FormGroup;
 
   deployerTypes: SelectItem[] = [
-    { value: 'AIR', viewValue: 'AIR Deployer' },
-    { value: 'OH', viewValue: 'OpenHorizon' }
+      { value: 'AIR', viewValue: 'AIR Deployer' },
+      { value: 'OH', viewValue: 'OpenHorizon' }
   ];
 
   constructor(private flogoDeployService: FlogoDeployService,
@@ -100,94 +100,94 @@ export class InfraDeployerComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.deployableSelection.clear();
+      this.deployableSelection.clear();
 
-    this.createForm();
-/*
+      this.createForm();
+      /*
 get the projects for the deployable table
 */
-    this.getProjects();
+      this.getProjects();
   }
 
 
   createForm() {
-    console.log("Creating form");
-    this.deployableForm = this.formBuilder.group({
-      deployerType: ['', Validators.required],
-      deployerServer: ['', Validators.required],
-      projectName: ['', Validators.required],
-      deployConstraints: ['', Validators.required],
-      deployable: ['', Validators.required],
-      method: ['', Validators.required],
-      noF1Descriptor: ['', Validators.required],
-      platform: ['', Validators.required],
-      serviceProperties: ['', Validators.required],
-      serviceType: ['', Validators.required],
-      targetServer: ['', Validators.required],
-      username: ['', Validators.required],
-      parameters: this.formBuilder.array([],Validators.required)
-    });
+      console.log('Creating form');
+      this.deployableForm = this.formBuilder.group({
+          deployerType: ['', Validators.required],
+          deployerServer: ['', Validators.required],
+          projectName: ['', Validators.required],
+          deployConstraints: ['', Validators.required],
+          deployable: ['', Validators.required],
+          method: ['', Validators.required],
+          noF1Descriptor: ['', Validators.required],
+          platform: ['', Validators.required],
+          serviceProperties: ['', Validators.required],
+          serviceType: ['', Validators.required],
+          targetServer: ['', Validators.required],
+          username: ['', Validators.required],
+          parameters: this.formBuilder.array([],Validators.required)
+      });
 
-    console.log("Created form")
+      console.log('Created form');
   }
 
   createParameter(name, value): FormGroup {
-    console.log("Creating form with param name: ", name);
+      console.log('Creating form with param name: ', name);
     
-    return this.formBuilder.group({
-      name: [name, Validators.required],
-      value: [value, Validators.required]
-    });
+      return this.formBuilder.group({
+          name: [name, Validators.required],
+          value: [value, Validators.required]
+      });
   }
 
   getParameters(): FormArray {
-    return <FormArray> this.deployableForm.get('parameters');
+      return <FormArray> this.deployableForm.get('parameters');
   }
 
   addParameterItem(name, value) {
-    this.getParameters().push(this.createParameter(name, value));
+      this.getParameters().push(this.createParameter(name, value));
   }
 
   getProjects() {
-    console.log("Getting projects");
+      console.log('Getting projects');
 
-    this.deployablesData = [];
+      this.deployablesData = [];
 
-    this.flogoDeployService.getProjects()
-      .subscribe(res => {
-        console.log("Received response for flogoDeployService.getProjects: ", res);
+      this.flogoDeployService.getProjects()
+          .subscribe(res => {
+              console.log('Received response for flogoDeployService.getProjects: ', res);
 
-        let projects = res.DataOut.Projects;
+              const projects = res.DataOut.Projects;
 
-        projects.forEach(project => {
+              projects.forEach(project => {
 
-          console.log("Iterated Project: ", project);
+                  console.log('Iterated Project: ', project);
 
-          project.Deployables.forEach(deployable => {
+                  project.Deployables.forEach(deployable => {
 
 
-            this.deployablesData.push({
-              id: deployable.id,
-              name: deployable.name,
-              projectId: project.id,
-              projectName: project.name,
-              projectDescription: project.description,
-              projectCreated: project.created,
-              parameters: deployable.parameters,
-              operations: project.parameter
-            });
+                      this.deployablesData.push({
+                          id: deployable.id,
+                          name: deployable.name,
+                          projectId: project.id,
+                          projectName: project.name,
+                          projectDescription: project.description,
+                          projectCreated: project.created,
+                          parameters: deployable.parameters,
+                          operations: project.parameter
+                      });
+
+                  });
+
+              });
+
+              console.log('FlattenedData: ', this.deployablesData);
+              this.dataSource = new MatTableDataSource(this.deployablesData);
+
+
+              // this.projectsDataSource.sort = this.sort;
 
           });
-
-        });
-
-        console.log("FlattenedData: ", this.deployablesData);
-        this.dataSource = new MatTableDataSource(this.deployablesData);
-
-
-        // this.projectsDataSource.sort = this.sort;
-
-      })
 
 
   }
@@ -197,108 +197,108 @@ get the projects for the deployable table
   */
   deployableSelected(row) {
 
-    console.log("Row selected: ", row);
+      console.log('Row selected: ', row);
 
-    this.deployableSelection.select(row);
+      this.deployableSelection.select(row);
 
-    // Update form
+      // Update form
 
-    this.getParameters().clear();
+      this.getParameters().clear();
 
 
-    for (const property in row.parameters) {
-      this.addParameterItem(`${property}`, `${row.parameters[property]}`)
-    }
+      for (const property in row.parameters) {
+          this.addParameterItem(`${property}`, `${row.parameters[property]}`);
+      }
 
-    this.deployableForm.patchValue({
-      projectName: row.projectName,
-      deployConstraints: row.operations.deploy.DeployConstrains,
-      // deployable: row.operations.deploy.Deployable,
-      deployable: row.name,
-      method: row.operations.deploy.Method,
-      noF1Descriptor: row.operations.deploy.NoF1Descriptor,
-      platform: row.operations.deploy.Platform,
-      serviceProperties: row.operations.deploy.ServiceProperties,
-      serviceType: row.operations.deploy.ServiceType,
-      targetServer: row.operations.deploy.TargetServer,
-      username: row.operations.deploy.Username,
-    });
+      this.deployableForm.patchValue({
+          projectName: row.projectName,
+          deployConstraints: row.operations.deploy.DeployConstrains,
+          // deployable: row.operations.deploy.Deployable,
+          deployable: row.name,
+          method: row.operations.deploy.Method,
+          noF1Descriptor: row.operations.deploy.NoF1Descriptor,
+          platform: row.operations.deploy.Platform,
+          serviceProperties: row.operations.deploy.ServiceProperties,
+          serviceType: row.operations.deploy.ServiceType,
+          targetServer: row.operations.deploy.TargetServer,
+          username: row.operations.deploy.Username,
+      });
 
 
   }
- /*
+  /*
   delploy a project
   */
   deploy() {
 
-    let deployerType = this.deployableForm.get('deployerType').value;
-    let systemEnv = {};
+      const deployerType = this.deployableForm.get('deployerType').value;
+      let systemEnv = {};
 
-    if (deployerType == "OH") {
-      systemEnv = {
-        "DeployType": "docker-oh",
-        "TargetServer": this.deployableForm.get('deployerServer').value,
-        // "TargetServer": "http://100.25.140.175:3090/v1",
-        "Username": this.deployableForm.get('username').value,
-        "DeployConstrains": this.deployableForm.get('deployConstraints').value,
-        "ServiceProperties": this.deployableForm.get('serviceProperties').value,
-        "Platform": this.deployableForm.get('platform').value,
-        "Artifacts": "/home/ubuntu/loss-detection-app",
-      };
-    }
-    else {
-      systemEnv = {
-        "DeployType": "docker",
-        "TargetServer": this.deployableForm.get('deployerServer').value,
-        "Username": this.deployableForm.get('username').value,
-        "Platform": this.deployableForm.get('platform').value,
-      };
-    }
+      if (deployerType == 'OH') {
+          systemEnv = {
+              'DeployType': 'docker-oh',
+              'TargetServer': this.deployableForm.get('deployerServer').value,
+              // "TargetServer": "http://100.25.140.175:3090/v1",
+              'Username': this.deployableForm.get('username').value,
+              'DeployConstrains': this.deployableForm.get('deployConstraints').value,
+              'ServiceProperties': this.deployableForm.get('serviceProperties').value,
+              'Platform': this.deployableForm.get('platform').value,
+              'Artifacts': '/home/ubuntu/loss-detection-app',
+          };
+      }
+      else {
+          systemEnv = {
+              'DeployType': 'docker',
+              'TargetServer': this.deployableForm.get('deployerServer').value,
+              'Username': this.deployableForm.get('username').value,
+              'Platform': this.deployableForm.get('platform').value,
+          };
+      }
     
-    // Build dynamic parameters
-    let parameters = this.getParameters();
-    let numParams = parameters.length;
+      // Build dynamic parameters
+      const parameters = this.getParameters();
+      const numParams = parameters.length;
 
-    for (var i = 0; i < numParams; i++) {
+      for (let i = 0; i < numParams; i++) {
 
-      let control = parameters.at(i)
+          const control = parameters.at(i);
 
-      let paramName = control.get('name').value;
-      let paramValue = control.get('value').value;
+          const paramName = control.get('name').value;
+          const paramValue = control.get('value').value;
 
-      console.log("Param: ", paramName, " Value: ", paramValue);
-      systemEnv[paramName] = paramValue;
-    }
+          console.log('Param: ', paramName, ' Value: ', paramValue);
+          systemEnv[paramName] = paramValue;
+      }
 
 
-    let deployRequest = {
+      const deployRequest = {
 
-      "Method": this.deployableForm.get('method').value,
-      // "NoF1Descriptor": this.deployableForm.get('noF1Descriptor').value,
-      "NoF1Descriptor": true,
-      "ScriptSystemEnv": systemEnv,
-      "UserDefinedParameters": {}
-    };
+          'Method': this.deployableForm.get('method').value,
+          // "NoF1Descriptor": this.deployableForm.get('noF1Descriptor').value,
+          'NoF1Descriptor': true,
+          'ScriptSystemEnv': systemEnv,
+          'UserDefinedParameters': {}
+      };
 
-    console.log("DeployRequest: ", deployRequest);
-    console.log("Deploy Request string: ", JSON.stringify(deployRequest));
+      console.log('DeployRequest: ', deployRequest);
+      console.log('Deploy Request string: ', JSON.stringify(deployRequest));
     
-    let projectName = this.deployableForm.get('projectName').value;
-    let serviceName = this.deployableForm.get('deployable').value;
-    this.flogoDeployService.deployInfra(projectName, serviceName, deployRequest)
-      .subscribe(res => {
-        console.log("Received Deployment response: ", res);
+      const projectName = this.deployableForm.get('projectName').value;
+      const serviceName = this.deployableForm.get('deployable').value;
+      this.flogoDeployService.deployInfra(projectName, serviceName, deployRequest)
+          .subscribe(res => {
+              console.log('Received Deployment response: ', res);
 
-        let message = 'Success';
-        if (res == undefined || res.Success == false) {
-          message = 'Failure';
-        }
+              let message = 'Success';
+              if (res == undefined || res.Success == false) {
+                  message = 'Failure';
+              }
 
-        this._snackBar.open(message, "Deploy Infrastructure", {
-          duration: 3000,
-        });
+              this._snackBar.open(message, 'Deploy Infrastructure', {
+                  duration: 3000,
+              });
 
-      });
+          });
 
   }
 
@@ -307,26 +307,26 @@ get the projects for the deployable table
   */
 
   delete(description, id){
-    let deleteRequest = {
-      "Description": description,
-       "IDs" : [id]
+      const deleteRequest = {
+          'Description': description,
+          'IDs' : [id]
       };
-      console.log("description",deleteRequest);
+      console.log('description',deleteRequest);
       this.flogoDeployService.deleteInfra(deleteRequest)
-      .subscribe(res => {
-        console.log("Received deletion response: ", res);
+          .subscribe(res => {
+              console.log('Received deletion response: ', res);
 
-        let message = 'Success';
-        if (res == undefined || res.Success == false) {
-          message = 'Failure';
-        }
+              let message = 'Success';
+              if (res == undefined || res.Success == false) {
+                  message = 'Failure';
+              }
 
-        this._snackBar.open(message, "project deletion", {
-          duration: 3000,
-        });
-        this.getProjects();
+              this._snackBar.open(message, 'project deletion', {
+                  duration: 3000,
+              });
+              this.getProjects();
 
-      });
+          });
 
   }
   // http://localhost:8043/http://52.22.89.56:5408/f1/projectmgr/file/create/project/air11
@@ -335,52 +335,52 @@ get the projects for the deployable table
   */
   undeploy() {
 
-    let deployerType = this.deployableForm.get('deployerType').value;
-    let systemEnv = {};
+      const deployerType = this.deployableForm.get('deployerType').value;
+      let systemEnv = {};
 
-    if (deployerType == "OH") {
-      systemEnv = {
-        "DeployType": "docker-oh",
-        "TargetServer": this.deployableForm.get('deployerServer').value,
-        "Username": this.deployableForm.get('username').value,
-        "Platform": this.deployableForm.get('platform').value,
-      };
-    }
-    else {
-      systemEnv = {
-        "DeployType": "docker",
-        "TargetServer": this.deployableForm.get('deployerServer').value,
-        "Username": this.deployableForm.get('username').value,
-        "Platform": this.deployableForm.get('platform').value,
-      };
-    }
+      if (deployerType == 'OH') {
+          systemEnv = {
+              'DeployType': 'docker-oh',
+              'TargetServer': this.deployableForm.get('deployerServer').value,
+              'Username': this.deployableForm.get('username').value,
+              'Platform': this.deployableForm.get('platform').value,
+          };
+      }
+      else {
+          systemEnv = {
+              'DeployType': 'docker',
+              'TargetServer': this.deployableForm.get('deployerServer').value,
+              'Username': this.deployableForm.get('username').value,
+              'Platform': this.deployableForm.get('platform').value,
+          };
+      }
 
-    let undeployRequest = {
+      const undeployRequest = {
       
-      "Method": "Script",
-      "NoF1Descriptor": true,
-      "ScriptSystemEnv": systemEnv,
-      "UserDefinedParameters": {}
-    };
+          'Method': 'Script',
+          'NoF1Descriptor': true,
+          'ScriptSystemEnv': systemEnv,
+          'UserDefinedParameters': {}
+      };
 
-    console.log("UndeployRequest: ", undeployRequest);
+      console.log('UndeployRequest: ', undeployRequest);
 
-    let projectName = this.deployableForm.get('projectName').value;
-    let serviceName = this.deployableForm.get('deployable').value;
-    this.flogoDeployService.undeployInfra(projectName, serviceName, undeployRequest)
-      .subscribe(res => {
-        console.log("Received Undeploy response: ", res);
+      const projectName = this.deployableForm.get('projectName').value;
+      const serviceName = this.deployableForm.get('deployable').value;
+      this.flogoDeployService.undeployInfra(projectName, serviceName, undeployRequest)
+          .subscribe(res => {
+              console.log('Received Undeploy response: ', res);
 
-        let message = 'Success';
-        if (res == undefined || res.Success == false) {
-          message = 'Failure';
-        }
+              let message = 'Success';
+              if (res == undefined || res.Success == false) {
+                  message = 'Failure';
+              }
 
-        this._snackBar.open(message, "Undeploy Infra", {
-          duration: 3000,
-        });
+              this._snackBar.open(message, 'Undeploy Infra', {
+                  duration: 3000,
+              });
 
-      });
+          });
   }
   
 }

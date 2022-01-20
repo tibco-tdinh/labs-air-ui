@@ -6,9 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-iot-notifications',
-  templateUrl: './iot-notifications.component.html',
-  styleUrls: ['./iot-notifications.component.css']
+    selector: 'app-iot-notifications',
+    templateUrl: './iot-notifications.component.html',
+    styleUrls: ['./iot-notifications.component.css']
 })
 export class IotNotificationsComponent implements OnInit, AfterViewInit {
 
@@ -23,36 +23,36 @@ export class IotNotificationsComponent implements OnInit, AfterViewInit {
   constructor(private graphService: GraphService) { }
 
   ngOnInit() {
-    this.getNotifications();
+      this.getNotifications();
   }
 
   ngAfterViewInit() {
-    this.notificationsDataSource.sort = this.sort;
+      this.notificationsDataSource.sort = this.sort;
   }
 
   applyFilter(target: EventTarget | null) {
-    if (target){
-      let htmlTextArea = target as HTMLTextAreaElement;
-      this.notificationsDataSource.filter = htmlTextArea.value.trim().toLowerCase();
-    }
+      if (target){
+          const htmlTextArea = target as HTMLTextAreaElement;
+          this.notificationsDataSource.filter = htmlTextArea.value.trim().toLowerCase();
+      }
   }
 
   getNotifications() {
-    console.log("Getting Gateways called")
+      console.log('Getting Gateways called');
 
-    this.graphService.getNotifications()
-      .subscribe(res => {
+      this.graphService.getNotifications()
+          .subscribe(res => {
 
-        // this.gatewayList = [];
-        this.notificationsDataSource.data = res as Notification[];
+              // this.gatewayList = [];
+              this.notificationsDataSource.data = res as Notification[];
 
-        console.log("Notifications Received: ", this.notificationsDataSource.data);
-      })
+              console.log('Notifications Received: ', this.notificationsDataSource.data);
+          });
   }
 
   onNotificationClicked(row) {
 
-    console.log('Row clicked: ', row);
+      console.log('Row clicked: ', row);
 
   }
 
