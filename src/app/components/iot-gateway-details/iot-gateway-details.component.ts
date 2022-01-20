@@ -117,7 +117,13 @@ export class IotGatewayDetailsComponent implements OnInit {
     if (nameOfChart == 'Overview') {
       return this.componentFactoryResolver.resolveComponentFactory(IotGatewayOverviewComponent);
     } else {
+      console.log("selectedDevice: ", this.selectedDevice);
+      console.log("selectedDevice profile: ", this.selectedDevice.profile);
+      console.log("selectedDevice resources: ", this.selectedDevice.profile.deviceResources);
+      
       const sensor = this.selectedDevice.profile.deviceResources.find(({ name }) => name === nameOfChart)
+
+      console.log("sensor: ", sensor);
  
       if (sensor) {
         this.selectedSensor = sensor;
@@ -130,13 +136,13 @@ export class IotGatewayDetailsComponent implements OnInit {
         else if (sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "XYZScatter") {
           return this.componentFactoryResolver.resolveComponentFactory(IotGatewayXyzValueComponent);
         }
-        else if (sensor.properties.value.type == "String" && sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "Custom") {
+        else if (sensor.properties.valueType == "String" && sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == "Custom") {
           return this.componentFactoryResolver.resolveComponentFactory(IotGatewayDiscreteValueComponent);
         }
-        else if (sensor.properties.value.type == "String") {
+        else if (sensor.properties.valueType == "String") {
           return this.componentFactoryResolver.resolveComponentFactory(IotGatewayTextComponent);        
         }
-        else if (sensor.properties.value.type == "Binary") {
+        else if (sensor.properties.valueType == "Binary") {
           return this.componentFactoryResolver.resolveComponentFactory(IotGatewayImageComponent);
         }
         else {
