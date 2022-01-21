@@ -13,6 +13,8 @@ import { Component, Input } from '@angular/core';
 export class CommonComponent {
   @Input() data: string;
 
-  constructor() { }
+  constructor() {
+    console.log('dog');
+   }
 
 }

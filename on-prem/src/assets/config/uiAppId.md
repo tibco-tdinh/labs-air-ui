@@ -17,10 +17,3 @@ This file is used want to set the main key to access all application configurati
 **Notes** 
 
 You must make this key unique if you have multiple Cloud Starter based app in your subscription
-
-
-
-
-
-
-

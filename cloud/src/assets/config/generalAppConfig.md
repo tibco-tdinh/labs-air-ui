@@ -18,7 +18,7 @@ Role subsection
 ###### Example
 ```javascript
 {
-  "browserTitle": "Tibco Cloud Base App",
+  "browserTitle": "TIBCO Cloud Base App",
   "applicationTitle": "Base App (TIBCO LABS™)",
   "welcomeMessage": "Welcome to the Base App",
   "roles": [
