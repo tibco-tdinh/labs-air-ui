@@ -1,28 +1,23 @@
 
 export class PropertyValue {
   type: string;
-  readWrite: string;
-  minimum: string;
-  maximum: string;
-  defaultValue: string;
+  
+  
+  
+  
   size: string;
   word: string;
   lsb: string;
-  mask: string;
-  shift: string;
-  scale: string;
-  offset: string;
-  base: string;
-  assertion: string;
+  
+  
+  
+  
+  
+  
   signed: string;
   precision: string;
 }
 
-export class PropertyUnit {
-  type: string;
-  readWrite: string;
-  defaultValue: string;
-}
 
 export class ResourceProperty {
   assertion: string;

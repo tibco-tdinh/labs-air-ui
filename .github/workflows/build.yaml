@@ -67,7 +67,6 @@ jobs:
       - name: Configure NPM for the App
         if: steps.cache.outputs.cache-hit != 'true' && needs.identify-changes.outputs.appChanged
         run: |
-          npm config set "@tibco-tcstk:registry" https://npm.labs.tibcocloud.com/
           npm config set fund false
 
       - name: Install dependencies for the App
