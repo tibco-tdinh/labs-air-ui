@@ -174,12 +174,12 @@ export class IotGatewayTimeSeriesComponent implements OnInit, OnDestroy {
       attrType = this.instrument.attributes.Type;
     }
     this.instrumentForm.patchValue({
-      valueType: this.instrument.properties.value.type,
-      valueReadWrite: this.instrument.properties.value.readWrite,
-      valueMinimum: this.instrument.properties.value.minimum,
-      valueMaximum: this.instrument.properties.value.maximum,
-      valueDefault: this.instrument.properties.value.defaultValue,
-      valueUnit: this.instrument.properties.units.defaultValue,
+      valueType: this.instrument.properties.valueType,
+      valueReadWrite: this.instrument.properties.readWrite,
+      valueMinimum: this.instrument.properties.minimum,
+      valueMaximum: this.instrument.properties.maximum,
+      valueDefault: this.instrument.properties.defaultValue,
+      valueUnit: this.instrument.properties.units,
       interface: attrInterface,
       interfacePinNumber: attrPinNum,
       interfaceType: attrType,

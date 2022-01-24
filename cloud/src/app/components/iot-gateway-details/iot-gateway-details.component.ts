@@ -131,13 +131,13 @@ export class IotGatewayDetailsComponent implements OnInit {
               else if (sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == 'XYZScatter') {
                   return this.componentFactoryResolver.resolveComponentFactory(IotGatewayXyzValueComponent);
               }
-              else if (sensor.properties.value.type == 'String' && sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == 'Custom') {
+              else if (sensor.properties.valueType == 'String' && sensor.attributes != undefined && sensor.attributes.Visualization != undefined && sensor.attributes.Visualization == 'Custom') {
                   return this.componentFactoryResolver.resolveComponentFactory(IotGatewayDiscreteValueComponent);
               }
-              else if (sensor.properties.value.type == 'String') {
+              else if (sensor.properties.valueType == 'String') {
                   return this.componentFactoryResolver.resolveComponentFactory(IotGatewayTextComponent);
               }
-              else if (sensor.properties.value.type == 'Binary') {
+              else if (sensor.properties.valueType == 'Binary') {
                   return this.componentFactoryResolver.resolveComponentFactory(IotGatewayImageComponent);
               }
               else {

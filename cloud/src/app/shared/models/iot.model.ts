@@ -25,8 +25,19 @@ export class PropertyUnit {
 }
 
 export class ResourceProperty {
-  value: PropertyValue;
-  units: PropertyUnit;
+  assertion: string;
+  base: string;
+  defaultValue: string;
+  mask: string;
+  maximum: string;
+  mediaType: string;
+  minimum: string;
+  offset: string;
+  readWrite: string;
+  scale: string;
+  shift: string;
+  units: string;
+  valueType: string;
 }
 
 export class ResourceAttribute {
