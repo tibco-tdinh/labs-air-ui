@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StarterAppComponent } from './starter-app.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('HomeComponent', () => {
+describe('starter-app component', () => {
   let component: StarterAppComponent;
   let fixture: ComponentFixture<StarterAppComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StarterAppComponent ]
+      declarations: [ StarterAppComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   }));
