@@ -74,6 +74,11 @@ jobs:
         run: |
           npm install
 
+      - name: Build common lib
+        if: needs.identify-changes.outputs.appChanged
+        run: |
+          npm build common
+
       - name: Run the unit tests
         if: needs.identify-changes.outputs.appChanged
         run: |
