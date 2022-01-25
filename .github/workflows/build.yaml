@@ -80,7 +80,7 @@ jobs:
           if [ ! -x ./node_modules/.bin/ng ] ; then
             npm install
           fi
-          ./node_modules/.bin/ng test --browsers ChromeHeadless --watch=false
+          ./node_modules/.bin/npm run test
 
       - uses: actions/upload-artifact@v2
         if: needs.identify-changes.outputs.appChanged
