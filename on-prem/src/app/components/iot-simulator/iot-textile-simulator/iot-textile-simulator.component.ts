@@ -40,22 +40,22 @@ export class IotTextileSimulatorComponent implements OnInit {
   currentDefect: string;
 
   pieChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: ''
+      responsive: true,
+      plugins: {
+          title: {
+              display: true,
+              text: ''
+          }
       }
-    }
   };
   pieChartData: ChartData<'pie'> = {
-    datasets: [
-      {
-        data: [],
-        backgroundColor: ['#52D726', '#FFEC00', '#FF7300', '#FF0000', '#007ED6', '#7CDDDD', '#aa3500']
-      }
-    ],
-    labels: [],
+      datasets: [
+          {
+              data: [],
+              backgroundColor: ['#52D726', '#FFEC00', '#FF7300', '#FF0000', '#007ED6', '#7CDDDD', '#aa3500']
+          }
+      ],
+      labels: [],
   };
   pieChartType: ChartType = 'pie';
   pieChartLegend = true;
@@ -135,13 +135,13 @@ export class IotTextileSimulatorComponent implements OnInit {
   }
 
   handleChartData(): void {
-    this.pieChartData.datasets[0].data = [];
-    this.pieChartData.labels = [];
-    this.chartData.forEach(dataSet => {
-      this.pieChartData.labels.push(dataSet.Label);
-      this.pieChartData.datasets[0].data.push(dataSet.Count);
-    });
-    this.pieChartOptions.plugins.title.text = this.testId;
+      this.pieChartData.datasets[0].data = [];
+      this.pieChartData.labels = [];
+      this.chartData.forEach(dataSet => {
+          this.pieChartData.labels.push(dataSet.Label);
+          this.pieChartData.datasets[0].data.push(dataSet.Count);
+      });
+      this.pieChartOptions.plugins.title.text = this.testId;
   }
 
   getNotifications() {

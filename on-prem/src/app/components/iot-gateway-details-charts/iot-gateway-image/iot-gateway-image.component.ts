@@ -19,8 +19,8 @@ export class IotGatewayImageComponent implements OnInit, OnDestroy, AfterViewIni
   inferredImageData = '';
   resourceReadings = [];
   queryForm: FormGroup = new FormGroup ({
-    pickerStartDate: new FormControl(''),
-    pickerEndDate: new FormControl('')
+      pickerStartDate: new FormControl(''),
+      pickerEndDate: new FormControl('')
   })
   queryLastValuesDisabled = true;
   queryByDateDisabled = true;

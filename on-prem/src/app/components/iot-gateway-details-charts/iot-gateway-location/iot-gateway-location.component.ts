@@ -34,7 +34,7 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
   scatterChartType: ChartType = 'scatter';
   // scatterChartDatasets: ScatterChartDataset[] = [ new ScatterChartDataset("", "scatter", 5, false, 0, 2, []),];
   scatterChartDatasets: ChartData<'scatter'> = {
-    datasets: [],
+      datasets: [],
   }
 
   constructor(private graphService: GraphService, private formBuilder: FormBuilder) {
@@ -79,44 +79,44 @@ export class IotGatewayLocationComponent implements OnInit, OnDestroy {
   }
 
   public scatterChartOptions: ChartConfiguration['options']  = {
-    responsive: true,
-    aspectRatio: 5,
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom',
-        ticks: {
-          autoSkip: true
-        },
-        beginAtZero: true,
+      responsive: true,
+      aspectRatio: 5,
+      scales: {
+          x: {
+              type: 'linear',
+              position: 'bottom',
+              ticks: {
+                  autoSkip: true
+              },
+              beginAtZero: true,
 
+          },
+          y: {
+              title: {
+                  display: true,
+                  text: 'Y'
+              },
+
+              beginAtZero: true
+          }
       },
-      y: {
-        title: {
-          display: true,
-          text: 'Y'
-        },
-
-        beginAtZero: true
+      plugins: {
+          tooltip: {
+              intersect: true
+          }
       }
-    },
-    plugins: {
-      tooltip: {
-        intersect: true
-      }
-    }
   }
 
 
   public setScatterChartDataSet() {
-    this.locationData = [];
-    this.resourceReadings.forEach(
-      reading => {
-        let coords = reading.value.split(",", 2);
-        this.locationData.push({ x: Number(coords[0]), y: Number(coords[1]) });
-      }
-    );
-    this.scatterChartDatasets.datasets = this.locationData;
+      this.locationData = [];
+      this.resourceReadings.forEach(
+          reading => {
+              const coords = reading.value.split(',', 2);
+              this.locationData.push({ x: Number(coords[0]), y: Number(coords[1]) });
+          }
+      );
+      this.scatterChartDatasets.datasets = this.locationData;
   }
 
   public getReadings() {
