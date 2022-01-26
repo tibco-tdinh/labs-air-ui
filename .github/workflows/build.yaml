@@ -74,18 +74,13 @@ jobs:
         run: |
           npm install
 
-      - name: Build common lib
-        if: needs.identify-changes.outputs.appChanged
-        run: |
-          npm build common
-
       - name: Run the unit tests
         if: needs.identify-changes.outputs.appChanged
         run: |
           if [ ! -x ./node_modules/.bin/ng ] ; then
             npm install
           fi
-          ./node_modules/.bin/npm run test
+          ../node_modules/.bin/ng test --browsers ChromeHeadless --watch=false
 
       - uses: actions/upload-artifact@v2
         if: needs.identify-changes.outputs.appChanged
@@ -99,7 +94,7 @@ jobs:
           if [ ! -x ./node_modules/.bin/ng ] ; then
             npm install
           fi
-          ./node_modules/.bin/ng lint
+          ../node_modules/.bin/ng lint
 
       #- name: E2E
       #  working-directory: src/MobileApp
