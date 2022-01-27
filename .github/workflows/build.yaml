@@ -80,7 +80,6 @@ jobs:
       - name: Run the unit tests
         if: needs.identify-changes.outputs.appChanged
         run: |
-          cd ${{ matrix.projects }}
           if [ ! -x ../node_modules/.bin/ng ] ; then
             npm install
           fi
