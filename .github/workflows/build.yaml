@@ -75,21 +75,14 @@ jobs:
         run: |
           npm install
 
-      # should consider caching the common library once it gets larger
-      - name: Build common lib
-        run: |
-          ng build
-        working-directory: ./libraries/common
-
       - name: Run the unit tests
-        if: needs.identify-changes.outputs.appChanged
+        # if: needs.identify-changes.outputs.appChanged
         run: |
-          if [ ! -x ./node_modules/.bin/ng ] ; then
+          if [ ! -x ../node_modules/.bin/ng ] ; then
             npm install
           fi
-          ./node_modules/.bin/npm run test
-        working-directory: ./${{ matrix.project }}
-        
+          ../node_modules/.bin/npm run test
+        working-directory: ${{ matrix.project }}
 
       - uses: actions/upload-artifact@v2
         if: needs.identify-changes.outputs.appChanged
