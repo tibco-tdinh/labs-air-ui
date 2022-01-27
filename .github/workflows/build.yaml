@@ -77,7 +77,7 @@ jobs:
 
       - name: Build common library
         run: |
-          ../node_modules/.bin/ng build common
+          ls ../
         working-directory: ${{ matrix.project }}
 
       - name: Run the unit tests
