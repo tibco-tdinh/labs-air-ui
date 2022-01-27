@@ -43,6 +43,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+        projects: [on-prem, cloud]
 
     steps:
       - uses: actions/checkout@v2
@@ -74,13 +75,20 @@ jobs:
         run: |
           npm install
 
+      # should consider caching the common library once it gets larger
+      - name: Build common lib
+        run: |
+          npm build common
+
       - name: Run the unit tests
         if: needs.identify-changes.outputs.appChanged
         run: |
           if [ ! -x ./node_modules/.bin/ng ] ; then
             npm install
           fi
-          ../node_modules/.bin/ng test --browsers ChromeHeadless --watch=false
+          ./node_modules/.bin/npm run test
+        working-directory: ./${{ matrix.project }}
+        
 
       - uses: actions/upload-artifact@v2
         if: needs.identify-changes.outputs.appChanged
@@ -94,7 +102,7 @@ jobs:
           if [ ! -x ./node_modules/.bin/ng ] ; then
             npm install
           fi
-          ../node_modules/.bin/ng lint
+          ./node_modules/.bin/ng lint
 
       #- name: E2E
       #  working-directory: src/MobileApp
