@@ -43,7 +43,9 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        projects: [on-prem, cloud]
+        projects: 
+          - on-prem 
+          - cloud
 
     steps:
       - uses: actions/checkout@v2
