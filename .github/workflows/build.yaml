@@ -75,13 +75,19 @@ jobs:
         run: |
           npm install
 
+      - name: Build common library
+        run: |
+          if [ ! -x ../dist/common ] ; then
+            ../node_modules/.bin/ng build common
+        working-directory: ${{ matrix.project }}
+
       - name: Run the unit tests
-        # if: needs.identify-changes.outputs.appChanged
+        if: needs.identify-changes.outputs.appChanged
         run: |
           if [ ! -x ../node_modules/.bin/ng ] ; then
             npm install
           fi
-          ../node_modules/.bin/npm run test
+          ../node_modules/.bin/ng test --browsers ChromeHeadless --watch=false
         working-directory: ${{ matrix.project }}
 
       - uses: actions/upload-artifact@v2
