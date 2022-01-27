@@ -77,14 +77,6 @@ jobs:
         run: |
           npm install
 
-      - name: Build common library
-        run: |
-          ls
-          cd ${{ matrix.projects }}
-          if [ ! -x ../libraries/common ] ; then
-            ../node_modules/.bin/ng build common
-          fi
-
       - name: Run the unit tests
         if: needs.identify-changes.outputs.appChanged
         run: |
@@ -92,7 +84,8 @@ jobs:
           if [ ! -x ../node_modules/.bin/ng ] ; then
             npm install
           fi
-          ../node_modules/.bin/ng test --browsers ChromeHeadless --watch=false
+          ../node_modules/.bin/ng build common && ../node_modules/.bin/ng test --browsers ChromeHeadless --watch=false
+        working-directory: ${{ matrix.projects }}
 
       - uses: actions/upload-artifact@v2
         if: needs.identify-changes.outputs.appChanged
