@@ -79,6 +79,8 @@ jobs:
 
       - name: Build common library
         run: |
+          $PWD
+          ls
           cd ${{ matrix.projects }}
           if [ ! -x ../libraries/common ] ; then
             ../node_modules/.bin/ng build common
