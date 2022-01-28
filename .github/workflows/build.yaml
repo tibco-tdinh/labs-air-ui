@@ -95,10 +95,11 @@ jobs:
       - name: Run the lint checks
         if: needs.identify-changes.outputs.appChanged
         run: |
-          if [ ! -x ./node_modules/.bin/ng ] ; then
+          if [ ! -x ../node_modules/.bin/ng ] ; then
             npm install
           fi
-          ./node_modules/.bin/ng lint
+          ../node_modules/.bin/ng lint
+        working-directory: ${{ matrix.projects }}
 
       #- name: E2E
       #  working-directory: src/MobileApp
