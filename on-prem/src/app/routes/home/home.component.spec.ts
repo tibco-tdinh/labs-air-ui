@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [HomeComponent],
-            imports: [ HttpClientTestingModule, RouterTestingModule ],
+            imports: [ HttpClientTestingModule ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA]
         })
             .compileComponents();
