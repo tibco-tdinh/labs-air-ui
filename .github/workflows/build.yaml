@@ -66,7 +66,7 @@ jobs:
           npm config set fund false
 
       - name: Install dependencies for the App
-        if: steps.cache.outputs.[cache-hit] != 'true' && needs.identify-changes.outputs.appChanged
+        if: steps.cache.outputs.cache-hit != 'true' && needs.identify-changes.outputs.appChanged
         run: |
           npm install
     
