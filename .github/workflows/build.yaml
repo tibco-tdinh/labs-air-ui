@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       all: ${{ steps.changes.outputs.all }}
-      appChanged: ${{ steps.changes.outputs.appChanged }}
+      appChanged: "true" # ${{ steps.changes.outputs.appChanged }}
       testsChanged: ${{ steps.changes.outputs.testsChanged }}
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
           echo "::set-output name=testsChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | grep spec.ts | xargs)"
 # yamllint enable rule:line-length
 
-  install-dependencies:
+  build-dependencies:
     runs-on: ubuntu-latest
     needs: [identify-changes]
     strategy:
@@ -70,10 +70,22 @@ jobs:
         run: |
           npm install
 
+      - name: Build common library
+        if: needs.identify-changes.outputs.appChanged
+        run: |
+          npm run build common
+
+      - name: Cache the library
+        uses: actions/upload-artifact@v2
+        if: needs.identify-changes.outputs.appChanged
+        with:
+          name: common library
+          path: dist/common
+
   test-app:
     # Set the agent to run on
     runs-on: ubuntu-latest
-    needs: [identify-changes, install-dependencies]
+    needs: [identify-changes, build-dependencies]
     # Build if the component changed or if in the main branch
     if: |
       (needs.identify-changes.outputs.appChanged || needs.identify-changes.outputs.testsChanged) ||
@@ -98,10 +110,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cicd-ui-
 
-      - name: Build common library
+      - name: restore built common library
+        uses: actions/download-artifact@v2
         if: needs.identify-changes.outputs.appChanged
-        run: |
-          npm run build common
+        with:
+          name: common library
+          path: dist/common
 
       - name: Run the unit tests
         if: needs.identify-changes.outputs.appChanged
