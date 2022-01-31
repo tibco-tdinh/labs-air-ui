@@ -99,6 +99,7 @@ jobs:
             ${{ runner.os }}-cicd-ui-
 
       - name: Build common library
+        if: needs.identify-changes.outputs.appChanged
         run: |
           npm run build common
 
