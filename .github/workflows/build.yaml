@@ -49,6 +49,7 @@ jobs:
         with:
           path: |
             ./node_modules
+            ./libraries
           key: |
             ${{ runner.os }}-cicd-ui-${{ hashFiles('./package-lock.json') }}
           restore-keys: |
@@ -97,6 +98,7 @@ jobs:
         with:
           path: |
             ./node_modules
+            ./libraries
           key: | 
             ${{ runner.os }}-cicd-ui-${{ hashFiles('./package-lock.json') }}
           restore-keys: |
