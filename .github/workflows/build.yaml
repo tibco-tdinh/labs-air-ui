@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       all: ${{ steps.changes.outputs.all }}
-      appChanged: "true" # ${{ steps.changes.outputs.appChanged }}
+      appChanged: ${{ steps.changes.outputs.appChanged }}
       testsChanged: ${{ steps.changes.outputs.testsChanged }}
     steps:
       - uses: actions/checkout@v2
