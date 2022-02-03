@@ -16,8 +16,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { BreadcrumbsService } from '../../services/breadcrumbs/breadcrumbs.service';
-
 @Component({
     selector: 'lib-iot-gateway',
     templateUrl: './iot-gateway.component.html',
@@ -49,9 +47,7 @@ export class CommonIotGatewayComponent implements OnInit, AfterViewInit {
     private datastoreService: DatastoreService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private _datePipe: DatePipe,
-    private breadcrumbs: BreadcrumbsService,
-    private route: ActivatedRoute) {
+    private _datePipe: DatePipe) {
 
       this.gatewayForm = this.formBuilder.group({
           uid: [''],
