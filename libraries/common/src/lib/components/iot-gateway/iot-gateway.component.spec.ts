@@ -10,7 +10,7 @@ import { GraphService } from '../../services/graph/graph.service';
 
 import { CommonIotGatewayComponent } from './iot-gateway.component';
 
-describe('IotGatewayComponent', () => {
+describe('CommonIotGatewayComponent', () => {
     let component: CommonIotGatewayComponent;
     let fixture: ComponentFixture<CommonIotGatewayComponent>;
 

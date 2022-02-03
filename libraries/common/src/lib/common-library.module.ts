@@ -3,7 +3,10 @@ import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
 import { CommonComponent } from './common.component';
 import { CommonIotGatewayComponent } from './components/iot-gateway/iot-gateway.component';
+
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 //services
 import { AppConfigService } from './services/config/app-config.service';
@@ -27,7 +30,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   imports: [
     MaterialModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule
   ],
   exports: [
     CommonComponent,
