@@ -76,7 +76,7 @@ import { InfraRegistrationComponent } from './components/iot-infra-deployer/infr
 import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-deployer/infra-deployer.component';
 import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-dialog/single-value-dialog.component';
 
-import { CommonModule } from 'common';
+import { CommonLibraryModule } from 'common';
 import { LoginComponent } from './routes/login/login.component';
 import { LoginOauthComponent } from './routes/login-oauth/login-oauth.component';
 
@@ -190,7 +190,7 @@ const tcCoreConfig: TcCoreConfig = {
     TcCoreLibModule.forRoot(tcCoreConfig),
     TcFormsLibModule,
     TcLiveappsLibModule.forRoot(),    
-    CommonModule
+    CommonLibraryModule
   ],
   providers: [
     AppConfigService,
