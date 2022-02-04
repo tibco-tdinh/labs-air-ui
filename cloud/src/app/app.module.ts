@@ -18,7 +18,6 @@ import { SplashComponent } from './routes/splash/splash.component';
 
 import { HomeComponent } from './routes/home/home.component';
 import { IotHomeCockpitComponent } from './components/iot-home-cockpit/iot-home-cockpit.component';
-import { IotGatewayComponent } from './components/iot-gateway/iot-gateway.component';
 
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { GraphService } from './services/graph/graph.service';
@@ -108,7 +107,6 @@ const tcCoreConfig: TcCoreConfig = {
     SplashComponent,
     HomeComponent,
     IotHomeCockpitComponent,
-    IotGatewayComponent,
     NavBarComponent,
     IotGatewayEndpointComponent,
     IgeModelsComponent,
