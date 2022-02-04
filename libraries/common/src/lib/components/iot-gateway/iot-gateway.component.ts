@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -17,7 +16,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-    selector: 'lib-iot-gateway',
+    selector: 'common-iot-gateway',
     templateUrl: './iot-gateway.component.html',
     styleUrls: ['./iot-gateway.component.css']
 })

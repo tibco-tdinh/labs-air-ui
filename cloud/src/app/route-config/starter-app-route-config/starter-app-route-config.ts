@@ -2,7 +2,7 @@ import { SplashComponent } from '../../routes/splash/splash.component';
 import { HomeComponent } from '../../routes/home/home.component';
 import {IotGatewayEndpointComponent} from '../../components/iot-gateway-endpoint/iot-gateway-endpoint.component';
 import { IotGatewayComponent } from 'src/app/components/iot-gateway/iot-gateway.component';
-import { IotGatewayDetailsComponent } from 'src/app/components/iot-gateway-details/iot-gateway-details.component';
+import { CommonIotGatewayDetailsComponent } from 'common';
 import { IotPipelineComponent } from 'src/app/components/iot-pipeline/iot-pipeline.component';
 import { IotDataPipelineComponent } from 'src/app/components/iot-data-pipeline/iot-data-pipeline.component';
 import { IotEdgeDataPipelineComponent } from 'src/app/components/iot-edge-data-pipeline/iot-edge-data-pipeline.component';
@@ -45,7 +45,7 @@ export const STARTER_APP_ROUTES=
             },
             {
                 path: 'device-details/:gatewayId',
-                component: IotGatewayDetailsComponent,
+                component: CommonIotGatewayDetailsComponent,
                 data: { breadcrumb: ['Gateways','Devices', 'Devices']}
             },
             {
