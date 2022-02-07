@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
@@ -19,7 +19,7 @@ export interface SelectItem {
     templateUrl: './inferencing.component.html',
     styleUrls: ['./inferencing.component.css']
 })
-export class InferencingComponent implements OnInit, OnChanges {
+export class InferencingComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() devices: Device[];
   @Input() gateway: Gateway;

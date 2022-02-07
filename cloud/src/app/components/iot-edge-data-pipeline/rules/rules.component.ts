@@ -18,7 +18,7 @@ export interface SelectItem {
     templateUrl: './rules.component.html',
     styleUrls: ['./rules.component.css']
 })
-export class RulesComponent implements OnInit, OnChanges {
+export class RulesComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() devices: Device[];
   @Input() gateway: Gateway;

@@ -1,16 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { LoginContext } from "@tibco-tcstk/tc-liveapps-lib";
-
 @Component({
   selector: "app-login-oauth",
   templateUrl: "./login-oauth.component.html",
   styleUrls: ["./login-oauth.component.css"],
 })
-export class LoginOauthComponent implements OnInit {
+export class LoginOauthComponent {
   constructor(private router: Router, private route: ActivatedRoute) {}
-
-  ngOnInit(): void {}
 
   handleCreate() {
     // tslint:disable-next-line:no-unused-expression
