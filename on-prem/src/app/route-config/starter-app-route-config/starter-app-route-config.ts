@@ -3,8 +3,8 @@ import { HomeComponent } from '../../routes/home/home.component';
 import {IotGatewayEndpointComponent} from '../../components/iot-gateway-endpoint/iot-gateway-endpoint.component';
 import { CommonIotGatewayComponent } from 'common';
 import { CommonIotGatewayDetailsComponent } from 'common';
-import { IotPipelineComponent } from 'src/app/components/iot-pipeline/iot-pipeline.component';
-import { IotDataPipelineComponent } from 'src/app/components/iot-data-pipeline/iot-data-pipeline.component';
+import { CommonIotPipelineComponent } from 'common';
+import { CommonIotDataPipelineComponent } from 'common';
 import { IotEdgeDataPipelineComponent } from 'src/app/components/iot-edge-data-pipeline/iot-edge-data-pipeline.component';
 import { IotGatewayDashboardComponent } from 'src/app/components/iot-gateway-dashboard/iot-gateway-dashboard.component';
 import { ActivatedRouteSnapshot, NavigationEnd, Router, ActivatedRoute} from '@angular/router';
@@ -50,12 +50,12 @@ export const STARTER_APP_ROUTES=
             },
             {
                 path: 'pipeline/:gatewayId',
-                component: IotPipelineComponent,
+                component: CommonIotPipelineComponent,
                 data: {breadcrumb: ['Gateways', 'Pipelines', 'Pipelines']}
             },
             {
                 path: 'datapipeline/:gatewayId',
-                component: IotDataPipelineComponent,
+                component: CommonIotDataPipelineComponent,
                 data: {breadcrumb: ['Gateways']}
             },
             {

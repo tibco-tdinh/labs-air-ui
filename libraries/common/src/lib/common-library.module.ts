@@ -12,6 +12,28 @@ import { CommonIotGatewayDiscreteValueComponent } from './components/iot-gateway
 import { CommonIotGatewayDescriptionsComponent } from './components/iot-gateway-details-charts/iot-gateway-descriptions/iot-gateway-descriptions.component';
 import { CommonIotGatewayTextComponent } from './components/iot-gateway-details-charts/iot-gateway-text/iot-gateway-text.component'
 import { CommonMaporamaComponent } from './components/maporama/maporama.component';
+import { CommonIotDataPipelineComponent } from './components/iot-data-pipeline/iot-data-pipeline.component'
+import { DataFilteringComponent } from './components/iot-data-pipeline/data-filtering/data-filtering.component';
+import { DataFilteringViewComponent } from './components/iot-data-pipeline/data-filtering-view/data-filtering-view.component';
+import { DataStoresComponent } from './components/iot-data-pipeline/data-stores/data-stores.component';
+import { DataStoresViewComponent } from './components/iot-data-pipeline/data-stores-view/data-stores-view.component';
+import { DataStreamingComponent } from './components/iot-data-pipeline/data-streaming/data-streaming.component';
+import { DataStreamingViewComponent } from './components/iot-data-pipeline/data-streaming-view/data-streaming-view.component';
+import { ProtocolsComponent } from './components/iot-data-pipeline/protocols/protocols.component';
+import { ProtocolsViewComponent } from './components/iot-data-pipeline/protocols-view/protocols-view.component';
+import { CommonIotPipelineComponent } from './components/iot-pipeline/iot-pipeline.component';
+import { PipelineConfigComponent } from './components/iot-pipeline/pipeline-config/pipeline-config.component';
+import { PipelineDataPublisherComponent } from './components/iot-pipeline/pipeline-data-publisher/pipeline-data-publisher.component';
+import { PipelineDataStoreComponent } from './components/iot-pipeline/pipeline-data-store/pipeline-data-store.component';
+import { PipelineDataSubscriberComponent } from './components/iot-pipeline/pipeline-data-subscriber/pipeline-data-subscriber.component';
+import { PipelineFilteringComponent } from './components/iot-pipeline/pipeline-filtering/pipeline-filtering.component';
+import { PipelineFlogoFlowComponent } from './components/iot-pipeline/pipeline-flogo-flow/pipeline-flogo-flow.component';
+import { PipelineInferencingComponent } from './components/iot-pipeline/pipeline-inferencing/pipeline-inferencing.component';
+import { PipelineRestServiceComponent } from './components/iot-pipeline/pipeline-rest-service/pipeline-rest-service.component';
+import { PipelineRuleExpressionComponent } from './components/iot-pipeline/pipeline-rule-expression/pipeline-rule-expression.component';
+import { PipelineRulesComponent } from './components/iot-pipeline/pipeline-rules/pipeline-rules.component';
+import { PipelineStreamingComponent } from './components/iot-pipeline/pipeline-streaming/pipeline-streaming.component';
+import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-dialog/single-value-dialog.component'
 
 // modules
 import { RouterModule } from '@angular/router';
@@ -22,6 +44,9 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { FormsModule } from '@angular/forms'
 import { NgChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ReteEditorModule } from './components/rete/rete.module';
+import { NgxHeatmapModule } from 'ngx-heatmap'
+
 //services
 import { AppConfigService } from './services/config/app-config.service';
 import { EdgeService } from './services/edge/edge.service';
@@ -51,7 +76,31 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CommonIotGatewayDescriptionsComponent,
     CommonIotGatewayTextComponent,
     CommonMaporamaComponent,
-    SensorDirective
+    SensorDirective,
+    CommonMaporamaComponent,
+    DataFilteringComponent,
+    DataFilteringViewComponent,
+    DataStoresComponent,
+    DataStoresViewComponent,
+    DataStreamingComponent,
+    DataStreamingViewComponent,
+    ProtocolsComponent,
+    ProtocolsViewComponent,
+    CommonIotPipelineComponent,
+    PipelineConfigComponent,
+    PipelineDataPublisherComponent,
+    PipelineDataStoreComponent,
+    PipelineDataSubscriberComponent,
+    PipelineFilteringComponent,
+    PipelineFlogoFlowComponent,
+    PipelineInferencingComponent,
+    PipelineRestServiceComponent,
+    PipelineRuleExpressionComponent,
+    PipelineRulesComponent,
+    PipelineStreamingComponent,
+    SingleValueDialogComponent,
+    CommonIotDataPipelineComponent
+    
   ],
   imports: [
     MaterialModule,
@@ -61,7 +110,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     Ng2GoogleChartsModule,
     FormsModule,
     NgChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ReteEditorModule,
+    NgxHeatmapModule
   ],
   exports: [
     CommonComponent,

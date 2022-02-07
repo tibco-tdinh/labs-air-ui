@@ -27,28 +27,6 @@ import { IotGatewayEndpointComponent } from './components/iot-gateway-endpoint/i
 import { IgeModelsComponent } from './components/iot-gateway-endpoint/ige-models/ige-models.component';
 import { IgeDataStoresComponent } from './components/iot-gateway-endpoint/ige-data-stores/ige-data-stores.component';
 import { IgeProtocolsComponent } from './components/iot-gateway-endpoint/ige-protocols/ige-protocols.component';
-import { IotPipelineComponent } from './components/iot-pipeline/iot-pipeline.component';
-import { ReteEditorModule } from './components/rete/rete.module';
-import { PipelineConfigComponent } from './components/iot-pipeline/pipeline-config/pipeline-config.component';
-import { PipelineDataPublisherComponent } from './components/iot-pipeline/pipeline-data-publisher/pipeline-data-publisher.component';
-import { PipelineDataStoreComponent } from './components/iot-pipeline/pipeline-data-store/pipeline-data-store.component';
-import { PipelineDataSubscriberComponent } from './components/iot-pipeline/pipeline-data-subscriber/pipeline-data-subscriber.component';
-import { PipelineFilteringComponent } from './components/iot-pipeline/pipeline-filtering/pipeline-filtering.component';
-import { PipelineFlogoFlowComponent } from './components/iot-pipeline/pipeline-flogo-flow/pipeline-flogo-flow.component';
-import { PipelineInferencingComponent } from './components/iot-pipeline/pipeline-inferencing/pipeline-inferencing.component';
-import { PipelineRestServiceComponent } from './components/iot-pipeline/pipeline-rest-service/pipeline-rest-service.component';
-import { PipelineRuleExpressionComponent } from './components/iot-pipeline/pipeline-rule-expression/pipeline-rule-expression.component';
-import { PipelineRulesComponent } from './components/iot-pipeline/pipeline-rules/pipeline-rules.component';
-import { PipelineStreamingComponent } from './components/iot-pipeline/pipeline-streaming/pipeline-streaming.component';
-import { IotDataPipelineComponent } from './components/iot-data-pipeline/iot-data-pipeline.component';
-import { DataFilteringComponent } from './components/iot-data-pipeline/data-filtering/data-filtering.component';
-import { DataFilteringViewComponent } from './components/iot-data-pipeline/data-filtering-view/data-filtering-view.component';
-import { DataStoresComponent } from './components/iot-data-pipeline/data-stores/data-stores.component';
-import { DataStoresViewComponent } from './components/iot-data-pipeline/data-stores-view/data-stores-view.component';
-import { DataStreamingComponent } from './components/iot-data-pipeline/data-streaming/data-streaming.component';
-import { DataStreamingViewComponent } from './components/iot-data-pipeline/data-streaming-view/data-streaming-view.component';
-import { ProtocolsComponent } from './components/iot-data-pipeline/protocols/protocols.component';
-import { ProtocolsViewComponent } from './components/iot-data-pipeline/protocols-view/protocols-view.component';
 import { IotEdgeDataPipelineComponent } from './components/iot-edge-data-pipeline/iot-edge-data-pipeline.component';
 import { FilteringComponent } from './components/iot-edge-data-pipeline/filtering/filtering.component';
 import { InferencingComponent } from './components/iot-edge-data-pipeline/inferencing/inferencing.component';
@@ -62,7 +40,6 @@ import { IotTextileSimulatorComponent } from './components/iot-simulator/iot-tex
 import { IotDashboardComponent } from './components/iot-dashboard/iot-dashboard.component';
 import { InfraRegistrationComponent } from './components/iot-infra-deployer/infra-registration/infra-registration.component';
 import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-deployer/infra-deployer.component';
-import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-dialog/single-value-dialog.component';
 
 import { CommonLibraryModule } from 'common';
 import { LoginComponent } from './routes/login/login.component';
@@ -112,27 +89,6 @@ const tcCoreConfig: TcCoreConfig = {
     IgeModelsComponent,
     IgeDataStoresComponent,
     IgeProtocolsComponent,
-    IotPipelineComponent,
-    PipelineConfigComponent,
-    PipelineDataPublisherComponent,
-    PipelineDataStoreComponent,
-    PipelineDataSubscriberComponent,
-    PipelineFilteringComponent,
-    PipelineFlogoFlowComponent,
-    PipelineInferencingComponent,
-    PipelineRestServiceComponent,
-    PipelineRuleExpressionComponent,
-    PipelineRulesComponent,
-    PipelineStreamingComponent,
-    IotDataPipelineComponent,
-    DataFilteringComponent,
-    DataFilteringViewComponent,
-    DataStoresComponent,
-    DataStoresViewComponent,
-    DataStreamingComponent,
-    DataStreamingViewComponent,
-    ProtocolsComponent,
-    ProtocolsViewComponent,
     IotEdgeDataPipelineComponent,
     FilteringComponent,
     InferencingComponent,
@@ -146,7 +102,6 @@ const tcCoreConfig: TcCoreConfig = {
     IotDashboardComponent,
     InfraRegistrationComponent,
     InfraDeployerComponent,
-    SingleValueDialogComponent,
     LoginComponent,
     LoginOauthComponent
   ],
@@ -160,7 +115,6 @@ const tcCoreConfig: TcCoreConfig = {
     MaterialModule,
     NgxHeatmapModule,
     Ng2GoogleChartsModule,
-    ReteEditorModule,
     NgChartsModule,
     TcCoreLibModule.forRoot(tcCoreConfig),
     TcFormsLibModule,
