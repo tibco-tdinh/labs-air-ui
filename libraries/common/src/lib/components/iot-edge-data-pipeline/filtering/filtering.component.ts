@@ -6,7 +6,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
 
-import { Device, Filter, FiltersConfig, Gateway, GatewayFiltersConfig } from '../../../shared/models/iot.model';
+import { Device, Filter, FiltersConfig, Gateway, GatewayFiltersConfig } from '../../../models/iot.model';
 
 interface DeviceNode {
   name: string;
@@ -35,7 +35,7 @@ const TREE_DATA: DeviceNode[] = [
 ];
 
 @Component({
-    selector: 'app-filtering',
+    selector: 'common-filtering',
     templateUrl: './filtering.component.html',
     styleUrls: ['./filtering.component.css']
 })

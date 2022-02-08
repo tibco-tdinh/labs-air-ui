@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
-import { Device, Resource, Gateway, ModelConfig } from '../../../shared/models/iot.model';
+import { Device, Resource, Gateway, ModelConfig } from '../../../models/iot.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -15,11 +15,11 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'app-inferencing',
+    selector: 'common-inferencing',
     templateUrl: './inferencing.component.html',
     styleUrls: ['./inferencing.component.css']
 })
-export class InferencingComponent implements OnInit, OnChanges {
+export class InferencingComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() devices: Device[];
   @Input() gateway: Gateway;

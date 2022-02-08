@@ -4,15 +4,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppConfigService } from 'src/app/services/config/app-config.service';
-import { EdgeService } from 'src/app/services/edge/edge.service';
-import { GraphService } from 'src/app/services/graph/graph.service';
+import { AppConfigService } from '../../services/config/app-config.service';
+import { EdgeService } from '../../services/edge/edge.service';
+import { GraphService } from '../../services/graph/graph.service';
 
-import { IotEdgeDataPipelineComponent } from './iot-edge-data-pipeline.component';
+import { CommonIotEdgeDataPipelineComponent } from './iot-edge-data-pipeline.component';
 
-describe('IotEdgeDataPipelineComponent', () => {
-    let component: IotEdgeDataPipelineComponent;
-    let fixture: ComponentFixture<IotEdgeDataPipelineComponent>;
+describe('CommonIotEdgeDataPipelineComponent', () => {
+    let component: CommonIotEdgeDataPipelineComponent;
+    let fixture: ComponentFixture<CommonIotEdgeDataPipelineComponent>;
 
     const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
     const mockGraphService = jasmine.createSpyObj(['getGateway', 'getModels']);
@@ -26,7 +26,7 @@ describe('IotEdgeDataPipelineComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [IotEdgeDataPipelineComponent],
+            declarations: [CommonIotEdgeDataPipelineComponent],
             imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, MatSnackBarModule],
             providers: [
                 { provide: AppConfigService, useValue: mockAppConfigService },
@@ -38,7 +38,7 @@ describe('IotEdgeDataPipelineComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(IotEdgeDataPipelineComponent);
+        fixture = TestBed.createComponent(CommonIotEdgeDataPipelineComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

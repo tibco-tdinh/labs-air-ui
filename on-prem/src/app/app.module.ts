@@ -27,10 +27,6 @@ import { IotGatewayEndpointComponent } from './components/iot-gateway-endpoint/i
 import { IgeModelsComponent } from './components/iot-gateway-endpoint/ige-models/ige-models.component';
 import { IgeDataStoresComponent } from './components/iot-gateway-endpoint/ige-data-stores/ige-data-stores.component';
 import { IgeProtocolsComponent } from './components/iot-gateway-endpoint/ige-protocols/ige-protocols.component';
-import { IotEdgeDataPipelineComponent } from './components/iot-edge-data-pipeline/iot-edge-data-pipeline.component';
-import { FilteringComponent } from './components/iot-edge-data-pipeline/filtering/filtering.component';
-import { InferencingComponent } from './components/iot-edge-data-pipeline/inferencing/inferencing.component';
-import { RulesComponent } from './components/iot-edge-data-pipeline/rules/rules.component';
 import { IotGatewayDashboardComponent } from './components/iot-gateway-dashboard/iot-gateway-dashboard.component';
 import { SpotfireDashboardComponent } from './components/spotfire-dashboard/spotfire-dashboard.component';
 import { IotStoreSimulatorComponent } from './components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
@@ -57,10 +53,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
         IgeModelsComponent,
         IgeDataStoresComponent,
         IgeProtocolsComponent,
-        IotEdgeDataPipelineComponent,
-        FilteringComponent,
-        InferencingComponent,
-        RulesComponent,
         IotGatewayDashboardComponent,
         SpotfireDashboardComponent,
         IotStoreSimulatorComponent,

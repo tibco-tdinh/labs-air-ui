@@ -2,10 +2,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { AppModule } from 'src/app/app.module';
-import { AppConfigService } from 'src/app/services/config/app-config.service';
-import { GraphService } from 'src/app/services/graph/graph.service';
-import { Gateway } from 'src/app/shared/models/iot.model';
+import { CommonLibraryModule } from '../../../common-library.module';
+import { AppConfigService } from '../../../services/config/app-config.service';
+import { GraphService } from '../../../services/graph/graph.service';
+import { Gateway } from '../../../models/iot.model';
 
 import { RulesComponent } from './rules.component';
 
@@ -20,7 +20,7 @@ describe('RulesComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [RulesComponent],
-            imports: [HttpClientModule, AppModule],
+            imports: [HttpClientModule, CommonLibraryModule],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
             providers: [
                 { provide: AppConfigService, useValue: mockAppConfigService },

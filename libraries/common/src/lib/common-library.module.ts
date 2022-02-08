@@ -37,6 +37,10 @@ import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-de
 import { InfraRegistrationComponent } from './components/iot-infra-deployer/infra-registration/infra-registration.component';
 import { CommonIotInfraDeployerComponent } from './components/iot-infra-deployer/iot-infra-deployer.component'
 import { CommonIotNotificationsComponent } from './components/iot-notifications/iot-notifications.component'
+import { CommonIotEdgeDataPipelineComponent } from './components/iot-edge-data-pipeline/iot-edge-data-pipeline.component'
+import { FilteringComponent } from './components/iot-edge-data-pipeline/filtering/filtering.component'
+import { InferencingComponent } from './components/iot-edge-data-pipeline/inferencing/inferencing.component'
+import { RulesComponent } from './components/iot-edge-data-pipeline/rules/rules.component'
 // modules
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -104,7 +108,11 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     InfraDeployerComponent,
     InfraRegistrationComponent,
     CommonIotInfraDeployerComponent,
-    CommonIotNotificationsComponent
+    CommonIotNotificationsComponent,
+    CommonIotEdgeDataPipelineComponent,
+    FilteringComponent,
+    InferencingComponent,
+    RulesComponent
   ],
   imports: [
     MaterialModule,
@@ -123,7 +131,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CommonIotGatewayDetailsComponent,
     CommonIotGatewayOverviewComponent,
     CommonIotInfraDeployerComponent,
-    CommonIotNotificationsComponent
+    CommonIotNotificationsComponent,
+    CommonIotEdgeDataPipelineComponent
   ],
   providers: [
     AppConfigService,

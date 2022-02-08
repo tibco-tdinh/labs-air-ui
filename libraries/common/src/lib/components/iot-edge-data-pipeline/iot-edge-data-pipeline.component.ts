@@ -7,7 +7,7 @@ import { EdgeService } from '../../services/edge/edge.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { Pipeline, DataStore, Protocol, Gateway, Device, Resource } from '../../shared/models/iot.model';
+import { Pipeline, DataStore, Protocol, Gateway, Device, Resource } from '../../models/iot.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 
@@ -38,11 +38,11 @@ const TREE_DATA: DeviceNode[] = [
 ];
 
 @Component({
-    selector: 'app-iot-edge-data-pipeline',
+    selector: 'common-iot-edge-data-pipeline',
     templateUrl: './iot-edge-data-pipeline.component.html',
     styleUrls: ['./iot-edge-data-pipeline.component.css']
 })
-export class IotEdgeDataPipelineComponent implements OnInit {
+export class CommonIotEdgeDataPipelineComponent implements OnInit {
 
   gatewayId = '';
   gateway = null as Gateway;

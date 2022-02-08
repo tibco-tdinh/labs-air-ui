@@ -5,7 +5,7 @@ import { CommonIotGatewayComponent } from 'common';
 import { CommonIotGatewayDetailsComponent } from 'common';
 import { CommonIotPipelineComponent } from 'common';
 import { CommonIotDataPipelineComponent } from 'common';
-import { IotEdgeDataPipelineComponent } from 'src/app/components/iot-edge-data-pipeline/iot-edge-data-pipeline.component';
+import { CommonIotEdgeDataPipelineComponent } from 'common';
 import { IotGatewayDashboardComponent } from 'src/app/components/iot-gateway-dashboard/iot-gateway-dashboard.component';
 import { ActivatedRouteSnapshot, NavigationEnd, Router, ActivatedRoute} from '@angular/router';
 import { Gateway } from 'src/app/shared/models/iot.model';
@@ -85,7 +85,7 @@ export const STARTER_APP_ROUTES=
             },
             {
                 path: 'edgedatapipeline/:gatewayId',
-                component: IotEdgeDataPipelineComponent,
+                component: CommonIotEdgeDataPipelineComponent,
                 data: {breadcrumb: ['Gateways']}
             }
       

@@ -9,7 +9,7 @@
             <mat-tab-group style="width: 100%">
                 <mat-tab label="Filtering">
 
-                    <app-filtering [devices]="deviceList" [gateway]="gateway"></app-filtering>
+                    <common-filtering [devices]="deviceList" [gateway]="gateway"></common-filtering>
 
                 </mat-tab>
                 <mat-tab label="Streaming">
@@ -18,12 +18,12 @@
                 </mat-tab>
                 <mat-tab label="Inferencing">
 
-                    <app-inferencing [devices]="deviceList" [gateway]="gateway"></app-inferencing>
+                    <common-inferencing [devices]="deviceList" [gateway]="gateway"></common-inferencing>
 
                 </mat-tab>
                 <mat-tab label="Rules">
 
-                    <app-rules [devices]="deviceList" [gateway]="gateway"></app-rules>
+                    <common-rules [devices]="deviceList" [gateway]="gateway"></common-rules>
 
                 </mat-tab>
             </mat-tab-group>

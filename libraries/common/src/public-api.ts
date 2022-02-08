@@ -15,3 +15,4 @@ export * from './lib/components/iot-data-pipeline/iot-data-pipeline.component';
 export * from './lib/components/iot-pipeline/iot-pipeline.component';
 export * from './lib/components/iot-infra-deployer/iot-infra-deployer.component';
 export * from './lib/components/iot-notifications/iot-notifications.component';
+export * from './lib/components/iot-edge-data-pipeline/iot-edge-data-pipeline.component'

@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, SimpleChanges, AfterViewInit, ViewChild, 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
-import { Device, Resource, Gateway, Rule } from '../../../shared/models/iot.model';
+import { Device, Resource, Gateway, Rule } from '../../../models/iot.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -14,7 +14,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'app-rules',
+    selector: 'common-rules',
     templateUrl: './rules.component.html',
     styleUrls: ['./rules.component.css']
 })
