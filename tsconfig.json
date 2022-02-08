@@ -6,7 +6,8 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "common": [
-        "../dist/common",
+        "dist/common/common",
+        "dist/common"
       ]
     },
     "forceConsistentCasingInFileNames": true,
