@@ -2,13 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as YAML from 'yaml';
-import { FlogoDeployService } from 'src/app/services/deployment/flogo-deploy.service';
+import { FlogoDeployService } from '../../../services/deployment/flogo-deploy.service';
 import { values } from 'lodash';
 
 
 
 @Component({
-    selector: 'app-infra-registration',
+    selector: 'common-infra-registration',
     templateUrl: './infra-registration.component.html',
     styleUrls: ['./infra-registration.component.css']
 })

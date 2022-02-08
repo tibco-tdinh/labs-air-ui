@@ -11,7 +11,7 @@ import { ActivatedRouteSnapshot, NavigationEnd, Router, ActivatedRoute} from '@a
 import { Gateway } from 'src/app/shared/models/iot.model';
 import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IotInfraDeployerComponent } from 'src/app/components/iot-infra-deployer/iot-infra-deployer.component';
+import { CommonIotInfraDeployerComponent } from 'common';
 import { IotNotificationsComponent } from 'src/app/components/iot-notifications/iot-notifications.component';
 import { IotStoreSimulatorComponent } from 'src/app/components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
 import { IotDashboardComponent } from 'src/app/components/iot-dashboard/iot-dashboard.component';
@@ -65,7 +65,7 @@ export const STARTER_APP_ROUTES=
             },
             {
                 path: 'infradeployer',
-                component: IotInfraDeployerComponent,
+                component: CommonIotInfraDeployerComponent,
                 data: {breadcrumb: ['Gateways']}
             },
             {

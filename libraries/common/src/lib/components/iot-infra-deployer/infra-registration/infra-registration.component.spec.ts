@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AppConfigService } from 'src/app/services/config/app-config.service';
+import { AppConfigService } from '../../../services/config/app-config.service';
 
 import { InfraRegistrationComponent } from './infra-registration.component';
 

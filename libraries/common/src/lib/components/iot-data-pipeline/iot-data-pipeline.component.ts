@@ -15,12 +15,6 @@ import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
 import { AbstractControl } from '@angular/forms';
 
-
-export interface SelectItem {
-  value: string;
-  viewValue: string;
-}
-
 @Component({
     selector: 'common-iot-data-pipeline',
     templateUrl: './iot-data-pipeline.component.html',

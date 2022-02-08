@@ -3,19 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
-
-
 export interface SelectItem {
   value: string;
   viewValue: string;
 }
 
 @Component({
-    selector: 'app-iot-infra-deployer',
+    selector: 'common-iot-infra-deployer',
     templateUrl: './iot-infra-deployer.component.html',
     styleUrls: ['./iot-infra-deployer.component.css']
 })
-export class IotInfraDeployerComponent implements OnInit {
+export class CommonIotInfraDeployerComponent implements OnInit {
 
   // Form variables
   deployerForm: FormGroup;

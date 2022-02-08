@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { FlogoDeployService } from 'src/app/services/deployment/flogo-deploy.service';
+import { FlogoDeployService } from '../../../services/deployment/flogo-deploy.service';
 
 
 
@@ -72,7 +72,7 @@ interface FlattenedDeployable {
 }
 
 @Component({
-    selector: 'app-infra-deployer',
+    selector: 'common-infra-deployer',
     templateUrl: './infra-deployer.component.html',
     styleUrls: ['./infra-deployer.component.css']
 })
