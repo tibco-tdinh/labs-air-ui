@@ -1,16 +1,16 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { GraphService } from '../../services/graph/graph.service';
-import { Notification } from '../../shared/models/iot.model';
+import { Notification } from '../..//models/iot.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-    selector: 'app-iot-notifications',
+    selector: 'common-iot-notifications',
     templateUrl: './iot-notifications.component.html',
     styleUrls: ['./iot-notifications.component.css']
 })
-export class IotNotificationsComponent implements OnInit, AfterViewInit {
+export class CommonIotNotificationsComponent implements OnInit, AfterViewInit {
 
   dateFormat = 'yyyy-MM-dd  HH:mm:ss'
 

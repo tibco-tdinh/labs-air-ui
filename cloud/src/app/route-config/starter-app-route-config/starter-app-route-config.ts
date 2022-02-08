@@ -12,7 +12,7 @@ import { Gateway } from 'src/app/shared/models/iot.model';
 import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonIotInfraDeployerComponent } from 'common';
-import { IotNotificationsComponent } from 'src/app/components/iot-notifications/iot-notifications.component';
+import { CommonIotNotificationsComponent } from 'common';
 import { IotStoreSimulatorComponent } from 'src/app/components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
 import { IotDashboardComponent } from 'src/app/components/iot-dashboard/iot-dashboard.component';
 import { IotTextileSimulatorComponent } from 'src/app/components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
@@ -70,7 +70,7 @@ export const STARTER_APP_ROUTES=
             },
             {
                 path: 'notifications',
-                component: IotNotificationsComponent,
+                component: CommonIotNotificationsComponent,
                 data: {breadcrumb: ['Gateways']}
             },
             {

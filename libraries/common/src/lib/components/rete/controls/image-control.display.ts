@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     template: `
-  <img  class="rete-image" [src]="imageUrl"/>
+  <img  class="common-rete-image" [src]="imageUrl"/>
   `,
     styles: [
         `

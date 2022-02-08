@@ -1,5 +1,4 @@
 import { NgModule,APP_INITIALIZER } from '@angular/core';
-import { CommonComponent } from './common.component';
 import { CommonIotGatewayComponent } from './components/iot-gateway/iot-gateway.component';
 import { CommonIotGatewayDetailsComponent, SensorDirective } from './components/iot-gateway-details/iot-gateway-details.component'
 import { CommonIotGatewayOverviewComponent } from './components/iot-gateway-details-charts/iot-gateway-overview/iot-gateway-overview.component';
@@ -37,7 +36,7 @@ import { SingleValueDialogComponent } from './components/iot-pipeline/pipeline-d
 import { InfraDeployerComponent } from './components/iot-infra-deployer/infra-deployer/infra-deployer.component';
 import { InfraRegistrationComponent } from './components/iot-infra-deployer/infra-registration/infra-registration.component';
 import { CommonIotInfraDeployerComponent } from './components/iot-infra-deployer/iot-infra-deployer.component'
-
+import { CommonIotNotificationsComponent } from './components/iot-notifications/iot-notifications.component'
 // modules
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -66,7 +65,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 
 @NgModule({
   declarations: [
-    CommonComponent,
     CommonIotGatewayComponent,
     CommonIotGatewayDetailsComponent,
     CommonIotGatewayOverviewComponent,
@@ -105,7 +103,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CommonIotDataPipelineComponent,
     InfraDeployerComponent,
     InfraRegistrationComponent,
-    CommonIotInfraDeployerComponent
+    CommonIotInfraDeployerComponent,
+    CommonIotNotificationsComponent
   ],
   imports: [
     MaterialModule,
@@ -120,20 +119,11 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     NgxHeatmapModule
   ],
   exports: [
-    CommonComponent,
     CommonIotGatewayComponent,
     CommonIotGatewayDetailsComponent,
     CommonIotGatewayOverviewComponent,
-    // CommonIotGatewayTimeSeriesComponent,
-    // CommonIotGatewayLocationComponent,
-    // CommonIotGatewayXyzValueComponent,
-    // CommonIotGatewayImageComponent,
-    // CommonIotGatewayMapComponent,
-    // CommonIotGatewayDiscreteValueComponent,
-    // CommonIotGatewayDescriptionsComponent,
-    // CommonMaporamaComponent,
-    SensorDirective,
-    CommonIotInfraDeployerComponent
+    CommonIotInfraDeployerComponent,
+    CommonIotNotificationsComponent
   ],
   providers: [
     AppConfigService,

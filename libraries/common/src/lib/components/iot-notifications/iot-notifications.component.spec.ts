@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { GraphService } from 'src/app/services/graph/graph.service';
+import { GraphService } from '../../services/graph/graph.service';
 
-import { IotNotificationsComponent } from './iot-notifications.component';
+import { CommonIotNotificationsComponent } from './iot-notifications.component';
 
 describe('IotNotificationsComponent', () => {
-    let component: IotNotificationsComponent;
-    let fixture: ComponentFixture<IotNotificationsComponent>;
+    let component: CommonIotNotificationsComponent;
+    let fixture: ComponentFixture<CommonIotNotificationsComponent>;
     const mockGraphService = jasmine.createSpyObj(['getNotifications', 'getModels']);
 
     mockGraphService.getNotifications.and.returnValue(of({
@@ -15,7 +15,7 @@ describe('IotNotificationsComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ IotNotificationsComponent ],
+            declarations: [ CommonIotNotificationsComponent ],
             providers: [
                 { provide: GraphService, useValue: mockGraphService }
             ]
@@ -24,7 +24,7 @@ describe('IotNotificationsComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(IotNotificationsComponent);
+        fixture = TestBed.createComponent(CommonIotNotificationsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

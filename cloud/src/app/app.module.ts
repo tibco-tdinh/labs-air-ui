@@ -33,7 +33,6 @@ import { InferencingComponent } from './components/iot-edge-data-pipeline/infere
 import { RulesComponent } from './components/iot-edge-data-pipeline/rules/rules.component';
 import { IotGatewayDashboardComponent } from './components/iot-gateway-dashboard/iot-gateway-dashboard.component';
 import { SpotfireDashboardComponent } from './components/spotfire-dashboard/spotfire-dashboard.component';
-import { IotNotificationsComponent } from './components/iot-notifications/iot-notifications.component';
 import { IotStoreSimulatorComponent } from './components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
 import { IotTextileSimulatorComponent } from './components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
 import { IotDashboardComponent } from './components/iot-dashboard/iot-dashboard.component';
@@ -92,7 +91,6 @@ const tcCoreConfig: TcCoreConfig = {
     RulesComponent,
     IotGatewayDashboardComponent,
     SpotfireDashboardComponent,
-    IotNotificationsComponent,
     IotStoreSimulatorComponent,
     IotTextileSimulatorComponent,
     IotDashboardComponent,
