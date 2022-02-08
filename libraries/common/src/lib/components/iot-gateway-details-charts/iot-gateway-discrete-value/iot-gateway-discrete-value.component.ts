@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Device, Resource, TSReading } from '../../../models/iot.model';
 import { Subscription } from 'rxjs';
 import { GraphService } from '../../../services/graph/graph.service';
@@ -9,7 +9,7 @@ import { GoogleChartInterface } from 'ng2-google-charts';
     templateUrl: './iot-gateway-discrete-value.component.html',
     styleUrls: ['./iot-gateway-discrete-value.component.css']
 })
-export class CommonIotGatewayDiscreteValueComponent implements OnInit {
+export class CommonIotGatewayDiscreteValueComponent implements OnInit, OnDestroy {
   device: Device;
   instrument: Resource;
   resourceReadings: TSReading[] = [];

@@ -8,7 +8,7 @@ import { Gateway } from '../../models/iot.model';
 
 import { CommonIotInfraDeployerComponent } from './iot-infra-deployer.component';
 
-describe('IotInfraDeployerComponent', () => {
+describe('COmmonIotInfraDeployerComponent', () => {
     let component: CommonIotInfraDeployerComponent;
     let fixture: ComponentFixture<CommonIotInfraDeployerComponent>;
     const mockGraphService = jasmine.createSpyObj(['getGateways', 'getGatewayAndPipelines', 'getModels']);

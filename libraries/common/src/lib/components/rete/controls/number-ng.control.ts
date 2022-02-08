@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     template: `
@@ -24,7 +24,7 @@ import { Component, Input } from '@angular/core';
     ]
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export class NumberNgControl {
+export class NumberNgControl implements OnInit {
   @Input() value: number;
   @Input() readonly: boolean;
   @Input() change: Function;

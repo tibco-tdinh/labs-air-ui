@@ -17,7 +17,7 @@ export * from './lib/components/iot-gateway-details-charts/iot-gateway-descripti
 // export * from './lib/components/iot-gateway-details-charts/iot-gateway-image/iot-gateway-image.component'
 // export * from './lib/components/iot-gateway-details-charts/iot-gateway-location/iot-gateway-location.component'
 // export * from './lib/components/iot-gateway-details-charts/iot-gateway-map/iot-gateway-map.component'
-// export * from './lib/components/iot-gateway-details-charts/iot-gateway-overview/iot-gateway-overview.component'
+export * from './lib/components/iot-gateway-details-charts/iot-gateway-overview/iot-gateway-overview.component'
 // export * from './lib/components/iot-gateway-details-charts/iot-gateway-text/iot-gateway-text.component'
 // export * from './lib/components/iot-gateway-details-charts/iot-gateway-time-series/iot-gateway-time-series.component'
 // export * from './lib/components/iot-gateway-details-charts/iot-gateway-xyz-value/iot-gateway-xyz-value.component'

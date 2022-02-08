@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -47,7 +47,7 @@ import { RippleRef } from '@angular/material/core';
     templateUrl: './iot-pipeline.component.html',
     styleUrls: ['./iot-pipeline.component.css']
 })
-export class CommonIotPipelineComponent implements OnInit {
+export class CommonIotPipelineComponent implements OnInit, AfterViewInit {
 
   gatewayId = '';
   gateway = null as Gateway;
