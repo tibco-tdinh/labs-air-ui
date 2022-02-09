@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { Gateway } from 'src/app/shared/models/iot.model';
+import { Gateway } from '../../shared/models/iot.model';
 import { GraphService } from '../graph/graph.service';
 
 import { BreadcrumbsService } from './breadcrumbs.service';

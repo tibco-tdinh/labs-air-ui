@@ -2,10 +2,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AppConfigService } from 'src/app/services/config/app-config.service';
-import { EdgeService } from 'src/app/services/edge/edge.service';
-import { GraphService } from 'src/app/services/graph/graph.service';
-import { TextileSimulatorService } from 'src/app/services/simulator/textile-simulator.service';
+import { AppConfigService } from '../../../services/config/app-config.service';
+import { EdgeService } from '../../../services/edge/edge.service';
+import { GraphService } from '../../../services/graph/graph.service';
+import { TextileSimulatorService } from '../../../services/simulator/textile-simulator.service';
 
 import { IotTextileSimulatorComponent } from './iot-textile-simulator.component';
 

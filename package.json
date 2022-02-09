@@ -2,14 +2,14 @@
   "name": "ProjectAir",
   "version": "0.6.0-26",
   "workspaces": [
-    "cloud",
-    "on-prem",
-    "libraries"
+    "projects/cloud",
+    "projects/on-prem",
+    "projects/common"
   ],
   "scripts": {
     "ng": "ng",
-    "start": "npm serve on-prem",
-    "start-cloud": "npm serve cloud",
+    "start": "ng serve on-prem",
+    "start-cloud": "ng serve cloud",
     "build": "ng build on-prem",
     "build-cloud": "ng build cloud",
     "build-common": "ng build common",

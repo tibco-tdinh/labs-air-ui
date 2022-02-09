@@ -3,9 +3,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
-import { AppConfigService } from 'src/app/services/config/app-config.service';
-import { GraphService } from 'src/app/services/graph/graph.service';
-import { RtsfSimulatorService } from 'src/app/services/simulator/rtsf-simulator.service';
+import { AppConfigService } from '../../../services/config/app-config.service';
+import { GraphService } from '../../../services/graph/graph.service';
+import { RtsfSimulatorService } from '../../../services/simulator/rtsf-simulator.service';
 
 import { IotStoreSimulatorComponent } from './iot-store-simulator.component';
 

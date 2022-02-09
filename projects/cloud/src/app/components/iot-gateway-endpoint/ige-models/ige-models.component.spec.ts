@@ -1,8 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { AppModule } from 'src/app/app.module';
-import { GraphService } from 'src/app/services/graph/graph.service';
+import { AppModule } from '../../../app.module';
+import { GraphService } from '../../../services/graph/graph.service';
 
 import { IgeModelsComponent } from './ige-models.component';
 
