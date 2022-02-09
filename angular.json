@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../../dist/ProjectAir",
+            "outputPath": "dist/on-prem",
             "index": "projects/on-prem/src/index.html",
             "main": "projects/on-prem/src/main.ts",
             "polyfills": "projects/on-prem/src/polyfills.ts",
@@ -39,13 +39,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4kb",
+                  "maximumError": "6kb"
                 }
               ],
               "fileReplacements": [
@@ -128,7 +128,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../../dist/ProjectAir",
+            "outputPath": "dist/cloud",
             "index": "projects/cloud/src/index.html",
             "main": "projects/cloud/src/main.ts",
             "polyfills": "projects/cloud/src/polyfills.ts",
