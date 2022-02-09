@@ -12,9 +12,9 @@ import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonIotInfraDeployerComponent } from 'common';
 import { CommonIotNotificationsComponent } from 'common';
-import { IotStoreSimulatorComponent } from '../../components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
+import { CommonIotStoreSimulatorComponent } from 'common';
 import { IotDashboardComponent } from '../../components/iot-dashboard/iot-dashboard.component';
-import { IotTextileSimulatorComponent } from '../../components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
+import { CommonIotTextileSimulatorComponent } from 'common';
 
 export const HOME_ROUTE = 'splash';
 let router:Router;
@@ -74,12 +74,12 @@ export const STARTER_APP_ROUTES=
             },
             {
                 path: 'store-simulator',
-                component: IotStoreSimulatorComponent,
+                component: CommonIotStoreSimulatorComponent,
                 data: {breadcrumb: ['Store Simulator']}
             },
             {
                 path: 'textile-simulator',
-                component: IotTextileSimulatorComponent,
+                component: CommonIotTextileSimulatorComponent,
                 data: {breadcrumb: ['Textile Simulator']}
             },
             {

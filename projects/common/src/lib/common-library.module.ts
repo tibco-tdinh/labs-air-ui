@@ -41,6 +41,9 @@ import { CommonIotEdgeDataPipelineComponent } from './components/iot-edge-data-p
 import { FilteringComponent } from './components/iot-edge-data-pipeline/filtering/filtering.component'
 import { InferencingComponent } from './components/iot-edge-data-pipeline/inferencing/inferencing.component'
 import { RulesComponent } from './components/iot-edge-data-pipeline/rules/rules.component'
+import { CommonIotStoreSimulatorComponent } from './components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
+import { CommonIotTextileSimulatorComponent } from './components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
+
 // modules
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -112,7 +115,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CommonIotEdgeDataPipelineComponent,
     FilteringComponent,
     InferencingComponent,
-    RulesComponent
+    RulesComponent,
+    CommonIotStoreSimulatorComponent,
+    CommonIotTextileSimulatorComponent
   ],
   imports: [
     MaterialModule,

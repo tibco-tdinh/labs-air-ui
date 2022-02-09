@@ -29,8 +29,6 @@ import { IgeDataStoresComponent } from './components/iot-gateway-endpoint/ige-da
 import { IgeProtocolsComponent } from './components/iot-gateway-endpoint/ige-protocols/ige-protocols.component';
 import { IotGatewayDashboardComponent } from './components/iot-gateway-dashboard/iot-gateway-dashboard.component';
 import { SpotfireDashboardComponent } from './components/spotfire-dashboard/spotfire-dashboard.component';
-import { IotStoreSimulatorComponent } from './components/iot-simulator/iot-store-simulator/iot-store-simulator.component';
-import { IotTextileSimulatorComponent } from './components/iot-simulator/iot-textile-simulator/iot-textile-simulator.component';
 import { IotDashboardComponent } from './components/iot-dashboard/iot-dashboard.component';
 
 import { CommonLibraryModule } from 'common';
@@ -55,8 +53,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
         IgeProtocolsComponent,
         IotGatewayDashboardComponent,
         SpotfireDashboardComponent,
-        IotStoreSimulatorComponent,
-        IotTextileSimulatorComponent,
         IotDashboardComponent,
     ],
     imports: [

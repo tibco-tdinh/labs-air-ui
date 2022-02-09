@@ -7,11 +7,11 @@ import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
 import { TextileSimulatorService } from '../../../services/simulator/textile-simulator.service';
 
-import { IotTextileSimulatorComponent } from './iot-textile-simulator.component';
+import { CommonIotTextileSimulatorComponent } from './iot-textile-simulator.component';
 
-describe('IotSimulatorComponent', () => {
-    let component: IotTextileSimulatorComponent;
-    let fixture: ComponentFixture<IotTextileSimulatorComponent>;
+describe('CommonIotSimulatorComponent', () => {
+    let component: CommonIotTextileSimulatorComponent;
+    let fixture: ComponentFixture<CommonIotTextileSimulatorComponent>;
 
     const mockAppConfigService: Partial<AppConfigService> = jasmine.createSpyObj(['getFromConfigOrEnv']);
     const mockSimulatorService: Partial<TextileSimulatorService> = jasmine.createSpyObj(['getProducts', 'subscribe']);
@@ -20,7 +20,7 @@ describe('IotSimulatorComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [IotTextileSimulatorComponent],
+            declarations: [CommonIotTextileSimulatorComponent],
             imports: [HttpClientTestingModule, MatSnackBarModule],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
             providers: [
@@ -34,7 +34,7 @@ describe('IotSimulatorComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(IotTextileSimulatorComponent);
+        fixture = TestBed.createComponent(CommonIotTextileSimulatorComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
