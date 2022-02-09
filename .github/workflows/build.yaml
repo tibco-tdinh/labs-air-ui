@@ -16,8 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       all: ${{ steps.changes.outputs.all }}
-      appChanged: ${{ steps.changes.outputs.appChanged }}
-      testsChanged: ${{ steps.changes.outputs.testsChanged }}
+      cloudChanged: ${{ steps.changes.outputs.cloudChanged }}
+      commonChanged: ${{ steps.changes.outputs.commonChanged }}
+      onPremChanged: ${{ steps.changes.outputs.onPremChanged }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -28,22 +29,34 @@ jobs:
         run: |
           export PREVIOUS_SHA=$(git rev-parse HEAD^1 2>&1)
           echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | xargs)"
-          echo "::set-output name=appChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | egrep 'src|package' | xargs)"
-          echo "::set-output name=testsChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | grep spec.ts | xargs)"
+          echo "::set-output name=cloudChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | egrep 'projects/cloud' | xargs)"
+          echo "::set-output name=commonChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | egrep 'projects/common' | xargs)"
+          echo "::set-output name=onPremChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | egrep 'projects/on-prem' | xargs)"
+
 # yamllint enable rule:line-length
 
-  build-dependencies:
+  test:
+    # Set the agent to run on
     runs-on: ubuntu-latest
     needs: [identify-changes]
+    # Build if the component changed or if in the main branch
+    if: |
+      (needs.identify-changes.outputs.commonChanged ||
+        needs.identify-changes.outputs.cloudChanged ||
+        needs.identify-changes.outputs.onPremChanged) ||
+      github.ref == 'refs/heads/main'
     strategy:
       matrix:
-        node-version: [16.x]
-    steps:
-      - uses: actions/checkout@v2
-        if: needs.identify-changes.outputs.appChanged
+        project:
+          - common
+          - on-prem
+          - cloud
 
-      - name: Cache node modules for the App
-        if: needs.identify-changes.outputs.appChanged
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Restore node modules cache
         uses: actions/cache@v2
         id: cache
         with:
@@ -54,87 +67,79 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cicd-ui-
 
-      - name: Setup Node ${{ matrix.node-version }} for the App
-        if: needs.identify-changes.outputs.appChanged
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Configure NPM for the App
-        if: steps.cache.outputs.cache-hit != 'true' && needs.identify-changes.outputs.appChanged
+      - name: Install dependencies for the ${{ matrix.project }}
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           npm config set fund false
-
-      - name: Install dependencies for the App
-        if: steps.cache.outputs.cache-hit != 'true' && needs.identify-changes.outputs.appChanged
-        run: |
           npm install
 
-      - name: Build common library
-        if: needs.identify-changes.outputs.appChanged
+      - name: Run the unit tests for ${{ matrix.project }}
         run: |
-          npm run build common
+          ./node_modules/.bin/ng test ${{ matrix.project }} --browsers ChromeHeadless --watch=false
 
-      - name: Cache the library
-        uses: actions/upload-artifact@v2
-        if: needs.identify-changes.outputs.appChanged
+      - name: Run the lint checks
+        run: |
+          ./node_modules/.bin/ng lint ${{ matrix.project }} || echo Lint exists in this project
+
+      - uses: actions/upload-artifact@v2
         with:
-          name: common library
-          path: dist/common
+          name: ${{ matrix.project }}-coverage-report
+          path: coverage/ProjectAir/${{ matrix.project }}
 
-  test-app:
-    # Set the agent to run on
+      #- name: E2E
+      #  working-directory: src/MobileApp
+      #  run: npm run e2e -- --configuration=ci
+
+  build:
     runs-on: ubuntu-latest
-    needs: [identify-changes, build-dependencies]
+    needs: [identify-changes, test]
     # Build if the component changed or if in the main branch
     if: |
-      (needs.identify-changes.outputs.appChanged || needs.identify-changes.outputs.testsChanged) ||
+      (needs.identify-changes.outputs.commonChanged ||
+        needs.identify-changes.outputs.cloudChanged ||
+        needs.identify-changes.outputs.onPremChanged) ||
       github.ref == 'refs/heads/main'
+
     strategy:
       matrix:
-        projects: 
-          - on-prem 
+        node-version: [16.x]
+        project:
+          - common
+          - on-prem
           - cloud
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Restore node modules cache
-        if: needs.identify-changes.outputs.appChanged
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Cache node modules for the project
         uses: actions/cache@v2
         id: cache
         with:
           path: |
             ./node_modules
-          key: | 
+          key: |
             ${{ runner.os }}-cicd-ui-${{ hashFiles('./package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-cicd-ui-
 
-      - name: restore built common library
-        uses: actions/download-artifact@v2
-        if: needs.identify-changes.outputs.appChanged
+      - name: Setup Node ${{ matrix.node-version }} for the project
+        uses: actions/setup-node@v2
         with:
-          name: common library
-          path: dist/common
+          node-version: ${{ matrix.node-version }}
 
-      - name: Run the unit tests
-        if: needs.identify-changes.outputs.appChanged
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          ../node_modules/.bin/ng test --browsers ChromeHeadless --watch=false
-        working-directory: ${{ matrix.projects }}
+          npm config set fund false
+          npm install
 
-      - uses: actions/upload-artifact@v2
-        if: needs.identify-changes.outputs.appChanged
+      - name: Build the ${{ matrix.project }} component
+        run: |
+          ./node_modules/.bin/ng build ${{ matrix.project }}
+
+      - name: Cache the ${{ matrix.project }}
+        uses: actions/upload-artifact@v2
         with:
-          name: ui-coverage-report
-          path: coverage/ProjectAir
-
-      - name: Run the lint checks
-        if: needs.identify-changes.outputs.appChanged
-        run: |
-          ../node_modules/.bin/ng lint || echo Lint exists in this project
-        working-directory: ${{ matrix.projects }}
-
-      #- name: E2E
-      #  working-directory: src/MobileApp
-      #  run: npm run e2e -- --configuration=ci
+          name: ${{ matrix.project }}
+          path: dist/${{ matrix.project }}
