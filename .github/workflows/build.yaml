@@ -47,6 +47,7 @@ jobs:
       github.ref == 'refs/heads/main'
     strategy:
       matrix:
+        node-version: [16.x]
         project:
           - common
 
@@ -84,7 +85,8 @@ jobs:
         run: |
           ./node_modules/.bin/ng lint ${{ matrix.project }} || echo Lint exists in this project
 
-      - uses: actions/upload-artifact@v2
+      - name: Save the coverrage report for ${{ matrix.project }}
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.project }}-coverage-report
           path: coverage/ProjectAir/${{ matrix.project }}
@@ -135,7 +137,7 @@ jobs:
         run: |
           ./node_modules/.bin/ng build ${{ matrix.project }}
 
-      - name: Cache the ${{ matrix.project }}
+      - name: Cache the ${{ matrix.project }} library
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.project }}-library
@@ -153,6 +155,7 @@ jobs:
       github.ref == 'refs/heads/main'
     strategy:
       matrix:
+        node-version: [16.x]
         project:
           - on-prem
           - cloud
@@ -252,14 +255,14 @@ jobs:
       - name: Restore the common library
         uses: actions/download-artifact@v2
         with:
-          name: common
+          name: common-library
           path: dist/common
 
       - name: Build the ${{ matrix.project }} component
         run: |
           ./node_modules/.bin/ng build ${{ matrix.project }}
 
-      - name: Cache the ${{ matrix.project }}
+      - name: Cache the ${{ matrix.project }} app
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.project }}
