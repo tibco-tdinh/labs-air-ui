@@ -3,7 +3,7 @@ import { NodeEditor, Node} from 'rete';
 import { NodeComponent, NodeService,  } from 'rete-angular-render-plugin';
 
 @Component({
-    selector: 'common-node-primary',
+    selector: 'app-common-node-primary',
     templateUrl: './node-primary.component.html',
     styleUrls: ['./node-primary.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush

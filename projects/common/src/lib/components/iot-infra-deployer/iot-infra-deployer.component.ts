@@ -9,7 +9,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-iot-infra-deployer',
+    selector: 'app-common-iot-infra-deployer',
     templateUrl: './iot-infra-deployer.component.html',
     styleUrls: ['./iot-infra-deployer.component.css']
 })

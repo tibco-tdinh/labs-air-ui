@@ -72,7 +72,7 @@ interface FlattenedDeployable {
 }
 
 @Component({
-    selector: 'common-infra-deployer',
+    selector: 'app-common-infra-deployer',
     templateUrl: './infra-deployer.component.html',
     styleUrls: ['./infra-deployer.component.css']
 })
@@ -133,7 +133,7 @@ get the projects for the deployable table
 
   createParameter(name, value): FormGroup {
       console.log('Creating form with param name: ', name);
-    
+
       return this.formBuilder.group({
           name: [name, Validators.required],
           value: [value, Validators.required]
@@ -254,7 +254,7 @@ get the projects for the deployable table
               'Platform': this.deployableForm.get('platform').value,
           };
       }
-    
+
       // Build dynamic parameters
       const parameters = this.getParameters();
       const numParams = parameters.length;
@@ -282,7 +282,7 @@ get the projects for the deployable table
 
       console.log('DeployRequest: ', deployRequest);
       console.log('Deploy Request string: ', JSON.stringify(deployRequest));
-    
+
       const projectName = this.deployableForm.get('projectName').value;
       const serviceName = this.deployableForm.get('deployable').value;
       this.flogoDeployService.deployInfra(projectName, serviceName, deployRequest)
@@ -356,7 +356,7 @@ get the projects for the deployable table
       }
 
       const undeployRequest = {
-      
+
           'Method': 'Script',
           'NoF1Descriptor': true,
           'ScriptSystemEnv': systemEnv,
@@ -382,6 +382,6 @@ get the projects for the deployable table
 
           });
   }
-  
+
 }
 

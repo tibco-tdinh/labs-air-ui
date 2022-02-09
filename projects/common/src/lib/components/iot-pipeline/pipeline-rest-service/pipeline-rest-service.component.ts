@@ -20,7 +20,7 @@ interface DeviceNode {
 }
 
 @Component({
-    selector: 'common-pipeline-rest-service',
+    selector: 'app-common-pipeline-rest-service',
     templateUrl: './pipeline-rest-service.component.html',
     styleUrls: ['./pipeline-rest-service.component.css']
 })
@@ -262,7 +262,7 @@ export class PipelineRestServiceComponent implements OnInit, OnChanges {
 
   setupFilters() {
       console.log('PipelineInferencing-setupFilters:', this.filters);
-    
+
 
       this.filters.forEach(element => {
           this.selectNode(element.device, element.name);

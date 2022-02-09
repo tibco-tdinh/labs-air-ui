@@ -8,7 +8,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-data-filtering',
+    selector: 'app-common-data-filtering',
     templateUrl: './data-filtering.component.html',
     styleUrls: ['./data-filtering.component.css']
 })
@@ -36,14 +36,14 @@ export class DataFilteringComponent implements OnInit {
 
     //   if (event.checked) {
     //     console.log("Pushing formcontrol: ", device.name);
-      
+
     //     devicesArray.push(new FormControl(device.name));
     //   } else {
     //     let i: number = 0;
     //     devicesArray.controls.forEach((item: FormControl) => {
     //       if (item.value == device.name) {
     //         console.log("Popping formcontrol: ", device.name);
-          
+
     //         devicesArray.removeAt(i);
     //         return;
     //       }

@@ -11,7 +11,7 @@ export class LegendItem {
 }
 
 @Component({
-    selector: 'common-maporama',
+    selector: 'app-common-maporama',
     templateUrl: './maporama.component.html',
     styleUrls: ['./maporama.component.css']
 })
@@ -79,7 +79,7 @@ export class CommonMaporamaComponent implements OnInit, OnChanges {
                   this.markersLayer = new T.MarkersLayer();
 
                   map.addLayer(popupsLayer);
-          
+
 
                   // Add polyline
                   if (this.mapConfig.polyline != null) {
@@ -126,7 +126,7 @@ export class CommonMaporamaComponent implements OnInit, OnChanges {
                           'https://geoanalytics.tibco.com/documentation/assets/img/marker.png', {
                               name: item.label,
                               id: item.uuid,
-                              offset: new T.Point(0, -10)  
+                              offset: new T.Point(0, -10)
                           });
 
                       this.markersLayer.addMarker(marker);
@@ -178,7 +178,7 @@ export class CommonMaporamaComponent implements OnInit, OnChanges {
 
                   if (item.uuid == testmarker.options.id) {
                       console.log('Marker is the same');
-            
+
                   }
 
                   // Find old marker
@@ -191,7 +191,7 @@ export class CommonMaporamaComponent implements OnInit, OnChanges {
 					    marker =  markers[i];
 				    }
                   }
-      
+
                   console.log('Maker found: ', marker);
                   marker.options.name = item.label;
                   marker.move(new T.LatLng(item.lat, item.lon));
@@ -269,7 +269,7 @@ export class CommonMaporamaComponent implements OnInit, OnChanges {
       console.log('In mapMarkerDrilldown for: ', uuid, label);
 
       // Commented out until Spotfire dashboards interaction is completed
-    
+
       // if (label == "gateway1") {
       //   this.router.navigate(['/starterApp/home/iotdashboard']);
       // }

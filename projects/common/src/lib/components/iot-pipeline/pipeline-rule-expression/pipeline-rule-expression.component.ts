@@ -9,7 +9,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-pipeline-rule-expression',
+    selector: 'app-common-pipeline-rule-expression',
     templateUrl: './pipeline-rule-expression.component.html',
     styleUrls: ['./pipeline-rule-expression.component.css']
 })

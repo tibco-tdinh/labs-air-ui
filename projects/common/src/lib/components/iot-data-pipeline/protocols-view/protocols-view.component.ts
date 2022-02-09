@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { GraphService } from '../../../services/graph/graph.service';
-import { Protocol, Publisher } from '../../../models/iot.model';
+import { Protocol } from '../../../models/iot.model';
 export interface SelectItem {
   value: string;
   viewValue: string;
 }
 
 @Component({
-    selector: 'common-protocols-view',
+    selector: 'app-common-protocols-view',
     templateUrl: './protocols-view.component.html',
     styleUrls: ['./protocols-view.component.css']
 })

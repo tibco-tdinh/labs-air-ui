@@ -14,7 +14,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-rules',
+    selector: 'app-common-rules',
     templateUrl: './rules.component.html',
     styleUrls: ['./rules.component.css']
 })
@@ -90,7 +90,7 @@ export class RulesComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.devicesDataSource.data = this.devices;
       this.getRules(this.gateway);
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -439,7 +439,7 @@ export class RulesComponent implements OnInit, OnChanges, AfterViewInit {
           rule.name = this.ruleForm.controls['name'].value;
       }
 
-    
+
       rule.uuid = this.ruleForm.controls['name'].value;
       rule.description = this.ruleForm.controls['description'].value;
       rule.condDevice = this.ruleForm.controls['condDevice'].value;

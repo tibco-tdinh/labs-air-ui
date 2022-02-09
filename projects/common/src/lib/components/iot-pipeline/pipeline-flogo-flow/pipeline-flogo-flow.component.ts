@@ -9,7 +9,7 @@ import { SingleValueDialogComponent } from '../pipeline-dialog/single-value-dial
 
 
 @Component({
-    selector: 'common-pipeline-flogo-flow',
+    selector: 'app-common-pipeline-flogo-flow',
     templateUrl: './pipeline-flogo-flow.component.html',
     styleUrls: ['./pipeline-flogo-flow.component.css']
 })

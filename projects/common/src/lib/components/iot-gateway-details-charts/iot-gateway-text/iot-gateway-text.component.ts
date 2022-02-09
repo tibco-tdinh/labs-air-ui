@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-    selector: 'common-iot-gateway-text',
+    selector: 'app-common-iot-gateway-text',
     templateUrl: './iot-gateway-text.component.html',
     styleUrls: ['./iot-gateway-text.component.css']
 })
@@ -44,9 +44,9 @@ export class CommonIotGatewayTextComponent implements OnInit, OnDestroy, AfterVi
                       reading.value = atob(reading.value);
                   }
               }
-      
+
               this.dataSource.data = res as TSReading[];
-        
+
           }));
   }
 

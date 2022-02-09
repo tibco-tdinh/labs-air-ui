@@ -13,7 +13,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-data-streaming',
+    selector: 'app-common-data-streaming',
     templateUrl: './data-streaming.component.html',
     styleUrls: ['./data-streaming.component.css']
 })

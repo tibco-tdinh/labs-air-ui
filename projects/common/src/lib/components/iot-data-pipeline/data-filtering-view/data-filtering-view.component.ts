@@ -8,7 +8,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-data-filtering-view',
+    selector: 'app-common-data-filtering-view',
     templateUrl: './data-filtering-view.component.html',
     styleUrls: ['./data-filtering-view.component.css']
 })

@@ -9,7 +9,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-pipeline-streaming',
+    selector: 'app-common-pipeline-streaming',
     templateUrl: './pipeline-streaming.component.html',
     styleUrls: ['./pipeline-streaming.component.css']
 })
@@ -24,7 +24,7 @@ export class PipelineStreamingComponent implements OnInit, OnDestroy {
       { value: 'ERROR', viewValue: 'ERROR' },
       { value: 'DEBUG', viewValue: 'DEBUG' }
   ];
-  
+
   instruments: Resource[] = [];
   private subscr:Subscription;
 
@@ -50,7 +50,7 @@ export class PipelineStreamingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  
+
       const idx = this.getIndexForDevice(this.streamingForm.get('deviceName').value);
 
       if (idx >= 0)
@@ -69,13 +69,13 @@ export class PipelineStreamingComponent implements OnInit, OnDestroy {
       let idx = -1;
 
       for (let i = 0; i < this.devices.length; i++) {
-       
+
           if (this.devices[i].name == name) {
               idx = i;
               break;
-          } 
+          }
       }
-    
+
       return idx;
   }
 
@@ -91,7 +91,7 @@ export class PipelineStreamingComponent implements OnInit, OnDestroy {
           const idx = this.getIndexForDevice(val);
 
           if (idx >= 0)
-              this.instruments = this.devices[idx].profile.deviceResources as Resource[];      
+              this.instruments = this.devices[idx].profile.deviceResources as Resource[];
       });
 
   }

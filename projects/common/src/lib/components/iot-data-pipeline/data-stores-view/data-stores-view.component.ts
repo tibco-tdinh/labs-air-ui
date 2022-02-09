@@ -7,7 +7,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-data-stores-view',
+    selector: 'app-common-data-stores-view',
     templateUrl: './data-stores-view.component.html',
     styleUrls: ['./data-stores-view.component.css']
 })
@@ -33,7 +33,7 @@ export class DataStoresViewComponent implements OnInit {
 
   onFormChanges(): void {
       this.dataStoreForm.valueChanges.subscribe(val => {
-      
+
           const dataStore = this.dataStoreForm.get('dataStore').value;
 
           this.postgresDataStore = false;

@@ -8,7 +8,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-protocols',
+    selector: 'app-common-protocols',
     templateUrl: './protocols.component.html',
     styleUrls: ['./protocols.component.css']
 })
@@ -194,7 +194,7 @@ export class ProtocolsComponent implements OnInit {
       // console.log("TransportForm has changed for: ", val);
 
           if (this.transportForm.get('protocol').value == '') {
-        
+
               this.mqttProtocol = false;
               this.kafkaProtocol = false;
               this.httpProtocol = false;

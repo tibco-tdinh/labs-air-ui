@@ -4,7 +4,7 @@ import { Device, Resource, TSReading } from '../../../models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
 
 @Component({
-    selector: 'common-iot-gateway-map',
+    selector: 'app-common-iot-gateway-map',
     templateUrl: './iot-gateway-map.component.html',
     styleUrls: ['./iot-gateway-map.component.css']
 })

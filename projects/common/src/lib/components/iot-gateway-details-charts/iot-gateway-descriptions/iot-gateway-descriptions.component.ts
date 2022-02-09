@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Device, Resource } from '../../../models/iot.model';
 
 @Component({
-    selector: 'common-iot-gateway-descriptions',
+    selector: 'app-common-iot-gateway-descriptions',
     templateUrl: './iot-gateway-descriptions.component.html',
     styleUrls: ['./iot-gateway-descriptions.component.css']
 })

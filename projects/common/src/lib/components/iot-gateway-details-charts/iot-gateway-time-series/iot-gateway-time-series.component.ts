@@ -13,7 +13,7 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 Chart.register(StreamingPlugin);
 
 @Component({
-  selector: "common-iot-gateway-time-series",
+  selector: "app-common-iot-gateway-time-series",
   templateUrl: "./iot-gateway-time-series.component.html",
   styleUrls: ["./iot-gateway-time-series.component.css"],
 })

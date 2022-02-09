@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ChartType, ChartOptions, ChartConfiguration, ChartData } from 'chart.js';
+import { Component, OnInit } from '@angular/core';
+import { ChartType, ChartConfiguration, ChartData } from 'chart.js';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TextileSimulatorService } from '../../../services/simulator/textile-simulator.service';
 import { GraphService } from '../../../services/graph/graph.service';
@@ -20,7 +20,7 @@ export class StatisticInfo {
 }
 
 @Component({
-    selector: 'common-iot-textile-simulator',
+    selector: 'app-common-iot-textile-simulator',
     templateUrl: './iot-textile-simulator.component.html',
     styleUrls: ['./iot-textile-simulator.component.css']
 })

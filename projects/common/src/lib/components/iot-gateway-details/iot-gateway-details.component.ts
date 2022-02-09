@@ -23,7 +23,7 @@ export class SensorDirective {
 }
 
 @Component({
-    selector: 'common-iot-gateway-details',
+    selector: 'app-common-iot-gateway-details',
     templateUrl: './iot-gateway-details.component.html',
     styleUrls: ['./iot-gateway-details.component.css']
 })

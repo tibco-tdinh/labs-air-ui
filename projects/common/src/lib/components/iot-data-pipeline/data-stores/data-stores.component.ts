@@ -9,7 +9,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-data-stores',
+    selector: 'app-common-data-stores',
     templateUrl: './data-stores.component.html',
     styleUrls: ['./data-stores.component.css']
 })
@@ -38,7 +38,7 @@ export class DataStoresComponent implements OnInit {
   @Input() dataStoreForm: FormGroup;
 
   constructor(private graphService: GraphService) {
-    
+
   }
 
   ngOnInit() {
@@ -236,7 +236,7 @@ export class DataStoresComponent implements OnInit {
           });
 
           console.log('Set to display Dgraph: ', dataStore);
-      
+
           this.dgraphDataStore = true;
       }
 

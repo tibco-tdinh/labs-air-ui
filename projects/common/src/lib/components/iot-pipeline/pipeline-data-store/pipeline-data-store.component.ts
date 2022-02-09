@@ -9,7 +9,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-pipeline-data-store',
+    selector: 'app-common-pipeline-data-store',
     templateUrl: './pipeline-data-store.component.html',
     styleUrls: ['./pipeline-data-store.component.css']
 })

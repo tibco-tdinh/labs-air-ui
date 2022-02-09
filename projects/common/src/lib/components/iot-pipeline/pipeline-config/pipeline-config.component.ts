@@ -7,7 +7,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-pipeline-config',
+    selector: 'app-common-pipeline-config',
     templateUrl: './pipeline-config.component.html',
     styleUrls: ['./pipeline-config.component.css']
 })

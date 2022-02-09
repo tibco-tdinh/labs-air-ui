@@ -36,28 +36,28 @@
                             <mat-step [stepControl]="transportForm">
                                 <form [formGroup]="transportForm">
                                     <ng-template matStepLabel>Select Protocol</ng-template>
-                                    <common-protocols [transportForm]="transportForm"></common-protocols>
+                                    <app-common-protocols [transportForm]="transportForm"></app-common-protocols>
                                 </form>
                             </mat-step>
 
                             <mat-step [stepControl]="filteringForm" optional>
                                 <form [formGroup]="filteringForm">
                                     <ng-template matStepLabel>Data Filtering</ng-template>
-                                    <common-data-filtering [devices]="devices" [filteringForm]="filteringForm"></common-data-filtering>
+                                    <app-common-data-filtering [devices]="devices" [filteringForm]="filteringForm"></app-common-data-filtering>
                                 </form>
                             </mat-step>
 
                             <mat-step [stepControl]="streamingForm" optional>
                                 <form [formGroup]="streamingForm">
                                     <ng-template matStepLabel>Data Streaming</ng-template>
-                                    <common-data-streaming [devices]="devices" [streamingForm]="streamingForm"></common-data-streaming>
+                                    <app-common-data-streaming [devices]="devices" [streamingForm]="streamingForm"></app-common-data-streaming>
                                 </form>
                             </mat-step>
 
                             <mat-step [stepControl]="dataStoreForm">
                                 <form [formGroup]="dataStoreForm">
                                     <ng-template matStepLabel>Select Data Store</ng-template>
-                                    <common-data-stores [dataStoreForm]="dataStoreForm"></common-data-stores>
+                                    <app-common-data-stores [dataStoreForm]="dataStoreForm"></app-common-data-stores>
                                 </form>
                             </mat-step>
 
@@ -159,21 +159,21 @@
             </mat-card>
         </div>
 
-        <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-between stretch" 
+        <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-between stretch"
             style="min-height: 300px; width: 100%">
 
             <mat-tab-group style="width: 100%">
                 <mat-tab label="Subscriber Details">
-                    <common-protocols-view [transportForm]="transportViewForm"></common-protocols-view>
+                    <app-common-protocols-view [transportForm]="transportViewForm"></app-common-protocols-view>
                 </mat-tab>
                 <mat-tab label="Data Filtering">
-                    <common-data-filtering-view [devices]="devices" [filteringForm]="filteringViewForm"></common-data-filtering-view>
+                    <app-common-data-filtering-view [devices]="devices" [filteringForm]="filteringViewForm"></app-common-data-filtering-view>
                 </mat-tab>
                 <mat-tab label="Data Streaming">
-                    <common-data-streaming-view [streamingForm]="streamingViewForm"></common-data-streaming-view>
+                    <app-common-data-streaming-view [streamingForm]="streamingViewForm"></app-common-data-streaming-view>
                 </mat-tab>
                 <mat-tab label="Data Store">
-                    <common-data-stores-view [dataStoreForm]="dataStoreViewForm"></common-data-stores-view>
+                    <app-common-data-stores-view [dataStoreForm]="dataStoreViewForm"></app-common-data-stores-view>
                 </mat-tab>
             </mat-tab-group>
         </div>

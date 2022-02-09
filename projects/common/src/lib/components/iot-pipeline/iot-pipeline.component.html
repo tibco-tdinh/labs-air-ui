@@ -27,41 +27,41 @@
 
     <div class="configuration-panel">
         <!-- Configuration Panel Components -->
-        <common-pipeline-config *ngIf="pipelineConfig" [pipelineForm]="pipelineForm" fxFlex></common-pipeline-config>
+        <app-common-pipeline-config *ngIf="pipelineConfig" [pipelineForm]="pipelineForm" fxFlex></app-common-pipeline-config>
 
-        <common-pipeline-data-subscriber *ngIf="dataSubscriberConfig" [dataSubscriberForm]="protocolForm" fxFlex>
-        </common-pipeline-data-subscriber>
+        <app-common-pipeline-data-subscriber *ngIf="dataSubscriberConfig" [dataSubscriberForm]="protocolForm" fxFlex>
+        </app-common-pipeline-data-subscriber>
 
-        <common-pipeline-filtering *ngIf="filteringConfig" #filterComponent [devices]="devices" [filters]="filters" fxFlex>
-        </common-pipeline-filtering>
+        <app-common-pipeline-filtering *ngIf="filteringConfig" #filterComponent [devices]="devices" [filters]="filters" fxFlex>
+        </app-common-pipeline-filtering>
 
-        <common-pipeline-inferencing *ngIf="inferencingConfig" #inferenceComponent [devices]="devices" [models]="models"
-            [modelForm]="modelForm" [filters]="filters" fxFlex></common-pipeline-inferencing>
+        <app-common-pipeline-inferencing *ngIf="inferencingConfig" #inferenceComponent [devices]="devices" [models]="models"
+            [modelForm]="modelForm" [filters]="filters" fxFlex></app-common-pipeline-inferencing>
 
-        <common-pipeline-data-store *ngIf="dataStoreConfig" [dataStoreForm]="dataStoreForm"
+        <app-common-pipeline-data-store *ngIf="dataStoreConfig" [dataStoreForm]="dataStoreForm"
             [dataOptionsForm]="dataOptionsForm" fxFlex>
-        </common-pipeline-data-store>
+        </app-common-pipeline-data-store>
 
-        <common-pipeline-data-publisher *ngIf="dataPublisherConfig" [dataPublisherForm]="protocolForm"
+        <app-common-pipeline-data-publisher *ngIf="dataPublisherConfig" [dataPublisherForm]="protocolForm"
             [dataOptionsForm]="dataOptionsForm" fxFlex>
-        </common-pipeline-data-publisher>
+        </app-common-pipeline-data-publisher>
 
-        <common-pipeline-streaming *ngIf="streamingConfig" [streamingForm]="streamingForm" [devices]="devices" fxFlex>
-        </common-pipeline-streaming>
+        <app-common-pipeline-streaming *ngIf="streamingConfig" [streamingForm]="streamingForm" [devices]="devices" fxFlex>
+        </app-common-pipeline-streaming>
 
-        <common-pipeline-rules *ngIf="rulesConfig" [ruleForm]="ruleForm" [devices]="devices" fxFlex>
-        </common-pipeline-rules>
+        <app-common-pipeline-rules *ngIf="rulesConfig" [ruleForm]="ruleForm" [devices]="devices" fxFlex>
+        </app-common-pipeline-rules>
 
-        <common-pipeline-rule-expression *ngIf="ruleExpressionConfig" [ruleExpressionForm]="ruleExpressionForm"
+        <app-common-pipeline-rule-expression *ngIf="ruleExpressionConfig" [ruleExpressionForm]="ruleExpressionForm"
             [devices]="devices" fxFlex>
-        </common-pipeline-rule-expression>
+        </app-common-pipeline-rule-expression>
 
-        <common-pipeline-flogo-flow *ngIf="flogoFlowConfig" [flogoFlowForm]="flogoFlowForm" fxFlex>
-        </common-pipeline-flogo-flow>
+        <app-common-pipeline-flogo-flow *ngIf="flogoFlowConfig" [flogoFlowForm]="flogoFlowForm" fxFlex>
+        </app-common-pipeline-flogo-flow>
 
-        <common-pipeline-rest-service *ngIf="restServiceConfig" #restComponent [devices]="devices"
+        <app-common-pipeline-rest-service *ngIf="restServiceConfig" #restComponent [devices]="devices"
             [restForm]="restServiceForm" [filters]="filters" fxFlex>
-        </common-pipeline-rest-service>
+        </app-common-pipeline-rest-service>
     </div>
 
 </div>

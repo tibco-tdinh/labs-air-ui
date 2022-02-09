@@ -36,14 +36,11 @@ import { NotificationPublisherComponent } from '../rete/components/notification-
 import { FlogoFlowComponent } from '../rete/components/flogo-flow-component';
 import { RestServiceComponent } from '../rete/components/rest-service-component';
 import { NodePrimaryComponent } from '../rete/nodes/node-primary/node-primary.component';
-import { pipe } from 'rxjs';
-import { stringify } from '@angular/compiler/src/util';
-import { RippleRef } from '@angular/material/core';
 
 
 
 @Component({
-    selector: 'common-iot-pipeline',
+    selector: 'app-common-iot-pipeline',
     templateUrl: './iot-pipeline.component.html',
     styleUrls: ['./iot-pipeline.component.css']
 })

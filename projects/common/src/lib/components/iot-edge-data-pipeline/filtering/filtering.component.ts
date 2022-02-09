@@ -6,7 +6,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { EdgeService } from '../../../services/edge/edge.service';
 import { GraphService } from '../../../services/graph/graph.service';
 
-import { Device, Filter, FiltersConfig, Gateway, GatewayFiltersConfig } from '../../../models/iot.model';
+import { Device, FiltersConfig, Gateway, GatewayFiltersConfig } from '../../../models/iot.model';
 
 interface DeviceNode {
   name: string;
@@ -35,7 +35,7 @@ const TREE_DATA: DeviceNode[] = [
 ];
 
 @Component({
-    selector: 'common-filtering',
+    selector: 'app-common-filtering',
     templateUrl: './filtering.component.html',
     styleUrls: ['./filtering.component.css']
 })
@@ -169,9 +169,9 @@ export class FilteringComponent implements OnInit, OnChanges {
 
       this.graphService.getFiltersConfig(this.gateway.uuid)
           .subscribe(res => {
-        
+
               console.log('FiltersConfig received: ', res);
-        
+
               if (res.length > 0) {
                   const config = res[0] as GatewayFiltersConfig;
 
@@ -179,7 +179,7 @@ export class FilteringComponent implements OnInit, OnChanges {
 
                   if (this.gatewayFiltersConfig.deviceNames != config.deviceNames) {
                       this.gatewayFiltersConfig.deviceNames = config.deviceNames;
-            
+
                       // Update tree selection
                       this.updateFiltersTreeSelection(this.gatewayFiltersConfig.deviceNames);
 
@@ -190,7 +190,7 @@ export class FilteringComponent implements OnInit, OnChanges {
                   this.gatewayFiltersConfig.uid = 0;
 
                   if (this.gatewayFiltersConfig.deviceNames != '') {
-            
+
                       // Update tree selection
                       this.updateFiltersTreeSelection(this.gatewayFiltersConfig.deviceNames);
 
@@ -201,7 +201,7 @@ export class FilteringComponent implements OnInit, OnChanges {
           });
   }
 
-  
+
 
   applyFilters() {
       console.log('Applying filters');
@@ -270,7 +270,7 @@ export class FilteringComponent implements OnInit, OnChanges {
   updateFiltersTreeSelection(deviceNames: string) {
 
       console.log('updateFiltersTreeSelection: ', deviceNames);
-    
+
 
       const splitted = deviceNames.split('|');
       const nunFilters = splitted.length;
@@ -279,7 +279,7 @@ export class FilteringComponent implements OnInit, OnChanges {
           console.log ('processing filter: ', splitted[i], ' ', splitted[i+1]);
 
           this.selectNode(splitted[i], splitted[i+1]);
-      }    
+      }
 
   }
 
@@ -301,15 +301,15 @@ export class FilteringComponent implements OnInit, OnChanges {
               for (const node of parentNode.deviceResources) {
 
                   console.log('comparing to node: ', node);
-  
+
                   if (node.parent == parent && node.name == name) {
-  
+
                       console.log('found node and updating if not selected');
-            
-    
+
+
                       if (!this.checklistSelection.isSelected(node)) {
                           console.log('selecting node: ', node);
-              
+
                           this.checklistSelection.toggle(node);
                       }
                       break;

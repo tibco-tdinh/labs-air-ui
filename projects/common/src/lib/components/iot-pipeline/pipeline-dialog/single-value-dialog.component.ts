@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 export interface DialogData {
@@ -7,7 +7,7 @@ export interface DialogData {
 }
 
 @Component({
-    selector: 'common-single-value-dialog',
+    selector: 'app-common-single-value-dialog',
     templateUrl: './single-value-dialog.component.html',
     styleUrls: ['./single-value-dialog.component.css']
 })

@@ -9,7 +9,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-pipeline-data-publisher',
+    selector: 'app-common-pipeline-data-publisher',
     templateUrl: './pipeline-data-publisher.component.html',
     styleUrls: ['./pipeline-data-publisher.component.css']
 })
@@ -309,7 +309,7 @@ export class PipelineDataPublisherComponent implements OnInit {
               if (protocol == 'MQTT') {
                   this.mqttProtocol = true;
               }
-              else if (protocol == 'Kafka') { 
+              else if (protocol == 'Kafka') {
                   this.kafkaProtocol = true;
               }
               else if (protocol == 'AMQP') {
@@ -318,7 +318,7 @@ export class PipelineDataPublisherComponent implements OnInit {
               else if (protocol == 'HTTP') {
                   this.httpProtocol = true;
               }
-        
+
           }
 
       });

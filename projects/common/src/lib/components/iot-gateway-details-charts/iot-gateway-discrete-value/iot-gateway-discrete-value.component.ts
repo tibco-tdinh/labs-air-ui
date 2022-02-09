@@ -5,7 +5,7 @@ import { GraphService } from '../../../services/graph/graph.service';
 import { GoogleChartInterface } from 'ng2-google-charts';
 
 @Component({
-    selector: 'common-iot-gateway-discrete-value',
+    selector: 'app-common-iot-gateway-discrete-value',
     templateUrl: './iot-gateway-discrete-value.component.html',
     styleUrls: ['./iot-gateway-discrete-value.component.css']
 })

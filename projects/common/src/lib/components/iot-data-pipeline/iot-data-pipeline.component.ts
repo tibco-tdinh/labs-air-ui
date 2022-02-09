@@ -1,14 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { Pipeline, DataStore, Protocol, Gateway, Device } from '../../models/iot.model';
+import { Pipeline, Gateway, Device } from '../../models/iot.model';
 import { GraphService } from '../../services/graph/graph.service';
 import { EdgeService } from '../../services/edge/edge.service';
 import { FlogoDeployService } from '../../services/deployment/flogo-deploy.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { switchMap, debounceTime, distinctUntilChanged, startWith, tap, delay } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatStepper } from '@angular/material/stepper';
@@ -16,7 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AbstractControl } from '@angular/forms';
 
 @Component({
-    selector: 'common-iot-data-pipeline',
+    selector: 'app-common-iot-data-pipeline',
     templateUrl: './iot-data-pipeline.component.html',
     styleUrls: ['./iot-data-pipeline.component.css']
 })
@@ -548,7 +547,7 @@ export class CommonIotDataPipelineComponent implements OnInit, AfterViewInit {
           const request = {
               'id': pipeline.name,
               params: {
-                  'namespace': 'default' 
+                  'namespace': 'default'
               }
           };
 

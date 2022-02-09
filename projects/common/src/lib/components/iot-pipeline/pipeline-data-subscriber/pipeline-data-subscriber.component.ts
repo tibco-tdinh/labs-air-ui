@@ -9,7 +9,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-pipeline-data-subscriber',
+    selector: 'app-common-pipeline-data-subscriber',
     templateUrl: './pipeline-data-subscriber.component.html',
     styleUrls: ['./pipeline-data-subscriber.component.css']
 })
@@ -23,7 +23,7 @@ export class PipelineDataSubscriberComponent implements OnInit {
       { value: 'ERROR', viewValue: 'ERROR' },
       { value: 'DEBUG', viewValue: 'DEBUG' }
   ];
-  
+
   hidePassword = true;
 
   mqttProtocol = false;

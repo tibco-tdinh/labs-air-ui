@@ -15,7 +15,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-inferencing',
+    selector: 'app-common-inferencing',
     templateUrl: './inferencing.component.html',
     styleUrls: ['./inferencing.component.css']
 })

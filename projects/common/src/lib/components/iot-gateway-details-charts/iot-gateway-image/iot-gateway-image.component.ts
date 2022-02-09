@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-    selector: 'common-iot-gateway-image',
+    selector: 'app-common-iot-gateway-image',
     templateUrl: './iot-gateway-image.component.html',
     styleUrls: ['./iot-gateway-image.component.css']
 })

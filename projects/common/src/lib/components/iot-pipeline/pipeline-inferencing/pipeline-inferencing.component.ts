@@ -21,7 +21,7 @@ interface DeviceNode {
 }
 
 @Component({
-    selector: 'common-pipeline-inferencing',
+    selector: 'app-common-pipeline-inferencing',
     templateUrl: './pipeline-inferencing.component.html',
     styleUrls: ['./pipeline-inferencing.component.css']
 })

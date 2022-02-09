@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GraphService } from '../../services/graph/graph.service';
 import { EdgeService } from '../../services/edge/edge.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { Pipeline, DataStore, Protocol, Gateway, Device, Resource } from '../../models/iot.model';
+import { Gateway, Device } from '../../models/iot.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 
@@ -38,7 +38,7 @@ const TREE_DATA: DeviceNode[] = [
 ];
 
 @Component({
-    selector: 'common-iot-edge-data-pipeline',
+    selector: 'app-common-iot-edge-data-pipeline',
     templateUrl: './iot-edge-data-pipeline.component.html',
     styleUrls: ['./iot-edge-data-pipeline.component.css']
 })
@@ -155,7 +155,7 @@ export class CommonIotEdgeDataPipelineComponent implements OnInit {
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   leafItemSelectionToggle(node: DeviceNode): void {
-    
+
       this.checklistSelection.toggle(node);
 
   }

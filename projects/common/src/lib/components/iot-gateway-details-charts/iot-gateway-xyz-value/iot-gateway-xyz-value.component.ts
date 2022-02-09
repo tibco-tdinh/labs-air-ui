@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-    selector: 'common-iot-gateway-xyz-value',
+    selector: 'app-common-iot-gateway-xyz-value',
     templateUrl: './iot-gateway-xyz-value.component.html',
     styleUrls: ['./iot-gateway-xyz-value.component.css']
 })
@@ -74,7 +74,7 @@ export class CommonIotGatewayXyzValueComponent implements OnInit, OnDestroy, Aft
               this.resourceReadings = res as TSReading[];
 
               console.log('GetReadings Resource: ', this.resourceReadings);
-        
+
 
               if (this.resourceReadings.length > 0) {
                   this.getResourceInferredReadings(this.device.name, this.instrument.name + '_Inferred', this.resourceReadings.length);
@@ -88,7 +88,7 @@ export class CommonIotGatewayXyzValueComponent implements OnInit, OnDestroy, Aft
               this.resourceInferredReadings = res as TSReading[];
 
               console.log('GetReadings Resource Inferred: ', this.resourceInferredReadings);
-        
+
 
               this.setResourceCombinedReadings();
 
@@ -180,23 +180,23 @@ export class CommonIotGatewayXyzValueComponent implements OnInit, OnDestroy, Aft
   setInferredXYZData(row) {
 
       console.log('Setting inferred xyz data', row);
-    
+
       this.inferredXYZData = row.inferredValue;
 
       console.log('Value set to inferredXYZData: ', row.inferredValue);
-    
+
 
       if (this.isBase64(row.inferredValue)) {
           console.log('value is base64');
-      
+
           this.inferredXYZData = atob(row.inferredValue);
 
           console.log('Inferred value set to: ', this.inferredXYZData);
-      
+
       }
       else {
           console.log('Value is not base64');
-      
+
       }
 
   }
@@ -222,7 +222,7 @@ export class CommonIotGatewayXyzValueComponent implements OnInit, OnDestroy, Aft
   public setXYZHeatmapDataSet(combinedReading) {
 
       console.log('setXYZHeatmapDataSet: ', combinedReading);
-    
+
       const xyzData = [];
 
       // var objstr = atob(this.resourceReadings[0].value)

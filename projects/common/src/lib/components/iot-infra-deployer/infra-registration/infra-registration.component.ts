@@ -3,12 +3,11 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as YAML from 'yaml';
 import { FlogoDeployService } from '../../../services/deployment/flogo-deploy.service';
-import { values } from 'lodash';
 
 
 
 @Component({
-    selector: 'common-infra-registration',
+    selector: 'app-common-infra-registration',
     templateUrl: './infra-registration.component.html',
     styleUrls: ['./infra-registration.component.css']
 })
@@ -42,12 +41,12 @@ parse uploaded files to add properties forms
 
   onFileSelected(event) {
       //make sure user uploads only 2 files
-  
+
       const files = event.target.files;
       if(files.length>2){
           alert('You are only allowed to upload a maximum of 2 files at a time');
       }
-    
+
 
       if (event && event.target && event.target.files) {
       //check if file is json
@@ -81,7 +80,7 @@ parse uploaded files to add properties forms
                       this.envProperties = JSON.parse(envFileReader.result as string);
                       envFileReader.onerror = (error) => { console.log(error); };
                   };
-              } 
+              }
           }
           //parse yml file to add properties
 
@@ -97,7 +96,7 @@ parse uploaded files to add properties forms
                       if (this.parsedFile==null) {
                           alert('file is empty');
                           return;
-                      } 
+                      }
                   }
                   catch (e) {
                       console.log(e);
@@ -110,7 +109,7 @@ parse uploaded files to add properties forms
                       }
                       console.log(this.items);
                       this.name = 'Custom Properties:';
-            
+
                       this.addform();
                   }
                   else{
@@ -148,8 +147,8 @@ parse environment file and add list of properties there to the input forms
 
 
   //       }
-  //     }      
-  // }       
+  //     }
+  // }
   //add input fields for every container
   addform() {
       this.getParameters().clear();
@@ -259,7 +258,7 @@ build registration request
       }
 
 
-      /* 
+      /*
   call registrattion service
   */
       this.flogoDeployService.registerInfra(registrationRequest,this.projectForm.get('projectName').value)

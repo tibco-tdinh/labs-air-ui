@@ -20,7 +20,7 @@ export interface SelectItem {
 }
 
 @Component({
-    selector: 'common-pipeline-filtering',
+    selector: 'app-common-pipeline-filtering',
     templateUrl: './pipeline-filtering.component.html',
     styleUrls: ['./pipeline-filtering.component.css']
 })
