@@ -6,8 +6,7 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "common": [
-        "dist/common/common",
-        "dist/common"
+        "projects/common/src/public-api"
       ]
     },
     "forceConsistentCasingInFileNames": true,
