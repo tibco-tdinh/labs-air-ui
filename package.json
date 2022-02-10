@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "ng": "ng",
-    "start": "ng serve on-prem",
+    "start": "ng serve on-prem --ssl true",
     "start-cloud": "ng serve cloud --proxy-config ./proxy.conf.prod.us.js --ssl true",
     "build": "ng build on-prem",
     "build-cloud": "ng build cloud",
@@ -16,7 +16,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test common && ng test on-prem && ng test cloud",
     "lint": "ng lint --fix",
-    "prepare": "(husky install && git config --local commit.template .commit-template) || echo Could not setup the commit template"
+    "prepare": "(husky install && git config --local commit.template .commit-template) || echo Could not setup the commit template && ng build common"
   },
   "private": true,
   "dependencies": {
