@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 @Component({
@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
     templateUrl: './splash.component.html',
     styleUrls: ['./splash.component.css']
 })
-export class SplashComponent implements OnInit {
+export class SplashComponent {
 
     constructor(private router: Router, private route: ActivatedRoute, private location: Location) {
     }
@@ -14,7 +14,5 @@ export class SplashComponent implements OnInit {
         // get started - navigate to home
         this.router.navigate(['/starterApp/home/gateway']);
     }
-    ngOnInit() {
-        
-    }
+
 }

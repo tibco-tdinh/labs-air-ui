@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DataStore } from '../../../shared/models/iot.model';
 import { GraphService } from '../../../services/graph/graph.service';
@@ -18,7 +18,7 @@ export interface SelectItem {
     templateUrl: './ige-data-stores.component.html',
     styleUrls: ['./ige-data-stores.component.css']
 })
-export class IgeDataStoresComponent implements OnInit {
+export class IgeDataStoresComponent implements OnInit, AfterViewInit {
 
   hidePassword = true;
   dateFormat = 'yyyy-MM-dd  HH:mm:ss'
