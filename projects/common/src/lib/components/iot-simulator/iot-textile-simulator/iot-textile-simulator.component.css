@@ -1,6 +1,6 @@
 .iot-textile-simulator {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   flex-direction: row;
   padding: 24px;
   justify-content: space-between;
