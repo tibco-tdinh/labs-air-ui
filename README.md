@@ -22,25 +22,7 @@ You will need the following tooling to interact and modify the project:
 
 * [npm](https://www.npmjs.com/)
 
-## Setup
-
-To setup the project, run:
-
-``` bash
-npm run prepare
-```
-
-## Start up
-
-To start the project, run:
-
-``` bash
-npm run start
-```
-
-### Accessing the TIBCO LABS™ Project AIR™ UI
-
-In a web browser, navigate to `localhost:4200` to access the UI.
+For setup instructions, please refer to the  [contributing](./CONTRIBUTING.md) doc.
 
 ### Connecting the Project AIR™ UI to Project AIR™ Infrastructure
 

@@ -25,6 +25,18 @@ npm install
 npm run prepare
 ```
 
+### Start up
+
+To start the project, run:
+
+``` bash
+npm run start
+```
+
+### Accessing the TIBCO LABS™ Project AIR™ UI
+
+In a web browser, navigate to `localhost:4200` to access the UI.
+
 ## Getting Started with Commits
 
 When checking out the repository, please run `npm prepare` in the root folder. This will install
