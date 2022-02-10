@@ -1,14 +1,15 @@
 .tcla-components-pane {
-    margin-top: 20px;
-  }
-  .tcla-cloud-navbar {
+  margin-top: 20px;
+}
+
+.tcla-cloud-navbar {
   
-  }
+}
   
-  .padded-widget {
-    padding: 20px;
-  }
+.padded-widget {
+  padding: 20px;
+}
   
-  :host ::ng-deep .mat-tab-body-wrapper {
-    height: 100%;
-  }
+:host ::ng-deep .mat-tab-body-wrapper {
+  height: 100%;
+}

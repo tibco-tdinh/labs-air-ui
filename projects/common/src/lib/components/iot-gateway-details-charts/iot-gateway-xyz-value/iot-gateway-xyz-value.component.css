@@ -1,31 +1,31 @@
 .table-container {
-    max-height: 450px;
-    overflow: auto;
+  max-height: 450px;
+  overflow: auto;
 }
 
-.table-container table{
-    width: 100%;
+.table-container table {
+  width: 100%;
 }
 
 .mat-column-created {
-    width: 10% !important;
+  width: 10% !important;
 }
 
 
 
 .mat-column-inferredValue {
-    white-space: unset !important;
-    flex: 0 0 60% !important;
-    width: 70% !important;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+  flex: 0 0 60% !important;
   
-    word-break: break-word;
+  hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  white-space: unset !important;
+  width: 70% !important;
   
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 /* .mat-column-inferredValue {
@@ -33,9 +33,9 @@
 } */
 
 .mat-row.selected {
-    background: #dddddd;
+  background: #ddd;
 }
 
 .query-row button {
-    margin: auto 10px;
+  margin: auto 10px;
 }

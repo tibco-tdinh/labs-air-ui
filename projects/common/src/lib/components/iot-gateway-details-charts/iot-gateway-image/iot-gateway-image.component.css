@@ -1,20 +1,20 @@
 .table-container {
-    max-height: 450px;
-    overflow: auto;
+  max-height: 450px;
+  overflow: auto;
 }
 
-.table-container table{
-    width: 100%;
+.table-container table {
+  width: 100%;
 }
 
 .mat-column-inferredValue {
-    padding-left: 16px;
+  padding-left: 16px;
 }
 
 .mat-row.selected {
-    background: #dddddd;
+  background: #ddd;
 }
 
 .query-row button {
-    margin: auto 10px;
+  margin: auto 10px;
 }

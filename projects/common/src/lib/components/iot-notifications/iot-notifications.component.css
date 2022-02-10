@@ -1,26 +1,26 @@
 .table-container {
-    overflow: auto;
-    height: 500px;
+  height: 500px;
+  overflow: auto;
 }
   
 table {
-    width: 100%;
+  width: 100%;
 }
   
 .mat-form-field {
-    font-size: 14px;
-    width: 100%;
+  font-size: 14px;
+  width: 100%;
 }
   
 .mat-row.selected {
-    background: #dddddd;
+  background: #ddd;
 }
 
 .mat-header-cell {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .notification-header-image {
-    background-image: url('/assets/img/notifications.png');
-    background-size: cover;
+  background-image: url('/assets/img/notifications.png');
+  background-size: cover;
 }

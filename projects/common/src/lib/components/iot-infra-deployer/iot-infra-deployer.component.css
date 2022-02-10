@@ -1,38 +1,37 @@
 .table-container {
-    overflow: auto;
-    height: 300px;
+  height: 300px;
+  overflow: auto;
 
 }
   
 table {
-    width: 100%;
+  width: 100%;
 }
   
 .mat-form-field {
-    font-size: 14px;
-    width: 100%;
+  font-size: 14px;
+  width: 100%;
 }
   
 .mat-row.selected {
-    background: #dddddd;
+  background: #ddd;
 }
 
 .mat-header-cell {
-    background:transparent;
-    font-size: 18px;
+  background: transparent;
+  font-size: 18px;
 }
 
 
 .infra-deployer-image {
-    background-image: url('/assets/icons/provisioning.svg');
-    background-size: 80%;
-    background-repeat: no-repeat;
+  background-image: url('/assets/icons/provisioning.svg');
+  background-repeat: no-repeat;
+  background-size: 80%;
 }
 /*
 NOTE: these styles are here for demo purposes, you will need to adjust them according 
 to your application's needs
 */
 .ux-demo-table-width {
-    min-width: max-content;
-  }
-  
+  min-width: max-content;
+}

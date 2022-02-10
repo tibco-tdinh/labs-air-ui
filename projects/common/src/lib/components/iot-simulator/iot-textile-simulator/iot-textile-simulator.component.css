@@ -1,9 +1,9 @@
 .iot-textile-simulator {
-  display: flex;
   align-items: flex-start;
+  display: flex;
   flex-direction: row;
-  padding: 24px;
   justify-content: space-between;
+  padding: 24px;
 }
 
 .defect-action {
@@ -20,11 +20,11 @@ mat-button-toggle:hover img {
   z-index: 111;
 }
 
-.table-img img{
+.table-img img {
   display: none;
 }
 
-.table-img:hover img{
+.table-img:hover img {
   display: block;
   position: fixed;
   z-index: 111;
@@ -47,10 +47,10 @@ mat-button-toggle:hover img {
   width: 500px;
 }
 
-.table-img:hover img{
+.table-img:hover img {
+  left: 450px;
   max-height: 400px;
   max-width: 300px;
   position: fixed;
   top: 200px;
-  left: 450px;
 }

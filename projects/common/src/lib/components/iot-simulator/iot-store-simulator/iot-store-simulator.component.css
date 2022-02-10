@@ -1,109 +1,109 @@
 .simulation {
-    display: flex;
-  }
-  button {
-    position: absolute;
-    opacity: 1;
-  }
+  display: flex;
+}
+
+button {
+  opacity: 1;
+  position: absolute;
+}
   
-  .selectItem {
-    top: 335px;
-    left: 325px;
-  }
+.selectItem {
+  left: 325px;
+  top: 335px;
+}
   
-  .scan {
-    top: 243px;
-    left: 567px;
-  }
+.scan {
+  left: 567px;
+  top: 243px;
+}
   
-  .camera {
-    top: 470px;
-    left: 578px;
-  }
+.camera {
+  left: 578px;
+  top: 470px;
+}
   
-  .scale {
-    top: 470px;
-    left: 418px;
-  }
+.scale {
+  left: 418px;
+  top: 470px;
+}
   
-  .scaleWeight {
-    top: 515px;
-    left: 423px;
-    width: 80px;
-    position: absolute;
-    font-size: 10px;
-  }
+.scaleWeight {
+  font-size: 10px;
+  left: 423px;
+  position: absolute;
+  top: 515px;
+  width: 80px;
+}
   
-  .openBasket {
-    top: 340px;
-    left: 430px;
-  }
+.openBasket {
+  left: 430px;
+  top: 340px;
+}
   
-  .closeBasket {
-    top: 340px;
-    left: 500px;
-  }
+.closeBasket {
+  left: 500px;
+  top: 340px;
+}
   
-  .payment {
-    top: 340px;
-    left: 567px;
-  }
+.payment {
+  left: 567px;
+  top: 340px;
+}
   
-  .selection-window {
-    background-color: #ffffff;
-    top: 30%;
-    left: 18%;
-    position: absolute;
-    width: 400px;
-    height: 250px;
-    margin: auto auto;
-    border: 1px solid #000000;
-    text-align: center;
-  }
+.selection-window {
+  background-color: #fff;
+  border: 1px solid #000;
+  height: 250px;
+  left: 18%;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  top: 30%;
+  width: 400px;
+}
   
-  .selection-window button {
-    position: relative;
-  }
+.selection-window button {
+  position: relative;
+}
   
-  .selection-window div {
-    margin-bottom: 24px;
-  }
+.selection-window div {
+  margin-bottom: 24px;
+}
   
-  .camera-window {
-    top: 450px;
-    left: 645px;
-    position: absolute;
-    width: 300px;
-    height: 300px;
-  }
+.camera-window {
+  height: 300px;
+  left: 645px;
+  position: absolute;
+  top: 450px;
+  width: 300px;
+}
   
-  .scan-window {
-    top: 240px;
-    left: 500px;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-  }
+.scan-window {
+  height: 50px;
+  left: 500px;
+  position: absolute;
+  top: 240px;
+  width: 50px;
+}
   
-  .table-container {
-    height: 650px;
-    overflow: scroll;
-  }
+.table-container {
+  height: 650px;
+  overflow: scroll;
+}
   
-  .refresh-button {
-    margin-top: 10px;
-    margin-left: 24px;
-  }
+.refresh-button {
+  margin-left: 24px;
+  margin-top: 10px;
+}
   
-  .error {
-    background-color: rgb(248, 158, 158);
-  }
+.error {
+  background-color: rgb(248, 158, 158);
+}
   
-  .warn {
-    background-color: rgb(252, 252, 183);
-  }
+.warn {
+  background-color: rgb(252, 252, 183);
+}
   
-  .info {
-    background-color: rgb(185, 250, 185);
-  }
-  
+.info {
+  background-color: rgb(185, 250, 185);
+}

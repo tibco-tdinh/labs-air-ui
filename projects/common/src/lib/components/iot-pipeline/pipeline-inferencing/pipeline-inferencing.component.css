@@ -1,25 +1,25 @@
 .device-tree-invisible {
-    display: none;
+  display: none;
 }
   
 .device-tree ul,
 .device-tree li {
-    margin-top: 0;
-    margin-bottom: 0;
-    list-style-type: none;
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
-.txtColor:hover{
-    color: red;
-    cursor: pointer;
+.txtColor:hover {
+  color: red;
+  cursor: pointer;
 }
   
-.background-highlight{
-    background: #afb0b1;
+.background-highlight {
+  background: #afb0b1;
 }
 
 .device-header {
-    font-size: 14px;
-    font-weight: bold;
-    padding-bottom: 5px; 
+  font-size: 14px;
+  font-weight: bold;
+  padding-bottom: 5px; 
 }
