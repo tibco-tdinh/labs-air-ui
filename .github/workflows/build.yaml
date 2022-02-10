@@ -84,6 +84,7 @@ jobs:
       - name: Run the lint checks
         run: |
           ./node_modules/.bin/ng lint ${{ matrix.project }} || echo Lint exists in this project
+          npx stylelint "projects/**/*.css" || echo Lint exists in the project
 
       - name: Save the coverrage report for ${{ matrix.project }}
         uses: actions/upload-artifact@v2
