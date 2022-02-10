@@ -27,11 +27,11 @@ jobs:
         id: changes
 # yamllint disable rule:line-length
         run: |
-          export PREVIOUS_SHA=$(git rev-parse HEAD^1 2>&1)
-          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | xargs)"
-          echo "::set-output name=cloudChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | egrep 'projects/cloud' | xargs)"
-          echo "::set-output name=commonChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | egrep 'projects/common' | xargs)"
-          echo "::set-output name=onPremChanged::$(git diff --name-only --diff-filter=ACMRT ${PREVIOUS_SHA} ${{ github.sha }} | egrep 'projects/on-prem' | xargs)"
+          PREVIOUS_SHA=$(git rev-parse HEAD^1 2>&1)
+          echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT "${PREVIOUS_SHA}" ${{ github.sha }} | xargs)"
+          echo "::set-output name=cloudChanged::$(git diff --name-only --diff-filter=ACMRT "${PREVIOUS_SHA}" ${{ github.sha }} | grep -E 'projects/cloud' | xargs)"
+          echo "::set-output name=commonChanged::$(git diff --name-only --diff-filter=ACMRT "${PREVIOUS_SHA}" ${{ github.sha }} | grep -E 'projects/common' | xargs)"
+          echo "::set-output name=onPremChanged::$(git diff --name-only --diff-filter=ACMRT "${PREVIOUS_SHA}" ${{ github.sha }} | grep -E 'projects/on-prem' | xargs)"
 
 # yamllint enable rule:line-length
 
