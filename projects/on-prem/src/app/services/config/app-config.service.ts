@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../../shared/environments/environment';
 
 import * as _ from 'lodash';
 
@@ -37,8 +37,8 @@ export class AppConfigService {
           value = _.get(this.getConfig(), path);
       }
       return value;
-  } 
-  
+  }
+
   public getFromEnv(path){
       let value = null;
       if (environment){

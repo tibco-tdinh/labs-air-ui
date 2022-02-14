@@ -24,14 +24,19 @@
             "tsConfig": "projects/on-prem/tsconfig.app.json",
             "assets": [
               "projects/on-prem/src/favicon.ico",
-              "projects/on-prem/src/assets"
+              {
+                "glob": "**/*",
+                "input": "projects/shared/assets",
+                "ignore": ["/geoanalytics/"],
+                "output": "/assets/"
+              }
             ],
             "styles": [
-              "projects/on-prem/src/assets/geoanalytics/GeoAnalytics.css",
+              "projects/shared/assets/geoanalytics/GeoAnalytics.css",
               "projects/on-prem/src/styles.css"
             ],
             "scripts": [
-              "projects/on-prem/src/assets/geoanalytics/GeoAnalytics.js"
+              "projects/shared/assets/geoanalytics/GeoAnalytics.js"
             ]
           },
           "configurations": {
@@ -50,8 +55,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "projects/on-prem/src/environments/environment.ts",
-                  "with": "projects/on-prem/src/environments/environment.prod.ts"
+                  "replace": "projects/shared/environments/environment.ts",
+                  "with": "projects/shared/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -135,14 +140,18 @@
             "tsConfig": "projects/cloud/tsconfig.app.json",
             "assets": [
               "projects/cloud/src/favicon.ico",
-              "projects/cloud/src/assets"
-            ],
+              {
+                "glob": "**/*",
+                "input": "projects/shared/assets",
+                "ignore": ["/geoanalytics/"],
+                "output": "/assets/"
+              }            ],
             "styles": [
-              "projects/cloud/src/assets/geoanalytics/GeoAnalytics.css",
+              "projects/shared/assets/geoanalytics/GeoAnalytics.css",
               "projects/cloud/src/styles.css"
             ],
             "scripts": [
-              "projects/cloud/src/assets/geoanalytics/GeoAnalytics.js"
+              "projects/shared/assets/geoanalytics/GeoAnalytics.js"
             ]
           },
           "configurations": {
@@ -161,8 +170,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "projects/cloud/src/environments/environment.ts",
-                  "with": "projects/cloud/src/environments/environment.prod.ts"
+                  "replace": "projects/shared/environments/environment.ts",
+                  "with": "projects/shared/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
