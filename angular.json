@@ -100,8 +100,12 @@
             "karmaConfig": "projects/on-prem/karma.conf.js",
             "assets": [
               "projects/on-prem/src/favicon.ico",
-              "projects/on-prem/src/assets"
-            ],
+              {
+                "glob": "**/*",
+                "input": "projects/shared/assets",
+                "ignore": ["/geoanalytics/"],
+                "output": "/assets/"
+              }            ],
             "styles": [
               "projects/on-prem/src/styles.css"
             ],
@@ -215,8 +219,12 @@
             "karmaConfig": "projects/cloud/karma.conf.js",
             "assets": [
               "projects/cloud/src/favicon.ico",
-              "projects/cloud/src/assets"
-            ],
+              {
+                "glob": "**/*",
+                "input": "projects/shared/assets",
+                "ignore": ["/geoanalytics/"],
+                "output": "/assets/"
+              }            ],
             "styles": [
               "projects/cloud/src/styles.css"
             ],
