@@ -91,6 +91,7 @@ jobs:
         with:
           name: ${{ matrix.project }}-coverage-report
           path: coverage/ProjectAir/${{ matrix.project }}
+          retention-days: 2
 
   build-common-library:
     runs-on: ubuntu-latest
@@ -143,6 +144,7 @@ jobs:
         with:
           name: ${{ matrix.project }}-library
           path: dist/${{ matrix.project }}
+          retention-days: 2
 
   test:
     # Set the agent to run on
@@ -205,6 +207,7 @@ jobs:
         with:
           name: ${{ matrix.project }}-coverage-report
           path: coverage/ProjectAir/${{ matrix.project }}
+          retention-days: 2
 
       #- name: E2E
       #  working-directory: src/MobileApp
@@ -268,3 +271,4 @@ jobs:
         with:
           name: ${{ matrix.project }}
           path: dist/${{ matrix.project }}
+          retention-days: 2
