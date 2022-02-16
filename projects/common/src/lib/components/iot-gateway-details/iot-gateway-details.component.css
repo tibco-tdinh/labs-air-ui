@@ -170,7 +170,7 @@
   padding-right: 36px;
 }
 
-.card-details-metrics-header .card-details-metrics-tabs span.active {
+.card-details-metrics-header .card-details-metrics-tabs .active {
   color: #0e4f9e;
   font-weight: 600;
 }

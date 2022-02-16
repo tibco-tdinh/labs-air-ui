@@ -8,11 +8,6 @@
   margin-bottom: 0;
   margin-top: 0;
 }
-
-.txtColor:hover {
-  color: red;
-  cursor: pointer;
-}
   
 .background-highlight {
   background: #afb0b1;

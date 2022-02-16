@@ -7,6 +7,7 @@
   width: 100%;
 }
 
+/* stylelint-disable-next-line */
 .mat-column-inferredValue {
   padding-left: 16px;
 }

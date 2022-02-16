@@ -20,7 +20,7 @@
   width: 150px;
 }
 
-.pipeline-config div span + * {
+.pipeline-config span + * {
   background-color: #fff;
   border: 0;
   padding-right: 87px;

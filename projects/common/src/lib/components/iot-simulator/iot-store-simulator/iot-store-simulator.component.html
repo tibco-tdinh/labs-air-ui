@@ -1,6 +1,6 @@
 <div class="simulation">
     <img src="/assets/img/simulation.png">
-    <button mat-icon-button class="openBasket" color="accent" matTooltip="Click to open basket"
+    <button mat-icon-button class="open-basket" color="accent" matTooltip="Click to open basket"
         (click)="openBasketEvent()">
         <mat-icon>account_circle</mat-icon>
     </button>
@@ -13,12 +13,12 @@
     <button mat-icon-button class="scale" color="accent" matTooltip="Click to weight item" (click)="scaleEvent()">
         <mat-icon>point_of_sale</mat-icon>
     </button>
-    <mat-form-field class="scaleWeight" appearance="outline">
+    <mat-form-field class="scale-weight" appearance="outline">
         <mat-label>Weight</mat-label>
         <input matInput  [(ngModel)]="itemWeight">
         <span matSuffix>lbs</span>
     </mat-form-field>
-    <button mat-icon-button class="closeBasket" color="accent" matTooltip="Click to close basket"
+    <button mat-icon-button class="close-basket" color="accent" matTooltip="Click to close basket"
         (click)="closeBasketEvent()">
         <mat-icon>check_circle</mat-icon>
     </button>

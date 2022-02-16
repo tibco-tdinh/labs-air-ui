@@ -7,11 +7,6 @@ button {
   position: absolute;
 }
   
-.selectItem {
-  left: 325px;
-  top: 335px;
-}
-  
 .scan {
   left: 567px;
   top: 243px;
@@ -27,7 +22,7 @@ button {
   top: 470px;
 }
   
-.scaleWeight {
+.scale-weight {
   font-size: 10px;
   left: 423px;
   position: absolute;
@@ -35,12 +30,12 @@ button {
   width: 80px;
 }
   
-.openBasket {
+.open-basket {
   left: 430px;
   top: 340px;
 }
   
-.closeBasket {
+.close-basket {
   left: 500px;
   top: 340px;
 }

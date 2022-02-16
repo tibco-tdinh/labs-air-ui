@@ -26,7 +26,7 @@ table {
 }
 
 .mat-row.highlighted {
-  background: lightgrey;
+  background: #d3d3d3;
 }
 
 .mat-card-content {
@@ -44,4 +44,5 @@ table {
 .icon-delete {
   background-image: url('/assets/icons/delete.svg');
   background-repeat: no-repeat;
-  background-size: 100%;}
+  background-size: 100%;
+}

@@ -11,8 +11,7 @@
   width: 10% !important;
 }
 
-
-
+/* stylelint-disable-next-line */
 .mat-column-inferredValue {
   flex: 0 0 60% !important;
   

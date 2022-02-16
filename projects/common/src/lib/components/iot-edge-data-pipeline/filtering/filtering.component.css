@@ -9,8 +9,8 @@
   margin-top: 0;
 }
 
-.txtColor:hover {
-  color: red;
+.txt-color:hover {
+  color: #f00;
   cursor: pointer;
 }
   

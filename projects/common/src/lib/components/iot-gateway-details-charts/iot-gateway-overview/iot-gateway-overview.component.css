@@ -16,15 +16,15 @@
     
 }
 
-.instrument-table tr td:nth-child(1) {
+.instrument-table td:nth-child(1) {
   padding: 0 50px 11px 0;
 }
 
-.instrument-table table tr:nth-child(3) td {
+.instrument-table tr:nth-child(3) td {
   padding-top: 24px;
 }
 
-.instrument-table tr td + td {
+.instrument-table td + td {
   font-weight: 600;
   padding: 0 0 11px;
 }

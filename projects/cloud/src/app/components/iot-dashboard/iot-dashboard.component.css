@@ -1,4 +1,5 @@
-:host ::ng-deep .mat-tab-label .mat-tab-label-content {
+/* stylelint-disable-next-line :host ::ng-deep .mat-tab-label .mat-tab-label-content */
+:host ::ng-deep .mat-tab-label .mat-tab-label-content { /* stylelint-disable-line */
   color: #0081cb;
   font-family: Source Sans Pro;
   font-size: 18px;
